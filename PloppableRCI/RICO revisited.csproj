@@ -65,7 +65,7 @@
   <ItemGroup>
     <Compile Include="AI\WorkplaceAI.cs" />
     <Compile Include="ConvertPrefabs.cs" />
-    <Compile Include="GUI\BuildingPreview.cs" />
+    <Compile Include="GUI\BuilidngPreview.cs" />
     <Compile Include="GUI\CategoryUtils.cs" />
     <Compile Include="GUI\FastList.cs" />
     <Compile Include="GUI\SettingsPanel.cs" />
