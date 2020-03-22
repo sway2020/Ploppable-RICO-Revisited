@@ -6,7 +6,6 @@ using System.Xml.Serialization;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-
 namespace PloppableRICO
 {
     [XmlType( "Building" )]
@@ -31,7 +30,7 @@ namespace PloppableRICO
             steamId = "";
             service = "";
             subService = "";
-            constructionCost = 0;
+            constructionCost = 10;
             uiCategory = "";
             homeCount = 0;
             level = 0;
@@ -120,7 +119,21 @@ namespace PloppableRICO
         string _subService;
 
         [XmlAttribute( "construction-cost" )]
-        public int constructionCost { get { return _constructionCost; } set { var v = _constructionCost; _constructionCost = value; HandleSetterEvents( v != value ); } }
+        public int constructionCost
+        {
+            get
+            {
+                // Enforce minimum construction cost of 10 for compatability with other mods (e.g. Real Time, Realistic Construction)
+                _constructionCost = Math.Max(_constructionCost, 10);
+                return _constructionCost;
+            }
+            set
+            {
+                var v = _constructionCost;
+                _constructionCost = value;
+                HandleSetterEvents( v != value );
+            }
+        }
         int _constructionCost;
 
         private string _UICategory;
@@ -298,7 +311,14 @@ namespace PloppableRICO
         bool _RealityIgnored;
 
         [XmlIgnore]
-        public bool useReality { get { return Util.IsModEnabled( 426163185ul ) && !RealityIgnored; } }
+        public bool useReality
+        {
+            get
+            {
+                // Check for Realistic Population Revisited or original WG Realistic Population, and obviously ignore-reality flag.
+                return (!RealityIgnored && (Util.IsModEnabled(2025147082ul) || Util.IsModEnabled(426163185ul)));
+            }
+        }
 
         [XmlIgnore]
         public bool isDirty
@@ -415,48 +435,46 @@ namespace PloppableRICO
             {
                 var errors = new List<string>();
 
-                if ( !new Regex(
-                    String.Format( @"[^<>:/\\\|\?\*{0}]", "\"" )
-                ).IsMatch( name ) || name == "* unnamed" )
+                if (!new Regex(String.Format(@"[^<>:/\\\|\?\*{0}]", "\"" )).IsMatch(name) || name == "* unnamed" )
                 {
-                    errors.Add( String.Format( "The building has {0} name.", name == "" || name == "* unnamed" ? "no" : "a funny" ) );
+                    errors.Add(String.Format("A building has {0} name.", name == "" || name == "* unnamed" ? "no" : "a funny" ));
                 }
 
-                if ( !new Regex( @"^(residential|commercial|office|industrial|extractor|none|dummy)$" ).IsMatch( service ) )
+                if (!new Regex(@"^(residential|commercial|office|industrial|extractor|none|dummy)$").IsMatch(service))
                 {
-                    errors.Add( "The building has " + ( service == "" ? "no " : "an incorrect " ) + "service." );
+                    errors.Add("Building " + name + " has " + (service == "" ? "no " : "an invalid ") + "service.");
                 }
-                if ( !new Regex(@"^(high|low|generic|farming|oil|forest|ore|none|tourist|leisure|high tech|eco|high eco|low eco)$").IsMatch( subService ) )
+                if (!new Regex(@"^(high|low|generic|farming|oil|forest|ore|none|tourist|leisure|high tech|eco|high eco|low eco)$").IsMatch(subService))
                 {
-                    errors.Add( "The building has " + ( service == "" ? "no " : "an incorrect " ) + "sub-service."  );
-                }
-
-                if ( !new Regex( @"^[12345]$" ).IsMatch( level.ToString() ) )
-                {
-                    errors.Add( String.Format( "The building has an incorrect level." ) );
+                    errors.Add("Building " + name + " has " + (service == "" ? "no " : "an invalid ") + "sub-service.");
                 }
 
-                if ( !new Regex(@"^(comlow|comhigh|reslow|reshigh|office|industrial|oil|ore|farming|forest|tourist|leisure)$").IsMatch( uiCategory ) )
+                if (!new Regex(@"^[12345]$" ).IsMatch(level.ToString()))
                 {
-                    errors.Add( "The building has an incorrect ui-category." );
+                    errors.Add("Building " + name + " has an invalid level.");
                 }
 
-                if ( service == "residential" )
+                if (!new Regex(@"^(comlow|comhigh|reslow|reshigh|office|industrial|oil|ore|farming|forest|tourist|leisure|organic|hightech|selfsufficient)$").IsMatch(uiCategory))
                 {
-                    if ( homeCount == 0 )
-                        errors.Add( "Service is 'residential' but no homes are set." );
+                    errors.Add("Building " + name + " has an invalid ui-category.");
+                }
+
+                if (service == "residential")
+                {
+                    if (homeCount == 0)
+                        errors.Add("Building " + name + " is 'residential' but no homes are set.");
                 }
                 else
                 {
-                    if ( ( workplaceCount == 0 ) && service != "" && service != "none" )
-                        errors.Add( String.Format( "{0} provides jobs but no jobs are set.", service ) );
+                    if ((workplaceCount == 0) && service != "" && service != "none")
+                        errors.Add("Building " + name + " provides " + service + " jobs but no jobs are set.");
                 }
 
-                if ( !( RegexXML4IntegerValues.IsMatch( workplacesString ) || RegexXmlIntegerValue.IsMatch( workplacesString ) ) )
-                    errors.Add( "Invalid value for 'workplaces'. Must be either a positive integer number or a comma separated list of 4 positive integer numbers." );
+                if (!(RegexXML4IntegerValues.IsMatch(workplacesString) || RegexXmlIntegerValue.IsMatch(workplacesString)))
+                    errors.Add("Building " + name + " has an invalid value for 'workplaces'. Must be either a positive integer number or a comma separated list of 4 positive integer numbers.");
 
-                if ( !RegexXML4IntegerValues.IsMatch( workplaceDeviationString ) )
-                    errors.Add( "Invalid value for 'deviations'. Must be either a positive integer number or a comma separated list of 4 positive integer numbers." );
+                if (!RegexXML4IntegerValues.IsMatch(workplaceDeviationString))
+                    errors.Add("Building " + name + " has an invalid value for 'deviations'. Must be either a positive integer number or a comma separated list of 4 positive integer numbers.");
 
                 return errors;
             }
