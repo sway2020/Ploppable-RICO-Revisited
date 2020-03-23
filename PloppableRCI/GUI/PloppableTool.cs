@@ -3,8 +3,8 @@ using UnityEngine;
 using System.Linq;
 using ColossalFramework.UI;
 using ColossalFramework.DataBinding;
-
 using System;
+
 
 namespace PloppableRICO
 {
@@ -27,17 +27,23 @@ namespace PloppableRICO
         UITabstrip Tabs;
         UIButton BuildingButton;
 
-        int types = 11;
-        UISprite[] TabSprites = new UISprite[12];
-        UIScrollablePanel[] BuildingPanels = new UIScrollablePanel[12];
+        // Number of UI categories.
+        const int NumTypes = 14;
+        // Number of UI tabs: +1 to account for 'Settings' tab.
+        const int NumTabs = NumTypes + 1;
+
+        UISprite[] TabSprites = new UISprite[NumTabs];
+        UIScrollablePanel[] BuildingPanels = new UIScrollablePanel[NumTabs];
         UIScrollablePanel currentSelection = new UIScrollablePanel();
 
-        UIButton[] TabButtons = new UIButton[12];
+        UIButton[] TabButtons = new UIButton[NumTabs];
 
         UIButton LeftButton = new UIButton();
         UIButton RightButton = new UIButton();
 
-        string[] Names = new string[]{
+        // Names used to identify icons for tabs (specific game icon names - not just made up).
+        string[] Names = new string[]
+        {
             "ResidentialLow",
             "ResidentialHigh",
             "CommercialLow",
@@ -49,39 +55,28 @@ namespace PloppableRICO
             "Oil",
             "Ore",
             "Leisure",
-            "Tourist"
+            "Tourist",
+            "Organic",
+            "Hightech",
+            "Selfsufficient"
         };
 
         private UITextureAtlas ingame;
         private UITextureAtlas thumbnails;
 
+
         public static void Initialize()
         {
             if (_instance == null)
             {
-                /*
-                GameObject gameController = GameObject.FindWithTag("GameController");
-                _instance = gameController.AddComponent<PloppableTool>();
-                _instance.name = "PloppableTool";
-                _instance.DrawPloppablePanel();
-                _instance.PopulateAssets();
-                _instance.enabled = false;
-                //GameObject.FindObjectOfType<ToolController>().Tools[0].enabled = true;
-                */
                 try
                 {
-                    // Destroy the UI if already exists
-                    //_gameObject = GameObject.Find("PloppableTool");
-                    //Destroy();
-
-                    // Creating our own gameObect, helps finding the UI in ModTools
+                    // Creating our own gameObect helps finding the UI in ModTools.
                     _gameObject = new GameObject("PloppableTool");
                     _gameObject.transform.parent = UIView.GetAView().transform;
                     _instance = _gameObject.AddComponent<PloppableTool>();
-                    //_instance.name = "PloppableTool";
                     _instance.DrawPloppablePanel();
                     _instance.PopulateAssets();
-                    //_instance.enabled = false;
                 }
                 catch (Exception e)
                 {
@@ -90,11 +85,13 @@ namespace PloppableRICO
             }
         }
         
+
         protected override void Awake()
         {
             this.m_toolController = ToolsModifierControl.toolController;
         }
         
+
         public static void Destroy()
         {
             try
@@ -107,15 +104,17 @@ namespace PloppableRICO
                 Debug.LogException(e);
             }
         }
+
+
         public void DrawPloppablePanel()
         {
             if (PloppableButton == null)
             {
-
                 ingame = Resources.FindObjectsOfTypeAll<UITextureAtlas>().FirstOrDefault(a => a.name == "Ingame");
                 thumbnails = Resources.FindObjectsOfTypeAll<UITextureAtlas>().FirstOrDefault(a => a.name == "Thumbnails");
 
-                PloppableButton = UIView.GetAView().FindUIComponent<UITabstrip>("MainToolstrip").AddUIComponent<UIButton>(); //main button on in game tool strip.
+                // Main button on ingame toolbar.
+                PloppableButton = UIView.GetAView().FindUIComponent<UITabstrip>("MainToolstrip").AddUIComponent<UIButton>();
                 PloppableButton.size = new Vector2(43, 49);
                 PloppableButton.eventClick += PloppablebuttonClicked;
                 PloppableButton.normalBgSprite = "ToolbarIconGroup6Normal";
@@ -128,25 +127,25 @@ namespace PloppableRICO
                 PloppableButton.name = "PloppableButton";
                 PloppableButton.tooltip = "Ploppable RICO";
 
-                BuildingPanel = UIView.GetAView().FindUIComponent("TSContainer").AddUIComponent<UIPanel>(); //this is the base panel. 
+                // Base panel.
+                BuildingPanel = UIView.GetAView().FindUIComponent("TSContainer").AddUIComponent<UIPanel>();
                 BuildingPanel.backgroundSprite = "SubcategoriesPanel";
                 BuildingPanel.isVisible = false;
                 BuildingPanel.name = "PloppableBuildingPanel";
                 BuildingPanel.size = new Vector2(859, 109);
                 BuildingPanel.relativePosition = new Vector2(0, 0);
 
+                // Tabstrip.
                 Tabs = UIView.GetAView().FindUIComponent("PloppableBuildingPanel").AddUIComponent<UITabstrip>();
                 Tabs.size = new Vector2(832, 25);
                 Tabs.relativePosition = new Vector2(13, -25);
                 Tabs.pivot = UIPivotPoint.BottomCenter;
                 Tabs.padding = new RectOffset(0, 3, 0, 0);
 
-                //var i =
-
-                for (int i = 0; i <= types; i++)
+                for (int i = 0; i <= NumTypes; i++)
                 {
-
-                    BuildingPanels[i] = new UIScrollablePanel(); //draw scrollable panels
+                    // Draw scrollable panels.
+                    BuildingPanels[i] = new UIScrollablePanel();
                     BuildingPanels[i] = BuildingPanel.AddUIComponent<UIScrollablePanel>();
                     BuildingPanels[i].size = new Vector2(763, 109);
                     BuildingPanels[i].relativePosition = new Vector2(50, 0);
@@ -165,30 +164,31 @@ namespace PloppableRICO
                     BuildingPanels[i].horizontalScrollbar.incrementAmount = 109f;
                     BuildingPanels[i].scrollWithArrowKeys = true;
 
-
-                    TabButtons[i] = new UIButton();  //draw RICO tabstrip. 
+                    // Draw tabs in tabstrip.
+                    TabButtons[i] = new UIButton(); 
                     TabButtons[i] = Tabs.AddUIComponent<UIButton>();
-                    TabButtons[i].size = new Vector2(58, 25);
+                    TabButtons[i].size = new Vector2(46, 25);
                     TabButtons[i].normalBgSprite = "SubBarButtonBase";
                     TabButtons[i].disabledBgSprite = "SubBarButtonBaseDisabled";
                     TabButtons[i].pressedBgSprite = "SubBarButtonBasePressed";
                     TabButtons[i].hoveredBgSprite = "SubBarButtonBaseHovered";
                     TabButtons[i].focusedBgSprite = "SubBarButtonBaseFocused";
                     TabButtons[i].state = UIButton.ButtonState.Normal;
-                    //TabButtons[i].isEnabled = enabled;
                     TabButtons[i].name = Names[i] + "Button";
                     TabButtons[i].tabStrip = true;
 
                     TabSprites[i] = new UISprite();
                     TabSprites[i] = TabButtons[i].AddUIComponent<UISprite>();
 
+                    // Standard "Vanilla" categories (low and high residential, low and high commercial, and offices) - use standard zoning icons from original vanilla release.
                     if (i <= 5)
                     {
                         TabSprites[i].atlas = thumbnails;
                         SetSprites(TabSprites[i], "Zoning" + Names[i]);
-
                     }
-                    else {
+                    else
+                    {
+                        // Other types don't have standard zoning icons; use policy icons instead.
                         SetSprites(TabSprites[i], "IconPolicy" + Names[i]);
                     }
                 }
@@ -207,9 +207,6 @@ namespace PloppableRICO
                 LeftButton.relativePosition = new Vector3(16, 33);
                 RightButton.relativePosition = new Vector3(812, 33);
 
-
-                //LeftButton.anchor = UIAnchorStyle.None;
-
                 RightButton.normalBgSprite = "ArrowRight";
                 RightButton.pressedBgSprite = "ArrowRightPressed";
                 RightButton.hoveredBgSprite = "ArrowRightHovered";
@@ -225,13 +222,13 @@ namespace PloppableRICO
                     LeftButton.isVisible = true;
                     RightButton.isVisible = true;
                 }
-                else {
+                else
+                {
                     LeftButton.isVisible = false;
                     RightButton.isVisible = false;
                 }
 
-                //Couldnt get this to work in the loop.
-
+                // Couldnt get this to work in the loop.  TODO: reinvestigae.
                 TabButtons[0].eventClick += (sender, e) => TabClicked(sender, e, BuildingPanels[0], TabButtons[0], TabSprites[0]);
                 TabButtons[1].eventClick += (sender, e) => TabClicked(sender, e, BuildingPanels[1], TabButtons[1], TabSprites[1]);
                 TabButtons[2].eventClick += (sender, e) => TabClicked(sender, e, BuildingPanels[2], TabButtons[2], TabSprites[2]);
@@ -242,17 +239,26 @@ namespace PloppableRICO
                 TabButtons[7].eventClick += (sender, e) => TabClicked(sender, e, BuildingPanels[7], TabButtons[7], TabSprites[7]);
                 TabButtons[8].eventClick += (sender, e) => TabClicked(sender, e, BuildingPanels[8], TabButtons[8], TabSprites[8]);
                 TabButtons[9].eventClick += (sender, e) => TabClicked(sender, e, BuildingPanels[9], TabButtons[9], TabSprites[9]);
-
+                // Below are DLC categories - AD for first two, then GC for next 3.  Will be hidden if relevant DLC is not installed.
                 TabButtons[10].eventClick += (sender, e) => TabClicked(sender, e, BuildingPanels[10], TabButtons[10], TabSprites[10]);
                 TabButtons[11].eventClick += (sender, e) => TabClicked(sender, e, BuildingPanels[11], TabButtons[11], TabSprites[11]);
+                TabButtons[12].eventClick += (sender, e) => TabClicked(sender, e, BuildingPanels[12], TabButtons[12], TabSprites[12]);
+                TabButtons[13].eventClick += (sender, e) => TabClicked(sender, e, BuildingPanels[13], TabButtons[13], TabSprites[13]);
+                TabButtons[14].eventClick += (sender, e) => TabClicked(sender, e, BuildingPanels[14], TabButtons[14], TabSprites[14]);
 
-                BuildingPanels[0].isVisible = true; //start with lowres panel visible. 
-
+                // Hide AD tabs if AD is not installed.
                 if (!Util.isADinstalled())
-                { //if AD is not installed, hide extra tabs
-
+                {
                     TabButtons[10].isVisible = false;
                     TabButtons[11].isVisible = false;
+                }
+
+                // Hide GC tabs if GC is not installed.
+                if (!Util.isGCinstalled())
+                {
+                    TabButtons[12].isVisible = false;
+                    TabButtons[13].isVisible = false;
+                    TabButtons[14].isVisible = false;
                 }
 
                 UIButton showThemeManager = UIUtils.CreateButton(Tabs);
@@ -263,21 +269,24 @@ namespace PloppableRICO
             }
         }
 
-        public void ArrowClicked(UIComponent component, UIMouseEventParameter eventParam, UIScrollablePanel selected) {
 
+        public void ArrowClicked(UIComponent component, UIMouseEventParameter eventParam, UIScrollablePanel selected)
+        {
+            // Scrolling.
             if (component == LeftButton)
             {
                 currentSelection.scrollPosition = currentSelection.scrollPosition - new Vector2(109, 0);
             }
-            else {
+            else
+            {
                 currentSelection.scrollPosition = currentSelection.scrollPosition + new Vector2(109, 0);
             }
 
         }
 
+
         public void PopulateAssets()
         {
-
             foreach (var buildingData in RICOPrefabManager.prefabHash.Values)
             {
                 if (buildingData != null)
@@ -322,7 +331,6 @@ namespace PloppableRICO
 
             if (prefab != null) refButton = uiView.FindUIComponent<UIButton>(prefab.name);
 
-
             if (refButton != null)
             {
                 Debug.Log(prefab.name + " Button Destroyed");
@@ -330,6 +338,7 @@ namespace PloppableRICO
                 GameObject.Destroy(refButton.gameObject);
             }
         }
+
 
         public void DrawPanels(UIScrollablePanel panel, string name)
         {
@@ -339,99 +348,143 @@ namespace PloppableRICO
             panel.Reset();
         }
 
+
         public void SetSprites(UISprite labe, string sprite)
         {
             UISprite label = labe;
             label.isInteractive = false;
-            label.relativePosition = new Vector2(12, 0);
+            label.relativePosition = new Vector2(5, 0);
             label.spriteName = sprite;
             label.size = new Vector2(35, 25);
         }
+
 
         void DrawBuildingButton(BuildingInfo BuildingPrefab, string type)
         {
             try
             {
-
-                BuildingButton = new UIButton(); //draw button on appropriate panel. 
+                // Add building buttons to relevant panels.
+                BuildingButton = new UIButton();
                 if (type == "reslow")
                 {
                     BuildingButton = BuildingPanels[0].AddUIComponent<UIButton>();
                 }
-                if (type == "reshigh")
+                else if (type == "reshigh")
                 {
                     BuildingButton = BuildingPanels[1].AddUIComponent<UIButton>();
                 }
-                if (type == "comlow")
+                else if (type == "comlow")
                 {
                     BuildingButton = BuildingPanels[2].AddUIComponent<UIButton>();
                 }
-                if (type == "comhigh")
+                else if (type == "comhigh")
                 {
                     BuildingButton = BuildingPanels[3].AddUIComponent<UIButton>();
                 }
-                if (type == "office")
+                else if (type == "office")
                 {
                     BuildingButton = BuildingPanels[4].AddUIComponent<UIButton>();
                 }
-                if (type == "industrial")
+                else if (type == "industrial")
                 {
                     BuildingButton = BuildingPanels[5].AddUIComponent<UIButton>();
                 }
-                if (type == "farming")
+                else if (type == "farming")
                 {
                     BuildingButton = BuildingPanels[6].AddUIComponent<UIButton>();
                 }
-                if (type == "oil")
+                else if (type == "oil")
                 {
                     BuildingButton = BuildingPanels[8].AddUIComponent<UIButton>();
                 }
-                if (type == "forest")
+                else if (type == "forest")
                 {
                     BuildingButton = BuildingPanels[7].AddUIComponent<UIButton>();
                 }
-                if (type == "ore")
+                else if (type == "ore")
                 {
                     BuildingButton = BuildingPanels[9].AddUIComponent<UIButton>();
                 }
-                if (type == "leisure")
+                else if (type == "leisure")
                 {
                     if (Util.isADinstalled())
                     {
                         BuildingButton = BuildingPanels[10].AddUIComponent<UIButton>();
                     }
-                    else {
-                        BuildingButton = BuildingPanels[3].AddUIComponent<UIButton>();
+                    else
+                    {
+                        // If AD is not installed, default to low commercial.
+                        BuildingButton = BuildingPanels[2].AddUIComponent<UIButton>();
                     }
                 }
-                if (type == "tourist")
+                else if (type == "tourist")
                 {
                     if (Util.isADinstalled())
                     {
                         BuildingButton = BuildingPanels[11].AddUIComponent<UIButton>();
                     }
-                    else {
-                        BuildingButton = BuildingPanels[3].AddUIComponent<UIButton>();
+                    else
+                    {
+                        // If AD is not installed, fall back to low commercial.
+                        BuildingButton = BuildingPanels[2].AddUIComponent<UIButton>();
+                    }
+                }
+                else if (type == "organic")
+                {
+                    // Eco commercial.
+                    if (Util.isGCinstalled())
+                    {
+                        BuildingButton = BuildingPanels[12].AddUIComponent<UIButton>();
+                    }
+                    else
+                    {
+                        // If GC is not installed, fall back to low commercial.
+                        BuildingButton = BuildingPanels[2].AddUIComponent<UIButton>();
+                    }
+                }
+                else if (type == "hightech")
+                {
+                    // IT cluster.
+                    if (Util.isGCinstalled())
+                    {
+                        BuildingButton = BuildingPanels[13].AddUIComponent<UIButton>();
+                    }
+                    else
+                    {
+                        // If GC is not installed, fall back to office.
+                        BuildingButton = BuildingPanels[4].AddUIComponent<UIButton>();
+                    }
+                }
+                else if (type == "selfsufficient")
+                {
+                    // Self-sufficient (eco) residential.
+                    if (Util.isGCinstalled())
+                    {
+                        BuildingButton = BuildingPanels[14].AddUIComponent<UIButton>();
+                    }
+                    else
+                    {
+                        // If GC is not installed, fall back to low residential.
+                        BuildingButton = BuildingPanels[0].AddUIComponent<UIButton>();
                     }
                 }
 
-                BuildingButton.size = new Vector2(109, 100); //apply settings to building buttons. 
+                // Apply settings to building buttons.
+                BuildingButton.size = new Vector2(109, 100); 
                 BuildingButton.atlas = BuildingPrefab.m_Atlas;
-
-           
 
                 if (BuildingPrefab.m_Thumbnail == null || BuildingPrefab.m_Thumbnail == "")
                 {
                     BuildingButton.normalFgSprite = "ToolbarIconProps";
                 }
-                else {
+                else
+                {
 
                     BuildingButton.normalFgSprite = BuildingPrefab.m_Thumbnail;
                     BuildingButton.focusedFgSprite = BuildingPrefab.m_Thumbnail + "Focused";
                     BuildingButton.hoveredFgSprite = BuildingPrefab.m_Thumbnail + "Hovered";
                     BuildingButton.pressedFgSprite = BuildingPrefab.m_Thumbnail + "Pressed";
                     BuildingButton.disabledFgSprite = BuildingPrefab.m_Thumbnail + "Disabled";
-
                 }
 
                 BuildingButton.objectUserData = BuildingPrefab;
@@ -456,6 +509,7 @@ namespace PloppableRICO
             }
         }
 
+
         void BuildingBClicked(UIComponent component, UIMouseEventParameter eventParam, BuildingInfo Binf)
         {
             var buildingTool = ToolsModifierControl.SetTool<BuildingTool>();
@@ -466,9 +520,9 @@ namespace PloppableRICO
             }
         }
 
+
         void BuildingBHovered(UIComponent component, UIMouseEventParameter eventParam, BuildingInfo Binf)
         {
-
             var tooltipBoxa = UIView.GetAView().FindUIComponent<UIPanel>("InfoAdvancedTooltip");
             var tooltipBox = UIView.GetAView().FindUIComponent<UIPanel>("InfoAdvancedTooltipDetail");
             var spritea = tooltipBoxa.Find<UISprite>("Sprite");
@@ -478,12 +532,13 @@ namespace PloppableRICO
             spritea.atlas = Binf.m_Atlas;
         }
 
+
         void PloppablebuttonClicked(UIComponent component, UIMouseEventParameter eventParam)
         {
             component.Focus();
-            //enabled = true;
             BuildingPanel.isVisible = true;
         }
+
 
         void TabClicked(UIComponent component, UIMouseEventParameter eventParam, UIScrollablePanel panel, UIButton button, UISprite sprite)
         {
@@ -494,53 +549,38 @@ namespace PloppableRICO
                 LeftButton.isVisible = true;
                 RightButton.isVisible = true;
             }
-            else {
+            else
+            {
                 LeftButton.isVisible = false;
                 RightButton.isVisible = false;
             }
 
-
             foreach (UIScrollablePanel pan in BuildingPanels)
             {
-
                 pan.isVisible = false;
             }
 
             panel.isVisible = true;
 
-            for (int i = 0; i <= types; i++)
+            for (int i = 0; i <= NumTypes; i++)
             {
-
                 if (i <= 5)
                 {
                     TabSprites[i].spriteName = "Zoning" + Names[i];
 
                 }
-                else {
+                else
+                {
                     TabSprites[i].spriteName = "IconPolicy" + Names[i];
                 }
             }
 
-            if (sprite.spriteName != "IconPolicyLeisure" || sprite.spriteName != "IconPolicyTourist") //There are no focused AD special com sprites
+            // Add focused versions of sprites (no focused versions for AD or GC sprites so exclude those).
+            if (sprite.spriteName != "IconPolicyLeisure" && sprite.spriteName != "IconPolicyTourist" && sprite.spriteName != "IconPolicyHightech" && sprite.spriteName != "IconPolicyOrganic")
             {
                 sprite.spriteName = sprite.spriteName + "Focused";
             }
         }
-
-        /*
-        protected override void OnDisable()
-        {
-            if (BuildingPanel != null)
-                BuildingPanel.isVisible = false;
-            base.OnDisable();
-        }
-
-        protected override void OnEnable()
-        {
-            UIView.GetAView().FindUIComponent<UITabstrip>("MainToolstrip").selectedIndex = -1;
-            //base.OnEnable();
-        }
-        */
     }
 }
 
