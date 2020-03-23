@@ -246,6 +246,9 @@ namespace PloppableRICO
                 TabButtons[13].eventClick += (sender, e) => TabClicked(sender, e, BuildingPanels[13], TabButtons[13], TabSprites[13]);
                 TabButtons[14].eventClick += (sender, e) => TabClicked(sender, e, BuildingPanels[14], TabButtons[14], TabSprites[14]);
 
+                // Activate low residential panel to start with (what the user sees on first opening the panel).
+                BuildingPanels[0].isVisible = true;
+
                 // Hide AD tabs if AD is not installed.
                 if (!Util.isADinstalled())
                 {

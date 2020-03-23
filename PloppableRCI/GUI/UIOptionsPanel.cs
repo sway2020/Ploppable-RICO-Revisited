@@ -2,6 +2,7 @@
 using ColossalFramework.UI;
 using UnityEngine;
 
+
 namespace PloppableRICO
 {
     /// <summary>
@@ -9,73 +10,81 @@ namespace PloppableRICO
     /// </summary>
 
     public class UIBuildingOptions : UIScrollablePanel
-
     {
-        
-        string[] Service = new string[]{
-        "None",
-        "Residential",
-        "Industrial",
-        "Office",
-        "Commercial",
-        "Extractor",
-        "Dummy"
+        string[] Service = new string[]
+        {
+            "None",
+            "Residential",
+            "Industrial",
+            "Office",
+            "Commercial",
+            "Extractor",
+            "Dummy"
         };
 
-        string[] OfficeSub = new string[]{
-        "Generic",
-        //"IT Cluster"
+        string[] OfficeSub = new string[]
+        {
+            "Generic",
+            "IT Cluster"
         };
 
-        string[] ResSub = new string[]{
-        "High",
-        "Low",
-        //"High Eco",
-        //"Low Eco"
+        string[] ResSub = new string[]
+        {
+            "High",
+            "Low",
+            "High Eco",
+            "Low Eco"
         };
 
-        string[] ComSub = new string[]{
-        "High",
-        "Low",
-        "Tourist",
-        "Leisure",
-        //"Eco"
+        string[] ComSub = new string[]
+        {
+            "High",
+            "Low",
+            "Tourist",
+            "Leisure",
+            "Eco"
         };
 
-        string[] IndustrialSub = new string[]{
-        "Generic",
-        "Forest",
-        "Oil",
-        "Ore",
-        "Farming"
+        string[] IndustrialSub = new string[]
+        {
+            "Generic",
+            "Forest",
+            "Oil",
+            "Ore",
+            "Farming"
         };
 
-        string[] ExtractorSub = new string[]{
-        "Forest",
-        "Oil",
-        "Ore",
-        "Farming"
+        string[] ExtractorSub = new string[]
+        {
+            "Forest",
+            "Oil",
+            "Ore",
+            "Farming"
         };
 
-        string[] Level = new string[]{
-        "1",
-        "2",
-        "3",
+        string[] Level = new string[]
+        {
+            "1",
+            "2",
+            "3",
         };
 
-        string[] resLevel = new string[]{
-        "1",
-        "2",
-        "3",
-        "4",
-        "5"
+        string[] resLevel = new string[]
+        {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
         };
 
-        string[] extLevel = new string[]{
-        "1",
+        string[] extLevel = new string[]
+        {
+            "1",
         };
 
-        string[] UICategory = new string[]{
+        string[] UICategory = new string[]
+        {
            "Res Low",
            "Res High",
            "Com Low",
@@ -88,12 +97,15 @@ namespace PloppableRICO
             "Ore",
             "Tourist",
             "Leisure",
+            "Organic Com",
+            "IT Cluster",
+            "Self-Sufficient",
             "None",
         };
 
         public bool disableEvents;
         public RICOBuilding currentSelection;
-        //Enable RICO
+        // Enable RICO.
         public UICheckBox ricoEnabled;
         public UIPanel enableRICOPanel;
 
@@ -102,21 +114,24 @@ namespace PloppableRICO
         public UIDropDown level;
         public UIDropDown uiCategory;
 
-
-
+        // Households / aggregate workplaces.
         public UITextField manual;
 
+        // Workplace breakdown by education level.
+        public UITextField uneducated;
+        public UITextField educated;
+        public UITextField welleducated;
+        public UITextField highlyeducated;
 
-
-        //Pollution
+        // Pollution.
         public UICheckBox pollutionEnabled;
         public UIPanel pollutionPanel;
 
-        public UICheckBox popBalanceEnabled;
+        public UICheckBox realityIgnored;
         public UICheckBox manualWorkersEnabled;
         public UIPanel manualPanel;
 
-        //Construction
+        // Construction.
         public UICheckBox constructionCostEnabled;
         public UIPanel constructionPanel;
         public UITextField construction;
@@ -126,10 +141,10 @@ namespace PloppableRICO
 
         private static UIBuildingOptions _instance;
         public static UIBuildingOptions instance
-
         {
             get { return _instance; }
         }
+
 
         public override void Start()
         {
@@ -140,7 +155,6 @@ namespace PloppableRICO
             canFocus = true;
             isInteractive = true;
             backgroundSprite = "UnlockingPanel";
-            //padding = new RectOffset(5, 5, 5, 0);
             autoLayout = true;
             autoLayoutDirection = LayoutDirection.Vertical;
             autoLayoutPadding.top = 5;
@@ -156,13 +170,15 @@ namespace PloppableRICO
             SetupControls();
         }
 
+
         private void SetupControls()
         {
+            // Subpanels.
             labelpanel = this.AddUIComponent<UIPanel>();
             labelpanel.height = 20;
 
             label = labelpanel.AddUIComponent<UILabel>();
-            label.relativePosition =  new Vector3(80,0);
+            label.relativePosition = new Vector3(80,0);
             label.width = 240;
             label.textAlignment = UIHorizontalAlignment.Center;
             label.text = "No Settings";
@@ -188,6 +204,7 @@ namespace PloppableRICO
                 }
             };
 
+            // Dropdown menus.
             service = UIUtils.CreateDropDown(enableRICOPanel, 0, "Service");
             service.items = Service;
             service.selectedIndex = 0;
@@ -204,22 +221,25 @@ namespace PloppableRICO
             level.selectedIndex = 0;
             level.items = Level;
 
+            // Base text fields.
             construction = UIUtils.CreateTextField(enableRICOPanel, 120, "Construction Cost");
-
             manual = UIUtils.CreateTextField(enableRICOPanel, 150, "Worker/Home Count");
 
-            popBalanceEnabled = UIUtils.CreateCheckBox(enableRICOPanel, 180, "Use WG Realistic Pop");
-
-            //popBalanceEnabled = UIUtils.CreateCheckBox(enableRICOPanel, 210, "Use Education Ratios");
-
+            // Base checkboxes.
+            realityIgnored = UIUtils.CreateCheckBox(enableRICOPanel, 180, "Use Realistic Pop mod");
             pollutionEnabled = UIUtils.CreateCheckBox(enableRICOPanel, 210, "Enable Pollution");
 
-
+            // Workplace breakdown by education level.
+            uneducated = UIUtils.CreateTextField(enableRICOPanel, 270, "Uneducated jobs");
+            educated = UIUtils.CreateTextField(enableRICOPanel, 300, "Educated jobs");
+            welleducated = UIUtils.CreateTextField(enableRICOPanel, 330, "Well-educated jobs");
+            highlyeducated = UIUtils.CreateTextField(enableRICOPanel, 360, "Highly-educated jobs");
         }
+
 
         public void UpdateService(UIComponent c, int value)
         {
-            //Update options panel if the service is changed. 
+            // Update options panel if the service is changed.
 
             if (!disableEvents)
             {
@@ -233,11 +253,10 @@ namespace PloppableRICO
             }
         }
 
+
         public void SaveRICO()
         {
-
-            //Reads current settings from UI elements, and saves them to the XMLData. 
-
+            // Reads current settings from UI elements, and saves them to the XMLData.
 
             if (service.selectedIndex == 0)
             {
@@ -249,8 +268,8 @@ namespace PloppableRICO
                 currentSelection.service = "residential";
                 if (subService.selectedIndex == 0) currentSelection.subService = "high";
                 else if (subService.selectedIndex == 1) currentSelection.subService = "low";
-               // else if (subService.selectedIndex == 2) currentSelection.subService = "high eco";
-                //else if (subService.selectedIndex == 3) currentSelection.subService = "low eco";
+                else if (subService.selectedIndex == 2) currentSelection.subService = "high eco";
+                else if (subService.selectedIndex == 3) currentSelection.subService = "low eco";
             }
             else if (service.selectedIndex == 2)
             {
@@ -267,7 +286,7 @@ namespace PloppableRICO
                 currentSelection.service = "office";
 
                 if (subService.selectedIndex == 0) currentSelection.subService = "none";
-                //else if (subService.selectedIndex == 1) currentSelection.subService = "high tech";
+                else if (subService.selectedIndex == 1) currentSelection.subService = "high tech";
             }
             else if (service.selectedIndex == 4)
             {
@@ -276,7 +295,7 @@ namespace PloppableRICO
                 else if (subService.selectedIndex == 1) currentSelection.subService = "low";
                 else if (subService.selectedIndex == 2) currentSelection.subService = "tourist";
                 else if (subService.selectedIndex == 3) currentSelection.subService = "leisure";
-                //else if (subService.selectedIndex == 4) currentSelection.subService = "eco";
+                else if (subService.selectedIndex == 4) currentSelection.subService = "eco";
             }
             else if (service.selectedIndex == 5)
             {
@@ -294,16 +313,36 @@ namespace PloppableRICO
 
             }
 
-            var d = Util.WorkplaceDistributionOf(currentSelection.service, currentSelection.subService, "Level" + currentSelection.level);
-            var a = WorkplaceAIHelper.distributeWorkplaceLevels(int.Parse(manual.text), d, new int[] { 0, 0, 0, 0 });
+            // Save workplaces.
+            var a = new int[]
+            {
+                int.Parse(uneducated.text),
+                int.Parse(educated.text),
+                int.Parse(welleducated.text),
+                int.Parse(highlyeducated.text)
+            };
+            // Yeah, it's a bit clunky to add the elements individually like this, but saves bringing in System.Linq for just this one case.
+            if (a[0] + a[1] + a[2] + a[3] == 0)
+            {
+                // No workplace breakdown provided (all fields zero); use total workplaces ('manual') and allocate.
+                var d = Util.WorkplaceDistributionOf(currentSelection.service, currentSelection.subService, "Level" + currentSelection.level);
+                a = WorkplaceAIHelper.distributeWorkplaceLevels(int.Parse(manual.text), d, new int[] { 0, 0, 0, 0 });
+            }
 
             currentSelection.workplaces = a; 
-
-            currentSelection.constructionCost = int.Parse(construction.text);
             
+            currentSelection.constructionCost = int.Parse(construction.text);
+            // Construction cost should be at least 10 to maintain compatibility with other mods (Real Time, Real Construction).
+            if (currentSelection.constructionCost < 10)
+            {
+                currentSelection.constructionCost = 10;
+                // If we've overridden the value (set it to 10), write that back to the construction cost text field so the user knows.
+                construction.text = currentSelection.constructionCost.ToString();
+            }
+
             currentSelection.homeCount = int.Parse(manual.text);
 
-
+            // UI categories from menu.
             if (uiCategory.selectedIndex == 0) currentSelection.uiCategory = "reslow";
             else if (uiCategory.selectedIndex == 1) currentSelection.uiCategory = "reshigh";
             else if (uiCategory.selectedIndex == 2) currentSelection.uiCategory = "comlow";
@@ -316,232 +355,262 @@ namespace PloppableRICO
             else if (uiCategory.selectedIndex == 9) currentSelection.uiCategory = "ore";
             else if (uiCategory.selectedIndex == 10) currentSelection.uiCategory = "tourist";
             else if (uiCategory.selectedIndex == 11) currentSelection.uiCategory = "leisure";
-            else if (uiCategory.selectedIndex == 12) currentSelection.uiCategory = "none";
+            else if (uiCategory.selectedIndex == 12) currentSelection.uiCategory = "organic";
+            else if (uiCategory.selectedIndex == 13) currentSelection.uiCategory = "hightech";
+            else if (uiCategory.selectedIndex == 14) currentSelection.uiCategory = "selfsufficient";
+            else if (uiCategory.selectedIndex == 15) currentSelection.uiCategory = "none";
 
+            // Remaining items.
             currentSelection.level = level.selectedIndex + 1;
             currentSelection.ricoEnabled = ricoEnabled.isChecked;
-            currentSelection.popbalanceEnabled = !popBalanceEnabled.isChecked;
-
-       
+            currentSelection.RealityIgnored = !realityIgnored.isChecked;
+            currentSelection.pollutionEnabled = pollutionEnabled.isChecked;
         }     
 
-        public void SelectionChanged(BuildingData buildingData) {
 
-            //When dropdowns are updated, this disables the event logic
+        public void SelectionChanged(BuildingData buildingData)
+        {
+            // Disable the event logic while dropdowns are being updated.
             disableEvents = true;
 
-            ricoEnabled.Enable();
-            service.Enable();
-            subService.Enable();
-            level.Enable();
-            uiCategory.Enable();
-            construction.Enable();
-            manual.Enable();
-            popBalanceEnabled.Enable();
+            // Disable all input controls by default; activate them later if needed.
+            ricoEnabled.Disable();
+            service.Disable();
+            subService.Disable();
+            level.Disable();
+            uiCategory.Disable();
+            construction.Disable();
+            manual.Disable();
+            realityIgnored.Disable();
+            uneducated.Disable();
+            educated.Disable();
+            welleducated.Disable();
+            highlyeducated.Disable();
 
-            //If selected asset has local settings, update option UI elements with those settings. 
+            // Update option UI elements, in priority order (local, author, mod).
             if (buildingData.hasLocal)
             {
                 currentSelection = buildingData.local;
                 UpdateElements(buildingData.local.service);
                 UpdateValues(buildingData.local);
                 label.text = "Local Settings";
+
+                // If the building has local settings, enable input fields.
+                ricoEnabled.Enable();
+                service.Enable();
+                subService.Enable();
+                level.Enable();
+                uiCategory.Enable();
+                construction.Enable();
+                manual.Enable();
+                realityIgnored.Enable();
+                uneducated.Enable();
+                educated.Enable();
+                welleducated.Enable();
+                highlyeducated.Enable();
+
+                // Re-enable event logic now that dropdowns are up-to-date before returning.
                 disableEvents = false;
                 return;
             }
             else if (buildingData.hasAuthor)
             {
+                // If the building has author settings, then disable input fields.
                 currentSelection = buildingData.author;
                 UpdateElements(buildingData.author.service);
                 UpdateValues(buildingData.author);
                 label.text = "Author Settings";
-                ricoEnabled.Disable();
-                service.Disable();
-                subService.Disable();
-                level.Disable();
-                uiCategory.Disable();
-                construction.Disable();
-                manual.Disable();
-                popBalanceEnabled.Disable();
+
+                // Re-enable event logic now that dropdowns are up-to-date before returning.
                 disableEvents = false;
                 return;
             }
             else if (buildingData.hasMod)
             {
+                // If the building has mod settings, then disable input fields.
                 currentSelection = buildingData.mod;
                 label.text = "Mod Settings";
                 UpdateElements(buildingData.mod.service);
-                UpdateValues(buildingData.mod);           
-                ricoEnabled.Disable();
-                service.Disable();
-                subService.Disable();
-                level.Disable();
-                uiCategory.Disable();
-                construction.Disable();
-                manual.Disable();
-                popBalanceEnabled.Disable();
+                UpdateValues(buildingData.mod);
+
+                // Re-enable event logic now that dropdowns are up-to-date before returning.
                 disableEvents = false;
                 return;
             }
-            else {
-                
+            else
+            {
+                // Fallback - building has no Ploppable RICO data anywhere, disable Ploppable RICO.
                 ricoEnabled.isChecked = false;
                 ricoEnabled.Disable();
                 label.text = "No Settings";
             }
 
+            // Catchall to ensure event logic re-enabled before we leave.
             disableEvents = false;
         }
 
-        public void NoSettings() {
 
-            //Hide all options if selected building has no RICO settings. 
+        public void NoSettings()
+        {
+
+            // Hide all options if selected building has no RICO settings.
 
             ricoEnabled.Disable();
         }
 
+
         public void UpdateValues(RICOBuilding buildingData)
         {
-            //Updates the values in the RICO options panel to match the selected building. 
+            // Updates the values in the RICO options panel to match the selected building.
 
+            // Workplaces.
             manual.text = buildingData.workplaceCount.ToString();
-          
+            uneducated.text = buildingData.workplaces[0].ToString();
+            educated.text = buildingData.workplaces[1].ToString();
+            welleducated.text = buildingData.workplaces[2].ToString();
+            highlyeducated.text = buildingData.workplaces[3].ToString();
 
+            // Service and sub-service.
             if (buildingData.service == "residential")
-                {
+            {
                 manual.text = buildingData.homeCount.ToString();
                 service.selectedIndex = 1;
 
-
                 if (currentSelection.subService == "high") subService.selectedIndex = 0;
                 else if (currentSelection.subService == "low") subService.selectedIndex = 1;
-               // else if (currentSelection.subService == "high eco") subService.selectedIndex = 2;
-                //else if (currentSelection.subService == "low eco") subService.selectedIndex = 3;
-
+                else if (currentSelection.subService == "high eco") subService.selectedIndex = 2;
+                else if (currentSelection.subService == "low eco") subService.selectedIndex = 3;
             }
-
-                else if (buildingData.service == "industrial")
-                {
-                    service.selectedIndex = 2;
-                    subService.items = IndustrialSub;
+            else if (buildingData.service == "industrial")
+            {
+                service.selectedIndex = 2;
+                subService.items = IndustrialSub;
 
                 if (currentSelection.subService == "generic") subService.selectedIndex = 0;
                 else if (currentSelection.subService == "forest") subService.selectedIndex = 1;
                 else if (currentSelection.subService == "oil") subService.selectedIndex = 2;
                 else if (currentSelection.subService == "ore") subService.selectedIndex = 3;
                 else if (currentSelection.subService == "farming") subService.selectedIndex = 4;
-
             }
-
-                else if (buildingData.service == "office")
-                {             
-                    service.selectedIndex = 3;
-                    subService.items = OfficeSub;
+            else if (buildingData.service == "office")
+            {
+                service.selectedIndex = 3;
+                subService.items = OfficeSub;
 
                 if (currentSelection.subService == "none") subService.selectedIndex = 0;
-                //else if (currentSelection.subService == "high tech") subService.selectedIndex = 1;
-
+                else if (currentSelection.subService == "high tech") subService.selectedIndex = 1;
             }
-
-                else if (buildingData.service == "commercial")
-                {
-                    service.selectedIndex = 4;
-                    subService.items = ComSub;
+            else if (buildingData.service == "commercial")
+            {
+                service.selectedIndex = 4;
+                subService.items = ComSub;
 
                 if (currentSelection.subService == "high") subService.selectedIndex = 0;
                 else if (currentSelection.subService == "low") subService.selectedIndex = 1;
                 else if (currentSelection.subService == "tourist") subService.selectedIndex = 2;
                 else if (currentSelection.subService == "leisure") subService.selectedIndex = 3;
-                //else if (currentSelection.subService == "eco") subService.selectedIndex = 4;
-
+                else if (currentSelection.subService == "eco") subService.selectedIndex = 4;
             }
-
-                else if (buildingData.service == "extractor")
-                {      
-                    service.selectedIndex = 5;
-                    subService.items = ExtractorSub;
+            else if (buildingData.service == "extractor")
+            {
+                service.selectedIndex = 5;
+                subService.items = ExtractorSub;
 
                 if (currentSelection.subService == "forest") subService.selectedIndex = 0;
                 else if (currentSelection.subService == "oil") subService.selectedIndex = 1;
                 else if (currentSelection.subService == "ore") subService.selectedIndex = 2;
                 else if (currentSelection.subService == "farming") subService.selectedIndex = 3;
-                }
-
+            }
             else if (buildingData.service == "dummy")
             {
                 service.selectedIndex = 6;
                 subService.selectedIndex = 0;
                 subService.items = OfficeSub;
-
             }
 
+            // UI category.
             if (buildingData.uiCategory == "reslow") uiCategory.selectedIndex = 0;
-                else if (buildingData.uiCategory == "reshigh") uiCategory.selectedIndex = 1;
-                else if (buildingData.uiCategory == "comlow") uiCategory.selectedIndex = 2;
-                else if (buildingData.uiCategory == "comhigh") uiCategory.selectedIndex = 3;
-                else if (buildingData.uiCategory == "office") uiCategory.selectedIndex = 4;
-                else if (buildingData.uiCategory == "industrial") uiCategory.selectedIndex = 5;
-                else if (buildingData.uiCategory == "farming") uiCategory.selectedIndex = 6;
-                else if (buildingData.uiCategory == "oil") uiCategory.selectedIndex = 7;
-                else if (buildingData.uiCategory == "forest") uiCategory.selectedIndex = 8;
-                else if (buildingData.uiCategory == "ore") uiCategory.selectedIndex = 9;
-                else if (buildingData.uiCategory == "tourist") uiCategory.selectedIndex = 10;
-                else if (buildingData.uiCategory == "leisure") uiCategory.selectedIndex = 11;
-                else if (buildingData.uiCategory == "none") uiCategory.selectedIndex = 12;
+            else if (buildingData.uiCategory == "reshigh") uiCategory.selectedIndex = 1;
+            else if (buildingData.uiCategory == "comlow") uiCategory.selectedIndex = 2;
+            else if (buildingData.uiCategory == "comhigh") uiCategory.selectedIndex = 3;
+            else if (buildingData.uiCategory == "office") uiCategory.selectedIndex = 4;
+            else if (buildingData.uiCategory == "industrial") uiCategory.selectedIndex = 5;
+            else if (buildingData.uiCategory == "farming") uiCategory.selectedIndex = 6;
+            else if (buildingData.uiCategory == "oil") uiCategory.selectedIndex = 7;
+            else if (buildingData.uiCategory == "forest") uiCategory.selectedIndex = 8;
+            else if (buildingData.uiCategory == "ore") uiCategory.selectedIndex = 9;
+            else if (buildingData.uiCategory == "tourist") uiCategory.selectedIndex = 10;
+            else if (buildingData.uiCategory == "leisure") uiCategory.selectedIndex = 11;
+            else if (buildingData.uiCategory == "none") uiCategory.selectedIndex = 12;
+            else if (buildingData.uiCategory == "organic") uiCategory.selectedIndex = 12;
+            else if (buildingData.uiCategory == "hightech") uiCategory.selectedIndex = 13;
+            else if (buildingData.uiCategory == "selfsufficient") uiCategory.selectedIndex = 14;
+            else if (buildingData.uiCategory == "none") uiCategory.selectedIndex = 15;
 
+            // Building level.
             level.selectedIndex = (buildingData.level - 1);
 
-                popBalanceEnabled.isChecked = !buildingData.popbalanceEnabled;
-                construction.text = buildingData.constructionCost.ToString();
+            // Construction cost.
+            construction.text = buildingData.constructionCost.ToString();
 
-               ricoEnabled.isChecked = buildingData.ricoEnabled;
+            // Use realistic population.
+            realityIgnored.isChecked = !buildingData.RealityIgnored;
+
+            // Pollution enabled
+            pollutionEnabled.isChecked = buildingData.pollutionEnabled;
+
+            // Enable RICO.
+            ricoEnabled.isChecked = buildingData.ricoEnabled;
         }
 
-        public void UpdateElements(string service) {
 
-            //Reconfigure the RICO options panel to display relevant options for a given service.
-            //This simply hides/shows different option fields for the various services. 
+        public void UpdateElements(string service)
+        {
+            // Reconfigure the RICO options panel to display relevant options for a given service.
+            // This simply hides/shows different option fields for the various services.
 
-            pollutionEnabled.enabled = true;
-
+            // Defaults by probability.  Pollution is only needed for industrial and extractor, and workplaces are shown for everything except residential.
+            pollutionEnabled.enabled = false;
+            uneducated.parent.Show();
+            educated.parent.Show();
+            welleducated.parent.Show();
+            highlyeducated.parent.Show();
 
             if (service == "residential")
-                {
-                    level.items = resLevel;
-                    subService.items = ResSub;
-               
-                pollutionEnabled.enabled = false;
+            {
+                level.items = resLevel;
+                subService.items = ResSub;
 
+                // No workplaces breakdown for residential - hide them.
+                uneducated.parent.Hide();
+                educated.parent.Hide();
+                welleducated.parent.Hide();
+                highlyeducated.parent.Hide();
             }
-                else if (service == "office")
-                {
-                    level.items = Level;
-                    subService.items = OfficeSub;
-                    pollutionEnabled.enabled = false;
+            else if (service == "office")
+            {
+                level.items = Level;
+                subService.items = OfficeSub;
             }
-                else if (service == "industrial")
-                {
-                    level.items = Level;
-                    subService.items = IndustrialSub;
-                }
-                else if (service == "extractor")
-                {
-                    level.items = extLevel;
-                    subService.items = ExtractorSub;
-                }
-                else if (service == "commercial")
-                {
-                    level.items = Level;
-                    subService.items = ComSub;
-                    pollutionEnabled.enabled = false;
+            else if (service == "industrial")
+            {
+                level.items = Level;
+                subService.items = IndustrialSub;
+                // Industries can pollute.
+                pollutionEnabled.enabled = true;
             }
-                else if (service == "none" || service == "dummy")
-                {
-
-                pollutionEnabled.enabled = false;
-
+            else if (service == "extractor")
+            {
+                level.items = extLevel;
+                subService.items = ExtractorSub;
+                // Extractors can pollute.
+                pollutionEnabled.enabled = true;
             }
-            
+            else if (service == "commercial")
+            {
+                level.items = Level;
+                subService.items = ComSub;
+            }
         }
     }
 }
