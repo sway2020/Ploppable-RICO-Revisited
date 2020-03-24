@@ -56,7 +56,6 @@ namespace PloppableRICO
         {
             // Unload Detour.
             Detour.BuildingToolDetour.Revert();
-            Util.AssignServiceClass();
             base.OnLevelUnloading();
         }
     }
