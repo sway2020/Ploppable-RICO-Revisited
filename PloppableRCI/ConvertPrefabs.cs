@@ -260,7 +260,7 @@ namespace PloppableRICO
             }
             catch
             {
-                Debug.Log("RICO Revisited: InitPrefab failed - " + prefab.name +". [This message is probably harmless]");
+                // Debug.Log("RICO Revisited: InitPrefab failed - " + prefab.name +". [This message is probably harmless]");
             }
 
             prefab.m_class = ItemClassCollection.FindClass(aiClass);

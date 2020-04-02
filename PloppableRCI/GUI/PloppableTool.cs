@@ -328,7 +328,6 @@ namespace PloppableRICO
 
         public void RemoveUIButton(BuildingInfo prefab)
         {
-            Debug.Log(prefab.name + " About to try");
             var uiView = UIView.GetAView();
             var refButton = new UIButton();
 
@@ -336,7 +335,6 @@ namespace PloppableRICO
 
             if (refButton != null)
             {
-                Debug.Log(prefab.name + " Button Destroyed");
                 refButton.isVisible = false;
                 GameObject.Destroy(refButton.gameObject);
             }
