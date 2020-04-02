@@ -181,7 +181,7 @@ namespace PloppableRICO
             label.relativePosition = new Vector3(80,0);
             label.width = 240;
             label.textAlignment = UIHorizontalAlignment.Center;
-            label.text = "No Settings";
+            label.text = Translations.GetTranslation("No settings");
 
             ricoEnabled = UIUtils.CreateCheckBar(this, Translations.GetTranslation("Enable RICO"));
 
@@ -393,7 +393,7 @@ namespace PloppableRICO
                 currentSelection = buildingData.local;
                 UpdateElements(buildingData.local.service);
                 UpdateValues(buildingData.local);
-                label.text = "Local Settings";
+                label.text = Translations.GetTranslation("Local settings");
 
                 // If the building has local settings, enable input fields.
                 ricoEnabled.Enable();
@@ -419,7 +419,7 @@ namespace PloppableRICO
                 currentSelection = buildingData.author;
                 UpdateElements(buildingData.author.service);
                 UpdateValues(buildingData.author);
-                label.text = "Author Settings";
+                label.text = Translations.GetTranslation("Author settings");
 
                 // Re-enable event logic now that dropdowns are up-to-date before returning.
                 disableEvents = false;
@@ -429,7 +429,7 @@ namespace PloppableRICO
             {
                 // If the building has mod settings, then disable input fields.
                 currentSelection = buildingData.mod;
-                label.text = "Mod Settings";
+                label.text = Translations.GetTranslation("Mod settings");
                 UpdateElements(buildingData.mod.service);
                 UpdateValues(buildingData.mod);
 
@@ -442,7 +442,7 @@ namespace PloppableRICO
                 // Fallback - building has no Ploppable RICO data anywhere, disable Ploppable RICO.
                 ricoEnabled.isChecked = false;
                 ricoEnabled.Disable();
-                label.text = "No Settings";
+                label.text = Translations.GetTranslation("No settings");
             }
 
             // Catchall to ensure event logic re-enabled before we leave.

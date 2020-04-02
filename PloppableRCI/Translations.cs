@@ -1,15 +1,19 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
+using ColossalFramework.Globalization;
 
 
 namespace PloppableRICO
 {
+    // This is a really basic translation framework; it's the start of a process, and not the end.
+    // At this point just directly translating the English default (no standardised keys).
     public class Translations
     {
         public static string GetTranslation(string phrase)
         {
             string _translation;
 
-            if(UITranslations.TryGetValue(phrase, out _translation))
+            if(LocaleManager.instance.language == "zh" && (UITranslations_zh.TryGetValue(phrase, out _translation)))
             {
                 return _translation;
             }
@@ -19,8 +23,8 @@ namespace PloppableRICO
             }
         }
 
-
-        public static readonly Dictionary<string, string> UITranslations = new Dictionary<string, string>()
+        // Chinese translations provided by KMT_Yuuki
+        public static readonly Dictionary<string, string> UITranslations_zh = new Dictionary<string, string>()
         {
             { "Settings", "设置" },
             { "RICO Settings", "RICO设置" },
@@ -73,7 +77,12 @@ namespace PloppableRICO
             { "Education", "教育服务" },
             { "Power", "电力能源" },
             { "Water", "水源与供暖" },
-            { "Health", "医疗服务" }
+            { "Health", "医疗服务" },
+            { "No settings", "没有设置项" },
+            { "Mod settings", "MOD设置" },
+            { "Author settings", "作者设置" },
+            { "Local settings", "本地设置" },
+            { "Allows Plopping of RICO Buildings (fork of AJ3D's original with bugfixes and new features)", "允许对RICO建筑（AJ3D原始版本的分叉，带有错误修复和新功能）进行噗通" }
         };
     }
 }
