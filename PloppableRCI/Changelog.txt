@@ -1,0 +1,41 @@
+﻿Version 1.1
+
+- Add Chinese translations by KMT_Yuuki
+- Add explicit support for Ryuichi Kaminogi's "RICO Settings for Modern Japan CCP"
+- Introduce formal versioning
+- Logging cleanup
+
+
+Version 1.0.4 (unlabeled)
+
+- Code cleanup
+- Fix pollution checkbox
+- Tweak workplace distribution for GS specialisations
+
+
+Version 1.0.3 (unlabeled) -
+
+- Add check to see if original Ploppable RICO is running
+- Recognises Realistic Pop Revisited
+- Add offending building name to (some) error messages
+
+
+Version 1.0.2 (unlabeled) - 
+
+- Add workplace breakdown to UI
+- Enforce minimum construction cost of 10 (to not break other mods)
+- Now plays nicely with asset editor
+
+
+Version 1.0.1 (unlabeled) -
+
+- Fix FindIt! integration (change assembly name)
+- Organic shops now (correctly) only take food deliveries (not generic goods)
+
+
+Version 1.0 (unlabeled) -
+
+- Original upload
+- Fix Realistic Population checkbox
+- Add support for Green Cities specialisations
+- Miscalleaneous code cleanups and updates

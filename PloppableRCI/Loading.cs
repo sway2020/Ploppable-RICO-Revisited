@@ -16,6 +16,8 @@ namespace PloppableRICO
 
         public override void OnLevelLoaded(LoadMode mode)
         {
+            Debug.Log("RICO Revisited v" + PloppableRICOMod.version + " loading.");
+
             base.OnLevelLoaded(mode);
 
             // Don't do anything if in asset editor.
@@ -31,7 +33,7 @@ namespace PloppableRICO
                 panel.SetMessage("RICO Revisited", "Original Ploppable RICO mod detected - RICO Revisited is shutting down to protect your game.  Only ONE of these mods can be enabled at the same time - please choose one and unsubscribe from the other!", false);
                 return;
             }
-
+            
             // Load xml only from main menu. 
             if (xmlManager == null)
             {
