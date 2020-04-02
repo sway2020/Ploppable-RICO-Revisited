@@ -42,9 +42,17 @@ namespace PloppableRICO
             "ZoningIndustrial"
         };
 
-        public static readonly string[] tooltips = {"Monuments","Beautification", "Education", "Power", "Water", "Health",
-            "Residential", "Commercial", "Office", "Industrial"
-                
+        public static readonly string[] tooltips = {
+            Translations.GetTranslation("Monuments"),
+            Translations.GetTranslation("Beautification"),
+            Translations.GetTranslation("Education"),
+            Translations.GetTranslation("Power"),
+            Translations.GetTranslation("Water"),
+            Translations.GetTranslation("Health"),
+            Translations.GetTranslation("Residential"),
+            Translations.GetTranslation("Commercial"),
+            Translations.GetTranslation("Office"),
+            Translations.GetTranslation("Industrial")
         };
     }
 }

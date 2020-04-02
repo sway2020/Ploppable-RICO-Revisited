@@ -13,53 +13,53 @@ namespace PloppableRICO
     {
         string[] Service = new string[]
         {
-            "None",
-            "Residential",
-            "Industrial",
-            "Office",
-            "Commercial",
-            "Extractor",
-            "Dummy"
+            Translations.GetTranslation("None"),
+            Translations.GetTranslation("Residential"),
+            Translations.GetTranslation("Industrial"),
+            Translations.GetTranslation("Office"),
+            Translations.GetTranslation("Commercial"),
+            Translations.GetTranslation("Extractor"),
+            Translations.GetTranslation("Dummy")
         };
 
         string[] OfficeSub = new string[]
         {
-            "Generic",
-            "IT Cluster"
+            Translations.GetTranslation("Generic"),
+            Translations.GetTranslation("IT cluster")
         };
 
         string[] ResSub = new string[]
         {
-            "High",
-            "Low",
-            "High Eco",
-            "Low Eco"
+            Translations.GetTranslation("High"),
+            Translations.GetTranslation("Low"),
+            Translations.GetTranslation("High eco"),
+            Translations.GetTranslation("Low eco")
         };
 
         string[] ComSub = new string[]
         {
-            "High",
-            "Low",
-            "Tourist",
-            "Leisure",
-            "Eco"
+            Translations.GetTranslation("High"),
+            Translations.GetTranslation("Low"),
+            Translations.GetTranslation("Tourist"),
+            Translations.GetTranslation("Leisure"),
+            Translations.GetTranslation("Eco (organic)")
         };
 
         string[] IndustrialSub = new string[]
         {
-            "Generic",
-            "Forest",
-            "Oil",
-            "Ore",
-            "Farming"
+            Translations.GetTranslation("Generic"),
+            Translations.GetTranslation("Forest"),
+            Translations.GetTranslation("Oil"),
+            Translations.GetTranslation("Ore"),
+            Translations.GetTranslation("Farming")
         };
 
         string[] ExtractorSub = new string[]
         {
-            "Forest",
-            "Oil",
-            "Ore",
-            "Farming"
+            Translations.GetTranslation("Forest"),
+            Translations.GetTranslation("Oil"),
+            Translations.GetTranslation("Ore"),
+            Translations.GetTranslation("Farming")
         };
 
         string[] Level = new string[]
@@ -85,22 +85,22 @@ namespace PloppableRICO
 
         string[] UICategory = new string[]
         {
-           "Res Low",
-           "Res High",
-           "Com Low",
-           "Com High",
-           "Office",
-           "Industrial",
-            "Farming",
-            "Oil",
-            "Forest",
-            "Ore",
-            "Tourist",
-            "Leisure",
-            "Organic Com",
-            "IT Cluster",
-            "Self-Sufficient",
-            "None",
+            Translations.GetTranslation("Res low"),
+            Translations.GetTranslation("Res high"),
+            Translations.GetTranslation("Com low"),
+            Translations.GetTranslation("Com high"),
+            Translations.GetTranslation("Office"),
+            Translations.GetTranslation("Industrial"),
+            Translations.GetTranslation("Farming"),
+            Translations.GetTranslation("Oil"),
+            Translations.GetTranslation("Forest"),
+            Translations.GetTranslation("Ore"),
+            Translations.GetTranslation("Tourist"),
+            Translations.GetTranslation("Leisure"),
+            Translations.GetTranslation("Organic Com"),
+            Translations.GetTranslation("IT cluster"),
+            Translations.GetTranslation("Self-sufficient"),
+            Translations.GetTranslation("None")
         };
 
         public bool disableEvents;
@@ -183,7 +183,7 @@ namespace PloppableRICO
             label.textAlignment = UIHorizontalAlignment.Center;
             label.text = "No Settings";
 
-            ricoEnabled = UIUtils.CreateCheckBar(this, "Enable RICO" );
+            ricoEnabled = UIUtils.CreateCheckBar(this, Translations.GetTranslation("Enable RICO"));
 
             enableRICOPanel = this.AddUIComponent<UIPanel>();
             enableRICOPanel.height = 0;
@@ -205,35 +205,35 @@ namespace PloppableRICO
             };
 
             // Dropdown menus.
-            service = UIUtils.CreateDropDown(enableRICOPanel, 0, "Service");
+            service = UIUtils.CreateDropDown(enableRICOPanel, 0, Translations.GetTranslation("Service"));
             service.items = Service;
             service.selectedIndex = 0;
             service.eventSelectedIndexChanged += UpdateService; 
 
-            subService = UIUtils.CreateDropDown(enableRICOPanel, 30, "Sub-Service");
+            subService = UIUtils.CreateDropDown(enableRICOPanel, 30, Translations.GetTranslation("Sub-service"));
             subService.selectedIndex = 0;
 
-            uiCategory = UIUtils.CreateDropDown(enableRICOPanel, 60, "UI Category");
+            uiCategory = UIUtils.CreateDropDown(enableRICOPanel, 60, Translations.GetTranslation("UI category"));
             uiCategory.selectedIndex = 0;
             uiCategory.items = UICategory;
 
-            level = UIUtils.CreateDropDown(enableRICOPanel, 90, "Level");
+            level = UIUtils.CreateDropDown(enableRICOPanel, 90, Translations.GetTranslation("Level"));
             level.selectedIndex = 0;
             level.items = Level;
 
             // Base text fields.
-            construction = UIUtils.CreateTextField(enableRICOPanel, 120, "Construction Cost");
-            manual = UIUtils.CreateTextField(enableRICOPanel, 150, "Worker/Home Count");
+            construction = UIUtils.CreateTextField(enableRICOPanel, 120, Translations.GetTranslation("Construction cost"));
+            manual = UIUtils.CreateTextField(enableRICOPanel, 150, Translations.GetTranslation("Worker/Home count"));
 
             // Base checkboxes.
-            realityIgnored = UIUtils.CreateCheckBox(enableRICOPanel, 180, "Use Realistic Pop mod");
-            pollutionEnabled = UIUtils.CreateCheckBox(enableRICOPanel, 210, "Enable Pollution");
+            realityIgnored = UIUtils.CreateCheckBox(enableRICOPanel, 180, Translations.GetTranslation("Use Realistic Pop mod"));
+            pollutionEnabled = UIUtils.CreateCheckBox(enableRICOPanel, 210, Translations.GetTranslation("Enable pollution"));
 
             // Workplace breakdown by education level.
-            uneducated = UIUtils.CreateTextField(enableRICOPanel, 270, "Uneducated jobs");
-            educated = UIUtils.CreateTextField(enableRICOPanel, 300, "Educated jobs");
-            welleducated = UIUtils.CreateTextField(enableRICOPanel, 330, "Well-educated jobs");
-            highlyeducated = UIUtils.CreateTextField(enableRICOPanel, 360, "Highly-educated jobs");
+            uneducated = UIUtils.CreateTextField(enableRICOPanel, 270, Translations.GetTranslation("Uneducated jobs"));
+            educated = UIUtils.CreateTextField(enableRICOPanel, 300, Translations.GetTranslation("Educated jobs"));
+            welleducated = UIUtils.CreateTextField(enableRICOPanel, 330, Translations.GetTranslation("Well-educated jobs"));
+            highlyeducated = UIUtils.CreateTextField(enableRICOPanel, 360, Translations.GetTranslation("Highly-educated jobs"));
         }
 
 

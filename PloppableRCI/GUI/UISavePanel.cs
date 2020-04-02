@@ -59,11 +59,11 @@ namespace PloppableRICO
         private void SetupControls()
         {
             save = UIUtils.CreateButton(this);
-            save.text = "Save";
+            save.text = Translations.GetTranslation("Save");
             save.width = 140;
 
             addLocal = UIUtils.CreateButton(this);
-            addLocal.text = "Add Local";
+            addLocal.text = Translations.GetTranslation("Add local");
             addLocal.width = 140;
 
             addLocal.eventClick += (c, p) =>
@@ -116,7 +116,7 @@ namespace PloppableRICO
                 Save();
 
             };
-            removeLocal.text = "Remove Local";
+            removeLocal.text = Translations.GetTranslation("Remove local");
             removeLocal.width = 140;
 
             save.eventClick += (c, p) =>
