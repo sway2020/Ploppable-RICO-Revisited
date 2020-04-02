@@ -72,12 +72,20 @@ namespace PloppableRICO
             Debug.Log("Trying Asset");
             AssetSettings();
 
-            //If settings mod is active, load its settings.
+            // If settings mod is active, load its settings.
             if (Util.IsModEnabled(629850626uL))
             {
                 var workshopModSettingsPath = Path.Combine(Util.SettingsModPath("629850626"), "WorkshopRICOSettings.xml");
                 RicoSettings(workshopModSettingsPath, isMod: true);
 
+            }
+
+            // Check for Ryuichi Kaminogi's "RICO Settings for Modern Japan CCP"
+            Package modernJapanRICO = PackageManager.GetPackage("2035770233");
+            if (modernJapanRICO != null)
+            {
+                var workshopModSettingsPath = Path.Combine(Path.GetDirectoryName(modernJapanRICO.packagePath), "PloppableRICODefinition.xml");
+                RicoSettings(workshopModSettingsPath, isMod: true);
             }
         }
 
