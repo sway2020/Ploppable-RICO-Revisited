@@ -267,7 +267,7 @@ namespace PloppableRICO
                 UIButton showThemeManager = UIUtils.CreateButton(Tabs);
                 showThemeManager.size = new Vector2(80, 25);
                 showThemeManager.normalBgSprite = "SubBarButtonBase";
-                showThemeManager.text = "Settings";
+                showThemeManager.text = Translations.GetTranslation("Settings");
                 showThemeManager.eventClick += (c, p) => RICOSettingsPanel.instance.Toggle();
             }
         }

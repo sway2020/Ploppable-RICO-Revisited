@@ -109,7 +109,7 @@ namespace PloppableRICO
         {
             // Title Bar
             m_title = AddUIComponent<UITitleBar>();
-            m_title.title = "RICO Settings";
+            m_title.title = Translations.GetTranslation("RICO Settings");
             m_title.iconSprite = "ToolbarIconZoomOutCity";
 
             // Filter

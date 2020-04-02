@@ -71,7 +71,7 @@ namespace PloppableRICO
 
             allZones = UIUtils.CreateButton(this);
             allZones.width = 55;
-            allZones.text = "All";
+            allZones.text = Translations.GetTranslation("All");
             allZones.relativePosition = new Vector3(405, 5);
 
             allZones.eventClick += (c, p) =>
@@ -85,7 +85,7 @@ namespace PloppableRICO
 
             noZones = UIUtils.CreateButton(this);
             noZones.width = 55;
-            noZones.text = "None";
+            noZones.text = Translations.GetTranslation("None");
             noZones.relativePosition = new Vector3(465, 5);
 
             noZones.eventClick += (c, p) =>
@@ -103,7 +103,7 @@ namespace PloppableRICO
             nameLabel.textScale = 0.8f;
             nameLabel.padding = new RectOffset(0, 0, 8, 0);
             nameLabel.relativePosition = new Vector3(width - 250, 0);
-            nameLabel.text = "Name: ";
+            nameLabel.text = Translations.GetTranslation("Name") + ": ";
 
             nameFilter = UIUtils.CreateTextField(this);
             nameFilter.width = 200;
