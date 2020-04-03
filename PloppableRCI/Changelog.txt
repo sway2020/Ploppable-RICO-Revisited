@@ -1,4 +1,9 @@
-﻿Version 1.1
+﻿Version 1.1.1
+
+- Remove development logging
+
+
+Version 1.1
 
 - Migrate to Harmony
 - Add Chinese translations by Yuuki
