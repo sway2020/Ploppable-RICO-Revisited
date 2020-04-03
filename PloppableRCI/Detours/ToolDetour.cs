@@ -23,8 +23,6 @@ namespace PloppableRICO
 				// Found a ploppable RICO building - set original method return value.
 				__result = true;
 
-				UnityEngine.Debug.Log("CAT!!!! RICO IS IMPORTANT!!!");
-
 				// Don't execute base method after this.
 				return false;
 			}
