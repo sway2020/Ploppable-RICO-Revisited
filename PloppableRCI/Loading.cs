@@ -1,12 +1,15 @@
 using ICities;
 using UnityEngine;
 using ColossalFramework.UI;
+using Harmony;
 
 
 namespace PloppableRICO
 {
     public class Loading : LoadingExtensionBase
     {
+        const string HarmonyID = "com.github.algernon-A.csl.ploppablericorevisited";
+        private HarmonyInstance _harmony = HarmonyInstance.Create(HarmonyID);
 
         public GameObject RICODataManager;
         public RICOPrefabManager xmlManager;
@@ -49,16 +52,16 @@ namespace PloppableRICO
             PloppableTool.Initialize();
             RICOSettingsPanel.Initialize();
 
-            // Deploy Detour.
-            Detour.BuildingToolDetour.Deploy();
-            Debug.Log("Detour Deployed");
+            // Deploy Harmony patches.
+            _harmony.PatchAll(GetType().Assembly);
+            Debug.Log("RICO Revisited: patching complete.");
         }
 
         public override void OnLevelUnloading()
         {
-            // Unload Detour.
-            Detour.BuildingToolDetour.Revert();
-            base.OnLevelUnloading();
+            // Unapply Harmony patches.
+            _harmony.UnpatchAll(HarmonyID);
+            Debug.Log("RICO Revisited: patches unapplied.");
         }
     }
 }

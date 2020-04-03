@@ -1,86 +1,36 @@
 ﻿using System;
+using Harmony;
 
-using System.Reflection;
 
-
-namespace PloppableRICO.Detour
+namespace PloppableRICO
 {
 
 	/// <summary>
 	///This detours the CheckCollidingBuildngs method in BuildingTool. Its based on boformers Larger Footprints mod. Many thanks to him for his work. 
 	/// </summary>
 
-
+	[HarmonyPatch(typeof(BuildingTool))]
+	[HarmonyPatch("IsImportantBuilding")]
+	[HarmonyPatch(new Type[] { typeof(BuildingInfo), typeof(Building) },
+		new ArgumentType[] { ArgumentType.Normal, ArgumentType.Ref })]
 	public class BuildingToolDetour
 	{
-		private static bool deployed = false;
-	
-		private static RedirectCallsState _BuildingTool_CheckCollidingBuildings_state;
-		private static MethodInfo _BuildingTool_CheckCollidingBuildings_original;
-		private static MethodInfo _BuildingTool_CheckCollidingBuildings_detour;
-
-
-        public static void Deploy ()
+		private static bool Prefix (ref bool __result, BuildingInfo info, ref Building building)
 		{
+			// All we want to do here is ensure that ploppable RICO buildings are classified as "Important Buildings" (to "spare them from the wrath of the BuildingTool"...)
+			if (info.m_buildingAI is PloppableOffice || info.m_buildingAI is PloppableExtractor || info.m_buildingAI is PloppableResidential || info.m_buildingAI is PloppableCommercial || info.m_buildingAI is PloppableIndustrial)
+			{
+				// Found a ploppable RICO building - set original method return value.
+				__result = true;
 
-			if (!deployed) {
+				UnityEngine.Debug.Log("CAT!!!! RICO IS IMPORTANT!!!");
 
-				_BuildingTool_CheckCollidingBuildings_original = typeof(BuildingTool).GetMethod (
-					"IsImportantBuilding",
-					BindingFlags.Static | BindingFlags.NonPublic,
-					null,
-					new Type [] {typeof(BuildingInfo), typeof(Building).MakeByRefType()}, 
-					null
-				);
-
-				_BuildingTool_CheckCollidingBuildings_detour = typeof(BuildingToolDetour).GetMethod(
-					"IsImportantBuilding",
-					BindingFlags.Static | BindingFlags.NonPublic,
-					null,
-					new Type [] {typeof(BuildingInfo), typeof(Building).MakeByRefType()}, 
-					null
-				);
-					
-				_BuildingTool_CheckCollidingBuildings_state = RedirectionHelper.RedirectCalls (_BuildingTool_CheckCollidingBuildings_original, _BuildingTool_CheckCollidingBuildings_detour);
-
-
-                deployed = true;
-
-				//Debug.Log("BuildingTool Methods detoured");
+				// Don't execute base method after this.
+				return false;
 			}
+
+			// Didn't find a ploppable RICO building - go onto running the original game method.
+            return true;
 		}
-
-		public static void Revert ()
-		{
-			
-			if (deployed) {
-				RedirectionHelper.RevertRedirect (_BuildingTool_CheckCollidingBuildings_original, _BuildingTool_CheckCollidingBuildings_state);
-				_BuildingTool_CheckCollidingBuildings_original = null;
-				_BuildingTool_CheckCollidingBuildings_detour = null;
-
-                deployed = false;
-
-				//Debug.Log("BuildingTool Methods restored");
-			}
-		}
-			
-
-		private static bool IsImportantBuilding (BuildingInfo info, ref Building building)
-		{
-			int publicServiceIndex = ItemClass.GetPublicServiceIndex (info.m_class.m_service);
-
-
-                if (info.m_buildingAI is PloppableOffice || info.m_buildingAI is PloppableExtractor || info.m_buildingAI is PloppableResidential || info.m_buildingAI is PloppableCommercial || info.m_buildingAI is PloppableIndustrial)
-                {
-                    return true;
-
-			} else {
-				
-				return (publicServiceIndex != -1 && !info.m_autoRemove) || (building.m_flags & Building.Flags.Untouchable) != Building.Flags.None || building.m_fireIntensity != 0;
-			}
-		}
-
-
-
 	}
 }
