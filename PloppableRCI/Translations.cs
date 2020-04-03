@@ -23,7 +23,7 @@ namespace PloppableRICO
             }
         }
 
-        // Chinese translations provided by KMT_Yuuki
+        // Chinese translations provided by Yuuki
         public static readonly Dictionary<string, string> UITranslations_zh = new Dictionary<string, string>()
         {
             { "Settings", "设置" },
