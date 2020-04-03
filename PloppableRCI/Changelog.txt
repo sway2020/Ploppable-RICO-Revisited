@@ -1,5 +1,6 @@
 ﻿Version 1.1
 
+- Migrate to Harmony
 - Add Chinese translations by KMT_Yuuki
 - Add explicit support for Ryuichi Kaminogi's "RICO Settings for Modern Japan CCP"
 - Introduce formal versioning
