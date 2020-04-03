@@ -30,7 +30,7 @@ namespace PloppableRICO
                 // Original Ploppable RICO mod - log and show warning, then return without doing anything.
                 Debug.Log("Original Ploppable RICO detected - RICO Revisited exiting.");
                 ExceptionPanel panel = UIView.library.ShowModal<ExceptionPanel>("ExceptionPanel");
-                panel.SetMessage("RICO Revisited", "Original Ploppable RICO mod detected - RICO Revisited is shutting down to protect your game.  Only ONE of these mods can be enabled at the same time - please choose one and unsubscribe from the other!", false);
+                panel.SetMessage("RICO Revisited", Translations.GetTranslation("Original Ploppable RICO mod detected - RICO Revisited is shutting down to protect your game.  Only ONE of these mods can be enabled at the same time - please choose one and unsubscribe from the other!"), false);
                 return;
             }
             
