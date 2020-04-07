@@ -117,10 +117,10 @@ namespace PloppableRICO
                         // Fall back to low residential as default.
                         InitializePrefab(prefab, ai, "Low Residential - Level" + buildingData.level);
 
-                        // If invalid subservice, log.
+                        // If invalid subservice, report.
                         if (buildingData.subService != "low")
                         {
-                            Debug.Log("RICO Revisited: residential building " + buildingData.name + " has invalid subservice " + buildingData.subService + "; reverting to low residential.");
+                            Debugging.ErrorBuffer.AppendLine("Residential building " + buildingData.name + " has invalid subservice " + buildingData.subService + "; reverting to low residential.");
                         }
                     }
                 }
@@ -237,10 +237,10 @@ namespace PloppableRICO
                         // Fall back to low commercial as default.
                         InitializePrefab(prefab, ai, "Low Commercial - Level" + buildingData.level);
 
-                        // If invalid subservice, log.
+                        // If invalid subservice, report.
                         if (buildingData.subService != "low")
                         {
-                            Debug.Log("RICO Revisited: commercial building " + buildingData.name + " has invalid subService " + buildingData.subService + "; reverting to low commercial.");
+                            Debugging.ErrorBuffer.AppendLine("Commercial building " + buildingData.name + " has invalid subService " + buildingData.subService + "; reverting to low commercial.");
                         }
                     }
                 }

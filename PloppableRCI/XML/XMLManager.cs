@@ -145,8 +145,6 @@ namespace PloppableRICO
 
         void RicoSettings(Dictionary<string, string> foo, bool isLocal = false, bool isAuthored = false, bool isMod = false)
         {
-            var allParseErrors = new List<string>();
-
             foreach (var packageId in foo.Keys)
             {
                 var ricoDefPath = foo[packageId];
@@ -192,24 +190,9 @@ namespace PloppableRICO
                                     prefabHash[prefab].hasMod = true;
                                 }
                             }
-
-                            allParseErrors.AddRange(Loading.ricoDef.errors);
                         }
                     }
                 }
-                else
-                {
-                    allParseErrors.AddRange(RICOReader.LastErrors);
-                }
-            }
-
-            if (allParseErrors.Count > 0)
-            {
-                var errorMessage = new StringBuilder();
-                foreach (var error in allParseErrors)
-                    errorMessage.Append(error).Append('\n');
-
-                UIView.library.ShowModal<ExceptionPanel>("ExceptionPanel").SetMessage("Ploppable RICO", errorMessage.ToString(), true);
             }
 
             // Clean up after ourselves and reinitialise ricoDef for next pass to avoid false positives.

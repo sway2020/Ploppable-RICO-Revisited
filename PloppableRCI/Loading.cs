@@ -65,7 +65,7 @@ namespace PloppableRICO
             {
                 // Original Ploppable RICO mod - log and show warning, then return without doing anything.
                 Debug.Log("Original Ploppable RICO detected - RICO Revisited exiting.");
-                UIView.library.ShowModal<ExceptionPanel>("ExceptionPanel").SetMessage("RICO Revisited", Translations.GetTranslation("Original Ploppable RICO mod detected - RICO Revisited is shutting down to protect your game.  Only ONE of these mods can be enabled at the same time - please choose one and unsubscribe from the other!"), false);
+                UIView.library.ShowModal<ExceptionPanel>("ExceptionPanel").SetMessage("RICO Revisited", Translations.GetTranslation("Original Ploppable RICO mod detected - RICO Revisited is shutting down to protect your game.  Only ONE of these mods can be enabled at the same time - please choose one and unsubscribe from the other!"), true);
                 return;
             }
             
@@ -83,6 +83,9 @@ namespace PloppableRICO
             // Init GUI.
             PloppableTool.Initialize();
             RICOSettingsPanel.Initialize();
+
+            // Report any loading errors.
+            Debugging.ReportErrors();
 
             Debug.Log("RICO Revisited: loading complete.");
         }
