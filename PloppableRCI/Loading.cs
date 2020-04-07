@@ -51,6 +51,8 @@ namespace PloppableRICO
 
         public override void OnLevelLoaded(LoadMode mode)
         {
+            // CalculateHomeCount patch only needed while loading existing buildings; unapply patch now that everything is loaded.
+            _harmony.Unpatch(typeof(ResidentialBuildingAI).GetMethod("CalculateHomeCount"), typeof(RICOHomeCount).GetMethod("Prefix"));
 
             base.OnLevelLoaded(mode);
 
