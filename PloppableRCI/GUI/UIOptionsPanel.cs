@@ -584,6 +584,7 @@ namespace PloppableRICO
 
             // Defaults by probability.  Pollution is only needed for industrial and extractor, and workplaces are shown for everything except residential.
             pollutionEnabled.enabled = false;
+            pollutionEnabled.parent.Hide();
             uneducated.parent.Show();
             educated.parent.Show();
             welleducated.parent.Show();
@@ -613,6 +614,7 @@ namespace PloppableRICO
                 subService.items = IndustrialSub;
                 // Industries can pollute.
                 pollutionEnabled.enabled = true;
+                pollutionEnabled.parent.Show();
                 // Maximum legitimate level is 3 (selectedIndex is level - 1)
                 level.selectedIndex = Math.Max(level.selectedIndex, 2);
             }
