@@ -1,4 +1,4 @@
-﻿using ColossalFramework;
+﻿using System;
 using ColossalFramework.UI;
 using UnityEngine;
 
@@ -48,18 +48,18 @@ namespace PloppableRICO
         string[] IndustrialSub = new string[]
         {
             Translations.GetTranslation("Generic"),
-            Translations.GetTranslation("Forest"),
+            Translations.GetTranslation("Farming"),
             Translations.GetTranslation("Oil"),
+            Translations.GetTranslation("Forest"),
             Translations.GetTranslation("Ore"),
-            Translations.GetTranslation("Farming")
         };
 
         string[] ExtractorSub = new string[]
         {
-            Translations.GetTranslation("Forest"),
+            Translations.GetTranslation("Farming"),
             Translations.GetTranslation("Oil"),
+            Translations.GetTranslation("Forest"),
             Translations.GetTranslation("Ore"),
-            Translations.GetTranslation("Farming")
         };
 
         string[] Level = new string[]
@@ -178,7 +178,7 @@ namespace PloppableRICO
             labelpanel.height = 20;
 
             label = labelpanel.AddUIComponent<UILabel>();
-            label.relativePosition = new Vector3(80,0);
+            label.relativePosition = new Vector3(80, 0);
             label.width = 240;
             label.textAlignment = UIHorizontalAlignment.Center;
             label.text = Translations.GetTranslation("No settings");
@@ -208,10 +208,12 @@ namespace PloppableRICO
             service = UIUtils.CreateDropDown(enableRICOPanel, 0, Translations.GetTranslation("Service"));
             service.items = Service;
             service.selectedIndex = 0;
-            service.eventSelectedIndexChanged += UpdateService; 
+            service.eventSelectedIndexChanged += UpdateService;
 
             subService = UIUtils.CreateDropDown(enableRICOPanel, 30, Translations.GetTranslation("Sub-service"));
             subService.selectedIndex = 0;
+            // Update UI category when subservice changes.
+            subService.eventSelectedIndexChanged += UpdateSubService;
 
             uiCategory = UIUtils.CreateDropDown(enableRICOPanel, 60, Translations.GetTranslation("UI category"));
             uiCategory.selectedIndex = 0;
@@ -254,6 +256,17 @@ namespace PloppableRICO
         }
 
 
+        public void UpdateSubService(UIComponent c, int value)
+        {
+            // Update UI category if the subservice is changed.
+
+            if (!disableEvents)
+            {
+                UpdateUICategory();
+            }
+        }
+
+
         public void SaveRICO()
         {
             // Reads current settings from UI elements, and saves them to the XMLData.
@@ -276,10 +289,10 @@ namespace PloppableRICO
                 currentSelection.service = "industrial";
 
                 if (subService.selectedIndex == 0) currentSelection.subService = "generic";
-                else if (subService.selectedIndex == 1) currentSelection.subService = "forest";
+                else if (subService.selectedIndex == 1) currentSelection.subService = "farming";
                 else if (subService.selectedIndex == 2) currentSelection.subService = "oil";
-                else if (subService.selectedIndex == 3) currentSelection.subService = "ore";
-                else if (subService.selectedIndex == 4) currentSelection.subService = "farming";
+                else if (subService.selectedIndex == 3) currentSelection.subService = "forest";
+                else if (subService.selectedIndex == 4) currentSelection.subService = "ore";
             }
             else if (service.selectedIndex == 3)
             {
@@ -300,10 +313,10 @@ namespace PloppableRICO
             else if (service.selectedIndex == 5)
             {
                 currentSelection.service = "extractor";
-                if (subService.selectedIndex == 0) currentSelection.subService = "forest";
+                if (subService.selectedIndex == 0) currentSelection.subService = "farming";
                 else if (subService.selectedIndex == 1) currentSelection.subService = "oil";
-                else if (subService.selectedIndex == 2) currentSelection.subService = "ore";
-                else if (subService.selectedIndex == 3) currentSelection.subService = "farming";
+                else if (subService.selectedIndex == 2) currentSelection.subService = "forest";
+                else if (subService.selectedIndex == 3) currentSelection.subService = "ore";
 
             }
             else if (service.selectedIndex == 6)
@@ -329,8 +342,8 @@ namespace PloppableRICO
                 a = WorkplaceAIHelper.distributeWorkplaceLevels(int.Parse(manual.text), d, new int[] { 0, 0, 0, 0 });
             }
 
-            currentSelection.workplaces = a; 
-            
+            currentSelection.workplaces = a;
+
             currentSelection.constructionCost = int.Parse(construction.text);
             // Construction cost should be at least 10 to maintain compatibility with other mods (Real Time, Real Construction).
             if (currentSelection.constructionCost < 10)
@@ -365,7 +378,7 @@ namespace PloppableRICO
             currentSelection.ricoEnabled = ricoEnabled.isChecked;
             currentSelection.RealityIgnored = !realityIgnored.isChecked;
             currentSelection.pollutionEnabled = pollutionEnabled.isChecked;
-        }     
+        }
 
 
         public void SelectionChanged(BuildingData buildingData)
@@ -487,10 +500,10 @@ namespace PloppableRICO
                 subService.items = IndustrialSub;
 
                 if (currentSelection.subService == "generic") subService.selectedIndex = 0;
-                else if (currentSelection.subService == "forest") subService.selectedIndex = 1;
+                else if (currentSelection.subService == "farming") subService.selectedIndex = 1;
                 else if (currentSelection.subService == "oil") subService.selectedIndex = 2;
-                else if (currentSelection.subService == "ore") subService.selectedIndex = 3;
-                else if (currentSelection.subService == "farming") subService.selectedIndex = 4;
+                else if (currentSelection.subService == "forest") subService.selectedIndex = 3;
+                else if (currentSelection.subService == "ore") subService.selectedIndex = 4;
             }
             else if (buildingData.service == "office")
             {
@@ -516,10 +529,10 @@ namespace PloppableRICO
                 service.selectedIndex = 5;
                 subService.items = ExtractorSub;
 
-                if (currentSelection.subService == "forest") subService.selectedIndex = 0;
+                if (currentSelection.subService == "farming") subService.selectedIndex = 0;
                 else if (currentSelection.subService == "oil") subService.selectedIndex = 1;
-                else if (currentSelection.subService == "ore") subService.selectedIndex = 2;
-                else if (currentSelection.subService == "farming") subService.selectedIndex = 3;
+                else if (currentSelection.subService == "forest") subService.selectedIndex = 2;
+                else if (currentSelection.subService == "ore") subService.selectedIndex = 3;
             }
             else if (buildingData.service == "dummy")
             {
@@ -591,6 +604,8 @@ namespace PloppableRICO
             {
                 level.items = Level;
                 subService.items = OfficeSub;
+                // Maximum legitimate level is 3 (selectedIndex is level - 1)
+                level.selectedIndex = Math.Max(level.selectedIndex, 2);
             }
             else if (service == "industrial")
             {
@@ -598,6 +613,8 @@ namespace PloppableRICO
                 subService.items = IndustrialSub;
                 // Industries can pollute.
                 pollutionEnabled.enabled = true;
+                // Maximum legitimate level is 3 (selectedIndex is level - 1)
+                level.selectedIndex = Math.Max(level.selectedIndex, 2);
             }
             else if (service == "extractor")
             {
@@ -605,15 +622,100 @@ namespace PloppableRICO
                 subService.items = ExtractorSub;
                 // Extractors can pollute.
                 pollutionEnabled.enabled = true;
+                // Maximum legitimate level is 1 (selectedIndex is level - 1)
+                level.selectedIndex = 0;
             }
             else if (service == "commercial")
             {
                 level.items = Level;
                 subService.items = ComSub;
+                // Maximum legitimate level is 3 (selectedIndex is level - 1)
+                level.selectedIndex = Math.Max(level.selectedIndex, 2);
             }
 
-            // Reset subservice on change
+            // Reset subservice and UI category on change.
             subService.selectedIndex = 0;
+            UpdateUICategory();
+        }
+
+        public void UpdateUICategory()
+        {
+            // Updates UI category selection based on selected service and subservice.
+
+            switch (service.selectedIndex)
+            {
+                case 0:
+                    // None
+                    uiCategory.selectedIndex = 15;
+                    break;
+                case 1:
+                    // Residential.
+                    switch (subService.selectedIndex)
+                    {
+                        case 0:
+                            // High residential.
+                            uiCategory.selectedIndex = 1;
+                            break;
+                        case 1:
+                            // Low residential.
+                            uiCategory.selectedIndex = 0;
+                            break;
+                        case 2:
+                        case 3:
+                            // High and low eco.
+                            uiCategory.selectedIndex = 14;
+                            break;
+                    }
+                    break;
+                case 2:
+                    // Industrial.
+                    uiCategory.selectedIndex = subService.selectedIndex + 5;
+                    // Reset level for specialised industry.
+                    if (subService.selectedIndex > 0)
+                    {
+                        level.selectedIndex = 0;
+                    }
+                    break;
+                case 3:
+                    // Office.
+                    switch (subService.selectedIndex)
+                    {
+                        case 0:
+                            // Generic office.
+                            uiCategory.selectedIndex = 4;
+                            break;
+                        case 1:
+                            // IT cluster - also reset level.
+                            uiCategory.selectedIndex = 13;
+                            level.selectedIndex = 0;
+                            break;
+                    }
+                    break;
+                case 4:
+                    // Commercial.
+                    switch (subService.selectedIndex)
+                    {
+                        case 0:
+                            // High commercial.
+                            uiCategory.selectedIndex = 3;
+                            break;
+                        case 1:
+                            // Low commercial.
+                            uiCategory.selectedIndex = 2;
+                            break;
+                        default:
+                            // Tourist, leisure or eco - also reset level.
+                            uiCategory.selectedIndex = subService.selectedIndex + 8;
+                            level.selectedIndex = 0;
+                            break;
+                    }
+                    break;
+                case 5:
+                    // Extractor - also reset level.
+                    level.selectedIndex = 0;
+                    uiCategory.selectedIndex = subService.selectedIndex + 6;
+                    break;
+            }
         }
     }
 }
