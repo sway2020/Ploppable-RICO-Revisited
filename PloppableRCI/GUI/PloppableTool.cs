@@ -577,7 +577,7 @@ namespace PloppableRICO
             }
 
             // Add focused versions of sprites (no focused versions for AD or GC sprites so exclude those).
-            if (sprite.spriteName != "IconPolicyLeisure" && sprite.spriteName != "IconPolicyTourist" && sprite.spriteName != "IconPolicyHightech" && sprite.spriteName != "IconPolicyOrganic")
+            if (sprite.spriteName != "IconPolicyLeisure" && sprite.spriteName != "IconPolicyTourist" && sprite.spriteName != "IconPolicyHightech" && sprite.spriteName != "IconPolicyOrganic" && sprite.spriteName != "IconPolicySelfsufficient")
             {
                 sprite.spriteName = sprite.spriteName + "Focused";
             }
