@@ -1,7 +1,14 @@
-﻿
+﻿Version 1.2
+
 - Add override for residential building household counts on game load
+- Options panel UI improvements:
+- - Subservice selection now resets on service change
+- - UI category and level automatically update on service/subservice changes
+- - Hide 'Enable pollution' checkbox label when checkbox is inactive
+- Add tooltips to ploppable tool tabs
+- Fix self-sufficient housing icon on ploppable tool tab disappearing when selected
 - Overhaul and restructure logging and error management
-- Building levels now sanity checked and overridden when out-of-bounds
+- Building levels now sanity checked and overridden when out-of-bounds (no more crashes due to insane values)
 - Code cleanups and streamlining
 
 
