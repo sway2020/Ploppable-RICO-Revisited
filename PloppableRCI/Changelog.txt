@@ -1,6 +1,6 @@
 ﻿Version 1.2
 
-- Add override for residential building household counts on game load
+- Add override for residential building household counts on game load (only applies to buildings in LocalRICOSettings.xml with realistic pop mod option disabled)
 - Options panel UI improvements:
 - - Subservice selection now resets on service change
 - - UI category and level automatically update on service/subservice changes
