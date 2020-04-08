@@ -1,4 +1,11 @@
-﻿Version 1.1.1
+﻿
+- Add override for residential building household counts on game load
+- Overhaul and restructure logging and error management
+- Building levels now sanity checked and overridden when out-of-bounds
+- Code cleanups and streamlining
+
+
+Version 1.1.1
 
 - Remove development logging
 
