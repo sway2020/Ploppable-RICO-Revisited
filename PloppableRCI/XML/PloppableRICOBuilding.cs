@@ -165,7 +165,19 @@ namespace PloppableRICO
         [XmlAttribute( "level" )]
         public int level
         {
-            get { return _level; }
+            // Sanity check XML value; invalid levels are recoverable, just need to set to min of 0 or max of 3 or 5.
+            get
+            {
+                int maxLevel = service == "residential" ? 5 : 3;
+                int newLevel = Math.Min(maxLevel, Math.Max(1, _level));
+
+                if (_level != newLevel)
+                {
+                    Debugging.ErrorBuffer.AppendLine("Building " + name + " has invalid level " + _level + ".  Resetting to level " + newLevel + ".");
+                    _level = newLevel;
+                }
+                return _level;
+            }
             set
             {
                 var v = _level; _level = value; HandleSetterEvents( v != value );
@@ -360,7 +372,7 @@ namespace PloppableRICO
         public int workplaceCount { get { return workplaces.Sum(); } }
 
         [XmlIgnore]
-        public bool isValid { get { return errors.Count == 0; } }
+        public bool isValid { get { return errorCount == 0; } }
 
         [XmlIgnore]
         public int[] workplaces
@@ -429,57 +441,72 @@ namespace PloppableRICO
         private int[] _workplaceDeviations;
 
         [XmlIgnore]
-        public List<string> errors
+        public int errorCount
         {
             get
             {
-                var errors = new List<string>();
+                int errorCount = 0;
 
                 if (!new Regex(String.Format(@"[^<>:/\\\|\?\*{0}]", "\"" )).IsMatch(name) || name == "* unnamed" )
                 {
-                    errors.Add(String.Format("A building has {0} name.", name == "" || name == "* unnamed" ? "no" : "a funny" ));
+                    Debugging.ErrorBuffer.AppendLine(String.Format("A building has {0} name.", name == "" || name == "* unnamed" ? "no" : "a funny" ));
+                    errorCount++;
                 }
 
                 if (!new Regex(@"^(residential|commercial|office|industrial|extractor|none|dummy)$").IsMatch(service))
                 {
-                    errors.Add("Building " + name + " has " + (service == "" ? "no " : "an invalid ") + "service.");
+                    Debugging.ErrorBuffer.AppendLine("Building " + name + " has " + (service == "" ? "no " : "an invalid ") + "service.");
+                    errorCount++;
                 }
                 if (!new Regex(@"^(high|low|generic|farming|oil|forest|ore|none|tourist|leisure|high tech|eco|high eco|low eco)$").IsMatch(subService))
                 {
-                    errors.Add("Building " + name + " has " + (service == "" ? "no " : "an invalid ") + "sub-service.");
+                    Debugging.ErrorBuffer.AppendLine("Building " + name + " has " + (service == "" ? "no " : "an invalid ") + "sub-service.");
+                    errorCount++;
                 }
 
                 if (!new Regex(@"^[12345]$" ).IsMatch(level.ToString()))
                 {
-                    errors.Add("Building " + name + " has an invalid level.");
+                    Debugging.ErrorBuffer.AppendLine("Building " + name + " has an invalid level.");
+                    errorCount++;
                 }
 
                 if (!new Regex(@"^(comlow|comhigh|reslow|reshigh|office|industrial|oil|ore|farming|forest|tourist|leisure|organic|hightech|selfsufficient)$").IsMatch(uiCategory))
                 {
-                    errors.Add("Building " + name + " has an invalid ui-category.");
+                    Debugging.ErrorBuffer.AppendLine("Building " + name + " has an invalid ui-category.");
+                    errorCount++;
                 }
 
                 if (service == "residential")
                 {
                     if (homeCount == 0)
-                        errors.Add("Building " + name + " is 'residential' but no homes are set.");
+                    {
+                        Debugging.ErrorBuffer.AppendLine("Building " + name + " is 'residential' but no homes are set.");
+                        errorCount++;
+                    }
                 }
                 else
                 {
                     if ((workplaceCount == 0) && service != "" && service != "none")
-                        errors.Add("Building " + name + " provides " + service + " jobs but no jobs are set.");
+                    {
+                        Debugging.ErrorBuffer.AppendLine("Building " + name + " provides " + service + " jobs but no jobs are set.");
+                        errorCount++;
+                    }
                 }
 
                 if (!(RegexXML4IntegerValues.IsMatch(workplacesString) || RegexXmlIntegerValue.IsMatch(workplacesString)))
-                    errors.Add("Building " + name + " has an invalid value for 'workplaces'. Must be either a positive integer number or a comma separated list of 4 positive integer numbers.");
+                {
+                    Debugging.ErrorBuffer.AppendLine("Building " + name + " has an invalid value for 'workplaces'. Must be either a positive integer number or a comma separated list of 4 positive integer numbers.");
+                    errorCount++;
+                }
 
                 if (!RegexXML4IntegerValues.IsMatch(workplaceDeviationString))
-                    errors.Add("Building " + name + " has an invalid value for 'deviations'. Must be either a positive integer number or a comma separated list of 4 positive integer numbers.");
+                {
+                    Debugging.ErrorBuffer.AppendLine("Building " + name + " has an invalid value for 'deviations'. Must be either a positive integer number or a comma separated list of 4 positive integer numbers.");
+                    errorCount++;
+                }
 
-                return errors;
+                return errorCount;
             }
-
-
         }
 
         // attributes routed trough crp parsing

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
-using System.Linq;
 using System;
+
 
 namespace PloppableRICO
 {
@@ -70,25 +70,6 @@ namespace PloppableRICO
             return buildingDef;
         }
 
-        [XmlIgnore]
-        public List<string> errors
-        {
-            get
-            {
-                var errors = new List<string>();
-                foreach (var building in Buildings)
-                    errors.AddRange(building.errors);
-                if (Buildings.Count() == 0)
-                    errors.Add(String.Format("XML-Error while deserializing RICO - file."));
-                return errors;
-            }
-        }
-
-        [XmlIgnore]
-        public bool isValid
-        {
-            get { return errors.Count() == 0; }
-        }
 
         public delegate void BuildingChangedEventHandler(object sender, BuildingChangedEventArgs e);
         public event BuildingChangedEventHandler BuildingDirtynessChanged;

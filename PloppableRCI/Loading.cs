@@ -2,6 +2,7 @@ using ICities;
 using UnityEngine;
 using ColossalFramework.UI;
 using Harmony;
+using System.IO;
 
 
 namespace PloppableRICO
@@ -9,17 +10,49 @@ namespace PloppableRICO
     public class Loading : LoadingExtensionBase
     {
         const string HarmonyID = "com.github.algernon-A.csl.ploppablericorevisited";
-        private HarmonyInstance _harmony = HarmonyInstance.Create(HarmonyID);
+        private HarmonyInstance _harmony;
 
         public GameObject RICODataManager;
         public RICOPrefabManager xmlManager;
+        public static PloppableRICODefinition ricoDef;
 
         private ConvertPrefabs convertPrefabs;
 
 
+        public override void OnCreated(ILoading loading)
+        {
+            string ricoDefPath = "LocalRICOSettings.xml";
+
+            Debug.Log("RICO Revisited v" + PloppableRICOMod.version + " loading.");
+
+            // Deploy Harmony patches.
+            _harmony = HarmonyInstance.Create(HarmonyID);
+            _harmony.PatchAll(GetType().Assembly);
+            Debug.Log("RICO Revisited: patching complete.");
+
+            // Read LocalRICOSettings.xml if it exists.
+            ricoDef = null;
+            if (!File.Exists(ricoDefPath))
+            {
+                Debug.Log("RICO Revisited: no " + ricoDefPath + " file found.");
+            }
+            else
+            {
+                ricoDef = RICOReader.ParseRICODefinition("", ricoDefPath, insanityOK: true);
+
+                if (ricoDef == null)
+                {
+                    Debug.Log("RICO Revisited: no valid definitions in " + ricoDefPath);
+                }
+            }
+
+            base.OnCreated(loading);
+        }
+
         public override void OnLevelLoaded(LoadMode mode)
         {
-            Debug.Log("RICO Revisited v" + PloppableRICOMod.version + " loading.");
+            // CalculateHomeCount patch only needed while loading existing buildings; unapply patch now that everything is loaded.
+            _harmony.Unpatch(typeof(ResidentialBuildingAI).GetMethod("CalculateHomeCount"), typeof(RICOHomeCount).GetMethod("Prefix"));
 
             base.OnLevelLoaded(mode);
 
@@ -32,7 +65,7 @@ namespace PloppableRICO
             {
                 // Original Ploppable RICO mod - log and show warning, then return without doing anything.
                 Debug.Log("Original Ploppable RICO detected - RICO Revisited exiting.");
-                UIView.library.ShowModal<ExceptionPanel>("ExceptionPanel").SetMessage("RICO Revisited", Translations.GetTranslation("Original Ploppable RICO mod detected - RICO Revisited is shutting down to protect your game.  Only ONE of these mods can be enabled at the same time - please choose one and unsubscribe from the other!"), false);
+                UIView.library.ShowModal<ExceptionPanel>("ExceptionPanel").SetMessage("RICO Revisited", Translations.GetTranslation("Original Ploppable RICO mod detected - RICO Revisited is shutting down to protect your game.  Only ONE of these mods can be enabled at the same time - please choose one and unsubscribe from the other!"), true);
                 return;
             }
             
@@ -51,9 +84,10 @@ namespace PloppableRICO
             PloppableTool.Initialize();
             RICOSettingsPanel.Initialize();
 
-            // Deploy Harmony patches.
-            _harmony.PatchAll(GetType().Assembly);
-            Debug.Log("RICO Revisited: patching complete.");
+            // Report any loading errors.
+            Debugging.ReportErrors();
+
+            Debug.Log("RICO Revisited: loading complete.");
         }
 
         public override void OnLevelUnloading()

@@ -1,17 +1,14 @@
 ﻿using ColossalFramework.UI;
-using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Globalization;
 using ColossalFramework.Globalization;
 using UnityEngine;
-using ColossalFramework.IO;
 using ColossalFramework.Packaging;
 using System.IO;
 using System.Xml.Serialization;
-using ColossalFramework.Plugins;
-using System.Linq;
+
 
 namespace PloppableRICO
 {
@@ -62,14 +59,11 @@ namespace PloppableRICO
             //RICO settings can come from 3 sources. Local settings are applied first, followed by asset author settings,
             //and then finaly settings from settings mods.
 
-            //If local settings are present, load them.
-            if (File.Exists("LocalRICOSettings.xml"))
-            {
-                RicoSettings("LocalRICOSettings.xml", isLocal: true);
-            }
+            // Properly process the local settings we loaded at Loading.OnCreated() now that all prefabs have been loaded.
+            RicoSettings("", isLocal: true);
 
             //Import settings from asset folders.
-            Debug.Log("Trying Asset");
+            Debug.Log("RICO Revisited: Loading asset settings.");
             AssetSettings();
 
             // If settings mod is active, load its settings.
@@ -77,7 +71,6 @@ namespace PloppableRICO
             {
                 var workshopModSettingsPath = Path.Combine(Util.SettingsModPath("629850626"), "WorkshopRICOSettings.xml");
                 RicoSettings(workshopModSettingsPath, isMod: true);
-
             }
 
             // Check for Ryuichi Kaminogi's "RICO Settings for Modern Japan CCP"
@@ -91,7 +84,6 @@ namespace PloppableRICO
 
         public int SetPrefabDensity(BuildingInfo prefab)
         {
-
             if (prefab.m_collisionHeight < 20) return 0; //under 4, assign low
             else if (prefab.m_collisionHeight >= 20 & prefab.m_collisionHeight < 45) return 1; //medium
             else if (prefab.m_collisionHeight > 45) return 2; //high
@@ -135,7 +127,6 @@ namespace PloppableRICO
 
         public void RicoSettings(string ricoFileName, bool isLocal = false, bool isAuthored = false, bool isMod = false)
         {
-
             RicoSettings(new List<string>() { ricoFileName }, isLocal, isAuthored, isMod);
         }
 
@@ -154,34 +145,27 @@ namespace PloppableRICO
 
         void RicoSettings(Dictionary<string, string> foo, bool isLocal = false, bool isAuthored = false, bool isMod = false)
         {
-            var allParseErrors = new List<string>();
-
             foreach (var packageId in foo.Keys)
             {
                 var ricoDefPath = foo[packageId];
 
-                if (!File.Exists(ricoDefPath))
+                // If 'isLocal' is set then we've already read the local settings file in Loading.OnCreated().
+                if (!isLocal)
                 {
-                    continue;
-                }
-
-                PloppableRICODefinition ricoDef = null;
-
-                if (isLocal == true)
-                {
-                    ricoDef = RICOReader.ParseRICODefinition(packageId, ricoDefPath, insanityOK: true);
-                }
-                else {
-                    ricoDef = RICOReader.ParseRICODefinition(packageId, ricoDefPath);
-                }
-
-                if (ricoDef != null)
-                {
-                    //Debug.Log("RICO Def isnt null");
-                    var j = 0;
-                    foreach (var buildingDef in ricoDef.Buildings)
+                    if (!File.Exists(ricoDefPath))
                     {
-                        j++;
+                        continue;
+                    }
+                    else
+                    {
+                        Loading.ricoDef = RICOReader.ParseRICODefinition(packageId, ricoDefPath);
+                    }
+                }
+
+                if (Loading.ricoDef != null)
+                {
+                    foreach (var buildingDef in Loading.ricoDef.Buildings)
+                    {
                         BuildingInfo prefab;
 
                         prefab = Util.FindPrefab(buildingDef.name, packageId);
@@ -202,36 +186,22 @@ namespace PloppableRICO
                                 }
                                 else if (isMod)
                                 {
-                                    //Debug.Log(prefabHash[pf].name + " Has Mod");
                                     prefabHash[prefab].mod = buildingDef;
                                     prefabHash[prefab].hasMod = true;
                                 }
                             }
-
-                            allParseErrors.AddRange(ricoDef.errors);
                         }
                     }
                 }
-                else
-                {
-                    allParseErrors.AddRange(RICOReader.LastErrors);
-                }
             }
 
-            if (allParseErrors.Count > 0)
-            {
-                var errorMessage = new StringBuilder();
-                foreach (var error in allParseErrors)
-                    errorMessage.Append(error).Append('\n');
-
-                UIView.library.ShowModal<ExceptionPanel>("ExceptionPanel").SetMessage("Ploppable RICO", errorMessage.ToString(), true);
-            }
+            // Clean up after ourselves and reinitialise ricoDef for next pass to avoid false positives.
+            Loading.ricoDef = null;
         }
 
         //List of categories for the settings panel. 
         private Category AssignCategory(BuildingInfo prefab)
         {
-
             if (prefab.m_buildingAI is MonumentAI)
             {
                 return Category.Monument;
@@ -276,9 +246,6 @@ namespace PloppableRICO
             {
                 return Category.Commercial;
             }
-
-
-
             else return Category.Beautification;
 
         }

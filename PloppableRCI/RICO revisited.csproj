@@ -67,6 +67,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AI\WorkplaceAI.cs" />
+    <Compile Include="Debugging.cs" />
+    <Compile Include="Detours\CalculateHomeCount.cs" />
     <Compile Include="Translations.cs" />
     <Compile Include="ConvertPrefabs.cs" />
     <Compile Include="GUI\BuildingPreview.cs" />

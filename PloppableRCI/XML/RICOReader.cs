@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml.Serialization;
 using System.IO;
-using System.Xml;
-using System.Xml.Schema;
-using System.Text.RegularExpressions;
+
 using UnityEngine;
+
 
 namespace PloppableRICO
 {
@@ -53,13 +49,12 @@ namespace PloppableRICO
 #endif
     public class RICOReader
     {
-        public static List<String> LastErrors;
         public static ICrpDataProvider crpDataProvider;
 
         public static PloppableRICODefinition ParseRICODefinition( string packageName, string ricoDefPath, bool insanityOK = false  )
         {
             var s = new FileStream( ricoDefPath, FileMode.Open);
-            var r = ParseRICODefinition( packageName, s, insanityOK );
+            var r = DeserializeRICODefinition(packageName, s);
 
             if ( r != null )
                 r.sourceFile = new FileInfo( ricoDefPath );
@@ -69,30 +64,7 @@ namespace PloppableRICO
             return r;
         }
 
-        public static PloppableRICODefinition ParseRICODefinition( string packageName, Stream ricoDefStream, bool insanityOK = false )
-        {
 
-            LastErrors = new List<string>();
-
-            var ricoDef = DeserializeRICODefinition(packageName, ricoDefStream, LastErrors );
-            
-            if ( ricoDef != null )
-            {
-
-
-                if ( insanityOK || ricoDef.isValid )
-                {
-                    LastErrors.AddRange( ricoDef.errors.Select( (n,i) =>
-                        string.Format( "Error while processing RICO - file {0} at building #{1} ({2})", packageName, i, n ) 
-                    ) );
-                    return ricoDef;
-                }
-            }
-
-            //ricoDefStream.Close();
-
-            return null;
-        }
         private static void addCrpShit(PloppableRICODefinition ricoDef)
         {
             var crpPath = Util.crpFileIn( ricoDef.sourceFile.Directory );
@@ -100,15 +72,9 @@ namespace PloppableRICO
                 foreach ( var building in ricoDef.Buildings )
                     building.crpData = crpDataProvider.getCrpData( crpPath.FullName );
         } 
-        public static PloppableRICODefinition DeserializeRICODefinition( string packageName, string ricoDefPath )
-        {
-            var s = new FileStream(ricoDefPath, FileMode.Open);
-            var result = DeserializeRICODefinition( packageName, ricoDefPath );
-            result.sourceFile = new FileInfo( ricoDefPath );
-            return result;
-        }
 
-        public static PloppableRICODefinition DeserializeRICODefinition( string packageName, Stream ricoDefStream, List<string> errors)
+
+        public static PloppableRICODefinition DeserializeRICODefinition( string packageName, Stream ricoDefStream)
         {
 
             try
@@ -122,13 +88,28 @@ namespace PloppableRICO
                 XmlAttributeOverrides attrOverrides = new XmlAttributeOverrides();
                 attrOverrides.Add( typeof( RICOBuilding ), "Building", attrs );
 
-;
                 var streamReader = new System.IO.StreamReader(ricoDefStream);
                 var xmlSerializer = new XmlSerializer(typeof(PloppableRICODefinition), attrOverrides);
                 var result = xmlSerializer.Deserialize(streamReader) as PloppableRICODefinition;
 
-                foreach ( var building in result.Buildings )
-                    building.parent = result;
+                if (result.Buildings.Count == 0)
+                {
+                    Debugging.ErrorBuffer.AppendLine("No parseable buildings in XML settings file.");
+                }
+                else
+                {
+                    foreach (var building in result.Buildings)
+                    {
+                        if (building.errorCount == 0)
+                        {
+                            building.parent = result;
+                        }
+                        else
+                        {
+                            Debug.Log("RICO Revisited: failure to parse building " + building.name);
+                        }
+                    }
+                }
 
                 streamReader.Close();
                 result.clean();
@@ -136,7 +117,7 @@ namespace PloppableRICO
             }
             catch (Exception e)
             {
-                errors.Add( String.Format( "Unexpected Exception while deserializing RICO - file {0} ({1} [{2}])", packageName, e.Message, e.InnerException != null ? e.InnerException.Message : "" ) );
+                Debugging.ErrorBuffer.AppendLine(String.Format( "Unexpected Exception while deserializing RICO file {0} ({1} [{2}])", packageName, e.Message, e.InnerException != null ? e.InnerException.Message : ""));
                 return null;
             }
         }
