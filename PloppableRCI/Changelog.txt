@@ -1,4 +1,9 @@
-﻿Version 1.2
+﻿Version 1.2.1
+
+- Adjust error checking to allow for null subservices for office and industrial buildings.
+
+
+Version 1.2
 
 - Add override for residential building household counts on game load (only applies to buildings in LocalRICOSettings.xml with realistic pop mod option disabled)
 - Options panel UI improvements:

@@ -460,8 +460,12 @@ namespace PloppableRICO
                 }
                 if (!new Regex(@"^(high|low|generic|farming|oil|forest|ore|none|tourist|leisure|high tech|eco|high eco|low eco)$").IsMatch(subService))
                 {
-                    Debugging.ErrorBuffer.AppendLine("Building " + name + " has " + (service == "" ? "no " : "an invalid ") + "sub-service.");
-                    errorCount++;
+                    // Allow for null subservices for office and industrial buildings.
+                    if (!((subService == "") && (service == "office" || service == "industrial")))
+                    {
+                        Debugging.ErrorBuffer.AppendLine("Building " + name + " has " + (service == "" ? "no " : "an invalid ") + "sub-service.");
+                        errorCount++;
+                    }
                 }
 
                 if (!new Regex(@"^[12345]$" ).IsMatch(level.ToString()))
