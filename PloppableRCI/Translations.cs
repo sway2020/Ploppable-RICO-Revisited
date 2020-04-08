@@ -56,19 +56,19 @@ namespace PloppableRICO
             { "Low", "低密度" },
             { "High eco", "高密度ECO" },
             { "Low eco", "低密度ECO" },
-            { "Tourist", "旅游业" },
+            { "Tourism", "旅游业" },
             { "Leisure", "休闲业" },
             { "Eco (organic)", "本地有机作物" },
-            { "Forest", "林业" },
+            { "Forestry", "林业" },
             { "Oil", "石油业" },
             { "Ore", "矿业" },
             { "Farming", "农业" },
-            { "Res low", "低密度住宅区" },
-            { "Res high", "高密度住宅区" },
-            { "Com low", "低密度商业区" },
-            { "Com high", "高密度商业区" },
-            { "Organic Com", "本地有机作物" },
-            { "Self-sufficient", "自给建筑" },
+            { "Residential low", "低密度住宅区" },
+            { "Residential high", "高密度住宅区" },
+            { "Commercial low", "低密度商业区" },
+            { "Commercial high", "高密度商业区" },
+            { "Organic commercial", "本地有机作物" },
+            { "Self-sufficient housing", "自给建筑" },
             { "Save", "保存" },
             { "Add local", "添加到本地" },
             { "Remove local", "从本地删除" },
@@ -85,6 +85,27 @@ namespace PloppableRICO
             { "Allows Plopping of RICO Buildings (fork of AJ3D's original with bugfixes and new features)", "允许对RICO建筑（AJ3D原始版本的分叉，带有错误修复和新功能）进行噗通" },
             { "Original Ploppable RICO mod detected - RICO Revisited is shutting down to protect your game.  Only ONE of these mods can be enabled at the same time - please choose one and unsubscribe from the other!", "请取消原先版本的Ploppable RICO" },
             { "", "" }
+        };
+
+
+        public static string[] UICategory = 
+        {
+            Translations.GetTranslation("Residential low"),
+            Translations.GetTranslation("Residential high"),
+            Translations.GetTranslation("Commercial low"),
+            Translations.GetTranslation("Commercial high"),
+            Translations.GetTranslation("Office"),
+            Translations.GetTranslation("Industrial"),
+            Translations.GetTranslation("Farming"),
+            Translations.GetTranslation("Forestry"),
+            Translations.GetTranslation("Oil"),
+            Translations.GetTranslation("Ore"),
+            Translations.GetTranslation("Tourism"),
+            Translations.GetTranslation("Leisure"),
+            Translations.GetTranslation("Organic commercial"),
+            Translations.GetTranslation("IT cluster"),
+            Translations.GetTranslation("Self-sufficient housing"),
+            Translations.GetTranslation("None")
         };
     }
 }

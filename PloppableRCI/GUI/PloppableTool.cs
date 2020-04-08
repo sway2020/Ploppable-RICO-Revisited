@@ -175,6 +175,7 @@ namespace PloppableRICO
                     TabButtons[i].focusedBgSprite = "SubBarButtonBaseFocused";
                     TabButtons[i].state = UIButton.ButtonState.Normal;
                     TabButtons[i].name = Names[i] + "Button";
+                    TabButtons[i].tooltip = Translations.UICategory[i];
                     TabButtons[i].tabStrip = true;
 
                     TabSprites[i] = new UISprite();
