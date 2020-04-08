@@ -611,6 +611,9 @@ namespace PloppableRICO
                 level.items = Level;
                 subService.items = ComSub;
             }
+
+            // Reset subservice on change
+            subService.selectedIndex = 0;
         }
     }
 }
