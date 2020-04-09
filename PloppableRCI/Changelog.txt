@@ -1,6 +1,13 @@
-﻿Version 1.2.1
+﻿Version 1.2.2
 
-- Adjust error checking to allow for null subservices for office and industrial buildings.
+- Where residential buildings have no homes but do have workplaces, use workplace count for home count instead
+- Buildings with a UI category of 'commercial' are now corrected to 'comhigh'
+- Improve some error messages
+
+
+Version 1.2.1
+
+- Adjust error checking to allow for null subservices for office and industrial buildings
 
 
 Version 1.2

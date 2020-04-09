@@ -3,8 +3,9 @@ using System.IO;
 using System.Linq;
 using System.ComponentModel;
 using System.Xml.Serialization;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using UnityEngine;
+
 
 namespace PloppableRICO
 {
@@ -455,7 +456,7 @@ namespace PloppableRICO
 
                 if (!new Regex(@"^(residential|commercial|office|industrial|extractor|none|dummy)$").IsMatch(service))
                 {
-                    Debugging.ErrorBuffer.AppendLine("Building " + name + " has " + (service == "" ? "no " : "an invalid ") + "service.");
+                    Debugging.ErrorBuffer.AppendLine("Building '" + name + "' has " + (service == "" ? "no " : "an invalid ") + "service.");
                     errorCount++;
                 }
                 if (!new Regex(@"^(high|low|generic|farming|oil|forest|ore|none|tourist|leisure|high tech|eco|high eco|low eco)$").IsMatch(subService))
@@ -463,20 +464,29 @@ namespace PloppableRICO
                     // Allow for null subservices for office and industrial buildings.
                     if (!((subService == "") && (service == "office" || service == "industrial")))
                     {
-                        Debugging.ErrorBuffer.AppendLine("Building " + name + " has " + (service == "" ? "no " : "an invalid ") + "sub-service.");
+                        Debugging.ErrorBuffer.AppendLine("Building '" + name + "' has " + (service == "" ? "no " : "an invalid ") + "sub-service.");
                         errorCount++;
                     }
                 }
 
                 if (!new Regex(@"^[12345]$" ).IsMatch(level.ToString()))
                 {
-                    Debugging.ErrorBuffer.AppendLine("Building " + name + " has an invalid level.");
+                    Debugging.ErrorBuffer.AppendLine("Building '" + name + "' has a invalid level '" + level.ToString()+"'.");
                     errorCount++;
                 }
 
+
+                // Fixes for malformed uiCategories (I'm looking at you, Cable Building).
+                if (uiCategory == "commercial")
+                {
+                    Debug.Log("RICO Revisited: building '" + name + "' has invalid ui-category '" + uiCategory + "' but has zero homes; using comhigh instead.");
+                    uiCategory = "comhigh";
+                }
+
+
                 if (!new Regex(@"^(comlow|comhigh|reslow|reshigh|office|industrial|oil|ore|farming|forest|tourist|leisure|organic|hightech|selfsufficient)$").IsMatch(uiCategory))
                 {
-                    Debugging.ErrorBuffer.AppendLine("Building " + name + " has an invalid ui-category.");
+                    Debugging.ErrorBuffer.AppendLine("Building '" + name + "' has an invalid ui-category '" + uiCategory + "'.");
                     errorCount++;
                 }
 
@@ -484,28 +494,37 @@ namespace PloppableRICO
                 {
                     if (homeCount == 0)
                     {
-                        Debugging.ErrorBuffer.AppendLine("Building " + name + " is 'residential' but no homes are set.");
-                        errorCount++;
+                        // If homeCount is zero, check to see if any workplace count has been entered instead (I'm looking at you, One Vanderbilt - New York).
+                        if (_workplaces.Sum() > 0)
+                        {
+                            homeCount = _workplaces.Sum();
+                            Debug.Log("RICO Revisited: building '" + name + "' is 'residential' but has zero homes; using workplaces count of " + homeCount + " instead.");
+                        }
+                        else
+                        {
+                            Debugging.ErrorBuffer.AppendLine("Building '" + name + "' is 'residential' but no homes are set.");
+                            errorCount++;
+                        }
                     }
                 }
                 else
                 {
                     if ((workplaceCount == 0) && service != "" && service != "none")
                     {
-                        Debugging.ErrorBuffer.AppendLine("Building " + name + " provides " + service + " jobs but no jobs are set.");
+                        Debugging.ErrorBuffer.AppendLine("Building '" + name + "' provides " + service + " jobs but no jobs are set.");
                         errorCount++;
                     }
                 }
 
                 if (!(RegexXML4IntegerValues.IsMatch(workplacesString) || RegexXmlIntegerValue.IsMatch(workplacesString)))
                 {
-                    Debugging.ErrorBuffer.AppendLine("Building " + name + " has an invalid value for 'workplaces'. Must be either a positive integer number or a comma separated list of 4 positive integer numbers.");
+                    Debugging.ErrorBuffer.AppendLine("Building '" + name + "' has an invalid value for 'workplaces'. Must be either a positive integer number or a comma separated list of 4 positive integer numbers.");
                     errorCount++;
                 }
 
                 if (!RegexXML4IntegerValues.IsMatch(workplaceDeviationString))
                 {
-                    Debugging.ErrorBuffer.AppendLine("Building " + name + " has an invalid value for 'deviations'. Must be either a positive integer number or a comma separated list of 4 positive integer numbers.");
+                    Debugging.ErrorBuffer.AppendLine("Building '" + name + "' has an invalid value for 'deviations'. Must be either a positive integer number or a comma separated list of 4 positive integer numbers.");
                     errorCount++;
                 }
 
@@ -523,7 +542,7 @@ namespace PloppableRICO
             set { _crpData = value; steamId = value.SteamId; }
         }
         [XmlIgnore]
-        public Object previewImage { get { return crpData != null ? crpData.PreviewImage : null; } }
+        public object previewImage { get { return crpData != null ? crpData.PreviewImage : null; } }
         [XmlIgnore]
         public string tags { get { return crpData != null ? crpData.Tags : ""; } }
         [XmlIgnore]
