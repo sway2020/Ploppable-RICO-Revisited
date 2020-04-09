@@ -5,7 +5,7 @@ namespace PloppableRICO
 {
     public class PloppableRICOMod : IUserMod
 	{
-		public static string version = "1.2.2";
+		public static string version = "1.2.3";
 
 		public string Name => "RICO Revisited " + version;
 

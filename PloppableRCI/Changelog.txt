@@ -1,4 +1,8 @@
-﻿- Fix workplace allocation when old-format workplace totals are used (includes correction of rounding errors)
+﻿Version 1.2.3
+
+- Now intelligently guesses correct UI category when an invalid category has been provided
+- Fix workplace allocation when old-format workplace totals are used (includes correction of rounding errors)
+
 
 Version 1.2.2
 

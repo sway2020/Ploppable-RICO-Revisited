@@ -492,18 +492,78 @@ namespace PloppableRICO
                 }
 
 
-                // Fixes for malformed uiCategories (I'm looking at you, Cable Building).
-                if (uiCategory == "commercial")
-                {
-                    Debug.Log("RICO Revisited: building '" + name + "' has invalid ui-category '" + uiCategory + "' but has zero homes; using comhigh instead.");
-                    uiCategory = "comhigh";
-                }
-
-
                 if (!new Regex(@"^(comlow|comhigh|reslow|reshigh|office|industrial|oil|ore|farming|forest|tourist|leisure|organic|hightech|selfsufficient)$").IsMatch(uiCategory))
                 {
-                    Debugging.ErrorBuffer.AppendLine("Building '" + name + "' has an invalid ui-category '" + uiCategory + "'.");
-                    errorCount++;
+                    // Invalid UI Category; calculate new one from scratch.
+                    string newCategory = string.Empty;
+
+                    switch(service)
+                    {
+                        case "residential":
+                            switch (subService)
+                            {
+                                case "low":
+                                    newCategory = "reslow";
+                                    break;
+                                case "high eco":
+                                case "low eco":
+                                    newCategory = "selfsufficient";
+                                    break;
+                                default:
+                                    newCategory = "reshigh";
+                                    break;
+                            }
+                            break;
+                        case "industrial":
+                            switch(subService)
+                            {
+                                case "farming":
+                                case "forest":
+                                case "oil":
+                                case "ore":
+                                    newCategory = subService;
+                                    break;
+                                default:
+                                    newCategory = "industrial";
+                                    break;
+                            }
+                            break;
+                        case "commercial":
+                            switch(subService)
+                            {
+                                case "low":
+                                    newCategory = "comlow";
+                                    break;
+                                case "tourist":
+                                case "leisure":
+                                    newCategory = subService;
+                                    break;
+                                case "eco":
+                                    newCategory = "organic";
+                                    break;
+                                default:
+                                    newCategory = "comhigh";
+                                    break;
+                            }
+                            break;
+                        case "office":
+                            if (subService == "high tech")
+                                newCategory = "hightech";
+                            else
+                                newCategory = "generic";
+                            break;
+                    }
+
+                    if (string.IsNullOrEmpty(newCategory))
+                    {
+                        Debugging.ErrorBuffer.AppendLine("Building '" + name + "' has an invalid ui-category '" + uiCategory + "'.");
+                        errorCount++;
+                    }
+                    else
+                    {
+                        Debug.Log("RICO Revisited: building '" + name + "' has an invalid ui-category '" + uiCategory + "'; reverting to '" + newCategory + "'.");
+                        uiCategory = newCategory;
+                    }
                 }
 
                 if (service == "residential")
