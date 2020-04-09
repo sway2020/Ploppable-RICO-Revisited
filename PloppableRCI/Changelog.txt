@@ -2,6 +2,7 @@
 
 - Now intelligently guesses correct UI category when an invalid category has been provided
 - Fix workplace allocation when old-format workplace totals are used (includes correction of rounding errors)
+- Improved resiliance from invalid office and industrial subservices
 
 
 Version 1.2.2
@@ -29,7 +30,7 @@ Version 1.2
 - Building levels now sanity checked and overridden when out-of-bounds (no more crashes due to insane values)
 - Code cleanups and streamlining
 
-
+dw
 Version 1.1.1
 
 - Remove development logging

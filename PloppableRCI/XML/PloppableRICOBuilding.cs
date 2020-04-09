@@ -478,7 +478,7 @@ namespace PloppableRICO
                 if (!new Regex(@"^(high|low|generic|farming|oil|forest|ore|none|tourist|leisure|high tech|eco|high eco|low eco)$").IsMatch(subService))
                 {
                     // Allow for null subservices for office and industrial buildings.
-                    if (!((subService == "") && (service == "office" || service == "industrial")))
+                    if (!(service == "office" || service == "industrial"))
                     {
                         Debugging.ErrorBuffer.AppendLine("Building '" + name + "' has " + (service == "" ? "no " : "an invalid ") + "sub-service.");
                         errorCount++;
