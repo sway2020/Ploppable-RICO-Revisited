@@ -1,4 +1,6 @@
-﻿Version 1.2.2
+﻿- Fix workplace allocation when old-format workplace totals are used (includes correction of rounding errors)
+
+Version 1.2.2
 
 - Where residential buildings have no homes but do have workplaces, use workplace count for home count instead
 - Buildings with a UI category of 'commercial' are now corrected to 'comhigh'

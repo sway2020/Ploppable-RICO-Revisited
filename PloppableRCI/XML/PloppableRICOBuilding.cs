@@ -273,9 +273,6 @@ namespace PloppableRICO
                 {
                     _oldWorkplacesStyle = true;
                     workplaces = new int[] { Convert.ToInt32(value), 0, 0, 0 };
-                    // Extra assignment as the above isn't working in some cases.
-                    // TODO - investigate.
-                    workplaces[0] = Convert.ToInt32(value);
                 }
                 else
                 {
@@ -395,18 +392,22 @@ namespace PloppableRICO
                 // TODO tidyup
                 if ( oldWorkplacesStyle )//&& _workplaces[1] < 0 )
                 {
+                    var originalWorkplaces = _workplaces[0];
                     var d = Util.WorkplaceDistributionOf( service, subService, "Level" + level );
                     if ( d == null )
                         d = new int[] { 100, 100, 0, 0, 0 };
 
-                    var a = WorkplaceAIHelper.distributeWorkplaceLevels( _workplaces[0], d, new int [] { 0,0,0,0 } );
-                    if ( a.Length == 3 )
-                        Console.WriteLine( a );
+                    var a = WorkplaceAIHelper.distributeWorkplaceLevels(originalWorkplaces, d, new int [] { 0,0,0,0 });
 
-                    for ( var i = 0 ; i < 4 ; i++ )
+                    for (var i = 0; i < 4; i++)
+                    {
                         _workplaces[i] = a[i];
+                    }
 
-                    Debug.Log("RICO Revisited: " + _workplaces[0] + " old-format workplaces for building '" + name + "'; replacing with workplaces " + _workplaces[0] + " " + _workplaces[1] + " " + _workplaces[2] + " " + _workplaces[3] + ".");
+                    // Check and adjust for any rounding errors, assigning 'leftover' jobs to the lowest education level.
+                    _workplaces[0] += (originalWorkplaces - _workplaces.Sum());
+
+                    Debug.Log("RICO Revisited: " + originalWorkplaces + " old-format workplaces for building '" + name + "'; replacing with workplaces " + _workplaces[0] + " " + _workplaces[1] + " " + _workplaces[2] + " " + _workplaces[3] + ".");
 
                     // Reset flag; these workplaces are now updated.
                     _oldWorkplacesStyle = false;
