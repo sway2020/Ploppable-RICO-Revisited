@@ -269,18 +269,26 @@ namespace PloppableRICO
             {
                 var old = workplaces;
                 // Split value. and convert to int[] if the string is well formed
-                if ( RegexXmlIntegerValue.IsMatch( value ) )
+                if (RegexXmlIntegerValue.IsMatch(value))
                 {
                     _oldWorkplacesStyle = true;
-                    workplaces = new int[] { Convert.ToInt32( value ), -1, -1, -1 };
-                }
-                else if ( RegexXML4IntegerValues.IsMatch( value ) )
-                {
-                    workplaces = value.Replace( " ", "" ).Split( ',' ).Select( n => Convert.ToInt32( n ) ).ToArray();
+                    workplaces = new int[] { Convert.ToInt32(value), 0, 0, 0 };
+                    // Extra assignment as the above isn't working in some cases.
+                    // TODO - investigate.
+                    workplaces[0] = Convert.ToInt32(value);
                 }
                 else
                 {
-                    workplaces = new int[] { 0, 0, 0, 0 };
+                    _oldWorkplacesStyle = false;
+
+                    if (RegexXML4IntegerValues.IsMatch(value))
+                    {
+                        workplaces = value.Replace(" ", "").Split(',').Select(n => Convert.ToInt32(n)).ToArray();
+                    }
+                    else
+                    {
+                        workplaces = new int[] { 0, 0, 0, 0 };
+                    }
                 }
                 HandleSetterEvents( !old.SequenceEqual( workplaces ) );
             }
@@ -383,7 +391,9 @@ namespace PloppableRICO
                 if ( service == "residential" )
                     return new int[] { 0, 0, 0, 0 };
 
-                if ( oldWorkplacesStyle && _workplaces[1] < 0 )
+                // Quickfix - replace old tag method of setting workplace levels to -1 (which was interfering with total job counts) with just toggling boolean flag.
+                // TODO tidyup
+                if ( oldWorkplacesStyle )//&& _workplaces[1] < 0 )
                 {
                     var d = Util.WorkplaceDistributionOf( service, subService, "Level" + level );
                     if ( d == null )
@@ -395,6 +405,11 @@ namespace PloppableRICO
 
                     for ( var i = 0 ; i < 4 ; i++ )
                         _workplaces[i] = a[i];
+
+                    Debug.Log("RICO Revisited: " + _workplaces[0] + " old-format workplaces for building '" + name + "'; replacing with workplaces " + _workplaces[0] + " " + _workplaces[1] + " " + _workplaces[2] + " " + _workplaces[3] + ".");
+
+                    // Reset flag; these workplaces are now updated.
+                    _oldWorkplacesStyle = false;
                 }
                return _workplaces;
             }
