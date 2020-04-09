@@ -94,7 +94,7 @@ namespace PloppableRICO
 
                 if (result.Buildings.Count == 0)
                 {
-                    Debugging.ErrorBuffer.AppendLine("No parseable buildings in XML settings file.");
+                    Debug.Log("RICO Revisited: no parseable buildings in XML settings file.");
                 }
                 else
                 {

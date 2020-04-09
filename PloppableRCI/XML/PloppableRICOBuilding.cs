@@ -174,7 +174,7 @@ namespace PloppableRICO
 
                 if (_level != newLevel)
                 {
-                    Debugging.ErrorBuffer.AppendLine("Building " + name + " has invalid level " + _level + ".  Resetting to level " + newLevel + ".");
+                    Debug.Log("RICO Revisited: building '" + name + "' has invalid level " + _level + ".  Resetting to level " + newLevel + ".");
                     _level = newLevel;
                 }
                 return _level;
@@ -554,6 +554,7 @@ namespace PloppableRICO
                             break;
                     }
 
+                    // If newCategory is still empty, we didn't work it out - fatal error.
                     if (string.IsNullOrEmpty(newCategory))
                     {
                         Debugging.ErrorBuffer.AppendLine("Building '" + name + "' has an invalid ui-category '" + uiCategory + "'.");
