@@ -27,7 +27,7 @@ namespace PloppableRICO
         public BuildingData currentSelection;
         private UITitleBar m_title;
         private UIBuildingFilter m_filter;
-        private UIBuildingOptions m_buildingOptions;
+        public UIBuildingOptions m_buildingOptions;
         public UISavePanel m_savePanel;
         private UIBuildingPreview m_buildingPreview;
         private UIFastList m_buildingSelection;

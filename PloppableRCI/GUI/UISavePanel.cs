@@ -176,6 +176,8 @@ namespace PloppableRICO
 
             }
 
+            // Force an update of the settings panel with current values.
+            RICOSettingsPanel.instance.m_buildingOptions.SelectionChanged(currentSelection);
         }
     }
 }

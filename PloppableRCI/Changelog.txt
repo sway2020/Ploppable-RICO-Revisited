@@ -4,6 +4,8 @@
 - Improve building level error checking and correction
 - Improve feedback on whether errors are in local or author settings
 - Improve job level breakdowns where old-style workplace counts are used alongside unxepected subservice definitions
+- Options panel now refreshes when settings are saved
+- Correct rounding errors in options panel when calculating workplace breakdowns
 
 
 Version 1.2.3
