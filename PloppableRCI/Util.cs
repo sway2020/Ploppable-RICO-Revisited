@@ -94,7 +94,17 @@ namespace PloppableRICO
                 // If not, try adding level.
                 workplaceDistribution = distributions[service + subservice + level];
             }
-            
+            else if (distributions.ContainsKey(service + "none" + level))
+            {
+                // If not, try using "none" for subservice.
+                workplaceDistribution = distributions[service + "none" + level];
+            }
+            else if (distributions.ContainsKey(service + "none" + level))
+            {
+                // If not, try using "generic" for subservice.
+                workplaceDistribution = distributions[service + "generic" + level];
+            }
+
             if (workplaceDistribution != null)
             {
                 // We've got a distribution; return it.

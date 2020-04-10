@@ -1,8 +1,9 @@
 ﻿
 - Configuration errors are now clearly divided into fatal and non-fatal categories
 - Non-fatal errors for author settings are now quietly logged and do not generate an alert
-- Improved building level error checking and correction
-- Improved feedback on whether errors are in local or author settings
+- Improve building level error checking and correction
+- Improve feedback on whether errors are in local or author settings
+- Improve job level breakdowns where old-style workplace counts are used alongside unxepected subservice definitions
 
 
 Version 1.2.3
