@@ -1,4 +1,11 @@
-﻿Version 1.2.3
+﻿
+- Configuration errors are now clearly divided into fatal and non-fatal categories
+- Non-fatal errors for author settings are now quietly logged and do not generate an alert
+- Improved building level error checking and correction
+- Improved feedback on whether errors are in local or author settings
+
+
+Version 1.2.3
 
 - Now intelligently guesses correct UI category when an invalid category has been provided
 - Fix workplace allocation when old-format workplace totals are used (includes correction of rounding errors)

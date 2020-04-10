@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
@@ -166,17 +167,8 @@ namespace PloppableRICO
         [XmlAttribute( "level" )]
         public int level
         {
-            // Sanity check XML value; invalid levels are recoverable, just need to set to min of 0 or max of 3 or 5.
             get
             {
-                int maxLevel = service == "residential" ? 5 : 3;
-                int newLevel = Math.Min(maxLevel, Math.Max(1, _level));
-
-                if (_level != newLevel)
-                {
-                    Debug.Log("RICO Revisited: building '" + name + "' has invalid level " + _level + ".  Resetting to level " + newLevel + ".");
-                    _level = newLevel;
-                }
                 return _level;
             }
             set
@@ -378,9 +370,6 @@ namespace PloppableRICO
         public int workplaceCount { get { return workplaces.Sum(); } }
 
         [XmlIgnore]
-        public bool isValid { get { return errorCount == 0; } }
-
-        [XmlIgnore]
         public int[] workplaces
         {
             get
@@ -458,38 +447,66 @@ namespace PloppableRICO
         private int[] _workplaceDeviations;
 
         [XmlIgnore]
-        public int errorCount
+        public StringBuilder fatalErrors
         {
+            // Detect and report any fatal errors.
             get
             {
-                int errorCount = 0;
+                var errors = new StringBuilder();
 
-                if (!new Regex(String.Format(@"[^<>:/\\\|\?\*{0}]", "\"" )).IsMatch(name) || name == "* unnamed" )
+                // Name errors.  Can't do anything with an invalid name.
+                if (!new Regex(String.Format(@"[^<>:/\\\|\?\*{0}]", "\"")).IsMatch(name) || name == "* unnamed")
                 {
-                    Debugging.ErrorBuffer.AppendLine(String.Format("A building has {0} name.", name == "" || name == "* unnamed" ? "no" : "a funny" ));
-                    errorCount++;
+                    errors.AppendLine(String.Format("A building has {0} name.", name == "" || name == "* unnamed" ? "no" : "a funny"));
                 }
 
+                // Service errors.  Can't do anything with an invalid service.
                 if (!new Regex(@"^(residential|commercial|office|industrial|extractor|none|dummy)$").IsMatch(service))
                 {
-                    Debugging.ErrorBuffer.AppendLine("Building '" + name + "' has " + (service == "" ? "no " : "an invalid ") + "service.");
-                    errorCount++;
+                    errors.AppendLine("Building '" + name + "' has " + (service == "" ? "no " : "an invalid ") + "service.");
                 }
+
+
+                // Sub-service errors.  We can work with office or industrial, but not commercial or residential.
                 if (!new Regex(@"^(high|low|generic|farming|oil|forest|ore|none|tourist|leisure|high tech|eco|high eco|low eco)$").IsMatch(subService))
                 {
-                    // Allow for null subservices for office and industrial buildings.
+                    // Allow for invalid subservices for office and industrial buildings.
                     if (!(service == "office" || service == "industrial"))
                     {
-                        Debugging.ErrorBuffer.AppendLine("Building '" + name + "' has " + (service == "" ? "no " : "an invalid ") + "sub-service.");
-                        errorCount++;
+                        errors.AppendLine("Building '" + name + "' has " + (service == "" ? "no " : "an invalid ") + "sub-service.");
+                    }
+                    else
+                    {
+                        // If office or industrial, at least reset subservice to something decent.
+                        Debug.Log("RICO Revisited: Building '" + name + "' has " + (service == "" ? "no " : "an invalid ") + "sub-service.  Resetting to 'generic'.");
+                        subService = "generic";
                     }
                 }
 
-                if (!new Regex(@"^[12345]$" ).IsMatch(level.ToString()))
+                // Workplaces.  Need something to go with, here.
+                if (!(RegexXML4IntegerValues.IsMatch(workplacesString) || RegexXmlIntegerValue.IsMatch(workplacesString)))
                 {
-                    Debugging.ErrorBuffer.AppendLine("Building '" + name + "' has a invalid level '" + level.ToString()+"'.");
-                    errorCount++;
+                    errors.AppendLine("Building '" + name + "' has an invalid value for 'workplaces'. Must be either a positive integer number or a comma separated list of 4 positive integer numbers.");
                 }
+
+                // Deviations.  Also need something.
+                if (!RegexXML4IntegerValues.IsMatch(workplaceDeviationString))
+                {
+                    errors.AppendLine("Building '" + name + "' has an invalid value for 'deviations'. Must be either a positive integer number or a comma separated list of 4 positive integer numbers.");
+                }
+
+                return errors;
+            }
+        }
+
+        [XmlIgnore]
+        public StringBuilder nonFatalErrors
+        {
+            // Errors that we can recover from, or at least work with.
+            // Should only be used after fatalErrors so that we know we've got legitimate service and sub-service values to work with.
+            get
+            {
+                var errors = new StringBuilder();
 
 
                 if (!new Regex(@"^(comlow|comhigh|reslow|reshigh|office|industrial|oil|ore|farming|forest|tourist|leisure|organic|hightech|selfsufficient)$").IsMatch(uiCategory))
@@ -554,19 +571,19 @@ namespace PloppableRICO
                             break;
                     }
 
-                    // If newCategory is still empty, we didn't work it out - fatal error.
+                    // If newCategory is still empty, we didn't work it out.
                     if (string.IsNullOrEmpty(newCategory))
                     {
-                        Debugging.ErrorBuffer.AppendLine("Building '" + name + "' has an invalid ui-category '" + uiCategory + "'.");
-                        errorCount++;
+                        errors.AppendLine("Building '" + name + "' has an invalid ui-category '" + uiCategory + "'.");
                     }
                     else
                     {
-                        Debug.Log("RICO Revisited: building '" + name + "' has an invalid ui-category '" + uiCategory + "'; reverting to '" + newCategory + "'.");
+                        errors.AppendLine("RICO Revisited: building '" + name + "' has an invalid ui-category '" + uiCategory + "'; reverting to '" + newCategory + "'.");
                         uiCategory = newCategory;
                     }
                 }
 
+                // Check home and workplace counts, as appropriate.
                 if (service == "residential")
                 {
                     if (homeCount == 0)
@@ -579,8 +596,7 @@ namespace PloppableRICO
                         }
                         else
                         {
-                            Debugging.ErrorBuffer.AppendLine("Building '" + name + "' is 'residential' but no homes are set.");
-                            errorCount++;
+                            errors.AppendLine("Building '" + name + "' is 'residential' but no homes are set.");
                         }
                     }
                 }
@@ -588,24 +604,20 @@ namespace PloppableRICO
                 {
                     if ((workplaceCount == 0) && service != "" && service != "none")
                     {
-                        Debugging.ErrorBuffer.AppendLine("Building '" + name + "' provides " + service + " jobs but no jobs are set.");
-                        errorCount++;
+                        errors.AppendLine("Building '" + name + "' provides " + service + " jobs but no jobs are set.");
                     }
                 }
 
-                if (!(RegexXML4IntegerValues.IsMatch(workplacesString) || RegexXmlIntegerValue.IsMatch(workplacesString)))
+                // Building level.  Basically check and clamp to 1 <= level <= maximum level (for this category and sub-category combination).
+                int newLevel = Math.Min(Math.Max(level, 1), maxLevel);
+
+                if (newLevel != level)
                 {
-                    Debugging.ErrorBuffer.AppendLine("Building '" + name + "' has an invalid value for 'workplaces'. Must be either a positive integer number or a comma separated list of 4 positive integer numbers.");
-                    errorCount++;
+                    errors.AppendLine("Building '" + name + "' has invalid level '" + level.ToString() + "'.  Resetting to level 1.");
+                    level = newLevel;
                 }
 
-                if (!RegexXML4IntegerValues.IsMatch(workplaceDeviationString))
-                {
-                    Debugging.ErrorBuffer.AppendLine("Building '" + name + "' has an invalid value for 'deviations'. Must be either a positive integer number or a comma separated list of 4 positive integer numbers.");
-                    errorCount++;
-                }
-
-                return errorCount;
+                return errors;
             }
         }
 

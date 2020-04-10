@@ -112,8 +112,8 @@ namespace PloppableRICO
         public static int MaxLevelOf(string service, string subservice)
         {
             return service == "residential" ? 5 :
-                   service == "office" ? 3 :
-                   service == "commercial" ? 3 :
+                   service == "office" && subservice != "high tech" ? 3 :
+                   service == "commercial" && subservice != "tourist" && subservice != "leisure" ? 3 :
                    service == "industrial" && subservice == "generic" ? 3 :
                    1;
         }
