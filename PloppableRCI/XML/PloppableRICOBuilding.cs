@@ -613,7 +613,15 @@ namespace PloppableRICO
 
                 if (newLevel != level)
                 {
-                    errors.AppendLine("Building '" + name + "' has invalid level '" + level.ToString() + "'.  Resetting to level 1.");
+                    if (newLevel == 1)
+                    {
+                        // Don't bother reporting errors for levels reset to 1, as those are generally for buildings that only have one level anwyay and it's just annoying users.
+                        Debug.Log("RICO Revisited: building '" + name + "' has invalid level '" + level.ToString() + "'.Resetting to level '" + newLevel + "'.");
+                    }
+                    else
+                    {
+                        errors.AppendLine("Building '" + name + "' has invalid level '" + level.ToString() + "'.  Resetting to level '" + newLevel + "'.");
+                    }
                     level = newLevel;
                 }
 

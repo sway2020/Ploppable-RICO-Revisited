@@ -1,4 +1,9 @@
-﻿Version 1.2.4
+﻿Version 1.2.5
+
+- Building level errors in local settings for single-level building categories are now quietly logged
+
+
+Version 1.2.4
 
 - Configuration errors are now clearly divided into fatal and non-fatal categories
 - Non-fatal errors for author settings are now quietly logged and do not generate an alert
