@@ -1,4 +1,5 @@
-﻿
+﻿Version 1.2.4
+
 - Configuration errors are now clearly divided into fatal and non-fatal categories
 - Non-fatal errors for author settings are now quietly logged and do not generate an alert
 - Improve building level error checking and correction
