@@ -578,7 +578,7 @@ namespace PloppableRICO
                     }
                     else
                     {
-                        errors.AppendLine("RICO Revisited: building '" + name + "' has an invalid ui-category '" + uiCategory + "'; reverting to '" + newCategory + "'.");
+                        errors.AppendLine("Building '" + name + "' has an invalid ui-category '" + uiCategory + "'; reverting to '" + newCategory + "'.");
                         uiCategory = newCategory;
                     }
                 }
@@ -592,7 +592,7 @@ namespace PloppableRICO
                         if (_workplaces.Sum() > 0)
                         {
                             homeCount = _workplaces.Sum();
-                            Debug.Log("RICO Revisited: building '" + name + "' is 'residential' but has zero homes; using workplaces count of " + homeCount + " instead.");
+                            errors.AppendLine("Building '" + name + "' is 'residential' but has zero homes; using workplaces count of " + homeCount + " instead.");
                         }
                         else
                         {
