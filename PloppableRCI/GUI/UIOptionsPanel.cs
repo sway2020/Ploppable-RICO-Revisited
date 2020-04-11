@@ -589,7 +589,7 @@ namespace PloppableRICO
                 level.items = Level;
                 subService.items = OfficeSub;
                 // Maximum legitimate level is 3 (selectedIndex is level - 1)
-                level.selectedIndex = Math.Max(level.selectedIndex, 2);
+                level.selectedIndex = Math.Min(level.selectedIndex, 2);
             }
             else if (service == "industrial")
             {
@@ -599,7 +599,7 @@ namespace PloppableRICO
                 pollutionEnabled.enabled = true;
                 pollutionEnabled.parent.Show();
                 // Maximum legitimate level is 3 (selectedIndex is level - 1)
-                level.selectedIndex = Math.Max(level.selectedIndex, 2);
+                level.selectedIndex = Math.Min(level.selectedIndex, 2);
             }
             else if (service == "extractor")
             {
@@ -680,18 +680,22 @@ namespace PloppableRICO
                     // Commercial.
                     switch (subService.selectedIndex)
                     {
+                        // For commercial, also set the correct available levels in the menus depending on specialisation.
                         case 0:
                             // High commercial.
                             uiCategory.selectedIndex = 3;
+                            level.items = Level;
                             break;
                         case 1:
                             // Low commercial.
                             uiCategory.selectedIndex = 2;
+                            subService.items = Level;
                             break;
                         default:
                             // Tourist, leisure or eco - also reset level.
                             uiCategory.selectedIndex = subService.selectedIndex + 8;
                             level.selectedIndex = 0;
+                            level.items = extLevel;
                             break;
                     }
                     break;

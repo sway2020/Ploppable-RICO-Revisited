@@ -1,4 +1,7 @@
-﻿Version 1.2.5
+﻿- Suppress errors for buildings that are deactivated
+- Tweak options panel level menu update on service and subservice changes
+
+Version 1.2.5
 
 - Building level errors in local settings for single-level building categories are now quietly logged
 

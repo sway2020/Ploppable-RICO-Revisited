@@ -116,9 +116,9 @@ namespace PloppableRICO
                             {
                                 // Errors found - how we report them depends on whether its local or author settings (we're assuming mod settings are fine).
 
-                                if (insanityOK)
+                                if (insanityOK && building.ricoEnabled)
                                 {
-                                    // Errors in local settings need to be reported direct to user.
+                                    // Errors in local settings need to be reported direct to user, except for buildings that aren't activated in RICO.
                                     Debugging.ErrorBuffer.Append(errorList.ToString());
                                     Debug.Log("RICO Revisited: non-fatal errors for building '" + building.name + "' in local settings.");
                                 }
