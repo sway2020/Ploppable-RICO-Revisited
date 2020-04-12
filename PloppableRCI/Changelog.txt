@@ -1,4 +1,6 @@
-﻿- Add override for building levels on game load (only applies to buildings in LocalRICOSettings.xml)
+﻿Version 1.3
+
+- Add override for building levels on game load (only applies to buildings in LocalRICOSettings.xml)
 - Suppress errors for buildings that are deactivated
 - Tweak options panel level menu update on service and subservice changes
 - Logging tweaks
