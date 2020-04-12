@@ -68,7 +68,7 @@
   <ItemGroup>
     <Compile Include="AI\WorkplaceAI.cs" />
     <Compile Include="Debugging.cs" />
-    <Compile Include="Detours\CalculateHomeCount.cs" />
+    <Compile Include="Patches\CalculateHomeCount.cs" />
     <Compile Include="Translations.cs" />
     <Compile Include="ConvertPrefabs.cs" />
     <Compile Include="GUI\BuildingPreview.cs" />
@@ -97,7 +97,7 @@
     <Compile Include="XML\SteamDataProvider.cs" />
     <Compile Include="XML\XMLManager.cs" />
     <Compile Include="Loading.cs" />
-    <Compile Include="Detours\ToolDetour.cs" />
+    <Compile Include="Patches\ToolDetour.cs" />
     <Compile Include="Util.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
