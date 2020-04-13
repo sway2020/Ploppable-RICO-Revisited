@@ -89,6 +89,8 @@ namespace PloppableRICO
         public UICheckBox ricoEnabled;
         public UIPanel enableRICOPanel;
 
+        public UICheckBox growable;
+
         public UIDropDown service;
         public UIDropDown subService;
         public UIDropDown level;
@@ -185,37 +187,38 @@ namespace PloppableRICO
             };
 
             // Dropdown menus.
-            service = UIUtils.CreateDropDown(enableRICOPanel, 0, Translations.GetTranslation("Service"));
+            service = UIUtils.CreateDropDown(enableRICOPanel, 30, Translations.GetTranslation("Service"));
             service.items = Service;
             service.selectedIndex = 0;
             service.eventSelectedIndexChanged += UpdateService;
 
-            subService = UIUtils.CreateDropDown(enableRICOPanel, 30, Translations.GetTranslation("Sub-service"));
+            subService = UIUtils.CreateDropDown(enableRICOPanel, 60, Translations.GetTranslation("Sub-service"));
             subService.selectedIndex = 0;
             // Update UI category when subservice changes.
             subService.eventSelectedIndexChanged += UpdateSubService;
 
-            uiCategory = UIUtils.CreateDropDown(enableRICOPanel, 60, Translations.GetTranslation("UI category"));
+            uiCategory = UIUtils.CreateDropDown(enableRICOPanel, 90, Translations.GetTranslation("UI category"));
             uiCategory.selectedIndex = 0;
             uiCategory.items = Translations.UICategory;
 
-            level = UIUtils.CreateDropDown(enableRICOPanel, 90, Translations.GetTranslation("Level"));
+            level = UIUtils.CreateDropDown(enableRICOPanel, 120, Translations.GetTranslation("Level"));
             level.selectedIndex = 0;
             level.items = Level;
 
             // Base text fields.
-            construction = UIUtils.CreateTextField(enableRICOPanel, 120, Translations.GetTranslation("Construction cost"));
-            manual = UIUtils.CreateTextField(enableRICOPanel, 150, Translations.GetTranslation("Worker/Home count"));
+            construction = UIUtils.CreateTextField(enableRICOPanel, 150, Translations.GetTranslation("Construction cost"));
+            manual = UIUtils.CreateTextField(enableRICOPanel, 180, Translations.GetTranslation("Worker/Home count"));
 
             // Base checkboxes.
-            realityIgnored = UIUtils.CreateCheckBox(enableRICOPanel, 180, Translations.GetTranslation("Use Realistic Pop mod"));
-            pollutionEnabled = UIUtils.CreateCheckBox(enableRICOPanel, 210, Translations.GetTranslation("Enable pollution"));
+            realityIgnored = UIUtils.CreateCheckBox(enableRICOPanel, 210, Translations.GetTranslation("Use Realistic Pop mod"));
+            pollutionEnabled = UIUtils.CreateCheckBox(enableRICOPanel, 240, Translations.GetTranslation("Enable pollution"));
+            growable = UIUtils.CreateCheckBox(enableRICOPanel, 0, Translations.GetTranslation("Growable [EXPERIMENTAL]"));
 
             // Workplace breakdown by education level.
-            uneducated = UIUtils.CreateTextField(enableRICOPanel, 270, Translations.GetTranslation("Uneducated jobs"));
-            educated = UIUtils.CreateTextField(enableRICOPanel, 300, Translations.GetTranslation("Educated jobs"));
-            welleducated = UIUtils.CreateTextField(enableRICOPanel, 330, Translations.GetTranslation("Well-educated jobs"));
-            highlyeducated = UIUtils.CreateTextField(enableRICOPanel, 360, Translations.GetTranslation("Highly-educated jobs"));
+            uneducated = UIUtils.CreateTextField(enableRICOPanel, 300, Translations.GetTranslation("Uneducated jobs"));
+            educated = UIUtils.CreateTextField(enableRICOPanel, 330, Translations.GetTranslation("Educated jobs"));
+            welleducated = UIUtils.CreateTextField(enableRICOPanel, 360, Translations.GetTranslation("Well-educated jobs"));
+            highlyeducated = UIUtils.CreateTextField(enableRICOPanel, 390, Translations.GetTranslation("Highly-educated jobs"));
         }
 
 
@@ -359,6 +362,7 @@ namespace PloppableRICO
             // Remaining items.
             currentSelection.level = level.selectedIndex + 1;
             currentSelection.ricoEnabled = ricoEnabled.isChecked;
+            currentSelection.growable = growable.isChecked;
             currentSelection.RealityIgnored = !realityIgnored.isChecked;
             currentSelection.pollutionEnabled = pollutionEnabled.isChecked;
         }
@@ -371,6 +375,7 @@ namespace PloppableRICO
 
             // Disable all input controls by default; activate them later if needed.
             ricoEnabled.Disable();
+            growable.Disable();
             service.Disable();
             subService.Disable();
             level.Disable();
@@ -393,6 +398,7 @@ namespace PloppableRICO
 
                 // If the building has local settings, enable input fields.
                 ricoEnabled.Enable();
+                growable.Enable();
                 service.Enable();
                 subService.Enable();
                 level.Enable();
@@ -554,6 +560,9 @@ namespace PloppableRICO
 
             // Pollution enabled
             pollutionEnabled.isChecked = buildingData.pollutionEnabled;
+
+            // Growable.
+            growable.isChecked = buildingData.growable;
 
             // Enable RICO.
             ricoEnabled.isChecked = buildingData.ricoEnabled;

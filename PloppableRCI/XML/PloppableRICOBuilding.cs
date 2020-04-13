@@ -221,6 +221,11 @@ namespace PloppableRICO
         public bool ricoEnabled { get { return _ricoEnabled; } set { var v = _ricoEnabled; _ricoEnabled = value; HandleSetterEvents( v != value ); } }
         bool _ricoEnabled;
 
+        [DefaultValue(false)]
+        [XmlAttribute("growable")]
+        public bool growable { get { return _growable; } set { var v = _growable; _growable = value; HandleSetterEvents(v != value); } }
+        bool _growable;
+
         [DefaultValue( false )]
         [XmlAttribute( "enable-educationratio" )]
         public bool educationRatioEnabled { get { return _educationRatioEnabled; } set { var v = _educationRatioEnabled; _educationRatioEnabled = value; HandleSetterEvents( v != value ); } }

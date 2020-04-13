@@ -88,11 +88,11 @@ namespace PloppableRICO
                         // Apply eco service if GC installed, otherwise use normal low residential.
                         if (Util.isGCinstalled())
                         {
-                            InitializePrefab(prefab, ai, "Low Residential Eco - Level" + buildingData.level);
+                            InitializePrefab(prefab, ai, "Low Residential Eco - Level" + buildingData.level, buildingData.growable);
                         }
                         else
                         {
-                            InitializePrefab(prefab, ai, "Low Residential - Level" + buildingData.level);
+                            InitializePrefab(prefab, ai, "Low Residential - Level" + buildingData.level, buildingData.growable);
                         }
                     }
                     else if (buildingData.subService == "high eco")
@@ -100,22 +100,22 @@ namespace PloppableRICO
                         // Apply eco service if GC installed, otherwise use normal high residential.
                         if (Util.isGCinstalled())
                         {
-                            InitializePrefab(prefab, ai, "High Residential Eco - Level" + buildingData.level);
+                            InitializePrefab(prefab, ai, "High Residential Eco - Level" + buildingData.level, buildingData.growable);
                         }
                         else
                         {
-                            InitializePrefab(prefab, ai, "High Residential - Level" + buildingData.level);
+                            InitializePrefab(prefab, ai, "High Residential - Level" + buildingData.level, buildingData.growable);
                         }
                     }
                     else if (buildingData.subService == "high")
                     {
                         // Stock standard high commercial.
-                        InitializePrefab(prefab, ai, "High Residential - Level" + buildingData.level);
+                        InitializePrefab(prefab, ai, "High Residential - Level" + buildingData.level, buildingData.growable);
                     }
                     else
                     {
                         // Fall back to low residential as default.
-                        InitializePrefab(prefab, ai, "Low Residential - Level" + buildingData.level);
+                        InitializePrefab(prefab, ai, "Low Residential - Level" + buildingData.level, buildingData.growable);
 
                         // If invalid subservice, report.
                         if (buildingData.subService != "low")
@@ -138,17 +138,17 @@ namespace PloppableRICO
                         // Apply IT cluster if GC installed, otherwise use Level 3 office.
                         if (Util.isGCinstalled())
                         {
-                            InitializePrefab(prefab, ai, "Office - Hightech");
+                            InitializePrefab(prefab, ai, "Office - Hightech", buildingData.growable);
                         }
                         else
                         {
-                            InitializePrefab(prefab, ai, "Office - Level3");
+                            InitializePrefab(prefab, ai, "Office - Level3", buildingData.growable);
                         }
                     }
                     else
                     {
                         // Not IT cluster - boring old ordinary office.
-                        InitializePrefab(prefab, ai, "Office - Level" + buildingData.level);
+                        InitializePrefab(prefab, ai, "Office - Level" + buildingData.level, buildingData.growable);
                     }
                 }
                 else if (buildingData.service == "industrial")
@@ -162,9 +162,9 @@ namespace PloppableRICO
                     ai.m_pollutionEnabled = buildingData.pollutionEnabled;
 
                     if (Util.industryServices.Contains(buildingData.subService))
-                        InitializePrefab(prefab, ai, Util.ucFirst(buildingData.subService) + " - Processing");
+                        InitializePrefab(prefab, ai, Util.ucFirst(buildingData.subService) + " - Processing", buildingData.growable);
                     else
-                        InitializePrefab(prefab, ai, "Industrial - Level" + buildingData.level);
+                        InitializePrefab(prefab, ai, "Industrial - Level" + buildingData.level, buildingData.growable);
                 }
                 else if (buildingData.service == "extractor")
                 {
@@ -177,7 +177,7 @@ namespace PloppableRICO
                     ai.m_pollutionEnabled = buildingData.pollutionEnabled;
 
                     if (Util.industryServices.Contains(buildingData.subService))
-                        InitializePrefab(prefab, ai, Util.ucFirst(buildingData.subService) + " - Extractor");
+                        InitializePrefab(prefab, ai, Util.ucFirst(buildingData.subService) + " - Extractor", buildingData.growable);
                 }
 
                 else if (buildingData.service == "commercial")
@@ -196,11 +196,11 @@ namespace PloppableRICO
                         {
                             // Eco commercial buildings only import food goods.
                             ai.m_incomingResource = TransferManager.TransferReason.Food;
-                            InitializePrefab(prefab, ai, "Eco Commercial");
+                            InitializePrefab(prefab, ai, "Eco Commercial", buildingData.growable);
                         }
                         else
                         {
-                            InitializePrefab(prefab, ai, "Low Commercial - Level1");
+                            InitializePrefab(prefab, ai, "Low Commercial - Level1", buildingData.growable);
                         }
                     }
                     else if (buildingData.subService == "tourist")
@@ -208,11 +208,11 @@ namespace PloppableRICO
                         // Apply tourist specialisation if AD installed, otherwise use Level 1 low commercial.
                         if (Util.isADinstalled())
                         {
-                            InitializePrefab(prefab, ai, "Tourist Commercial - Land");
+                            InitializePrefab(prefab, ai, "Tourist Commercial - Land", buildingData.growable);
                         }
                         else
                         {
-                            InitializePrefab(prefab, ai, "Low Commercial - Level1");
+                            InitializePrefab(prefab, ai, "Low Commercial - Level1", buildingData.growable);
                         }
                     }
                     else if (buildingData.subService == "leisure")
@@ -220,22 +220,22 @@ namespace PloppableRICO
                         // Apply leisure specialisation if AD installed, otherwise use Level 1 low commercial.
                         if (Util.isADinstalled())
                         {
-                            InitializePrefab(prefab, ai, "Leisure Commercial");
+                            InitializePrefab(prefab, ai, "Leisure Commercial", buildingData.growable);
                         }
                         else
                         {
-                            InitializePrefab(prefab, ai, "Low Commercial - Level1");
+                            InitializePrefab(prefab, ai, "Low Commercial - Level1", buildingData.growable);
                         }
                     }
                     else if (buildingData.subService == "high")
                     {
                         // Bog standard high commercial.
-                        InitializePrefab(prefab, ai, "High Commercial - Level" + buildingData.level);
+                        InitializePrefab(prefab, ai, "High Commercial - Level" + buildingData.level, buildingData.growable);
                     }
                     else
                     {
                         // Fall back to low commercial as default.
-                        InitializePrefab(prefab, ai, "Low Commercial - Level" + buildingData.level);
+                        InitializePrefab(prefab, ai, "Low Commercial - Level" + buildingData.level, buildingData.growable);
 
                         // If invalid subservice, report.
                         if (buildingData.subService != "low")
@@ -247,7 +247,7 @@ namespace PloppableRICO
             }
         }
 
-        public static void InitializePrefab(BuildingInfo prefab, PrivateBuildingAI ai, String aiClass)
+        public static void InitializePrefab(BuildingInfo prefab, PrivateBuildingAI ai, String aiClass, bool growable)
         {
             prefab.m_buildingAI = ai;
             // Non-zero construction time important for other mods (Real Time, Real Construction)
@@ -264,7 +264,7 @@ namespace PloppableRICO
             }
 
             prefab.m_class = ItemClassCollection.FindClass(aiClass);
-            prefab.m_placementStyle = ItemClass.Placement.Manual;
+            prefab.m_placementStyle = growable ? ItemClass.Placement.Automatic : ItemClass.Placement.Manual;
             prefab.m_autoRemove = true;
         }
     }

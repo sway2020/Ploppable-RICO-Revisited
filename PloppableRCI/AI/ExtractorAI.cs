@@ -118,7 +118,7 @@ namespace PloppableRICO
 
         public override bool ClearOccupiedZoning()
         {
-            return true;
+            return !m_ricoData.growable;
         }
 
         public override void GetWidthRange(out int minWidth, out int maxWidth)
