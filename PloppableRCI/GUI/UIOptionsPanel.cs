@@ -159,7 +159,7 @@ namespace PloppableRICO
 
             label = labelpanel.AddUIComponent<UILabel>();
             label.relativePosition = new Vector3(80, 0);
-            label.width = 240;
+            label.width = 270;
             label.textAlignment = UIHorizontalAlignment.Center;
             label.text = Translations.GetTranslation("No settings");
 

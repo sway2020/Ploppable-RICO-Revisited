@@ -68,7 +68,7 @@ namespace PloppableRICO
             { "Commercial low", "低密度商业区" },
             { "Commercial high", "高密度商业区" },
             { "Organic commercial", "本地有机作物" },
-            { "Self-sufficient housing", "自给建筑" },
+            { "Self-sufficient homes", "自给建筑" },
             { "Save", "保存" },
             { "Add local", "添加到本地" },
             { "Remove local", "从本地删除" },
@@ -104,7 +104,7 @@ namespace PloppableRICO
             Translations.GetTranslation("Leisure"),
             Translations.GetTranslation("Organic commercial"),
             Translations.GetTranslation("IT cluster"),
-            Translations.GetTranslation("Self-sufficient housing"),
+            Translations.GetTranslation("Self-sufficient homes"),
             Translations.GetTranslation("None")
         };
     }

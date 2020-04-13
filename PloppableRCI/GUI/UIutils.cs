@@ -109,7 +109,7 @@ namespace PloppableRICO
 
 
             UIDropDown dropDown = container.AddUIComponent<UIDropDown>();
-            dropDown.size = new Vector2(120f, 25f);
+            dropDown.size = new Vector2(170f, 25f);
             dropDown.listBackground = "GenericPanelLight";
             dropDown.itemHeight = 20;
             dropDown.itemHover = "ListItemHover";
@@ -118,7 +118,7 @@ namespace PloppableRICO
             dropDown.disabledBgSprite = "ButtonMenuDisabled";
             dropDown.hoveredBgSprite = "ButtonMenuHovered";
             dropDown.focusedBgSprite = "ButtonMenu";
-            dropDown.listWidth = 120;
+            dropDown.listWidth = 170;
             dropDown.listHeight = 500;
             dropDown.foregroundSpriteMode = UIForegroundSpriteMode.Stretch;
             dropDown.popupColor = new Color32(45, 52, 61, 255);
@@ -131,12 +131,12 @@ namespace PloppableRICO
             dropDown.textFieldPadding = new RectOffset(8, 0, 8, 0);
             dropDown.itemPadding = new RectOffset(14, 0, 8, 0);
 
-            dropDown.relativePosition = new Vector3(112, 0, 0);
+            dropDown.relativePosition = new Vector3(102, 0, 0);
 
             UIButton button = dropDown.AddUIComponent<UIButton>();
             dropDown.triggerButton = button;
             button.text = "";
-            button.size = new Vector2(120f, 25f);
+            button.size = new Vector2(170f, 25f);
             button.relativePosition = new Vector3(0f, 0f);
             button.textVerticalAlignment = UIVerticalAlignment.Middle;
             button.textHorizontalAlignment = UIHorizontalAlignment.Left;
@@ -164,7 +164,7 @@ namespace PloppableRICO
         {
             UIPanel container = parent.AddUIComponent<UIPanel>();
             container.height = 25;
-            container.width = 240;
+            container.width = 270;
             container.relativePosition = new Vector3(0, offset, 0);
 
             UICheckBox checkBox = container.AddUIComponent<UICheckBox>();
@@ -172,7 +172,7 @@ namespace PloppableRICO
             checkBox.width = container.width;
             checkBox.height = 20f;
             checkBox.clipChildren = true;
-            checkBox.relativePosition = new Vector3(200, 6);
+            checkBox.relativePosition = new Vector3(210, 6);
 
             UISprite sprite = checkBox.AddUIComponent<UISprite>();
             sprite.spriteName = "ToggleBase";
@@ -199,7 +199,7 @@ namespace PloppableRICO
             UIPanel basePanel = parent.AddUIComponent<UIPanel>();
             basePanel.height = 25;
             basePanel.backgroundSprite = "ScrollbarTrack";
-            basePanel.width = 245;
+            basePanel.width = 275;
             basePanel.relativePosition = new Vector3(0, 5);
 
             UICheckBox checkBox = basePanel.AddUIComponent<UICheckBox>();
@@ -293,7 +293,7 @@ namespace PloppableRICO
 
             UITextField textField = container.AddUIComponent<UITextField>();
 
-            textField.size = new Vector2(80f, 20f);
+            textField.size = new Vector2(100f, 20f);
             textField.padding = new RectOffset(6, 6, 3, 3);
             textField.builtinKeyNavigation = true;
             textField.isInteractive = true;
@@ -307,7 +307,7 @@ namespace PloppableRICO
             textField.disabledTextColor = new Color32(0, 0, 0, 128);
             textField.color = new Color32(255, 255, 255, 255);
 
-            textField.relativePosition = new Vector3(160, 0, 0);
+            textField.relativePosition = new Vector3(170, 0, 0);
 
             return textField;
         }

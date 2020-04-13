@@ -2,6 +2,7 @@
 
 - Add override for building levels on game load (only applies to buildings in LocalRICOSettings.xml)
 - Suppress errors for buildings that are deactivated
+- Tweak settings window layout and widen options panel.
 - Tweak options panel level menu update on service and subservice changes
 - Logging tweaks
 

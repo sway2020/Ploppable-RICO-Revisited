@@ -17,7 +17,7 @@ namespace PloppableRICO
 
         #region Constant values
         private const float LEFT_WIDTH = 400;
-        private const float RIGHT_WIDTH = 250;
+        private const float RIGHT_WIDTH = 280;
         private const float MIDDLE_WIDTH = 250;
         private const float HEIGHT = 550;
         private const float SPACING = 5;
@@ -133,17 +133,17 @@ namespace PloppableRICO
 
             UIPanel left = AddUIComponent<UIPanel>();
             left.width = LEFT_WIDTH;
-            left.height = HEIGHT - m_filter.height;
+            left.height = HEIGHT;
             left.relativePosition = new Vector3(SPACING, TITLE_HEIGHT + m_filter.height + SPACING);
 
             UIPanel middle = AddUIComponent<UIPanel>();
             middle.width = MIDDLE_WIDTH;
-            middle.height = HEIGHT - m_filter.height;
+            middle.height = HEIGHT;
             middle.relativePosition = new Vector3(LEFT_WIDTH + (SPACING * 2), TITLE_HEIGHT + m_filter.height + SPACING);
 
             UIPanel right = AddUIComponent<UIPanel>();
             right.width = RIGHT_WIDTH;
-            right.height = HEIGHT - m_filter.height;
+            right.height = HEIGHT;
             right.relativePosition = new Vector3(LEFT_WIDTH + MIDDLE_WIDTH + (SPACING * 3), TITLE_HEIGHT + m_filter.height + SPACING);
 
 
