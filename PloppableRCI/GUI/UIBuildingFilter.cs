@@ -10,6 +10,7 @@ namespace PloppableRICO
         public UIButton allZones;
         public UIButton noZones;
         public UITextField nameFilter;
+        public UICheckBox[] settingsFilter;
 
         public bool IsZoneSelected(Category zone)
         {
@@ -97,7 +98,6 @@ namespace PloppableRICO
                 eventFilteringChanged(this, 0);
             };
 
-
             // Name filter
             UILabel nameLabel = AddUIComponent<UILabel>();
             nameLabel.textScale = 0.8f;
@@ -113,6 +113,67 @@ namespace PloppableRICO
 
             nameFilter.eventTextChanged += (c, s) => eventFilteringChanged(this, 5);
             nameFilter.eventTextSubmitted += (c, s) => eventFilteringChanged(this, 5);
+
+            // Create settings filters.
+            UILabel filterLabel = this.AddUIComponent<UILabel>();
+            filterLabel.textScale = 0.8f;
+            filterLabel.text = Translations.GetTranslation("Settings filter: Mod/Author/Local/Any");
+            filterLabel.relativePosition = new Vector3(10, 50, 0);
+
+            // Setting filter checkboxes.
+            settingsFilter = new UICheckBox[4];
+            for (int i = 0; i < 4; i++)
+            {
+                settingsFilter[i] = this.AddUIComponent<UICheckBox>();
+
+                settingsFilter[i].width = 20f;
+                settingsFilter[i].height = 20f;
+                settingsFilter[i].clipChildren = true;
+                settingsFilter[i].relativePosition = new Vector3(280 + (30 * i), 45f);
+
+                UISprite sprite = settingsFilter[i].AddUIComponent<UISprite>();
+                sprite.spriteName = "ToggleBase";
+                sprite.size = new Vector2(20f, 20f);
+                sprite.relativePosition = Vector3.zero;
+
+                settingsFilter[i].checkedBoxObject = sprite.AddUIComponent<UISprite>();
+                ((UISprite)settingsFilter[i].checkedBoxObject).spriteName = "ToggleBaseFocused";
+                settingsFilter[i].checkedBoxObject.size = new Vector2(20f, 20f);
+                settingsFilter[i].checkedBoxObject.relativePosition = Vector3.zero;
+
+                // Special event handling for 'any' checkbox.
+                if (i == 3)
+                {
+                    settingsFilter[i].eventCheckChanged += (c, state) =>
+                    {
+                        if (state)
+                        {
+                            // Unselect all other checkboxes if 'any' is checked.
+                            settingsFilter[0].isChecked = false;
+                            settingsFilter[1].isChecked = false;
+                            settingsFilter[2].isChecked = false;
+                        }
+                    };
+                }
+                else
+                {
+                    // Non-'any' checkboxes.
+                    // Unselect 'any' checkbox if any other is checked.
+                    settingsFilter[i].eventCheckChanged += (c, state) =>
+                    {
+                        if (state) settingsFilter[3].isChecked = false;
+                    };
+                }
+
+                // Trigger filtering changed event if any checkbox is changed.
+                settingsFilter[i].eventCheckChanged += (c, state) => { eventFilteringChanged(this, 0); };
+            }
+
+            // Settings filter tooltips.
+            settingsFilter[0].tooltip = Translations.GetTranslation("Mod settings");
+            settingsFilter[1].tooltip = Translations.GetTranslation("Author settings");
+            settingsFilter[2].tooltip = Translations.GetTranslation("Local settings");
+            settingsFilter[3].tooltip = Translations.GetTranslation("Any settings");
         }
     }
 }

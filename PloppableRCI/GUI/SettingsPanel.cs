@@ -22,6 +22,7 @@ namespace PloppableRICO
         private const float HEIGHT = 550;
         private const float SPACING = 5;
         private const float TITLE_HEIGHT = 40;
+        private const float CHECKFILTER_HEIGHT = 30;
         #endregion
 
         public BuildingData currentSelection;
@@ -133,8 +134,8 @@ namespace PloppableRICO
 
             UIPanel left = AddUIComponent<UIPanel>();
             left.width = LEFT_WIDTH;
-            left.height = HEIGHT;
-            left.relativePosition = new Vector3(SPACING, TITLE_HEIGHT + m_filter.height + SPACING);
+            left.height = HEIGHT - CHECKFILTER_HEIGHT;
+            left.relativePosition = new Vector3(SPACING, TITLE_HEIGHT + m_filter.height + CHECKFILTER_HEIGHT + SPACING);
 
             UIPanel middle = AddUIComponent<UIPanel>();
             middle.width = MIDDLE_WIDTH;
@@ -226,17 +227,21 @@ namespace PloppableRICO
                 BuildingData item = (BuildingData)list[i];
 
                
-                // zone
+                // Filter by zoning category.
                 if (!m_filter.IsAllZoneSelected())
                 {
                     Category category = item.category;
                     if (category == Category.None || !m_filter.IsZoneSelected(category)) continue;
                 }
 
-                 //Name
-                 if (!m_filter.buildingName.IsNullOrWhiteSpace() && !item.name.ToLower().Contains(m_filter.buildingName.ToLower())) continue;
+                // Filter by settings.
+                if (m_filter.settingsFilter[0].isChecked && !item.hasMod) continue;
+                if (m_filter.settingsFilter[1].isChecked && !item.hasAuthor) continue;
+                if (m_filter.settingsFilter[2].isChecked && !item.hasLocal) continue;
+                if (m_filter.settingsFilter[3].isChecked && !(item.hasMod || item.hasAuthor || item.hasLocal)) continue;
 
-                //Debug.Log(item.category + " " + item.displayName);
+                // Filter by name.
+                if (!m_filter.buildingName.IsNullOrWhiteSpace() && !item.name.ToLower().Contains(m_filter.buildingName.ToLower())) continue;
 
                 filtered.Add(item);
             }

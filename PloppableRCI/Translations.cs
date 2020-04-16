@@ -82,6 +82,8 @@ namespace PloppableRICO
             { "Mod settings", "MOD设置" },
             { "Author settings", "作者设置" },
             { "Local settings", "本地设置" },
+            { "Any settings", "任何设置" },
+            { "Settings filter: Mod/Author/Local/Any" , "按设置过滤 (MOD/作者/本地/任何设置)" },
             { "Allows Plopping of RICO Buildings (fork of AJ3D's original with bugfixes and new features)", "允许对RICO建筑（AJ3D原始版本的分叉，带有错误修复和新功能）进行噗通" },
             { "Original Ploppable RICO mod detected - RICO Revisited is shutting down to protect your game.  Only ONE of these mods can be enabled at the same time - please choose one and unsubscribe from the other!", "请取消原先版本的Ploppable RICO" },
             { "", "" }

@@ -82,14 +82,17 @@ namespace PloppableRICO
             m_mod = AddUIComponent<UISprite>();
             m_mod.size = new Vector2(20, 20);
             m_mod.spriteName = "AchievementCheckedFalse";
+            m_mod.tooltip = Translations.GetTranslation("Mod settings");
 
             m_author = AddUIComponent<UISprite>();
             m_author.size = new Vector2(20, 20);
             m_author.spriteName = "AchievementCheckedFalse";
+            m_author.tooltip = Translations.GetTranslation("Author settings");
 
             m_local = AddUIComponent<UISprite>();
             m_local.size = new Vector2(20, 20);
             m_local.spriteName = "AchievementCheckedFalse";
+            m_local.tooltip = Translations.GetTranslation("Local settings");
         }
 
         #region IUIFastListRow implementation
