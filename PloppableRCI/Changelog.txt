@@ -1,9 +1,11 @@
-﻿Version 1.3
+﻿- Remove reduntant CalculateHomeCount Harmony patch
+
+Version 1.3
 
 - Add override for building levels on game load (only applies to buildings in LocalRICOSettings.xml)
 - Add building list 'filter by settings' function
 - Suppress errors for buildings that are deactivated
-- Tweak settings window layout and widen options panel.
+- Tweak settings window layout and widen options panel
 - Tweak options panel level menu update on service and subservice changes
 - Logging tweaks
 
