@@ -70,6 +70,7 @@
     <Compile Include="Debugging.cs" />
     <Compile Include="Patches\BuildingLoaded.cs" />
     <Compile Include="Patches\InitializePrefab.cs" />
+    <Compile Include="Patches\InitPrefabTranspiler.cs" />
     <Compile Include="Translations.cs" />
     <Compile Include="ConvertPrefabs.cs" />
     <Compile Include="GUI\BuildingPreview.cs" />

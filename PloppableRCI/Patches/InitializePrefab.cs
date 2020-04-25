@@ -154,6 +154,22 @@ namespace PloppableRICO
 						Loading.convertPrefabs.ConvertPrefab(Loading.xmlManager.prefabHash[__instance].mod, ref __instance);
 					}
 				}
+				else 
+				{
+					// No RICO settings; replicate game InitializePrefab checks overridden by transpiler.
+					int privateServiceIndex = ItemClass.GetPrivateServiceIndex(__instance.m_class.m_service);
+					if (privateServiceIndex != -1)
+					{
+						if (__instance.m_placementStyle == ItemClass.Placement.Manual)
+						{
+							throw new PrefabException(__instance, "Private building cannot have manual placement style");
+						}
+						if (__instance.m_paths != null && __instance.m_paths.Length != 0)
+						{
+							throw new PrefabException(__instance, "Private building cannot include roads or other net types");
+						}
+					}
+				}
 			}
 			else
 			{
@@ -161,24 +177,37 @@ namespace PloppableRICO
 				Debug.Log("RICO Revisited: convertPrefabs not initialised!");
 			}
 
+			// Continue on to execute game InitializePrefab.
 			return true;
 		}
 
+
+		/// <summary>
+		/// Attempts to match a given RICO name with a prefab name.
+		/// </summary>
+		/// <param name="ricoName">Name parsed from Ploppable RICO definition file</param>
+		/// <param name="prefabName">BuildingInfo prefab name to match against</param>
+		/// <param name="packageName">Prefab package name</param>
+		/// <returns>True if a match was found, false otherwise.</returns>
 		public static bool MatchRICOName(string ricoName, string prefabName, string packageName)
 		{
+			// Ordered in order of assumed probability.
+			// Standard full workshop asset name - all local settings for workshop assets should match against this, as well as many author settings files.
 			if (prefabName.Equals(packageName + "." + ricoName + "_Data"))
 			{
 				return true;
 			}
+			// The workshop package ID isn't included in the RICO settings file - common amongst workshop assets.
 			if (prefabName.Equals(ricoName + "_Data"))
 			{
 				return true;
 			}
+			// Direct match - mostly applies to game assets, but some workshop assets may also match here.
 			else if (prefabName.Equals(ricoName))
 			{
 				return true;
 			}
-			Debug.Log("RICO Revisited: couldn't match name " + ricoName + " " + prefabName + " " + packageName);
+			// No match.
 			return false;
 		}
 	}

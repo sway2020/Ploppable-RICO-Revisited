@@ -225,8 +225,7 @@ namespace PloppableRICO
             ai.m_constructionTime = 30;
             prefab.m_buildingAI.m_info = prefab;
             prefab.m_class = ItemClassCollection.FindClass(aiClass);
-            //prefab.m_placementStyle = growable ? ItemClass.Placement.Automatic : ItemClass.Placement.Manual;
-            prefab.m_placementStyle = ItemClass.Placement.Automatic;
+            prefab.m_placementStyle = growable ? ItemClass.Placement.Automatic : ItemClass.Placement.Manual;
             prefab.m_autoRemove = true;
         }
     }
