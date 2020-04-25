@@ -158,13 +158,13 @@ namespace PloppableRICO
                     }
                     else
                     {
-                        Loading.ricoDef = RICOReader.ParseRICODefinition(packageId, ricoDefPath);
+                        Loading.localRicoDef = RICOReader.ParseRICODefinition(packageId, ricoDefPath);
                     }
                 }
 
-                if (Loading.ricoDef != null)
+                if (Loading.localRicoDef != null)
                 {
-                    foreach (var buildingDef in Loading.ricoDef.Buildings)
+                    foreach (var buildingDef in Loading.localRicoDef.Buildings)
                     {
                         BuildingInfo prefab;
 
@@ -196,7 +196,7 @@ namespace PloppableRICO
             }
 
             // Clean up after ourselves and reinitialise ricoDef for next pass to avoid false positives.
-            Loading.ricoDef = null;
+            Loading.localRicoDef = null;
         }
 
         //List of categories for the settings panel. 

@@ -7,22 +7,30 @@ using System.IO;
 
 namespace PloppableRICO
 {
+    /// <summary>
+    /// Main loading class: the mod runs from here.
+    /// </summary>
     public class Loading : LoadingExtensionBase
     {
+        // Harmony.
         const string HarmonyID = "com.github.algernon-A.csl.ploppablericorevisited";
         private HarmonyInstance _harmony;
 
+        // Internal instances.
         public GameObject RICODataManager;
-        public RICOPrefabManager xmlManager;
-        public static PloppableRICODefinition ricoDef;
-
+        private RICOPrefabManager xmlManager;
         private ConvertPrefabs convertPrefabs;
 
+        // RICO definitions.
+        public static PloppableRICODefinition localRicoDef;
 
+        
+        /// <summary>
+        /// Called by the game when the mod is initialised at the start of the loading process.
+        /// </summary>
+        /// <param name="loading"></param>
         public override void OnCreated(ILoading loading)
         {
-            string ricoDefPath = "LocalRICOSettings.xml";
-
             Debug.Log("RICO Revisited v" + PloppableRICOMod.version + " loading.");
 
             // Deploy Harmony patches.
@@ -30,17 +38,19 @@ namespace PloppableRICO
             _harmony.PatchAll(GetType().Assembly);
             Debug.Log("RICO Revisited: patching complete.");
 
-            // Read LocalRICOSettings.xml if it exists.
-            ricoDef = null;
+            // Read local RICO settings (if they exist).
+            string ricoDefPath = "LocalRICOSettings.xml";
+            localRicoDef = null;
+
             if (!File.Exists(ricoDefPath))
             {
                 Debug.Log("RICO Revisited: no " + ricoDefPath + " file found.");
             }
             else
             {
-                ricoDef = RICOReader.ParseRICODefinition("", ricoDefPath, insanityOK: true);
+                localRicoDef = RICOReader.ParseRICODefinition("", ricoDefPath, insanityOK: true);
 
-                if (ricoDef == null)
+                if (localRicoDef == null)
                 {
                     Debug.Log("RICO Revisited: no valid definitions in " + ricoDefPath);
                 }
@@ -49,6 +59,11 @@ namespace PloppableRICO
             base.OnCreated(loading);
         }
 
+
+        /// <summary>
+        /// Called by the game when level loading is complete.
+        /// </summary>
+        /// <param name="mode"></param>
         public override void OnLevelLoaded(LoadMode mode)
         {
             base.OnLevelLoaded(mode);
@@ -60,7 +75,7 @@ namespace PloppableRICO
             // Check for original Ploppable RICO mod.
             if (Util.IsModEnabled(586012417ul))
             {
-                // Original Ploppable RICO mod - log and show warning, then return without doing anything.
+                // Original Ploppable RICO mod detected - log and show warning, then return without doing anything.
                 Debug.Log("Original Ploppable RICO detected - RICO Revisited exiting.");
                 UIView.library.ShowModal<ExceptionPanel>("ExceptionPanel").SetMessage("RICO Revisited", Translations.GetTranslation("Original Ploppable RICO mod detected - RICO Revisited is shutting down to protect your game.  Only ONE of these mods can be enabled at the same time - please choose one and unsubscribe from the other!"), true);
                 return;
@@ -87,6 +102,9 @@ namespace PloppableRICO
             Debug.Log("RICO Revisited: loading complete.");
         }
 
+        /// <summary>
+        /// Called by the game when exiting.
+        /// </summary>
         public override void OnLevelUnloading()
         {
             // Unapply Harmony patches.

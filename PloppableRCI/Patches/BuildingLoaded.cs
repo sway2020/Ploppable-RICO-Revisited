@@ -19,10 +19,10 @@ namespace PloppableRICO
 		public static bool Prefix(ref PrivateBuildingAI __instance, ushort buildingID, ref Building data, uint version)
 		{
 			// Check to see if we've preloaded a local settings file.
-			if (Loading.ricoDef != null)
+			if (Loading.localRicoDef != null)
 			{
 				// Step through each definition from the local settings file, looking for a match.
-				foreach (RICOBuilding building in Loading.ricoDef.Buildings)
+				foreach (RICOBuilding building in Loading.localRicoDef.Buildings)
 				{
 					if (building.ricoEnabled && __instance.m_info.name == building.name)
 					{
