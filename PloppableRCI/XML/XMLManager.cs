@@ -13,75 +13,22 @@ using System.Xml.Serialization;
 namespace PloppableRICO
 {
     /// <summary>
-    ///This class tracks what prefabs have RICO settings applied. 
+    /// Keeps track of prefabs and provides the link between prefabs and RICO settings. 
     /// </summary>
     /// 
     public class RICOPrefabManager
     {
         public Dictionary<BuildingInfo, BuildingData> prefabHash;
         public List<BuildingData> prefabList;
-        //public static BuildingData Instance;
 
-        public void Run()
-        {
-
-            //This is the data object that holds all of the RICO settings. Its read by the tool panel and the settings panel.
-            //It contains one entry for every building, and any RICO settings they may have.
-
-            prefabHash = new Dictionary<BuildingInfo, BuildingData>();
-            prefabList = new List<BuildingData>();
-            //Loop though all prefabs
-
-            for (uint i = 0; i < PrefabCollection<BuildingInfo>.LoadedCount(); i++)
-            {
-
-                if (PrefabCollection<BuildingInfo>.GetLoaded(i) != null)
-                {
-                    var prefab = PrefabCollection<BuildingInfo>.GetLoaded(i);
-                    Debug.Log(prefab.name + " Loaded");
-                    {
-                        var buildingData = new BuildingData
-                        {
-                            prefab = prefab,
-                            name = prefab.name,
-
-                            density = SetPrefabDensity(prefab),
-
-                            category = AssignCategory(prefab)
-                        };
-
-                        prefabList.Add(buildingData);
-                        prefabHash[prefab] = buildingData;
-                    }
-                }
-            }
-
-            //RICO settings can come from 3 sources. Local settings are applied first, followed by asset author settings,
-            //and then finaly settings from settings mods.
-
-            // Properly process the local settings we loaded at Loading.OnCreated() now that all prefabs have been loaded.
-            RicoSettings("", isLocal: true);
-
-            //Import settings from asset folders.
-            Debug.Log("RICO Revisited: Loading asset settings.");
-            AssetSettings();
-
-            // If settings mod is active, load its settings.
-            if (Util.IsModEnabled(629850626uL))
-            {
-                var workshopModSettingsPath = Path.Combine(Util.SettingsModPath("629850626"), "WorkshopRICOSettings.xml");
-                RicoSettings(workshopModSettingsPath, isMod: true);
-            }
-
-            // Check for Ryuichi Kaminogi's "RICO Settings for Modern Japan CCP"
-            Package modernJapanRICO = PackageManager.GetPackage("2035770233");
-            if (modernJapanRICO != null)
-            {
-                var workshopModSettingsPath = Path.Combine(Path.GetDirectoryName(modernJapanRICO.packagePath), "PloppableRICODefinition.xml");
-                RicoSettings(workshopModSettingsPath, isMod: true);
-            }
-        }
-
+        
+        /// <summary>
+        /// Attempts to assign prefabs to low, medium, or high densities.
+        /// Legacy code from an attempt to introduce medium density in conjunction with the (never-completed) 'Growable Overhaul' mod by AJ3D and Boformer.
+        /// Currently unused, but retained for possible future redevelopment.
+        /// </summary>
+        /// <param name="prefab">The prefab to be assigned</param>
+        /// <returns></returns>
         public int SetPrefabDensity(BuildingInfo prefab)
         {
             if (prefab.m_collisionHeight < 20) return 0; //under 4, assign low
@@ -90,116 +37,12 @@ namespace PloppableRICO
             else return 1;
         }
 
-        //Load RICO Settings from asset folders
-        public void AssetSettings()
-        {
-            var checkedPaths = new List<string>();
-            var foo = new Dictionary<string, string>();
 
-
-            for (uint i = 0; i < PrefabCollection<BuildingInfo>.LoadedCount(); i++)
-            {
-                var prefab = PrefabCollection<BuildingInfo>.GetLoaded(i);
-                if (prefab == null)
-                    continue;
-
-                // search for PloppableRICODefinition.xml
-                var asset = PackageManager.FindAssetByName(prefab.name);
-
-                if (asset == null || asset.package == null)
-                    continue;
-
-                var crpPath = asset.package.packagePath;
-                if (crpPath == null)
-                    continue;
-
-                var ricoDefPath = Path.Combine(Path.GetDirectoryName(crpPath), "PloppableRICODefinition.xml");
-
-                if (!checkedPaths.Contains(ricoDefPath))
-                {
-                    checkedPaths.Add(ricoDefPath);
-                    foo.Add(asset.package.packageName, ricoDefPath);
-                }
-            }
-
-            RicoSettings(foo, isAuthored: true);
-        }
-
-        public void RicoSettings(string ricoFileName, bool isLocal = false, bool isAuthored = false, bool isMod = false)
-        {
-            RicoSettings(new List<string>() { ricoFileName }, isLocal, isAuthored, isMod);
-        }
-
-        public void RicoSettings(List<string> ricoFileNames, bool isLocal = false, bool isAuthored = false, bool isMod = false)
-        {
-            var foo = new Dictionary<string, string>();
-
-            foreach (var fileName in ricoFileNames)
-            {
-                foo.Add("", fileName);
-
-            }
-
-            RicoSettings(foo, isLocal, isAuthored, isMod);
-        }
-
-        void RicoSettings(Dictionary<string, string> foo, bool isLocal = false, bool isAuthored = false, bool isMod = false)
-        {
-            foreach (var packageId in foo.Keys)
-            {
-                var ricoDefPath = foo[packageId];
-
-                // If 'isLocal' is set then we've already read the local settings file in Loading.OnCreated().
-                if (!isLocal)
-                {
-                    if (!File.Exists(ricoDefPath))
-                    {
-                        continue;
-                    }
-                    else
-                    {
-                        Loading.localRicoDef = RICOReader.ParseRICODefinition(packageId, ricoDefPath);
-                    }
-                }
-
-                if (Loading.localRicoDef != null)
-                {
-                    foreach (var buildingDef in Loading.localRicoDef.Buildings)
-                    {
-                        BuildingInfo prefab;
-
-                        prefab = Util.FindPrefab(buildingDef.name, packageId);
-
-                        if (prefab != null)
-                        {
-                            if (prefabHash.ContainsKey(prefab))
-                            {
-                                if (isAuthored)
-                                {
-                                    prefabHash[prefab].author = buildingDef;
-                                    prefabHash[prefab].hasAuthor = true;
-                                }
-                                else if (isLocal)
-                                {
-                                    prefabHash[prefab].local = buildingDef;
-                                    prefabHash[prefab].hasLocal = true;
-                                }
-                                else if (isMod)
-                                {
-                                    prefabHash[prefab].mod = buildingDef;
-                                    prefabHash[prefab].hasMod = true;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            // Clean up after ourselves and reinitialise ricoDef for next pass to avoid false positives.
-            Loading.localRicoDef = null;
-        }
-
-        //List of categories for the settings panel. 
+        /// <summary>
+        /// Assigns settings panel categories for prefabs.
+        /// </summary>
+        /// <param name="prefab">The relevant prefab</param>
+        /// <returns></returns>
         public Category AssignCategory(BuildingInfo prefab)
         {
             if (prefab.m_buildingAI is MonumentAI)
@@ -291,27 +134,32 @@ namespace PloppableRICO
     //This is the data object definition for the dictionary. It contains one entry for every ploppable building. 
     //Each entry contains up to 3 PloppableRICODef entries. 
 
+    /// <summary>
+    /// Ploppable RICO data object definition for the dictionary.
+    /// Every Ploppable RICO building has one entry, with (in turn) up to three PloppableRICODef sub-entries (local, author, and/or mod).
+    /// </summary>
     public class BuildingData
     {
-        private string m_displayName;
         public BuildingInfo prefab;
         public string name;
+        public Category category;
+        private string m_displayName;
 
+        // Currently non-functional - see note to 'SetPrefabDensity' above.
         public int density;
 
-        public Category category;
-
-        //RICO settings. 
+        // PloppableRICODef sub-entries (RICO settings) and flags.
         public RICOBuilding local;
         public RICOBuilding author;
         public RICOBuilding mod;
-
-        //These are used by the settings panel and tool to determine which settings to use. It will first use local, then asset, and finaly mod. 
         public bool hasAuthor;
         public bool hasLocal;
         public bool hasMod;
 
-        //Called by the settings panel fastlist. 
+
+        /// Sanitises the raw prefab name for display.
+        /// Called by the settings panel fastlist.
+        /// </summary>
         public string displayName
         {
             get
@@ -326,7 +174,16 @@ namespace PloppableRICO
                 return m_displayName;
             }
         }
-        public static string CleanName(string name, bool cleanNumbers = false)
+
+
+        /// <summary>
+        /// A regex prefab name cleaner.
+        /// TODO - future currently under review.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="cleanNumbers"></param>
+        /// <returns></returns>
+        private static string CleanName(string name, bool cleanNumbers = false)
         {
             name = Regex.Replace(name, @"^{{.*?}}\.", "");
             name = Regex.Replace(name, @"[_+\.]", " ");
