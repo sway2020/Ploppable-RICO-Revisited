@@ -7,46 +7,6 @@ using UnityEngine;
 
 namespace PloppableRICO
 {
-#if DEBUG
-   // [ProfilerAspect()]
-#endif
-    public class RicoWriter
-    {
-        public static bool saveRicoData(string fileName, PloppableRICODefinition RicoDefinition)
-        {
-            try
-            {
-                var streamWriter = new System.IO.StreamWriter(fileName);
-                var xmlSerializer = new XmlSerializer(typeof(PloppableRICODefinition));
-                xmlSerializer.Serialize(streamWriter, RicoDefinition);
-                streamWriter.Close();
-                return true;
-            }
-            catch
-            { }
-            return false;
-        }
-
-
-        public static string ricoDataXml( PloppableRICODefinition RicoDefinition )
-        {
-            try
-            {
-                var ms = new MemoryStream();
-                var xmlSerializer = new XmlSerializer(typeof(PloppableRICODefinition));
-                xmlSerializer.Serialize( ms, RicoDefinition );
-                ms.Seek(0 , SeekOrigin.Begin);
-                return ms.ToString();
-            }
-            catch
-            { }
-            return "";
-        }
-    }
-
-#if DEBUG
-    //[ProfilerAspect()]
-#endif
     public class RICOReader
     {
         public static ICrpDataProvider crpDataProvider;

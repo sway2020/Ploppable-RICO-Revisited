@@ -1,13 +1,7 @@
-﻿using ColossalFramework.UI;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Globalization;
 using ColossalFramework.Globalization;
-using UnityEngine;
-using ColossalFramework.Packaging;
-using System.IO;
-using System.Xml.Serialization;
 
 
 namespace PloppableRICO
@@ -91,42 +85,6 @@ namespace PloppableRICO
             }
             else return Category.Beautification;
 
-        }
-
-
-        //This is called by the settings panel. It will serialize any new local settings the player sets in game. 
-        public static void SaveLocal(RICOBuilding newBuildingData)
-        {
-            Debug.Log("SaveLocal");
-
-            if (File.Exists("LocalRICOSettings.xml") && newBuildingData != null)
-            {
-                PloppableRICODefinition localSettings = null;
-                var newlocalSettings = new PloppableRICODefinition();
-
-                var xmlSerializer = new XmlSerializer(typeof(PloppableRICODefinition));
-
-                using (StreamReader streamReader = new System.IO.StreamReader("LocalRICOSettings.xml"))
-                {
-                    localSettings = xmlSerializer.Deserialize(streamReader) as PloppableRICODefinition;
-                }
-
-                foreach (var buildingDef in localSettings.Buildings)
-                {
-                    if (buildingDef.name != newBuildingData.name)
-                    {
-                        newlocalSettings.Buildings.Add(buildingDef);
-                    }
-                }
-
-                //newBuildingData.name = newBuildingData.name;
-                newlocalSettings.Buildings.Add(newBuildingData);
-
-                using (TextWriter writer = new StreamWriter("LocalRICOSettings.xml"))
-                {
-                    xmlSerializer.Serialize(writer, newlocalSettings);
-                }
-            }
         }
     }
 
