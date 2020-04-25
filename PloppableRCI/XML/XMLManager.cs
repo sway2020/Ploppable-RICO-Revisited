@@ -18,8 +18,8 @@ namespace PloppableRICO
     /// 
     public class RICOPrefabManager
     {
-        public static Dictionary<BuildingInfo, BuildingData> prefabHash;
-        public static List<BuildingData> prefabList;
+        public Dictionary<BuildingInfo, BuildingData> prefabHash;
+        public List<BuildingData> prefabList;
         //public static BuildingData Instance;
 
         public void Run()
@@ -200,7 +200,7 @@ namespace PloppableRICO
         }
 
         //List of categories for the settings panel. 
-        private Category AssignCategory(BuildingInfo prefab)
+        public Category AssignCategory(BuildingInfo prefab)
         {
             if (prefab.m_buildingAI is MonumentAI)
             {

@@ -1,8 +1,10 @@
+using System.IO;
+using System.Collections.Generic;
 using ICities;
 using UnityEngine;
 using ColossalFramework.UI;
+using ColossalFramework.Packaging;
 using Harmony;
-using System.IO;
 
 
 namespace PloppableRICO
@@ -18,17 +20,19 @@ namespace PloppableRICO
 
         // Internal instances.
         public GameObject RICODataManager;
-        private RICOPrefabManager xmlManager;
-        private ConvertPrefabs convertPrefabs;
+        public static RICOPrefabManager xmlManager;
+        public static ConvertPrefabs convertPrefabs;
 
         // RICO definitions.
         public static PloppableRICODefinition localRicoDef;
+        public static PloppableRICODefinition mod1RicoDef;
+        public static PloppableRICODefinition mod2RicoDef;
 
-        
+
         /// <summary>
         /// Called by the game when the mod is initialised at the start of the loading process.
         /// </summary>
-        /// <param name="loading"></param>
+        /// <param name="loading">Loading mode (e.g. game, editor, scenario, etc.)</param>
         public override void OnCreated(ILoading loading)
         {
             Debug.Log("RICO Revisited v" + PloppableRICOMod.version + " loading.");
@@ -38,7 +42,22 @@ namespace PloppableRICO
             _harmony.PatchAll(GetType().Assembly);
             Debug.Log("RICO Revisited: patching complete.");
 
-            // Read local RICO settings (if they exist).
+            // Create instances if they don't already exist.
+            if (convertPrefabs == null)
+            {
+                convertPrefabs = new ConvertPrefabs();
+            }
+
+            if (xmlManager == null)
+            {
+                xmlManager = new RICOPrefabManager
+                {
+                    prefabHash = new Dictionary<BuildingInfo, BuildingData>(),
+                    prefabList = new List<BuildingData>()
+                };
+            }
+
+            // Read any local RICO settings.
             string ricoDefPath = "LocalRICOSettings.xml";
             localRicoDef = null;
 
@@ -56,6 +75,21 @@ namespace PloppableRICO
                 }
             }
 
+            // Check for Workshop RICO settings mod.
+            if (Util.IsModEnabled(629850626uL))
+            {
+                Debug.Log("RICO Revisited: found Workshop RICO settings mod.");
+                mod1RicoDef = RICOReader.ParseRICODefinition("", Path.Combine(Util.SettingsModPath("629850626"), "WorkshopRICOSettings.xml"), false);
+            }
+
+            // Check for Ryuichi Kaminogi's "RICO Settings for Modern Japan CCP"
+            Package modernJapanRICO = PackageManager.GetPackage("2035770233");
+            if (modernJapanRICO != null)
+            {
+                Debug.Log("RICO Revisited: found RICO Settings for Modern Japan CCP.");
+                mod2RicoDef = RICOReader.ParseRICODefinition("", Path.Combine(Path.GetDirectoryName(modernJapanRICO.packagePath), "PloppableRICODefinition.xml"), false);
+            }
+
             base.OnCreated(loading);
         }
 
@@ -63,7 +97,7 @@ namespace PloppableRICO
         /// <summary>
         /// Called by the game when level loading is complete.
         /// </summary>
-        /// <param name="mode"></param>
+        /// <param name="mode">Loading mode (e.g. game, editor, scenario, etc.)</param>
         public override void OnLevelLoaded(LoadMode mode)
         {
             base.OnLevelLoaded(mode);
@@ -80,17 +114,6 @@ namespace PloppableRICO
                 UIView.library.ShowModal<ExceptionPanel>("ExceptionPanel").SetMessage("RICO Revisited", Translations.GetTranslation("Original Ploppable RICO mod detected - RICO Revisited is shutting down to protect your game.  Only ONE of these mods can be enabled at the same time - please choose one and unsubscribe from the other!"), true);
                 return;
             }
-            
-            // Load xml only from main menu. 
-            if (xmlManager == null)
-            {
-                xmlManager = new RICOPrefabManager();
-                xmlManager.Run();
-            }
-
-            // Assign xml settings to prefabs.
-            convertPrefabs = new ConvertPrefabs();
-            convertPrefabs.run();
 
             // Init GUI.
             PloppableTool.Initialize();
@@ -101,6 +124,7 @@ namespace PloppableRICO
 
             Debug.Log("RICO Revisited: loading complete.");
         }
+
 
         /// <summary>
         /// Called by the game when exiting.

@@ -291,7 +291,7 @@ namespace PloppableRICO
 
         public void PopulateAssets()
         {
-            foreach (var buildingData in RICOPrefabManager.prefabHash.Values)
+            foreach (var buildingData in Loading.xmlManager.prefabHash.Values)
             {
                 if (buildingData != null)
                 {

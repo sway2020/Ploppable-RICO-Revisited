@@ -7,52 +7,15 @@ namespace PloppableRICO
     ///This class assigns the RICO settings to the prefabs. 
     /// </summary>
     ///
-
     public class ConvertPrefabs
     {
-        public void run()
+        /// <summary>
+        /// Interpret and apply RICO settings to a building prefab.
+        /// </summary>
+        /// <param name="buildingData">RICO building data to apply</param>
+        /// <param name="prefab">The building prefab to be changed</param>
+        public void ConvertPrefab(RICOBuilding buildingData, ref BuildingInfo prefab)
         {
-            // Loop through the dictionary, and apply any RICO settings. 
-            foreach (var buildingData in RICOPrefabManager.prefabHash.Values)
-            {
-                if (buildingData != null)
-                {
-                    // If asset has local settings, apply those. 
-                    if (buildingData.hasLocal)
-                    {
-                        // If local settings disable RICO, dont convert.
-                        if (buildingData.local.ricoEnabled)
-                        {
-                            ConvertPrefab(buildingData.local, buildingData.name);
-                            continue;
-                        }
-                    }
-                    // If not, apply author settings.
-                    else if (buildingData.hasAuthor)
-                    {
-                        if (buildingData.author.ricoEnabled)
-                        {
-                            //Profiler.Info( " RUN " + buildingData.name );
-                            ConvertPrefab(buildingData.author, buildingData.name);
-                            continue;
-                        }
-                    }
-                    // Finally, check for mod settings.
-                    else if (buildingData.hasMod)
-                    {
-                        Debug.Log(buildingData.name + "Has Local");
-                        ConvertPrefab(buildingData.mod, buildingData.name);
-                        continue;
-                    }
-                }
-            }
-        }
-
-        public void ConvertPrefab(RICOBuilding buildingData, string name)
-        {
-            var prefab = PrefabCollection<BuildingInfo>.FindLoaded(name);
-
-
             if (prefab != null)
             {
 
@@ -247,24 +210,23 @@ namespace PloppableRICO
             }
         }
 
+
+        /// <summary>
+        /// Applies settings to a BuildingInfo prefab.
+        /// </summary>
+        /// <param name="prefab">The prefab to modify.</param>
+        /// <param name="ai">The building AI to apply.</param>
+        /// <param name="aiClass">The AI class string to apply.</param>
+        /// <param name="growable">Whether the prefab should be growable.</param>
         public static void InitializePrefab(BuildingInfo prefab, PrivateBuildingAI ai, String aiClass, bool growable)
         {
             prefab.m_buildingAI = ai;
             // Non-zero construction time important for other mods (Real Time, Real Construction)
             ai.m_constructionTime = 30;
             prefab.m_buildingAI.m_info = prefab;
-
-            try
-            {
-                prefab.InitializePrefab();
-            }
-            catch
-            {
-                // Debug.Log("RICO Revisited: InitPrefab failed - " + prefab.name +". [This message is probably harmless]");
-            }
-
             prefab.m_class = ItemClassCollection.FindClass(aiClass);
-            prefab.m_placementStyle = growable ? ItemClass.Placement.Automatic : ItemClass.Placement.Manual;
+            //prefab.m_placementStyle = growable ? ItemClass.Placement.Automatic : ItemClass.Placement.Manual;
+            prefab.m_placementStyle = ItemClass.Placement.Automatic;
             prefab.m_autoRemove = true;
         }
     }
