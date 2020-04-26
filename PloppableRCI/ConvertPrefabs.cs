@@ -39,7 +39,7 @@ namespace PloppableRICO
                 }
                 else if (buildingData.service == "residential")
                 {
-                    var ai = prefab.gameObject.AddComponent<PloppableResidential>();
+                    var ai = buildingData.growable ? prefab.gameObject.AddComponent<GrowableResidentialAI>() : prefab.gameObject.AddComponent<PloppableResidentialAI>();
                     if (ai == null) throw (new Exception("Residential-AI not found."));
 
                     ai.m_ricoData = buildingData;
