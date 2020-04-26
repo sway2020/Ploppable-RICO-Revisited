@@ -89,7 +89,7 @@ namespace PloppableRICO
         public UICheckBox ricoEnabled;
         public UIPanel enableRICOPanel;
 
-        //public UICheckBox growable;
+        public UICheckBox growable;
 
         public UIDropDown service;
         public UIDropDown subService;
@@ -212,7 +212,7 @@ namespace PloppableRICO
             // Base checkboxes.
             realityIgnored = UIUtils.CreateCheckBox(enableRICOPanel, 210, Translations.GetTranslation("Use Realistic Pop mod"));
             pollutionEnabled = UIUtils.CreateCheckBox(enableRICOPanel, 240, Translations.GetTranslation("Enable pollution"));
-            //growable = UIUtils.CreateCheckBox(enableRICOPanel, 0, Translations.GetTranslation("Growable [EXPERIMENTAL]"));
+            growable = UIUtils.CreateCheckBox(enableRICOPanel, 0, Translations.GetTranslation("Growable [EXPERIMENTAL]"));
 
             // Workplace breakdown by education level.
             uneducated = UIUtils.CreateTextField(enableRICOPanel, 300, Translations.GetTranslation("Uneducated jobs"));
@@ -362,7 +362,7 @@ namespace PloppableRICO
             // Remaining items.
             currentSelection.level = level.selectedIndex + 1;
             currentSelection.ricoEnabled = ricoEnabled.isChecked;
-            //currentSelection.growable = growable.isChecked;
+            currentSelection.growable = growable.isChecked;
             currentSelection.RealityIgnored = !realityIgnored.isChecked;
             currentSelection.pollutionEnabled = pollutionEnabled.isChecked;
         }
@@ -375,7 +375,7 @@ namespace PloppableRICO
 
             // Disable all input controls by default; activate them later if needed.
             ricoEnabled.Disable();
-            //growable.Disable();
+            growable.Disable();
             service.Disable();
             subService.Disable();
             level.Disable();
@@ -398,7 +398,7 @@ namespace PloppableRICO
 
                 // If the building has local settings, enable input fields.
                 ricoEnabled.Enable();
-                //growable.Enable();
+                growable.Enable();
                 service.Enable();
                 subService.Enable();
                 level.Enable();
@@ -562,7 +562,7 @@ namespace PloppableRICO
             pollutionEnabled.isChecked = buildingData.pollutionEnabled;
 
             // Growable.
-            //growable.isChecked = buildingData.growable;
+            growable.isChecked = buildingData.growable;
 
             // Enable RICO.
             ricoEnabled.isChecked = buildingData.ricoEnabled;
