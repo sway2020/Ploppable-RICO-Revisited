@@ -1,8 +1,5 @@
-﻿using System;
-using ColossalFramework.Math;
-using ColossalFramework.Plugins;
-using ColossalFramework.UI;
-using UnityEngine;
+﻿using ColossalFramework.Math;
+
 
 namespace PloppableRICO
 {
@@ -104,7 +101,7 @@ namespace PloppableRICO
 
 
     /// <summary>
-    /// Replacement for Commercial AI for ploppable RICO buildings.
+    /// Replacement for Industrial AI for ploppable RICO buildings.
     /// </summary>
     public class PloppableIndustrialAI : GrowableIndustrialAI
     {

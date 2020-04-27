@@ -89,7 +89,7 @@ namespace PloppableRICO
                 }
                 else if (buildingData.service == "office")
                 {
-                    var ai = prefab.gameObject.AddComponent<PloppableOffice>();
+                    var ai = buildingData.growable ? prefab.gameObject.AddComponent<GrowableOfficeAI>() : prefab.gameObject.AddComponent<PloppableOfficeAI>();
                     if (ai == null) throw (new Exception("Office-AI not found."));
 
                     ai.m_ricoData = buildingData;
