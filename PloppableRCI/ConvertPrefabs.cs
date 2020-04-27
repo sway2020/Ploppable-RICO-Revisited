@@ -131,7 +131,7 @@ namespace PloppableRICO
                 }
                 else if (buildingData.service == "extractor")
                 {
-                    var ai = prefab.gameObject.AddComponent<PloppableExtractor>();
+                    var ai = buildingData.growable ? prefab.gameObject.AddComponent<GrowableExtractorAI>() : prefab.gameObject.AddComponent<PloppableExtractorAI>();
                     if (ai == null) throw (new Exception("Extractor-AI not found."));
 
                     ai.m_ricoData = buildingData;
