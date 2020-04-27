@@ -39,47 +39,67 @@ namespace PloppableRICO
         /// <returns></returns>
         public Category AssignCategory(BuildingInfo prefab)
         {
-            if (prefab.m_buildingAI is MonumentAI)
+            if (prefab.GetService() == ItemClass.Service.Monument)
             {
                 return Category.Monument;
             }
-            else if (prefab.m_buildingAI is ParkAI)
+            else if (prefab.GetService() == ItemClass.Service.Beautification)
             {
                 return Category.Beautification;
             }
-            else if (prefab.m_buildingAI is PowerPlantAI)
+            else if (prefab.GetService() == ItemClass.Service.Electricity)
             {
                 return Category.Power;
             }
-            else if (prefab.m_buildingAI is WaterFacilityAI)
+            else if (prefab.GetService() == ItemClass.Service.Water)
             {
                 return Category.Water;
             }
-            else if (prefab.m_buildingAI is SchoolAI)
+            else if (prefab.GetService() == ItemClass.Service.Education)
             {
                 return Category.Education;
             }
-            else if (prefab.m_buildingAI is HospitalAI)
+            else if ( prefab.GetService() == ItemClass.Service.PlayerEducation)
+            {
+                return Category.Education;
+            }
+            else if (prefab.GetService() == ItemClass.Service.HealthCare)
             {
                 return Category.Health;
             }
-            else if (prefab.m_buildingAI is ResidentialBuildingAI)
+            else if (prefab.GetService() == ItemClass.Service.PoliceDepartment)
+            {
+                return Category.Health;
+            }
+            else if (prefab.GetService() == ItemClass.Service.FireDepartment)
+            {
+                return Category.Health;
+            }
+            else if (prefab.GetService() == ItemClass.Service.Residential)
             {
                 return Category.Residential;
             }
-            else if (prefab.m_buildingAI is IndustrialExtractorAI)
+            else if (prefab.GetService() == ItemClass.Service.Industrial)
             {
                 return Category.Industrial;
             }
-            else if (prefab.m_buildingAI is IndustrialBuildingAI)
+            else if (prefab.GetService() == ItemClass.Service.PlayerIndustry)
             {
                 return Category.Industrial;
             }
-            else if (prefab.m_buildingAI is OfficeBuildingAI)
+            else if (prefab.GetService() == ItemClass.Service.Fishing)
+            {
+                return Category.Industrial;
+            }
+            else if (prefab.GetService() == ItemClass.Service.Garbage)
+            {
+                return Category.Industrial;
+            }
+            else if (prefab.GetService() == ItemClass.Service.Office)
             {
                 return Category.Office;
             }
-            else if (prefab.m_buildingAI is CommercialBuildingAI)
+            else if (prefab.GetService() == ItemClass.Service.Commercial)
             {
                 return Category.Commercial;
             }
