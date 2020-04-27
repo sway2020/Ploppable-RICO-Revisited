@@ -71,6 +71,17 @@ namespace PloppableRICO
         {
             base.CalculateWorkplaceCount(level, r, width, length, out level0, out level1, out level2, out level3); ;
         }
+
+
+        /// <summary>
+        /// Check to see if this building is unlocked (by progression level or other prerequisites).
+        /// RICO buildings are always unlocked.
+        /// </summary>
+        /// <returns>Whether the building is currently unlocked</returns>
+        public override bool CheckUnlocking()
+        {
+            return true;
+        }
     }
 
 

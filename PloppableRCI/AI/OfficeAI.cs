@@ -54,6 +54,7 @@ namespace PloppableRICO
             }
         }
 
+
         /// <summary>
         /// Calculates the workplaces for this building according to base method (non-RICO settings).
         /// Called by WorkPlaceAIHelper to access the base game method; for implementing functionality of mods that have detoured/patched that method (e.g. Realistic Population mods).
@@ -70,6 +71,17 @@ namespace PloppableRICO
         public void CalculateBaseWorkplaceCount(ItemClass.Level level, Randomizer r, int width, int length, out int level0, out int level1, out int level2, out int level3)
         {
             base.CalculateWorkplaceCount(level, r, width, length, out level0, out level1, out level2, out level3); ;
+        }
+
+
+        /// <summary>
+        /// Check to see if this building is unlocked (by progression level or other prerequisites).
+        /// RICO buildings are always unlocked.
+        /// </summary>
+        /// <returns>Whether the building is currently unlocked</returns>
+        public override bool CheckUnlocking()
+        {
+            return true;
         }
     }
 

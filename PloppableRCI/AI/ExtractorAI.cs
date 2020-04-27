@@ -99,6 +99,17 @@ namespace PloppableRICO
             // Otherwise, use base method to calculate normal pollution levels.
             base.GetPollutionRates(level, productionRate, cityPlanningPolicies, out groundPollution, out noisePollution);
         }
+
+
+        /// <summary>
+        /// Check to see if this building is unlocked (by progression level or other prerequisites).
+        /// RICO buildings are always unlocked.
+        /// </summary>
+        /// <returns>Whether the building is currently unlocked</returns>
+        public override bool CheckUnlocking()
+        {
+            return true;
+        }
     }
 
 
