@@ -145,7 +145,7 @@ namespace PloppableRICO
 
                 else if (buildingData.service == "commercial")
                 {
-                    var ai = prefab.gameObject.AddComponent<PloppableCommercial>();
+                    var ai = buildingData.growable ? prefab.gameObject.AddComponent<GrowableCommercialAI>() : prefab.gameObject.AddComponent<PloppableCommercialAI>();
                     if (ai == null) throw (new Exception("Commercial-AI not found."));
 
                     ai.m_ricoData = buildingData;
