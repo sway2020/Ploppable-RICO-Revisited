@@ -6,118 +6,229 @@ using UnityEngine;
 
 namespace PloppableRICO
 {
-    public class PloppableIndustrial : IndustrialBuildingAI, PloppableRICO.IWorkplaceLevelCalculator
-	{
-		public int m_constructionCost = 1;
-		public int m_workplaceCount = 1;
-        public bool m_pollutionEnabled = true;
+    /// <summary>
+    /// Replacement for Industrial AI for growable RICO buildings.
+    /// </summary>
+    public class GrowableIndustrialAI : IndustrialBuildingAI, IWorkplaceLevelCalculator
+    {
+        // RICO data record.
         public RICOBuilding m_ricoData;
+
+        // Construction cost of this building.  Ignored for growables - having it here saves having extra checks in ConvertPrefabs().
+        // Set a reasonable default, but will be overwritten by ConvertPrefabs() for ploppables.
+        public int m_constructionCost = 10;
+
+        // Number of workplaces in this building; set a reasonable default, but will be overwritten by ConvertPrefabs().
+        public int m_workplaceCount = 1;
+
+        // Cache to store workplace count calculations (saving a full calculation every update).
         public int[] workplaceCount;
 
-        // the important part
-        public override int GetConstructionCost()
-        {
-            return PloppableRICO.WorkplaceAIHelper.GetConstructionCost(m_constructionCost, this.m_info.m_class.m_service, this.m_info.m_class.m_subService, this.m_info.m_class.m_level);
-        }
+        // Whether or not pollution is enabled for this building.  Can be overwritten by ConvertPrefabs().
+        public bool m_pollutionEnabled = true;
 
-        protected override int GetConstructionTime()
-        {
-            return 0;
-        }
 
+        /// <summary>
+        /// Calculates the workplaces for this building according to RICO settings.
+        /// </summary>
+        /// <param name="level">Building level</param>
+        /// <param name="r">Randomizer</param>
+        /// <param name="width">Building plot width (in cells)</param>
+        /// <param name="length">Building plot length (in cells)</param>
+        /// <param name="level0">The number of uneducated jobs</param>
+        /// <param name="level1">The number of educated jobs</param>
+        /// <param name="level2">The number of well-educated jobs</param>
+        /// <param name="level3">The number of highly-educated jobs</param>
         public override void CalculateWorkplaceCount(ItemClass.Level level, Randomizer r, int width, int length, out int level0, out int level1, out int level2, out int level3)
         {
+            // CalculateWorkplaceCount is called by the game every couple of seconds.  Why?  Who knows?
+            // This makes it a potential performance bottleneck; thus, we cache results to save some CPU cycles.
+            // Results are cached in workplaceCount.
 
-            // For some reason CalculateWorkplaceCount gets called every two seconds or so for every rico building currently plopped.
-            // It's the bottleneck of the mod.
-            // So we cache the calculation results, which might save a few cpu cycles.
+            // Check to see if there's a cached value, and if so, use it.
             if (workplaceCount != null)
-                PloppableRICO.WorkplaceAIHelper.SetWorkplaceLevels(out level0, out level1, out level2, out level3, workplaceCount);
+            {
+                WorkplaceAIHelper.SetWorkplaceLevels(out level0, out level1, out level2, out level3, workplaceCount);
+            }
             else
             {
-                PloppableRICO.WorkplaceAIHelper.CalculateWorkplaceCount(level, m_ricoData, this, r, width, length, out level0, out level1, out level2, out level3);
+                // If nothing is cached, then perform initial calculation.
+                WorkplaceAIHelper.CalculateWorkplaceCount(level, m_ricoData, this, r, width, length, out level0, out level1, out level2, out level3);
+
+                // Cache result.
                 workplaceCount = new int[] { level0, level1, level2, level3 };
             }
         }
 
+        /// <summary>
+        /// Calculates the workplaces for this building according to base method (non-RICO settings).
+        /// Called by WorkPlaceAIHelper to access the base game method; for implementing functionality of mods that have detoured/patched that method (e.g. Realistic Population mods).
+        /// </summary>
+        /// <param name="level">Building level</param>
+        /// <param name="r">Randomizer</param>
+        /// <param name="width">Building plot width (in cells)</param>
+        /// <param name="length">Building plot length (in cells)</param>
+        /// <param name="level0">The number of uneducated jobs</param>
+        /// <param name="level0">The number of uneducated jobs</param>
+        /// <param name="level1">The number of educated jobs</param>
+        /// <param name="level2">The number of well-educated jobs</param>
+        /// <param name="level3">The number of highly-educated jobs</param>
         public void CalculateBaseWorkplaceCount(ItemClass.Level level, Randomizer r, int width, int length, out int level0, out int level1, out int level2, out int level3)
         {
             base.CalculateWorkplaceCount(level, r, width, length, out level0, out level1, out level2, out level3); ;
         }
 
+
+        /// <summary>
+        /// Returns the pollution generated by this building.
+        /// </summary>
+        /// <param name="level">Building level</param>
+        /// <param name="productionRate">Bulding production rate</param>
+        /// <param name="cityPlanningPolicies">Any applicable policies</param>
+        /// <param name="groundPollution">Ground pollution generated by this building</param>
+        /// <param name="noisePollution">Noise pollution generated by this builidng</param>
         public override void GetPollutionRates(ItemClass.Level level, int productionRate, DistrictPolicies.CityPlanning cityPlanningPolicies, out int groundPollution, out int noisePollution)
         {
-            groundPollution = 0;
-            noisePollution = 0;
-
+            // If pollution is disabled, return zero.
             if (!m_pollutionEnabled)
+            {
+                groundPollution = 0;
+                noisePollution = 0;
                 return;
+            }
 
+            // Otherwise, use base method to calculate normal pollution levels.
             base.GetPollutionRates(level, productionRate, cityPlanningPolicies, out groundPollution, out noisePollution);
         }
+    }
 
-        //// PlayerBuildingAI
-        //public override bool GetFireParameters( ushort buildingID, ref Building buildingData, out int fireHazard, out int fireSize, out int fireTolerance )
-        //{
-        //    Util.TRACE( " **** FIRE ****" );
-        //    fireHazard = m_ricoData.fireHazard;
-        //    fireSize = m_ricoData.fireSize;
-        //    fireTolerance = m_ricoData.fireTolerance;
-        //    return m_ricoData.fireHazard != 0;
-        //}
 
-        // I'd really love to refactor this boilerplate out, but meh, no multiple inheritance nor mixins
-        public override void SimulationStep(ushort buildingID, ref Building buildingData, ref Building.Frame frameData)
+    /// <summary>
+    /// Replacement for Commercial AI for ploppable RICO buildings.
+    /// </summary>
+    public class PloppableIndustrialAI : GrowableIndustrialAI
+    {
+        /// <summary>
+        ///  Returns the construction cost of the building.
+        /// </summary>
+        /// <returns>Construction cost</returns>
+        public override int GetConstructionCost()
         {
-            PloppableRICO.Util.buildingFlags(ref buildingData);
-
-            base.SimulationStep(buildingID, ref buildingData, ref frameData);
-
-            PloppableRICO.Util.buildingFlags(ref buildingData);
-
+            return WorkplaceAIHelper.GetConstructionCost(m_constructionCost, this.m_info.m_class.m_service, this.m_info.m_class.m_subService, this.m_info.m_class.m_level);
         }
 
-        public override bool CheckUnlocking()
+
+        /// <summary>
+        /// Returns the construction time of the building.
+        /// For ploppable RICO buildings this is always zero.
+        /// </summary>
+        /// <returns>Construction time (always 0)</returns>
+        protected override int GetConstructionTime()
         {
-            return true;
+            return 0;
         }
 
-        protected override void SimulationStepActive(ushort buildingID, ref Building buildingData, ref Building.Frame frameData)
-        {
-            PloppableRICO.Util.buildingFlags(ref buildingData);
-
-            base.SimulationStepActive(buildingID, ref buildingData, ref frameData);
-
-            PloppableRICO.Util.buildingFlags(ref buildingData);
-
-        }
-
-        public override bool ClearOccupiedZoning()
-        {
-            return !m_ricoData.growable;
-        }
-
+        /// <summary>
+        /// Returns the acceptable width for this class of building AI.
+        /// For ploppable RICO buildings  minimum is always 1 and maximum is always 16.
+        /// </summary>
+        /// <param name="minWidth">Minimum building width (always 1)</param>
+        /// <param name="maxWidth">Maximum building width (always 16)</param>
         public override void GetWidthRange(out int minWidth, out int maxWidth)
         {
             minWidth = 1;
             maxWidth = 16;
         }
 
+
+        /// <summary>
+        /// Returns the acceptable length for this class of building AI.
+        /// For ploppable RICO buildings  minimum is always 1 and maximum is always 16.
+        /// </summary>
+        /// <param name="minLength">Minimum building length (always 1)</param>
+        /// <param name="maxLength">Maximum building width (always 16)</param>
         public override void GetLengthRange(out int minLength, out int maxLength)
         {
             minLength = 1;
             maxLength = 16;
         }
 
+
+        /// <summary>
+        /// Returns the name for the building.
+        /// For ploppable RICO buildings this is always the base name of the prefab (no autogenerated names).
+        /// </summary>
+        /// <param name="buildingID">Instance ID of the building (unused)</param>
+        /// <param name="caller">Calling instance (unused)</param>
+        /// <returns></returns>
         public override string GenerateName(ushort buildingID, InstanceID caller)
         {
             return base.m_info.GetUncheckedLocalizedTitle();
         }
-        
+
+
+        /// <summary>
+        /// Returns whether or not the building clears any zoning it's placed on.
+        /// For ploppable RICO buildings this is always true.
+        /// </summary>
+        /// <returns>Whether this building clears away zoning (always true)</returns>
+        public override bool ClearOccupiedZoning()
+        {
+            return true;
+        }
+
+
+        /// <summary>
+        /// Determines what building (if any) this will upgrade to.
+        /// For ploppable RICO buildings, this is always null.
+        /// That causes a check to fail in CheckBuildingLevel and prevents the building from upgrading.
+        /// </summary>
+        /// <param name="buildingID">Instance ID of the original building</param>
+        /// <param name="data">Building data struct</param>
+        /// <returns>The BuildingInfo record of the building to upgrade to (always null)</returns>
         public override BuildingInfo GetUpgradeInfo(ushort buildingID, ref Building data)
         {
+            return null;
+        }
 
-            return null; //this will cause a check to fail in CheckBuildingLevel, and prevent the building form leveling. 
+
+        /// <summary>
+        /// Calculations performed on each simulation step.
+        /// For a ploppable RICO building we want to force certain building flags to be set before and after each step.
+        /// </summary>
+        /// <param name="buildingID">Instance ID of the building</param>
+        /// <param name="buildingData">Building data struct</param>
+        /// <param name="frameData">Frame data</param>
+        public override void SimulationStep(ushort buildingID, ref Building buildingData, ref Building.Frame frameData)
+        {
+            // Apply flags.
+            Util.buildingFlags(ref buildingData);
+
+            // Execute base method.
+            base.SimulationStep(buildingID, ref buildingData, ref frameData);
+
+            // Ensure flags are still applied.
+            Util.buildingFlags(ref buildingData);
+        }
+
+
+        /// <summary>
+        /// Calculations performed on each simulation step.
+        /// For a ploppable RICO building we want to force certain building flags to be set before and after each step.
+        /// </summary>
+        /// <param name="buildingID">Instance ID of the building</param>
+        /// <param name="buildingData">Building data struct</param>
+        /// <param name="frameData">Frame data</param>
+        protected override void SimulationStepActive(ushort buildingID, ref Building buildingData, ref Building.Frame frameData)
+        {
+            // Apply flags.
+            Util.buildingFlags(ref buildingData);
+
+            // Execute base method.
+            base.SimulationStepActive(buildingID, ref buildingData, ref frameData);
+
+            // Ensure flags are still applied.
+            Util.buildingFlags(ref buildingData);
         }
     }
 }

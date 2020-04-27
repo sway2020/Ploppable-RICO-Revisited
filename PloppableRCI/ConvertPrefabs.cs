@@ -116,7 +116,7 @@ namespace PloppableRICO
                 }
                 else if (buildingData.service == "industrial")
                 {
-                    var ai = prefab.gameObject.AddComponent<PloppableIndustrial>();
+                    var ai = buildingData.growable ? prefab.gameObject.AddComponent<GrowableIndustrialAI>() : prefab.gameObject.AddComponent<PloppableIndustrialAI>();
                     if (ai == null) throw (new Exception("Industrial-AI not found."));
 
                     ai.m_ricoData = buildingData;
