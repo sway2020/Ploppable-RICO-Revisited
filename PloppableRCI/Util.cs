@@ -153,6 +153,9 @@ namespace PloppableRICO
                 case "extractor":
                     category = subservice;
                     break;
+                case "none":
+                    category = "none";
+                    break;
             }
             return category;
         }

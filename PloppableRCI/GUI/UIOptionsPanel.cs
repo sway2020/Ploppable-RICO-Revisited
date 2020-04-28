@@ -62,6 +62,11 @@ namespace PloppableRICO
             Translations.GetTranslation("Ore")
         };
 
+        string[] DummySub = new string[]
+        {
+            Translations.GetTranslation("None")
+        };
+
         string[] Level = new string[]
         {
             "1",
@@ -257,6 +262,7 @@ namespace PloppableRICO
             if (service.selectedIndex == 0)
             {
                 currentSelection.service = "none";
+                currentSelection.subService = "none";
             }
 
             else if (service.selectedIndex == 1)
@@ -306,7 +312,6 @@ namespace PloppableRICO
             {
                 currentSelection.service = "dummy";
                 currentSelection.subService = "none";
-
             }
 
             // Save workplaces.
@@ -527,7 +532,13 @@ namespace PloppableRICO
             {
                 service.selectedIndex = 6;
                 subService.selectedIndex = 0;
-                subService.items = OfficeSub;
+                subService.items = DummySub;
+            }
+            else if (buildingData.service == "none")
+            {
+                service.selectedIndex = 0;
+                subService.selectedIndex = 0;
+                subService.items = DummySub;
             }
 
             // UI category.
@@ -543,7 +554,6 @@ namespace PloppableRICO
             else if (buildingData.uiCategory == "ore") uiCategory.selectedIndex = 9;
             else if (buildingData.uiCategory == "tourist") uiCategory.selectedIndex = 10;
             else if (buildingData.uiCategory == "leisure") uiCategory.selectedIndex = 11;
-            else if (buildingData.uiCategory == "none") uiCategory.selectedIndex = 12;
             else if (buildingData.uiCategory == "organic") uiCategory.selectedIndex = 12;
             else if (buildingData.uiCategory == "hightech") uiCategory.selectedIndex = 13;
             else if (buildingData.uiCategory == "selfsufficient") uiCategory.selectedIndex = 14;
@@ -626,6 +636,11 @@ namespace PloppableRICO
                 // Maximum legitimate level is 3 (selectedIndex is level - 1)
                 level.selectedIndex = Math.Max(level.selectedIndex, 2);
             }
+            else if (service == "dummy" || service == "none")
+            {
+                level.items = extLevel;
+                subService.items = DummySub;
+            }
 
             // Reset subservice and UI category on change.
             subService.selectedIndex = 0;
@@ -639,7 +654,8 @@ namespace PloppableRICO
             switch (service.selectedIndex)
             {
                 case 0:
-                    // None
+                    // None - also reset level.
+                    level.selectedIndex = 0;
                     uiCategory.selectedIndex = 15;
                     break;
                 case 1:
@@ -698,7 +714,7 @@ namespace PloppableRICO
                         case 1:
                             // Low commercial.
                             uiCategory.selectedIndex = 2;
-                            subService.items = Level;
+                            level.items = Level;
                             break;
                         default:
                             // Tourist, leisure or eco - also reset level.
@@ -712,6 +728,11 @@ namespace PloppableRICO
                     // Extractor - also reset level.
                     level.selectedIndex = 0;
                     uiCategory.selectedIndex = subService.selectedIndex + 6;
+                    break;
+                case 6:
+                    // Dummy - also reset level.
+                    level.selectedIndex = 0;
+                    uiCategory.selectedIndex = 15;
                     break;
             }
         }

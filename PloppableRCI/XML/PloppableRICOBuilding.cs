@@ -516,7 +516,7 @@ namespace PloppableRICO
                 var errors = new StringBuilder();
 
 
-                if (!new Regex(@"^(comlow|comhigh|reslow|reshigh|office|industrial|oil|ore|farming|forest|tourist|leisure|organic|hightech|selfsufficient)$").IsMatch(uiCategory))
+                if (!new Regex(@"^(comlow|comhigh|reslow|reshigh|office|industrial|oil|ore|farming|forest|tourist|leisure|organic|hightech|selfsufficient|none)$").IsMatch(uiCategory))
                 {
                     // Invalid UI Category; calculate new one from scratch.
                     string newCategory = string.Empty;
@@ -581,13 +581,12 @@ namespace PloppableRICO
                     // If newCategory is still empty, we didn't work it out.
                     if (string.IsNullOrEmpty(newCategory))
                     {
-                        errors.AppendLine("Building '" + name + "' has an invalid ui-category '" + uiCategory + "'.");
+                        newCategory = "none";
                     }
-                    else
-                    {
-                        errors.AppendLine("Building '" + name + "' has an invalid ui-category '" + uiCategory + "'; reverting to '" + newCategory + "'.");
-                        uiCategory = newCategory;
-                    }
+                    
+                    // Report the error and update the UI category.
+                    errors.AppendLine("Building '" + name + "' has an invalid ui-category '" + uiCategory + "'; reverting to '" + newCategory + "'.");
+                    uiCategory = newCategory;
                 }
 
                 // Check home and workplace counts, as appropriate.
@@ -595,7 +594,7 @@ namespace PloppableRICO
                 {
                     if (homeCount == 0)
                     {
-                        // If homeCount is zero, check to see if any workplace count has been entered instead (I'm looking at you, One Vanderbilt - New York).
+                        // If homeCount is zero, check to see if any workplace count has been entered instead.
                         if (_workplaces.Sum() > 0)
                         {
                             homeCount = _workplaces.Sum();
@@ -609,6 +608,7 @@ namespace PloppableRICO
                 }
                 else
                 {
+                    // Any non-residential building should have jobs unless it's an empty or dummy service.
                     if ((workplaceCount == 0) && service != "" && service != "none" && service != "dummy")
                     {
                         errors.AppendLine("Building '" + name + "' provides " + service + " jobs but no jobs are set.");
