@@ -22,16 +22,10 @@ namespace PloppableRICO
                 {
                     var ai = prefab.gameObject.AddComponent<DummyBuildingAI>();
 
+                    // Dummy building AI requires different setup to ConvertPrefabs.InitializePrefab(), as it's not a PrivateBuildingAI.
+                    // So we just do it here instead.
                     prefab.m_buildingAI = ai;
                     prefab.m_buildingAI.m_info = prefab;
-                    try
-                    {
-                        prefab.InitializePrefab();
-                    }
-                    catch
-                    {
-                        Debug.Log("RICO Revisited: InitPrefab failed for dummy: " + prefab.name);
-                    }
                     prefab.m_placementStyle = ItemClass.Placement.Manual;
                 }
                 else if (buildingData.service == "residential")
