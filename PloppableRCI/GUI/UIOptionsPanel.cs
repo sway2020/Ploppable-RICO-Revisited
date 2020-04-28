@@ -314,6 +314,9 @@ namespace PloppableRICO
                 currentSelection.subService = "none";
             }
 
+            // Set level.
+            currentSelection.level = level.selectedIndex + 1;
+
             // Save workplaces.
             var a = new int[]
             {
@@ -365,7 +368,6 @@ namespace PloppableRICO
             else if (uiCategory.selectedIndex == 15) currentSelection.uiCategory = "none";
 
             // Remaining items.
-            currentSelection.level = level.selectedIndex + 1;
             currentSelection.ricoEnabled = ricoEnabled.isChecked;
             currentSelection.growable = growable.isChecked;
             currentSelection.RealityIgnored = !realityIgnored.isChecked;
