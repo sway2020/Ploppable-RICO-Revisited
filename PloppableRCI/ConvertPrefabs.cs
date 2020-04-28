@@ -18,7 +18,6 @@ namespace PloppableRICO
         {
             if (prefab != null)
             {
-
                 if (buildingData.service == "dummy")
                 {
                     var ai = prefab.gameObject.AddComponent<DummyBuildingAI>();
@@ -34,8 +33,6 @@ namespace PloppableRICO
                         Debug.Log("RICO Revisited: InitPrefab failed for dummy: " + prefab.name);
                     }
                     prefab.m_placementStyle = ItemClass.Placement.Manual;
-
-
                 }
                 else if (buildingData.service == "residential")
                 {

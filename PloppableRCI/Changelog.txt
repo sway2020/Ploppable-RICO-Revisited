@@ -1,4 +1,5 @@
-﻿- Remove reduntant CalculateHomeCount Harmony patch
+﻿- Allow zero workplaces for dummy service
+- Remove reduntant CalculateHomeCount Harmony patch
 
 Version 1.3
 
