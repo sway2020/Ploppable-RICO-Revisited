@@ -10,7 +10,7 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyConfiguration ("")]
 [assembly: AssemblyCompany ("")]
 [assembly: AssemblyProduct ("")]
-[assembly: AssemblyCopyright("algernon (fork of work by AJ and others)")]
+[assembly: AssemblyCopyright("algernon (fork of work by AJ3D and others)")]
 [assembly: AssemblyTrademark ("")]
 [assembly: AssemblyCulture ("")]
 
@@ -18,7 +18,7 @@ using System.Runtime.CompilerServices;
 // The form "{Major}.{Minor}.*" will automatically update the build and revision,
 // and "{Major}.{Minor}.{Build}.*" will update just the revision.
 
-[assembly: AssemblyVersion("1.3.0")]
+[assembly: AssemblyVersion("2.0.0")]
 [assembly: ComVisible(false)]
 
 // The following attributes are used to specify the signing key for the assembly,

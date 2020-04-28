@@ -612,7 +612,6 @@ namespace PloppableRICO
                     if ((workplaceCount == 0) && service != "" && service != "none" && service != "dummy")
                     {
                         errors.AppendLine("Building '" + name + "' provides " + service + " jobs but no jobs are set.");
-                        ItemClass.Service.
                     }
                 }
 
