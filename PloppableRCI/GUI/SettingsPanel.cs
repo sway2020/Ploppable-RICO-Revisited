@@ -12,6 +12,7 @@ namespace PloppableRICO
     ///The base class of the RICO settings panel. Its based on SamsamTS's Building Themes panel. Many thanks to him for his work. 
     /// </summary>
 
+
     public class RICOSettingsPanel : UIPanel
     {
 
@@ -273,6 +274,28 @@ namespace PloppableRICO
             fastList.m_buffer = list.OrderBy(x => x.displayName).ToArray();
             fastList.m_size = list.Count;
             return fastList;
+        }
+
+
+        /// <summary>
+        /// Called to select a building from 'outside' the building details editor (e.g. by button on building info panel).
+        /// Sets the filter to only display the relevant category for the relevant building, and makes that building selected in the list.
+        /// </summary>
+        /// <param name="building"></param>
+        public void SelectBuilding(BuildingInfo building)
+        {
+            // Ensure the fastlist is filtered to include this building.
+            //m_filter.SelectBuildingCategory(building.m_class);
+            m_buildingSelection.rowsData = GenerateFastList();
+
+            // Clear the name filter.
+            m_filter.nameFilter.text = String.Empty;
+
+            // Find and select the building in the fastlist.
+            //m_buildingSelection.FindBuilding(building.name);
+
+            // Update the selected building to the current.
+            UpdateBuildingInfo(m_buildingSelection.FindBuilding(building.name));
         }
     }
 }

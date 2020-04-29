@@ -426,6 +426,32 @@ namespace PloppableRICO
             if (selectOnMouseEnter)
                 OnRowClicked(m_lastMouseEnter, p);
         }
+
+
+        /// <summary>
+        /// Sets the selection to the named building.
+        /// If no building is found, clears the selection.
+        /// </summary>
+        /// <param name="building">The (raw prefab) name of the building to find</param>
+        /// <returns>The RICO BuildingData record for the building.</returns>
+        public BuildingData FindBuilding(string name)
+        {
+            // Iterate through the list 
+            for (int i = 0; i < m_rowsData.m_size; i++)
+            {
+                if (((BuildingData)m_rowsData.m_buffer[i]).prefab.name.Equals(name))
+                {
+                    selectedIndex = i;
+                    listPosition = i;
+                    return (BuildingData)m_rowsData.m_buffer[i];
+                }
+            }
+
+            // No building found; reset the selection.
+            selectedIndex = -1;
+            listPosition = 0;
+            return null;
+        }
         #endregion
 
         #region Private methods

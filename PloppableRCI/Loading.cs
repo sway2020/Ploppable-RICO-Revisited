@@ -28,6 +28,10 @@ namespace PloppableRICO
         public static PloppableRICODefinition mod1RicoDef;
         public static PloppableRICODefinition mod2RicoDef;
 
+        // Button (in building info panels) to access building details screen.
+        private UIButton zonedBuildingButton;
+        private UIButton serviceBuildingButton;
+
 
         /// <summary>
         /// Called by the game when the mod is initialised at the start of the loading process.
@@ -118,6 +122,53 @@ namespace PloppableRICO
             // Init GUI.
             PloppableTool.Initialize();
             RICOSettingsPanel.Initialize();
+
+
+            // Add button to access building details from zoned building info panels, if it doesn't already exist.
+            if (zonedBuildingButton == null)
+            {
+                ZonedBuildingWorldInfoPanel infoPanel = UIView.library.Get<ZonedBuildingWorldInfoPanel>(typeof(ZonedBuildingWorldInfoPanel).Name);
+
+                // Basic setup.
+                zonedBuildingButton = UIUtils.CreateButton(infoPanel.component);
+                zonedBuildingButton.width = 133;
+                zonedBuildingButton.height = 19.5f;
+                zonedBuildingButton.textScale = 0.75f;
+                zonedBuildingButton.textVerticalAlignment = UIVerticalAlignment.Bottom;
+                zonedBuildingButton.relativePosition = new UnityEngine.Vector3(infoPanel.component.width - zonedBuildingButton.width - 10, 135);
+                zonedBuildingButton.text = "Ploppable RICO";
+
+                // Event handler.
+                zonedBuildingButton.eventClick += (c, p) =>
+                {
+                    // Select current building in the building details panel and show.
+                    RICOSettingsPanel.instance.SelectBuilding(InstanceManager.GetPrefabInfo(WorldInfoPanel.GetCurrentInstanceID()) as BuildingInfo);
+                    RICOSettingsPanel.instance.Show();
+                };
+            }
+
+            // Add button to access building details from service building info panels, if it doesn't already exist.
+            if (serviceBuildingButton == null)
+            {
+                CityServiceWorldInfoPanel infoPanel = UIView.library.Get<CityServiceWorldInfoPanel>(typeof(CityServiceWorldInfoPanel).Name);
+
+                // Basic setup.
+                serviceBuildingButton = UIUtils.CreateButton(infoPanel.component);
+                serviceBuildingButton.width = 133;
+                serviceBuildingButton.height = 19.5f;
+                serviceBuildingButton.textScale = 0.75f;
+                serviceBuildingButton.textVerticalAlignment = UIVerticalAlignment.Bottom;
+                serviceBuildingButton.relativePosition = new UnityEngine.Vector3(infoPanel.component.width - serviceBuildingButton.width - 10, 115);
+                serviceBuildingButton.text = "Ploppable RICO";
+
+                // Event handler.
+                serviceBuildingButton.eventClick += (c, p) =>
+                {
+                    // Select current building in the building details panel and show.
+                    RICOSettingsPanel.instance.SelectBuilding(InstanceManager.GetPrefabInfo(WorldInfoPanel.GetCurrentInstanceID()) as BuildingInfo);
+                    RICOSettingsPanel.instance.Show();
+                };
+            }
 
             // Report any loading errors.
             Debugging.ReportErrors();
