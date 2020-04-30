@@ -175,5 +175,39 @@ namespace PloppableRICO
             settingsFilter[2].tooltip = Translations.GetTranslation("Local settings");
             settingsFilter[3].tooltip = Translations.GetTranslation("Any settings");
         }
+
+
+        /// <summary>
+        /// Sets the category toggles so that the one that includes the provided category is on, and the rest are off.
+        /// </summary>
+        /// <param name="buildingClass">RICO category of the building (to match toggle categories)</param>
+        public void SelectBuildingCategory(Category category)
+        {
+            // Iterate through each category.
+            for (int i = 0; i < NumOfCategories; i ++)
+            {
+                if ((int)category == i)
+                {
+                    // Category match - select this toggle.
+                    zoningToggles[i].isChecked = true;
+                }
+                else
+                {
+                    // Otherwise, deselect.
+                    zoningToggles[i].isChecked = false;
+                }
+            }
+
+            // Clear setting filter checkboxes.
+            for (int i = 0; i < 4; i++)
+            {
+                settingsFilter[i].isChecked = false;
+                settingsFilter[1].isChecked = false;
+                settingsFilter[2].isChecked = false;
+            }
+
+            // Clear name search.
+            nameFilter.text = string.Empty;
+        }
     }
 }

@@ -281,21 +281,24 @@ namespace PloppableRICO
         /// Called to select a building from 'outside' the building details editor (e.g. by button on building info panel).
         /// Sets the filter to only display the relevant category for the relevant building, and makes that building selected in the list.
         /// </summary>
-        /// <param name="building"></param>
-        public void SelectBuilding(BuildingInfo building)
+        /// <param name="building">The BuildingInfo record for this building.</param>
+        public void SelectBuilding(BuildingInfo buildingInfo)
         {
-            // Ensure the fastlist is filtered to include this building.
-            //m_filter.SelectBuildingCategory(building.m_class);
+            // Get the RICO BuildingData associated with this prefab.
+            BuildingData building = Loading.xmlManager.prefabHash[buildingInfo];
+
+            // Ensure the fastlist is filtered to include this building category only.
+            m_filter.SelectBuildingCategory(building.category);
             m_buildingSelection.rowsData = GenerateFastList();
 
             // Clear the name filter.
             m_filter.nameFilter.text = String.Empty;
 
             // Find and select the building in the fastlist.
-            //m_buildingSelection.FindBuilding(building.name);
+            m_buildingSelection.FindBuilding(building.name);
 
             // Update the selected building to the current.
-            UpdateBuildingInfo(m_buildingSelection.FindBuilding(building.name));
+            UpdateBuildingInfo(building);
         }
     }
 }
