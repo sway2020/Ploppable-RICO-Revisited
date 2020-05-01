@@ -32,6 +32,10 @@ namespace PloppableRICO
         private UIButton zonedBuildingButton;
         private UIButton serviceBuildingButton;
 
+        // Internal flags.
+        private static bool isModEnabled = false;
+        private static bool conflictingMod = false;
+
 
         /// <summary>
         /// Called by the game when the mod is initialised at the start of the loading process.
@@ -39,6 +43,26 @@ namespace PloppableRICO
         /// <param name="loading">Loading mode (e.g. game, editor, scenario, etc.)</param>
         public override void OnCreated(ILoading loading)
         {
+            // Don't do anything if not in game (e.g. if we're going into an editor).
+            if (loading.currentMode != AppMode.Game)
+            {
+                isModEnabled = false;
+                UnityEngine.Debug.Log("RICO Revisited: not loading into game, skipping activation.");
+                return;
+            }
+
+            // Check for original Ploppable RICO mod.
+            if (Util.IsModEnabled(586012417ul))
+            {
+                // Original Ploppable RICO mod detected - log and show warning, then return without doing anything.
+                conflictingMod = true;
+                isModEnabled = false;
+                Debug.Log("Original Ploppable RICO detected - RICO Revisited exiting.");
+                return;
+            }
+
+            // Checks passed; we're loading the mod.
+            isModEnabled = true;
             Debug.Log("RICO Revisited v" + PloppableRICOMod.version + " loading.");
 
             // Deploy Harmony patches.
@@ -104,20 +128,23 @@ namespace PloppableRICO
         /// <param name="mode">Loading mode (e.g. game, editor, scenario, etc.)</param>
         public override void OnLevelLoaded(LoadMode mode)
         {
+            // Check to see if a conflicting mod has been detected - if so, alert the user.
+            if (conflictingMod)
+            {
+                UIView.library.ShowModal<ExceptionPanel>("ExceptionPanel").SetMessage("RICO Revisited", Translations.GetTranslation("Original Ploppable RICO mod detected - RICO Revisited is shutting down to protect your game.  Only ONE of these mods can be enabled at the same time - please choose one and unsubscribe from the other!"), true);
+            }
+
+            // Don't do anything further if mod hasn't activated (conflicting mod detected, or loading into editor instead of game).
+            if (!isModEnabled)
+            {
+                return;
+            }
+
             base.OnLevelLoaded(mode);
 
             // Don't do anything if in asset editor.
             if (mode == LoadMode.NewAsset || mode == LoadMode.LoadAsset)
                 return;
-
-            // Check for original Ploppable RICO mod.
-            if (Util.IsModEnabled(586012417ul))
-            {
-                // Original Ploppable RICO mod detected - log and show warning, then return without doing anything.
-                Debug.Log("Original Ploppable RICO detected - RICO Revisited exiting.");
-                UIView.library.ShowModal<ExceptionPanel>("ExceptionPanel").SetMessage("RICO Revisited", Translations.GetTranslation("Original Ploppable RICO mod detected - RICO Revisited is shutting down to protect your game.  Only ONE of these mods can be enabled at the same time - please choose one and unsubscribe from the other!"), true);
-                return;
-            }
 
             // Init GUI.
             PloppableTool.Initialize();
