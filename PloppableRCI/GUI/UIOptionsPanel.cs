@@ -210,6 +210,20 @@ namespace PloppableRICO
             level.selectedIndex = 0;
             level.items = Level;
 
+            // Update workplace allocations on level, service, and subservice change.
+            level.eventSelectedIndexChanged += (c, value) =>
+            {
+                UpdateWorkplaces();
+            };
+            service.eventSelectedIndexChanged += (c, value) =>
+            {
+                UpdateWorkplaces();
+            };
+            subService.eventSelectedIndexChanged += (c, value) =>
+            {
+                UpdateWorkplaces();
+            };
+
             // Base text fields.
             construction = UIUtils.CreateTextField(enableRICOPanel, 150, Translations.GetTranslation("Construction cost"));
             manual = UIUtils.CreateTextField(enableRICOPanel, 180, Translations.GetTranslation("Worker/Home count"));
@@ -259,60 +273,13 @@ namespace PloppableRICO
         {
             // Reads current settings from UI elements, and saves them to the XMLData.
 
-            if (service.selectedIndex == 0)
-            {
-                currentSelection.service = "none";
-                currentSelection.subService = "none";
-            }
+            // Set service and subservice.
+            string serviceString = String.Empty;
+            string subServiceString = String.Empty;
 
-            else if (service.selectedIndex == 1)
-            {
-                currentSelection.service = "residential";
-                if (subService.selectedIndex == 0) currentSelection.subService = "high";
-                else if (subService.selectedIndex == 1) currentSelection.subService = "low";
-                else if (subService.selectedIndex == 2) currentSelection.subService = "high eco";
-                else if (subService.selectedIndex == 3) currentSelection.subService = "low eco";
-            }
-            else if (service.selectedIndex == 2)
-            {
-                currentSelection.service = "industrial";
-
-                if (subService.selectedIndex == 0) currentSelection.subService = "generic";
-                else if (subService.selectedIndex == 1) currentSelection.subService = "farming";
-                else if (subService.selectedIndex == 2) currentSelection.subService = "forest";
-                else if (subService.selectedIndex == 3) currentSelection.subService = "oil";
-                else if (subService.selectedIndex == 4) currentSelection.subService = "ore";
-            }
-            else if (service.selectedIndex == 3)
-            {
-                currentSelection.service = "office";
-
-                if (subService.selectedIndex == 0) currentSelection.subService = "none";
-                else if (subService.selectedIndex == 1) currentSelection.subService = "high tech";
-            }
-            else if (service.selectedIndex == 4)
-            {
-                currentSelection.service = "commercial";
-                if (subService.selectedIndex == 0) currentSelection.subService = "high";
-                else if (subService.selectedIndex == 1) currentSelection.subService = "low";
-                else if (subService.selectedIndex == 2) currentSelection.subService = "tourist";
-                else if (subService.selectedIndex == 3) currentSelection.subService = "leisure";
-                else if (subService.selectedIndex == 4) currentSelection.subService = "eco";
-            }
-            else if (service.selectedIndex == 5)
-            {
-                currentSelection.service = "extractor";
-                if (subService.selectedIndex == 0) currentSelection.subService = "farming";
-                else if (subService.selectedIndex == 1) currentSelection.subService = "forest";
-                else if (subService.selectedIndex == 2) currentSelection.subService = "oil";
-                else if (subService.selectedIndex == 3) currentSelection.subService = "ore";
-
-            }
-            else if (service.selectedIndex == 6)
-            {
-                currentSelection.service = "dummy";
-                currentSelection.subService = "none";
-            }
+            GetService(ref serviceString, ref subServiceString);
+            currentSelection.service = serviceString;
+            currentSelection.subService = subServiceString;
 
             // Set level.
             currentSelection.level = level.selectedIndex + 1;
@@ -636,7 +603,7 @@ namespace PloppableRICO
                 level.items = Level;
                 subService.items = ComSub;
                 // Maximum legitimate level is 3 (selectedIndex is level - 1)
-                level.selectedIndex = Math.Max(level.selectedIndex, 2);
+                level.selectedIndex = Math.Min(level.selectedIndex, 2);
             }
             else if (service == "dummy" || service == "none")
             {
@@ -699,6 +666,7 @@ namespace PloppableRICO
                         case 1:
                             // IT cluster - also reset level.
                             uiCategory.selectedIndex = 13;
+                            level.items = extLevel;
                             level.selectedIndex = 0;
                             break;
                     }
@@ -721,8 +689,8 @@ namespace PloppableRICO
                         default:
                             // Tourist, leisure or eco - also reset level.
                             uiCategory.selectedIndex = subService.selectedIndex + 8;
-                            level.selectedIndex = 0;
                             level.items = extLevel;
+                            level.selectedIndex = 0;
                             break;
                     }
                     break;
@@ -737,6 +705,112 @@ namespace PloppableRICO
                     uiCategory.selectedIndex = 15;
                     break;
             }
+        }
+
+
+        /// <summary>
+        /// Returns the current service and subservice based on current menu selections.
+        /// </summary>
+        private void GetService(ref string serviceName, ref string subServiceName )
+        {
+            if (service.selectedIndex == 0)
+            {
+                currentSelection.service = "none";
+                currentSelection.subService = "none";
+            }
+
+            else if (service.selectedIndex == 1)
+            {
+                serviceName = "residential";
+                if (subService.selectedIndex == 0) subServiceName = "high";
+                else if (subService.selectedIndex == 1) subServiceName = "low";
+                else if (subService.selectedIndex == 2) subServiceName = "high eco";
+                else if (subService.selectedIndex == 3) subServiceName = "low eco";
+            }
+            else if (service.selectedIndex == 2)
+            {
+                serviceName = "industrial";
+
+                if (subService.selectedIndex == 0) subServiceName = "generic";
+                else if (subService.selectedIndex == 1) subServiceName = "farming";
+                else if (subService.selectedIndex == 2) subServiceName = "forest";
+                else if (subService.selectedIndex == 3) subServiceName = "oil";
+                else if (subService.selectedIndex == 4) subServiceName = "ore";
+            }
+            else if (service.selectedIndex == 3)
+            {
+                serviceName = "office";
+
+                if (subService.selectedIndex == 0) subServiceName = "none";
+                else if (subService.selectedIndex == 1) subServiceName = "high tech";
+            }
+            else if (service.selectedIndex == 4)
+            {
+                serviceName = "commercial";
+                if (subService.selectedIndex == 0) subServiceName = "high";
+                else if (subService.selectedIndex == 1) subServiceName = "low";
+                else if (subService.selectedIndex == 2) subServiceName = "tourist";
+                else if (subService.selectedIndex == 3) subServiceName = "leisure";
+                else if (subService.selectedIndex == 4) subServiceName = "eco";
+            }
+            else if (service.selectedIndex == 5)
+            {
+                serviceName = "extractor";
+                if (subService.selectedIndex == 0) subServiceName = "farming";
+                else if (subService.selectedIndex == 1) subServiceName = "forest";
+                else if (subService.selectedIndex == 2) subServiceName = "oil";
+                else if (subService.selectedIndex == 3) subServiceName = "ore";
+
+            }
+            else if (service.selectedIndex == 6)
+            {
+                serviceName = "dummy";
+                subServiceName = "none";
+            }
+        }
+
+
+        /// <summary>
+        /// Updates workplace breakdowns to ratios applicable to current settings.
+        /// </summary>
+        private void UpdateWorkplaces()
+        {
+            int[] allocation = new int[4];
+            int totalJobs;
+
+
+            // If we catch an exception while parsing the manual textfield, it's probably because it's not ready yet (initial asset selection).
+            // Simply return without doing anything.
+            try
+            {
+                totalJobs = int.Parse(manual.text);
+            }
+            catch
+            {
+                return;
+            }
+
+            if (totalJobs > 0)
+            {
+                // Get current service and sub-service.
+                string serviceString = string.Empty;
+                string subServiceString = string.Empty;
+
+                GetService(ref serviceString, ref subServiceString);
+
+                // Allocate out total workplaces ('manual').
+                int[] distribution = Util.WorkplaceDistributionOf(serviceString, subServiceString, "Level" + (level.selectedIndex + 1));
+                allocation = WorkplaceAIHelper.distributeWorkplaceLevels(int.Parse(manual.text), distribution, new int[] { 0, 0, 0, 0 });
+
+                // Check and adjust for any rounding errors, assigning 'leftover' jobs to the lowest education level.
+                allocation[0] += (int.Parse(manual.text) - allocation[0] - allocation[1] - allocation[2] - allocation[3]);
+            }
+
+            // Update workplace textfields.
+            uneducated.text = allocation[0].ToString();
+            educated.text = allocation[1].ToString();
+            welleducated.text = allocation[2].ToString();
+            highlyeducated.text = allocation[3].ToString();
         }
     }
 }
