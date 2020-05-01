@@ -363,6 +363,12 @@ namespace PloppableRICO
 
         void DrawBuildingButton(BuildingInfo BuildingPrefab, string type)
         {
+            // Don't do anything if UI category is set to 'none'.
+            if (type.Equals("none"))
+            {
+                return;
+            }
+
             try
             {
                 // Add building buttons to relevant panels.
@@ -507,6 +513,7 @@ namespace PloppableRICO
             }
             catch (Exception e)
             {
+                Debug.Log("RICO Revisited: BuildingButton creation exception with type '" + type + "'.");
                 Debug.LogException(e);
             }
         }

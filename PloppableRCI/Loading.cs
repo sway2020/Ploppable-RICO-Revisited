@@ -135,7 +135,7 @@ namespace PloppableRICO
                 zonedBuildingButton.height = 19.5f;
                 zonedBuildingButton.textScale = 0.75f;
                 zonedBuildingButton.textVerticalAlignment = UIVerticalAlignment.Bottom;
-                zonedBuildingButton.relativePosition = new UnityEngine.Vector3(infoPanel.component.width - zonedBuildingButton.width - 10, 120);
+                zonedBuildingButton.relativePosition = new UnityEngine.Vector3(infoPanel.component.width - zonedBuildingButton.width - 10, 145);
                 zonedBuildingButton.text = "Ploppable RICO";
 
                 // Event handler.
