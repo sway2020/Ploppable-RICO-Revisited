@@ -652,6 +652,7 @@ namespace PloppableRICO
                     // Reset level for specialised industry.
                     if (subService.selectedIndex > 0)
                     {
+                        level.items = extLevel;
                         level.selectedIndex = 0;
                     }
                     break;
