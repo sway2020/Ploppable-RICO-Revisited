@@ -7,6 +7,7 @@
 - Remove error for zero workplaces for dummy service
 - Fix automatic workplace allocation sometimes not correctly identifying current level in options editor
 - Fix 'Leisure' and 'Tourism' tooltips being swapped around
+- Standardise lighting for builiding preview renders
 - Remove redundant CalculateHomeCount Harmony patch
 - Code cleanup
 

@@ -11,7 +11,7 @@ namespace PloppableRICO
 
         private UITextureSprite m_preview;
         private UISprite m_noPreview;
-        private PreviewRenderer m_previewRenderer;
+        private UIPreviewRenderer m_previewRenderer;
 
         private UILabel m_buildingName;
         private UISprite m_categoryIcon;
@@ -34,8 +34,8 @@ namespace PloppableRICO
             m_noPreview.spriteName = "Niet";
             m_noPreview.relativePosition = new Vector3((width - m_noPreview.spriteInfo.width) / 2, (height - m_noPreview.spriteInfo.height) / 2);
 
-            m_previewRenderer = gameObject.AddComponent<PreviewRenderer>();
-            m_previewRenderer.size = m_preview.size * 2; // Twice the size for anti-aliasing
+            m_previewRenderer = gameObject.AddComponent<UIPreviewRenderer>();
+            m_previewRenderer.Size = m_preview.size * 2; // Twice the size for anti-aliasing
 
             eventMouseDown += (c, p) =>
             {
@@ -49,7 +49,7 @@ namespace PloppableRICO
 
             eventMouseWheel += (c, p) =>
             {
-                m_previewRenderer.zoom -= Mathf.Sign(p.wheelDelta) * 0.25f;
+                m_previewRenderer.Zoom -= Mathf.Sign(p.wheelDelta) * 0.25f;
                 RenderPreview();
             };
 
@@ -100,14 +100,14 @@ namespace PloppableRICO
             // Preview
             if (m_renderPrefab != null && m_renderPrefab.m_mesh != null)
             {
-                m_previewRenderer.cameraRotation = 210f;
-                m_previewRenderer.zoom = 4f;
-                m_previewRenderer.mesh = m_renderPrefab.m_mesh;
+                m_previewRenderer.CameraRotation = 210f;
+                m_previewRenderer.Zoom = 4f;
+                m_previewRenderer.Mesh = m_renderPrefab.m_mesh;
                 m_previewRenderer.material = m_renderPrefab.m_material;
 
                 RenderPreview();
 
-                m_preview.texture = m_previewRenderer.texture;
+                m_preview.texture = m_previewRenderer.Texture;
 
                 m_noPreview.isVisible = false;
             }
@@ -152,7 +152,7 @@ namespace PloppableRICO
 
         private void RotateCamera(UIComponent c, UIMouseEventParameter p)
         {
-            m_previewRenderer.cameraRotation -= p.moveDelta.x / m_preview.width * 360f;
+            m_previewRenderer.CameraRotation -= p.moveDelta.x / m_preview.width * 360f;
             RenderPreview();
         }
     }
