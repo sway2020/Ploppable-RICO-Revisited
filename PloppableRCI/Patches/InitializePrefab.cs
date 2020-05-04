@@ -133,7 +133,7 @@ namespace PloppableRICO
 					// If local settings disable RICO, dont convert.
 					if (Loading.xmlManager.prefabHash[__instance].local.ricoEnabled)
 					{
-						Loading.convertPrefabs.ConvertPrefab(Loading.xmlManager.prefabHash[__instance].local, ref __instance);
+						Loading.convertPrefabs.ConvertPrefab(Loading.xmlManager.prefabHash[__instance].local, __instance);
 					}
 				}
 				// If no local settings, apply author settings.
@@ -142,7 +142,7 @@ namespace PloppableRICO
 					// If author settings disable RICO, dont convert.
 					if (Loading.xmlManager.prefabHash[__instance].author.ricoEnabled)
 					{
-						Loading.convertPrefabs.ConvertPrefab(Loading.xmlManager.prefabHash[__instance].author, ref __instance);
+						Loading.convertPrefabs.ConvertPrefab(Loading.xmlManager.prefabHash[__instance].author, __instance);
 					}
 				}
 				// If none of the above, apply mod settings.
@@ -151,7 +151,7 @@ namespace PloppableRICO
 					// If mod settings disable RICO, dont convert.
 					if (Loading.xmlManager.prefabHash[__instance].mod.ricoEnabled)
 					{
-						Loading.convertPrefabs.ConvertPrefab(Loading.xmlManager.prefabHash[__instance].mod, ref __instance);
+						Loading.convertPrefabs.ConvertPrefab(Loading.xmlManager.prefabHash[__instance].mod, __instance);
 					}
 				}
 				else 

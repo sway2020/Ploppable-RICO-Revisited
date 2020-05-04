@@ -350,6 +350,7 @@ namespace PloppableRICO
             // Disable all input controls by default; activate them later if needed.
             ricoEnabled.Disable();
             growable.Disable();
+            growable.parent.Hide();
             service.Disable();
             subService.Disable();
             level.Disable();
@@ -362,6 +363,7 @@ namespace PloppableRICO
             welleducated.Disable();
             highlyeducated.Disable();
 
+
             // Update option UI elements, in priority order (local, author, mod).
             if (buildingData.hasLocal)
             {
@@ -372,7 +374,6 @@ namespace PloppableRICO
 
                 // If the building has local settings, enable input fields.
                 ricoEnabled.Enable();
-                growable.Enable();
                 service.Enable();
                 subService.Enable();
                 level.Enable();
@@ -385,9 +386,15 @@ namespace PloppableRICO
                 welleducated.Enable();
                 highlyeducated.Enable();
 
-                // Re-enable event logic now that dropdowns are up-to-date before returning.
-                disableEvents = false;
-                return;
+                // 'Growable' can only be set in local settings.
+                // Only show growable checkbox where assets meet the prequisites:
+                // Growables can't have any dimension greater than 4 or contain any net structures.
+                if (buildingData.prefab.GetWidth() <= 4 && buildingData.prefab.GetLength() <= 4 && !(buildingData.prefab.m_paths != null && buildingData.prefab.m_paths.Length != 0))
+                {
+                    growable.Enable();
+                    growable.parent.Show();
+                }
+
             }
             else if (buildingData.hasAuthor)
             {
@@ -396,10 +403,6 @@ namespace PloppableRICO
                 UpdateElements(buildingData.author.service);
                 UpdateValues(buildingData.author);
                 label.text = Translations.GetTranslation("Author settings");
-
-                // Re-enable event logic now that dropdowns are up-to-date before returning.
-                disableEvents = false;
-                return;
             }
             else if (buildingData.hasMod)
             {
@@ -408,10 +411,6 @@ namespace PloppableRICO
                 label.text = Translations.GetTranslation("Mod settings");
                 UpdateElements(buildingData.mod.service);
                 UpdateValues(buildingData.mod);
-
-                // Re-enable event logic now that dropdowns are up-to-date before returning.
-                disableEvents = false;
-                return;
             }
             else
             {
@@ -421,7 +420,7 @@ namespace PloppableRICO
                 label.text = Translations.GetTranslation("No settings");
             }
 
-            // Catchall to ensure event logic re-enabled before we leave.
+            // Re-enable event logic now that dropdowns are up-to-date before returning.
             disableEvents = false;
         }
 

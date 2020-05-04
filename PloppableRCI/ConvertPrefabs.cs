@@ -14,10 +14,28 @@ namespace PloppableRICO
         /// </summary>
         /// <param name="buildingData">RICO building data to apply</param>
         /// <param name="prefab">The building prefab to be changed</param>
-        public void ConvertPrefab(RICOBuilding buildingData, ref BuildingInfo prefab)
+        public void ConvertPrefab(RICOBuilding buildingData, BuildingInfo prefab)
         {
             if (prefab != null)
             {
+                // Check eligibility for any growable assets.
+                if (buildingData.growable)
+                {
+                    // Growables can't have any dimension greater than 4.
+                    if (prefab.GetWidth() > 4 || prefab.GetLength() > 4)
+                    {
+                        buildingData.growable = false;
+                        Debug.Log("RICO Revisited: building '" + prefab.name + "' can't be growable because it is too big.");
+                    }
+
+                    // Growables can't have net structures.
+                    if (prefab.m_paths != null && prefab.m_paths.Length != 0)
+                    {
+                        buildingData.growable = false;
+                        Debug.Log("RICO Revisited: building '" + prefab.name + "' can't be growable because it contains network assets.");
+                    }
+                }
+
                 if (buildingData.service == "dummy")
                 {
                     var ai = prefab.gameObject.AddComponent<DummyBuildingAI>();
