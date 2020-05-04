@@ -35,6 +35,7 @@ namespace PloppableRICO
             { "Service", "建筑类型" },
             { "Sub-service", "建筑子类型" },
             { "UI category", "建筑分类" },
+            { "Lvl ", "建筑等级" },
             { "Level", "建筑等级" },
             { "Construction cost", "建筑造价" },
             { "Worker/Home count", "容纳工人/居民数量" },

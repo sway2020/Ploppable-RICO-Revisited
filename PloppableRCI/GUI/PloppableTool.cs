@@ -375,6 +375,7 @@ namespace PloppableRICO
             {
                 // Add building buttons to relevant panels.
                 BuildingButton = new UIButton();
+
                 if (type == "reslow")
                 {
                     BuildingButton = BuildingPanels[0].AddUIComponent<UIButton>();
@@ -496,6 +497,46 @@ namespace PloppableRICO
                 BuildingButton.verticalAlignment = UIVerticalAlignment.Middle;
                 BuildingButton.pivot = UIPivotPoint.TopCenter;
 
+                // Information label - building name.
+                UILabel nameLabel = new UILabel();
+                nameLabel = BuildingButton.AddUIComponent<UILabel>();
+                nameLabel.textScale = 0.6f;
+                nameLabel.useDropShadow = true;
+                nameLabel.dropShadowColor = new Color32(80, 80, 80, 255);
+                nameLabel.dropShadowOffset = new Vector2(2, -2);
+                nameLabel.text = buildingData.displayName;
+                nameLabel.autoSize = false;
+                nameLabel.autoHeight = true;
+                nameLabel.wordWrap = true;
+                nameLabel.width = BuildingButton.width - 10;
+                nameLabel.isVisible = true;
+                nameLabel.relativePosition = new Vector3(5, 5);
+
+                // Information label - building level.
+                UILabel levelLabel = new UILabel();
+                levelLabel = BuildingButton.AddUIComponent<UILabel>();
+                levelLabel.textScale = 0.6f;
+                levelLabel.useDropShadow = true;
+                levelLabel.dropShadowColor = new Color32(80, 80, 80, 255);
+                levelLabel.dropShadowOffset = new Vector2(2, -2);
+                levelLabel.text = Translations.GetTranslation("Lvl ") + ((int)buildingData.prefab.m_class.m_level + 1);
+                levelLabel.autoSize = true;
+                levelLabel.isVisible = true;
+                levelLabel.relativePosition = new Vector3(5, BuildingButton.height - levelLabel.height - 5);
+
+                // Information label - building size.
+                UILabel sizeLabel = new UILabel();
+                sizeLabel = BuildingButton.AddUIComponent<UILabel>();
+                sizeLabel.textScale = 0.6f;
+                sizeLabel.useDropShadow = true;
+                sizeLabel.dropShadowColor = new Color32(80, 80, 80, 255);
+                sizeLabel.dropShadowOffset = new Vector2(2, -2);
+                sizeLabel.text = buildingData.prefab.GetWidth() + "x" + buildingData.prefab.GetLength();
+                sizeLabel.autoSize = true;
+                sizeLabel.isVisible = true;
+                sizeLabel.relativePosition = new Vector3(BuildingButton.width - sizeLabel.width - 5, BuildingButton.height - sizeLabel.height - 5);
+
+                // Tooltip.
                 string localizedTooltip = buildingData.prefab.GetLocalizedTooltip();
                 int hashCode = TooltipHelper.GetHashCode(localizedTooltip);
                 UIComponent tooltipBox = GeneratedPanel.GetTooltipBox(hashCode);

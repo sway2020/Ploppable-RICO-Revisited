@@ -130,7 +130,19 @@ namespace PloppableRICO
             UIUtils.TruncateLabel(m_buildingName, width - 45);
             m_buildingName.autoHeight = true;
 
-  
+            // Level.
+            m_level.isVisible = true;
+            m_level.text = Translations.GetTranslation("Level") + " " + ((int)m_item.prefab.m_class.m_level + 1);
+            UIUtils.TruncateLabel(m_level, width - 45);
+            m_level.autoHeight = true;
+
+            // Size.
+            m_size.isVisible = true;
+            m_size.text = m_item.prefab.GetWidth() + "x" + m_item.prefab.GetLength();
+            UIUtils.TruncateLabel(m_size, width - 45);
+            m_size.autoHeight = true;
+
+
         }
 
         private void RenderPreview()
