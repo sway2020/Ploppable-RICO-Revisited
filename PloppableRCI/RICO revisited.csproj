@@ -69,6 +69,7 @@
     <Compile Include="AI\WorkplaceAI.cs" />
     <Compile Include="Debugging.cs" />
     <Compile Include="GUI\UIPreviewRenderer.cs" />
+    <Compile Include="GUI\UIThumbnails.cs" />
     <Compile Include="Patches\BuildingLoaded.cs" />
     <Compile Include="Patches\InitializePrefab.cs" />
     <Compile Include="Patches\InitPrefabTranspiler.cs" />

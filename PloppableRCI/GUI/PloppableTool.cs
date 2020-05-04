@@ -299,7 +299,7 @@ namespace PloppableRICO
 
                     if (buildingData.hasLocal && buildingData.local.ricoEnabled)
                     {
-                        DrawBuildingButton(prefab, buildingData.local.uiCategory);
+                        DrawBuildingButton(buildingData, buildingData.local.uiCategory);
                         RemoveUIButton(prefab);
                         continue;
                     }
@@ -308,7 +308,7 @@ namespace PloppableRICO
                     {
                         if (!buildingData.hasLocal)
                         {
-                            DrawBuildingButton(prefab, buildingData.author.uiCategory);
+                            DrawBuildingButton(buildingData, buildingData.author.uiCategory);
                             RemoveUIButton(prefab);
                             continue;
                         }
@@ -318,7 +318,7 @@ namespace PloppableRICO
                     {
                         if (!buildingData.hasLocal && !buildingData.hasAuthor)
                         {
-                            DrawBuildingButton(prefab, buildingData.mod.uiCategory);
+                            DrawBuildingButton(buildingData, buildingData.mod.uiCategory);
                             RemoveUIButton(prefab);
                         }
                     }
@@ -361,8 +361,10 @@ namespace PloppableRICO
         }
 
 
-        void DrawBuildingButton(BuildingInfo BuildingPrefab, string type)
+        void DrawBuildingButton(BuildingData buildingData, string type)
         {
+            BuildingInfo buildingPrefab = buildingData.prefab;
+
             // Don't do anything if UI category is set to 'none'.
             if (type.Equals("none"))
             {
@@ -478,29 +480,23 @@ namespace PloppableRICO
                 }
 
                 // Apply settings to building buttons.
-                BuildingButton.size = new Vector2(109, 100); 
-                BuildingButton.atlas = BuildingPrefab.m_Atlas;
+                BuildingButton.size = new Vector2(109, 100);
 
-                if (BuildingPrefab.m_Thumbnail == null || BuildingPrefab.m_Thumbnail == "")
-                {
-                    BuildingButton.normalFgSprite = "ToolbarIconProps";
-                }
-                else
-                {
+                // Create thumbnails.
+                Thumbnails.CreateThumbnail(buildingData);
+                BuildingButton.atlas = buildingData.prefab.m_Atlas;
+                BuildingButton.normalFgSprite = buildingData.prefab.m_Thumbnail;
+                BuildingButton.focusedFgSprite = buildingData.prefab.m_Thumbnail + "Focused";
+                BuildingButton.hoveredFgSprite = buildingData.prefab.m_Thumbnail + "Hovered";
+                BuildingButton.pressedFgSprite = buildingData.prefab.m_Thumbnail + "Pressed";
+                BuildingButton.disabledFgSprite = buildingData.prefab.m_Thumbnail + "Disabled";
 
-                    BuildingButton.normalFgSprite = BuildingPrefab.m_Thumbnail;
-                    BuildingButton.focusedFgSprite = BuildingPrefab.m_Thumbnail + "Focused";
-                    BuildingButton.hoveredFgSprite = BuildingPrefab.m_Thumbnail + "Hovered";
-                    BuildingButton.pressedFgSprite = BuildingPrefab.m_Thumbnail + "Pressed";
-                    BuildingButton.disabledFgSprite = BuildingPrefab.m_Thumbnail + "Disabled";
-                }
-
-                BuildingButton.objectUserData = BuildingPrefab;
+                BuildingButton.objectUserData = buildingData.prefab;
                 BuildingButton.horizontalAlignment = UIHorizontalAlignment.Center;
                 BuildingButton.verticalAlignment = UIVerticalAlignment.Middle;
                 BuildingButton.pivot = UIPivotPoint.TopCenter;
 
-                string localizedTooltip = BuildingPrefab.GetLocalizedTooltip();
+                string localizedTooltip = buildingData.prefab.GetLocalizedTooltip();
                 int hashCode = TooltipHelper.GetHashCode(localizedTooltip);
                 UIComponent tooltipBox = GeneratedPanel.GetTooltipBox(hashCode);
 
@@ -508,8 +504,8 @@ namespace PloppableRICO
                 BuildingButton.isEnabled = enabled;
                 BuildingButton.tooltip = localizedTooltip;
                 BuildingButton.tooltipBox = tooltipBox;
-                BuildingButton.eventClick += (sender, e) => BuildingBClicked(sender, e, BuildingPrefab);
-                BuildingButton.eventMouseHover += (sender, e) => BuildingBHovered(sender, e, BuildingPrefab);
+                BuildingButton.eventClick += (sender, e) => BuildingBClicked(sender, e, buildingData.prefab);
+                BuildingButton.eventMouseHover += (sender, e) => BuildingBHovered(sender, e, buildingData.prefab);
             }
             catch (Exception e)
             {
