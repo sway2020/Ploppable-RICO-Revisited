@@ -38,6 +38,8 @@ namespace PloppableRICO
             { "Lvl ", "建筑等级" },
             { "Level", "建筑等级" },
             { "Construction cost", "建筑造价" },
+            { "Households", "居民数量" },
+            { "Workplaces", "容纳工人" },
             { "Worker/Home count", "容纳工人/居民数量" },
             { "Use Realistic Pop mod", "使用真实人口MOD" },
             { "Enable pollution", "建筑物污染" },

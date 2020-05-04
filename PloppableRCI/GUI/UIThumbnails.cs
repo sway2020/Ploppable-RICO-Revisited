@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using UnityEngine;
 using ColossalFramework.UI;
-using System.Diagnostics;
 
 
 namespace PloppableRICO
@@ -15,8 +14,6 @@ namespace PloppableRICO
         // Renderer for thumbnail images.
         private static UIPreviewRenderer thumbnailRenderer;
 
-        private static Stopwatch stopwatch = new Stopwatch();
-
 
         /// <summary>
         /// Generates building thumbnail images (normal, focused, hovered, pressed and disabled) for the given building prefab.
@@ -26,8 +23,6 @@ namespace PloppableRICO
         /// <param name="name">The display name of the prefab.</param>
         public static void CreateThumbnail(BuildingData building)
         {
-            stopwatch.Start();
-
             // Create the renderer if it hasn't already been set up.
             if (thumbnailRenderer == null)
             {
@@ -122,9 +117,6 @@ namespace PloppableRICO
             building.prefab.m_Atlas.material.mainTexture = new Texture2D(1, 1, TextureFormat.ARGB32, false);
 
             AddTexturesToAtlas(building.prefab.m_Atlas, GenerateThumbnailVariants(thumbnailTexture));
-
-            stopwatch.Stop();
-            UnityEngine.Debug.Log("MONGOOSE! " + stopwatch.ElapsedMilliseconds);
         }
 
 

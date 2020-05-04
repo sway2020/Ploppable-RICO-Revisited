@@ -1,9 +1,10 @@
-﻿using ColossalFramework;
-using UnityEngine;
+﻿using System;
 using System.Linq;
+using System.Text;
+using UnityEngine;
 using ColossalFramework.UI;
-using ColossalFramework.DataBinding;
-using System;
+using ColossalFramework.Math;
+using ColossalFramework.Globalization;
 
 
 namespace PloppableRICO
@@ -537,14 +538,9 @@ namespace PloppableRICO
                 sizeLabel.relativePosition = new Vector3(BuildingButton.width - sizeLabel.width - 5, BuildingButton.height - sizeLabel.height - 5);
 
                 // Tooltip.
-                string localizedTooltip = buildingData.prefab.GetLocalizedTooltip();
-                int hashCode = TooltipHelper.GetHashCode(localizedTooltip);
-                UIComponent tooltipBox = GeneratedPanel.GetTooltipBox(hashCode);
-
                 BuildingButton.tooltipAnchor = UITooltipAnchor.Anchored;
                 BuildingButton.isEnabled = enabled;
-                BuildingButton.tooltip = localizedTooltip;
-                BuildingButton.tooltipBox = tooltipBox;
+                BuildingButton.tooltip = BuildingTooltip(buildingData);
                 BuildingButton.eventClick += (sender, e) => BuildingBClicked(sender, e, buildingData.prefab);
                 BuildingButton.eventMouseHover += (sender, e) => BuildingBHovered(sender, e, buildingData.prefab);
             }
@@ -553,6 +549,43 @@ namespace PloppableRICO
                 Debug.Log("RICO Revisited: BuildingButton creation exception with type '" + type + "'.");
                 Debug.LogException(e);
             }
+        }
+
+
+        string BuildingTooltip(BuildingData building)
+        {
+            StringBuilder tooltip = new StringBuilder();
+
+            tooltip.AppendLine(building.displayName);
+
+            // Construction cost.
+            tooltip.AppendLine(LocaleFormatter.FormatCost(building.prefab.GetConstructionCost(), false));
+
+            // Household or workplace count.
+            if (building.prefab.GetService() == ItemClass.Service.Residential)
+            {
+                // Residential - households.
+                tooltip.Append(Translations.GetTranslation("Households"));
+                tooltip.Append(": ");
+                tooltip.AppendLine(((PrivateBuildingAI)building.prefab.GetAI()).CalculateHomeCount(building.prefab.GetClassLevel(), new Randomizer(), building.prefab.GetWidth(), building.prefab.GetLength()).ToString());
+            }
+            else
+            {
+                // Non-residential - workplaces.
+                int[] workplaces = new int[4];
+
+                tooltip.Append(Translations.GetTranslation("Workplaces"));
+                tooltip.Append(": ");
+                ((PrivateBuildingAI)building.prefab.GetAI()).CalculateWorkplaceCount(building.prefab.GetClassLevel(), new Randomizer(), building.prefab.GetWidth(), building.prefab.GetLength(), out workplaces[0], out workplaces[1], out workplaces[2], out workplaces[3]);
+                tooltip.AppendLine(workplaces.Sum().ToString());
+            }
+            // Physical size.
+            tooltip.Append("Size: ");
+            tooltip.Append(building.prefab.GetWidth());
+            tooltip.Append("x");
+            tooltip.AppendLine(building.prefab.GetLength().ToString());
+
+            return tooltip.ToString();
         }
 
 

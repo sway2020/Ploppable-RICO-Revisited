@@ -5,6 +5,7 @@
 - Overhaul building AIs, implementing separate (inheriting) AIs for growables and ploppables
 - Generate standardised building preview images for thumbnail sprites
 - Building preview (thumbnails and settings panel) overlays include name, level and size
+- Replace default game tooltips with smaller ones with only relevant info
 - Allow 'none' as valid UI catgegory, and explicitly default to that if no valid UI category can be found or guessed
 - Remove error for zero workplaces for dummy service
 - Fix automatic workplace allocation sometimes not correctly identifying current level in options editor
