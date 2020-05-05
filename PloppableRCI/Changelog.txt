@@ -1,4 +1,5 @@
 ﻿Version 2.0
+
 - Process overhaul: load and apply RICO settings before game prefab initialisation by patching BuildingInfo.InitializePrefab(), instead of modifying post-initialisation
 - Implement growables
 - Add button to access RICO settings for from building info panels
@@ -13,6 +14,7 @@
 - Standardise lighting for builiding preview renders
 - Migrate to Harmony 2
 - Remove redundant CalculateHomeCount Harmony patch
+- Overhaul mod conflict checking mechanism and reporting
 - Code cleanup
 
 

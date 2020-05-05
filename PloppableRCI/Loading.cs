@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using ICities;
 using UnityEngine;
 using ColossalFramework.UI;
-using ColossalFramework.Packaging;
 
 
 namespace PloppableRICO
@@ -29,7 +28,6 @@ namespace PloppableRICO
 
         // Internal flags.
         private static bool isModEnabled;
-        private static bool conflictingMod = false;
 
 
         /// <summary>
@@ -44,17 +42,10 @@ namespace PloppableRICO
                 isModEnabled = false;
                 Debug.Log("RICO Revisited: not loading into game, skipping activation.");
             }
-            else if (Util.IsModEnabled(586012417ul))
-            {
-                // Original Ploppable RICO mod detected - log and show warning, then return without doing anything.
-                conflictingMod = true;
-                isModEnabled = false;
-                Debug.Log("Original Ploppable RICO detected - RICO Revisited exiting.");
-            }
             else
             {
-                // Game on!  Set flag.
-                isModEnabled = true;
+                // Check for conflicting (and other) mods.
+                isModEnabled = ModUtils.CheckMods();
             }
 
             // If we're not enabling the mod due to one of the above checks failing, unapply Harmony patches before returning without doing anything.
@@ -66,7 +57,7 @@ namespace PloppableRICO
 
             // Otherwise, game on!
             Debug.Log("RICO Revisited v" + PloppableRICOMod.version + " loading.");
-
+            
             // Create instances if they don't already exist.
             if (convertPrefabs == null)
             {
@@ -100,21 +91,6 @@ namespace PloppableRICO
                 }
             }
 
-            // Check for Workshop RICO settings mod.
-            if (Util.IsModEnabled(629850626uL))
-            {
-                Debug.Log("RICO Revisited: found Workshop RICO settings mod.");
-                mod1RicoDef = RICOReader.ParseRICODefinition("", Path.Combine(Util.SettingsModPath("629850626"), "WorkshopRICOSettings.xml"), false);
-            }
-
-            // Check for Ryuichi Kaminogi's "RICO Settings for Modern Japan CCP"
-            Package modernJapanRICO = PackageManager.GetPackage("2035770233");
-            if (modernJapanRICO != null)
-            {
-                Debug.Log("RICO Revisited: found RICO Settings for Modern Japan CCP.");
-                mod2RicoDef = RICOReader.ParseRICODefinition("", Path.Combine(Path.GetDirectoryName(modernJapanRICO.packagePath), "PloppableRICODefinition.xml"), false);
-            }
-
             base.OnCreated(loading);
         }
 
@@ -125,11 +101,8 @@ namespace PloppableRICO
         /// <param name="mode">Loading mode (e.g. game, editor, scenario, etc.)</param>
         public override void OnLevelLoaded(LoadMode mode)
         {
-            // Check to see if a conflicting mod has been detected - if so, alert the user.
-            if (conflictingMod)
-            {
-                UIView.library.ShowModal<ExceptionPanel>("ExceptionPanel").SetMessage("RICO Revisited", Translations.GetTranslation("Original Ploppable RICO mod detected - RICO Revisited is shutting down to protect your game.  Only ONE of these mods can be enabled at the same time - please choose one and unsubscribe from the other!"), true);
-            }
+            // Alert the user to any mod conflicts.
+            ModUtils.NotifyConflict();
 
             // Don't do anything further if mod hasn't activated (conflicting mod detected, or loading into editor instead of game).
             if (!isModEnabled)

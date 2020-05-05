@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Linq;
-using ColossalFramework.Plugins;
-using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Collections.Generic;
+using ColossalFramework.Plugins;
 
 
 namespace PloppableRICO
@@ -222,14 +222,6 @@ namespace PloppableRICO
             buildingData.m_flags &= ~Building.Flags.Demolishing;
             // This will solve the "Turned Off" error. 
             buildingData.m_problems &= ~Notification.Problem.TurnedOff;
-        }
-
-
-
-        // Check whether the specified Steam workshop ID is subscribed and enabled.
-        public static bool IsModEnabled(UInt64 id)
-        {
-            return PluginManager.instance.GetPluginsInfo().Any(mod => (mod.publishedFileID.AsUInt64 == id && mod.isEnabled));
         }
 
 

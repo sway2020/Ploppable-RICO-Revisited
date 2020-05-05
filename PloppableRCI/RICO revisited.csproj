@@ -76,6 +76,7 @@
     <Compile Include="Debugging.cs" />
     <Compile Include="GUI\UIPreviewRenderer.cs" />
     <Compile Include="GUI\UIThumbnails.cs" />
+    <Compile Include="ModUtils.cs" />
     <Compile Include="Patches\BuildingLoaded.cs" />
     <Compile Include="Patches\Patcher.cs" />
     <Compile Include="Patches\InitializePrefab.cs" />

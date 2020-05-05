@@ -331,7 +331,7 @@ namespace PloppableRICO
             get
             {
                 // Check for Realistic Population Revisited or original WG Realistic Population, and obviously ignore-reality flag.
-                return (!RealityIgnored && (Util.IsModEnabled(2025147082ul) || Util.IsModEnabled(426163185ul)));
+                return (!RealityIgnored && ModUtils.realPopEnabled);
             }
         }
 
