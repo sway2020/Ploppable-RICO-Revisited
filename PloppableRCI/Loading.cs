@@ -4,7 +4,6 @@ using ICities;
 using UnityEngine;
 using ColossalFramework.UI;
 using ColossalFramework.Packaging;
-using Harmony;
 
 
 namespace PloppableRICO
@@ -14,10 +13,6 @@ namespace PloppableRICO
     /// </summary>
     public class Loading : LoadingExtensionBase
     {
-        // Harmony.
-        const string HarmonyID = "com.github.algernon-A.csl.ploppablericorevisited";
-        private HarmonyInstance _harmony;
-
         // Internal instances.
         public GameObject RICODataManager;
         public static RICOPrefabManager xmlManager;
@@ -33,7 +28,7 @@ namespace PloppableRICO
         private UIButton serviceBuildingButton;
 
         // Internal flags.
-        private static bool isModEnabled = false;
+        private static bool isModEnabled;
         private static bool conflictingMod = false;
 
 
@@ -47,28 +42,30 @@ namespace PloppableRICO
             if (loading.currentMode != AppMode.Game)
             {
                 isModEnabled = false;
-                UnityEngine.Debug.Log("RICO Revisited: not loading into game, skipping activation.");
-                return;
+                Debug.Log("RICO Revisited: not loading into game, skipping activation.");
             }
-
-            // Check for original Ploppable RICO mod.
-            if (Util.IsModEnabled(586012417ul))
+            else if (Util.IsModEnabled(586012417ul))
             {
                 // Original Ploppable RICO mod detected - log and show warning, then return without doing anything.
                 conflictingMod = true;
                 isModEnabled = false;
                 Debug.Log("Original Ploppable RICO detected - RICO Revisited exiting.");
+            }
+            else
+            {
+                // Game on!  Set flag.
+                isModEnabled = true;
+            }
+
+            // If we're not enabling the mod due to one of the above checks failing, unapply Harmony patches before returning without doing anything.
+            if (!isModEnabled)
+            {
+                Patcher.UnpatchAll();
                 return;
             }
 
-            // Checks passed; we're loading the mod.
-            isModEnabled = true;
+            // Otherwise, game on!
             Debug.Log("RICO Revisited v" + PloppableRICOMod.version + " loading.");
-
-            // Deploy Harmony patches.
-            _harmony = HarmonyInstance.Create(HarmonyID);
-            _harmony.PatchAll(GetType().Assembly);
-            Debug.Log("RICO Revisited: patching complete.");
 
             // Create instances if they don't already exist.
             if (convertPrefabs == null)
@@ -201,17 +198,6 @@ namespace PloppableRICO
             Debugging.ReportErrors();
 
             Debug.Log("RICO Revisited: loading complete.");
-        }
-
-
-        /// <summary>
-        /// Called by the game when exiting.
-        /// </summary>
-        public override void OnLevelUnloading()
-        {
-            // Unapply Harmony patches.
-            _harmony.UnpatchAll(HarmonyID);
-            Debug.Log("RICO Revisited: patches unapplied.");
         }
     }
 }
