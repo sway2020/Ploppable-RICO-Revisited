@@ -3,6 +3,7 @@
 - Process overhaul: load and apply RICO settings before game prefab initialisation by patching BuildingInfo.InitializePrefab(), instead of modifying post-initialisation
 - Implement growables
 - Add button to access RICO settings for from building info panels
+- Update residential building household counts on load
 - Overhaul building AIs, implementing separate (inheriting) AIs for growables and ploppables
 - Generate standardised building preview images for thumbnail sprites
 - Building preview (thumbnails and settings panel) overlays include name, level and size
