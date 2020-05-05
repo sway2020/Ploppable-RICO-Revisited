@@ -282,7 +282,7 @@ namespace PloppableRICO
         /// Sets the filter to only display the relevant category for the relevant building, and makes that building selected in the list.
         /// </summary>
         /// <param name="building">The BuildingInfo record for this building.</param>
-        public void SelectBuilding(BuildingInfo buildingInfo)
+        private void SelectBuilding(BuildingInfo buildingInfo)
         {
             // Get the RICO BuildingData associated with this prefab.
             BuildingData building = Loading.xmlManager.prefabHash[buildingInfo];
@@ -299,6 +299,52 @@ namespace PloppableRICO
 
             // Update the selected building to the current.
             UpdateBuildingInfo(building);
+        }
+
+
+        /// <summary>
+        /// Adds a Ploppable RICO button to a building info panel to directly access that building's RICO settings.
+        /// The button will be added to the right of the panel with a small margin from the panel edge, at the relative Y position specified.
+        /// </summary>
+        /// <param name="infoPanel">Infopanel to apply the button to</param>
+        /// <param name="relativeY">The relative Y position of the button within the panel</param>
+        private void AddInfoPanelButton(BuildingWorldInfoPanel infoPanel, float relativeY)
+        {
+            // Button instance.
+            UIButton panelButton = infoPanel.component.AddUIComponent<UIButton>();
+
+            // Basic button setup.
+            panelButton.size = new Vector2(34, 34);
+            panelButton.normalBgSprite = "ToolbarIconGroup6Normal";
+            panelButton.normalFgSprite = "IconPolicyBigBusiness";
+            panelButton.focusedBgSprite = "ToolbarIconGroup6Focused";
+            panelButton.hoveredBgSprite = "ToolbarIconGroup6Hovered";
+            panelButton.pressedBgSprite = "ToolbarIconGroup6Pressed";
+            panelButton.disabledBgSprite = "ToolbarIconGroup6Disabled";
+            panelButton.relativePosition = new Vector2(infoPanel.component.width - panelButton.width - 5f, relativeY);
+            panelButton.name = "PloppableButton";
+            panelButton.tooltip = Translations.GetTranslation("RICO Settings");
+
+            // Event handler.
+            panelButton.eventClick += (c, p) =>
+            {
+                // Select current building in the building details panel and show.
+                SelectBuilding(InstanceManager.GetPrefabInfo(WorldInfoPanel.GetCurrentInstanceID()) as BuildingInfo);
+                Show();
+            };
+        }
+
+
+        /// <summary>
+        /// Adds Ploppable RICO settings buttons to building info panels to directly access that building's RICO settings.
+        /// </summary>
+        public void AddInfoPanelButtons()
+        {
+            // Zoned building (PrivateBuilding) info panel.
+            AddInfoPanelButton(UIView.library.Get<ZonedBuildingWorldInfoPanel>(typeof(ZonedBuildingWorldInfoPanel).Name), 40f);
+
+            // Service building (PlayerBuilding) info panel.
+            AddInfoPanelButton(UIView.library.Get<CityServiceWorldInfoPanel>(typeof(CityServiceWorldInfoPanel).Name), 80f);
         }
     }
 }

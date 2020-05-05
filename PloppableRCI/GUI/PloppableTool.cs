@@ -126,7 +126,7 @@ namespace PloppableRICO
                 PloppableButton.disabledBgSprite = "ToolbarIconGroup6Disabled";
                 PloppableButton.relativePosition = new Vector2(800, 0);
                 PloppableButton.name = "PloppableButton";
-                PloppableButton.tooltip = "Ploppable RICO";
+                PloppableButton.tooltip = Translations.GetTranslation("Ploppable RICO");
 
                 // Base panel.
                 BuildingPanel = UIView.GetAView().FindUIComponent("TSContainer").AddUIComponent<UIPanel>();
@@ -552,6 +552,11 @@ namespace PloppableRICO
         }
 
 
+        /// <summary>
+        /// Creates a tooltip string for a building, including key stats.
+        /// </summary>
+        /// <param name="building">Building to generate for</param>
+        /// <returns>A tooltip string</returns>
         string BuildingTooltip(BuildingData building)
         {
             StringBuilder tooltip = new StringBuilder();
