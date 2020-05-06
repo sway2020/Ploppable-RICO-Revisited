@@ -128,6 +128,27 @@ namespace PloppableRICO
                    1;
         }
 
+        // Return maximum level permitted for each subservice.
+        public static int MaxLevelOf(ItemClass.SubService subService)
+        {
+            switch (subService)
+            {
+                case ItemClass.SubService.ResidentialLow:
+                case ItemClass.SubService.ResidentialHigh:
+                case ItemClass.SubService.ResidentialLowEco:
+                case ItemClass.SubService.ResidentialHighEco:
+                    return 5;
+                case ItemClass.SubService.CommercialLow:
+                case ItemClass.SubService.CommercialHigh:
+                case ItemClass.SubService.OfficeGeneric:
+                case ItemClass.SubService.IndustrialGeneric:
+                    return 3;
+                default:
+                    return 1;
+
+            }
+        }
+
 
         // Proper name of category based on category and subservice combination.
         public static string UICategoryOf(string service, string subservice)

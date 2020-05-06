@@ -1,8 +1,12 @@
 ﻿
-using ColossalFramework.UI;
 using System.IO;
 using System.Xml.Serialization;
 using System.Xml;
+using ColossalFramework;
+using UnityEngine;
+using ColossalFramework.Math;
+using ColossalFramework.UI;
+
 
 namespace PloppableRICO
 {
@@ -18,6 +22,8 @@ namespace PloppableRICO
         public UIButton addLocal;
         public UIButton removeLocal;
         public UIButton reset;
+        public UIButton apply;
+
 
         private static UISavePanel _instance;
         public static UISavePanel instance
@@ -74,18 +80,6 @@ namespace PloppableRICO
                     currentSelection.local = new RICOBuilding();
                     currentSelection.hasLocal = true;
 
-                    //Set some basic settings for assets with no settings
-                    currentSelection.local.name = currentSelection.name;
-                    currentSelection.local.ricoEnabled = true;
-                    currentSelection.local.service = "residential";
-                    currentSelection.local.subService = "low";
-                    currentSelection.local.level = 1;
-                    currentSelection.local.uiCategory = "reslow";
-                    currentSelection.local.constructionCost = 10;
-                    currentSelection.local.homeCount = 10;
-
-
-
                     //If selected asset has author settings, copy those to local
                     if (currentSelection.hasAuthor)
                     {
@@ -95,12 +89,33 @@ namespace PloppableRICO
                     {
                         currentSelection.local = (RICOBuilding)currentSelection.mod.Clone();
                     }
+                    else
+                    {
+                        // Set some basic settings for assets with no settings.
+                        currentSelection.local.name = currentSelection.name;
+                        currentSelection.local.ricoEnabled = true;
+                        currentSelection.local.service = GetRICOService();
+                        currentSelection.local.subService = GetRICOSubService();
+                        currentSelection.local.level = (int)currentSelection.prefab.GetClassLevel() + 1;
+                        currentSelection.local.constructionCost = 10;
+                        currentSelection.local.homeCount = 10;
+
+                        // UI Category will be updated later.
+                        currentSelection.local.uiCategory = "none";
+                    }
 
                     currentSelection.local.name = currentSelection.name;
                     //currentSelection.local = (PloppableRICODefinition.Building)newlocal.Clone();
 
-                    if (enabled) RICOSettingsPanel.instance.UpdateBuildingInfo(currentSelection);
-                    if (enabled) RICOSettingsPanel.instance.UpdateSelection();
+                    // Update settings panel with new settings if RICO is enabled for this building.
+                    if (enabled)
+                    {
+                        RICOSettingsPanel.instance.UpdateBuildingInfo(currentSelection);
+                        RICOSettingsPanel.instance.UpdateSelection();
+
+                        // Update UI category.
+                        RICOSettingsPanel.instance.m_buildingOptions.UpdateUICategory();
+                    }
                     Save();
                 }
             };
@@ -122,6 +137,36 @@ namespace PloppableRICO
             save.eventClick += (c, p) =>
             {
                 Save();
+            };
+
+
+            // Apply changes button and warning label.
+            UILabel warningLabel = this.AddUIComponent<UILabel>();
+            warningLabel.textAlignment = UIHorizontalAlignment.Center;
+            warningLabel.width = this.width - autoLayoutPadding.left - autoLayoutPadding.right;
+            warningLabel.text = Translations.GetTranslation("\r\nDANGER: EXPERIMENTAL");
+
+            apply = UIUtils.CreateButton(this);
+            apply.text = Translations.GetTranslation("Save and apply changes");
+            apply.width = this.width - autoLayoutPadding.left - autoLayoutPadding.right;
+            apply.eventClick += (c, p) =>
+            {
+                // Save first.
+                Save();
+
+                // Find current prefab instance.
+                BuildingData currentBuildingData = Loading.xmlManager.prefabHash[currentSelection.prefab];
+
+                // If we're converting a residential building to something else, then we first should clear out all households.
+                if (currentBuildingData.prefab.GetService() == ItemClass.Service.Residential && !currentSelection.local.service.Equals("residential"))
+                {
+                    // removeAll argument to true to remove all households.
+                    UpdateHouseholds(currentBuildingData.prefab.name, removeAll: true);
+                }
+
+                // Convert the 'live' prefab (instance in PrefabCollection) and update household count and builidng level for all current instances.
+                Loading.convertPrefabs.ConvertPrefab(currentBuildingData.local, PrefabCollection<BuildingInfo>.FindLoaded(currentBuildingData.prefab.name));
+                UpdateHouseholds(currentBuildingData.prefab.name, currentBuildingData.local.level);
             };
         }
 
@@ -178,6 +223,121 @@ namespace PloppableRICO
 
             // Force an update of the settings panel with current values.
             RICOSettingsPanel.instance.m_buildingOptions.SelectionChanged(currentSelection);
+        }
+
+        private string GetRICOService()
+        {
+            switch (currentSelection.prefab.m_class.m_service)
+            {
+                case ItemClass.Service.Commercial:
+                    return "commercial";
+                case ItemClass.Service.Industrial:
+                    return "industrial";
+                case ItemClass.Service.Office:
+                    return "office";
+                default:
+                    return "residential";
+            }
+        }
+
+
+        private string GetRICOSubService()
+        {
+            switch (currentSelection.prefab.m_class.m_subService)
+            {
+                case ItemClass.SubService.CommercialLow:
+                    return "low";
+                case ItemClass.SubService.CommercialHigh:
+                    return "high";
+                case ItemClass.SubService.CommercialTourist:
+                    return "tourist";
+                case ItemClass.SubService.CommercialLeisure:
+                    return "leisure";
+                case ItemClass.SubService.CommercialEco:
+                    return "eco";
+                case ItemClass.SubService.IndustrialGeneric:
+                    return "generic";
+                case ItemClass.SubService.IndustrialFarming:
+                    return "farming";
+                case ItemClass.SubService.IndustrialForestry:
+                    return "forest";
+                case ItemClass.SubService.IndustrialOil:
+                    return "oil";
+                case ItemClass.SubService.IndustrialOre:
+                    return "ore";
+                case ItemClass.SubService.OfficeGeneric:
+                    return "none";
+                case ItemClass.SubService.OfficeHightech:
+                    return "high tech";
+                case ItemClass.SubService.ResidentialLowEco:
+                    return "low eco";
+                case ItemClass.SubService.ResidentialHighEco:
+                    return "high eco";
+                case ItemClass.SubService.ResidentialLow:
+                    return "low";
+                default:
+                    return "high";
+            }
+        }
+
+
+        /// <summary>
+        /// Updates household counts for all buildings in scene with the given prefab name.
+        /// Can also remove all housholds, setting the total to zero.
+        /// </summary>
+        /// <param name="prefabName">Prefab name</param>
+        /// <param name="removeAll">If true, all households will be removed (count set to 0)</param>
+        private void UpdateHouseholds(string prefabName, int level = 0, bool removeAll = false)
+        {
+            int homeCount = 0;
+            int visitCount = 0;
+            int homeCountChanged = 0;
+
+            // Get building manager instance.
+            var instance = Singleton<BuildingManager>.instance;
+
+
+            // Iterate through each building in the scene.
+            for (ushort i = 0; i < instance.m_buildings.m_buffer.Length; i++)
+            {
+                // Check for matching name.
+                if (instance.m_buildings.m_buffer[i].Info != null && instance.m_buildings.m_buffer[i].Info.name != null && instance.m_buildings.m_buffer[i].Info.name.Equals(prefabName))
+                {
+                    // Got a match!  Check level if applicable.
+                    if (level > 0)
+                    {
+                        // m_level is one less than building.level.
+                        byte newLevel = (byte)(level - 1);
+
+                        if (instance.m_buildings.m_buffer[i].m_level != newLevel)
+                        {
+                            Debug.Log("RICO Revisited: Found building '" + prefabName + "' with level " + (instance.m_buildings.m_buffer[i].m_level + 1) + ", overriding to level " + level + ".");
+                            instance.m_buildings.m_buffer[i].m_level = newLevel;
+                        }
+                    }
+                    
+                    // Update homecounts for any residential buildings.
+                    PrivateBuildingAI thisAI = instance.m_buildings.m_buffer[i].Info.GetAI() as ResidentialBuildingAI;
+                    if (thisAI != null)
+                    {
+                        // This is residential! If we're not removing all households, recalculate home and visit counts using AI method.
+                        if (!removeAll)
+                        {
+                            homeCount = thisAI.CalculateHomeCount((ItemClass.Level)instance.m_buildings.m_buffer[i].m_level, new Randomizer(i), instance.m_buildings.m_buffer[i].Width, instance.m_buildings.m_buffer[i].Length);
+                            visitCount = thisAI.CalculateVisitplaceCount((ItemClass.Level)instance.m_buildings.m_buffer[i].m_level, new Randomizer(i), instance.m_buildings.m_buffer[i].Width, instance.m_buildings.m_buffer[i].Length);
+                        }
+
+                        // Apply changes via direct call to EnsureCitizenUnits prefix patch from this mod and increment counter.
+                        RealisticCitizenUnits.EnsureCitizenUnits(ref thisAI, i, ref instance.m_buildings.m_buffer[i], homeCount, 0, visitCount, 0);
+                        homeCountChanged++;
+                    }
+
+                    // Clear any problems.
+                    instance.m_buildings.m_buffer[i].m_problems = 0;
+                }
+            }
+
+            Debug.Log("RICO Revisited: set household counts to " + homeCount + " for " + homeCountChanged + " '" + prefabName + "' buildings.");
         }
     }
 }

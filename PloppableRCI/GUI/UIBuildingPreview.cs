@@ -132,7 +132,7 @@ namespace PloppableRICO
 
             // Level.
             m_level.isVisible = true;
-            m_level.text = Translations.GetTranslation("Level") + " " + ((int)m_item.prefab.m_class.m_level + 1);
+            m_level.text = Translations.GetTranslation("Level") + " " + Mathf.Min((int)m_item.prefab.GetClassLevel() + 1, Util.MaxLevelOf(m_item.prefab.GetSubService()));
             UIUtils.TruncateLabel(m_level, width - 45);
             m_level.autoHeight = true;
 

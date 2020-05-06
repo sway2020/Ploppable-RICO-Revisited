@@ -58,6 +58,10 @@ namespace PloppableRICO
 						int visitCount = __instance.CalculateVisitplaceCount((ItemClass.Level)data.m_level, new Randomizer(buildingID), data.Width, data.Length);
 						RealisticCitizenUnits.EnsureCitizenUnits(ref __instance, buildingID, ref data, homeCount, workCount, visitCount, 0);
 
+						// Clear any problems (so we don't have any residual issues from changing service types, for example (new) residential buildings showing 'not enough goods'.
+						// Any 'genuine' problems will be quickly reapplied by the game.
+						data.m_problems = 0;
+
 						// We've set things up here for Ploppable RICO - don't fall through to game code.
 						return false;
 					}

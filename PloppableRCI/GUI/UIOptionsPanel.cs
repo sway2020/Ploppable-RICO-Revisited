@@ -711,7 +711,7 @@ namespace PloppableRICO
         /// <summary>
         /// Returns the current service and subservice based on current menu selections.
         /// </summary>
-        private void GetService(ref string serviceName, ref string subServiceName )
+        private void GetService(ref string serviceName, ref string subServiceName)
         {
             if (service.selectedIndex == 0)
             {

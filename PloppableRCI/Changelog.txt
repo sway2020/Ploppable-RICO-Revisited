@@ -2,7 +2,8 @@
 
 - Process overhaul: load and apply RICO settings before game prefab initialisation by patching BuildingInfo.InitializePrefab(), instead of modifying post-initialisation
 - Implement growables
-- Add button to access RICO settings for from building info panels
+- Add experimental live updating of RICO building settings
+- Add button to access RICO settings directly from building info panels
 - Update residential building household counts on load
 - Overhaul building AIs, implementing separate (inheriting) AIs for growables and ploppables
 - Generate standardised building preview images for thumbnail sprites
@@ -10,6 +11,7 @@
 - Replace default game tooltips with smaller ones with only relevant info
 - Allow 'none' as valid UI catgegory, and explicitly default to that if no valid UI category can be found or guessed
 - Remove error for zero workplaces for dummy service
+- Default local settings are now drawn from the prefab (where possible)
 - Fix automatic workplace allocation sometimes not correctly identifying current level in options editor
 - Fix 'Leisure' and 'Tourism' tooltips being swapped around
 - Standardise lighting for builiding preview renders
