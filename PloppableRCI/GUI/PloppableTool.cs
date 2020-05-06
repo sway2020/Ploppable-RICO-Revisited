@@ -4,8 +4,7 @@ using System.Text;
 using UnityEngine;
 using ColossalFramework.UI;
 using ColossalFramework.Math;
-using ColossalFramework.Globalization;
-using System.Collections.Generic;
+
 
 namespace PloppableRICO
 {
@@ -229,7 +228,7 @@ namespace PloppableRICO
                     RightButton.isVisible = false;
                 }
 
-                // Couldnt get this to work in the loop.  TODO: reinvestigae.
+                // This can't happen in a loop, because the loop index is undefined after setup has occured (i.e. when the function is actually called).
                 TabButtons[0].eventClick += (sender, e) => TabClicked(sender, e, BuildingPanels[0], TabButtons[0], TabSprites[0]);
                 TabButtons[1].eventClick += (sender, e) => TabClicked(sender, e, BuildingPanels[1], TabButtons[1], TabSprites[1]);
                 TabButtons[2].eventClick += (sender, e) => TabClicked(sender, e, BuildingPanels[2], TabButtons[2], TabSprites[2]);

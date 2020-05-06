@@ -5,6 +5,7 @@
 - Add experimental live updating of RICO building settings
 - Add button to access RICO settings directly from building info panels
 - Update residential building household counts on load
+- Standardise building display names and avoid non-unique names for prefabs
 - Overhaul building AIs, implementing separate (inheriting) AIs for growables and ploppables
 - Generate standardised building preview images for thumbnail sprites
 - Building preview (thumbnails and settings panel) overlays include name, level and size

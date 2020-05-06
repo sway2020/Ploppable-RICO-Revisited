@@ -1,7 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using System.Globalization;
-using ColossalFramework.Globalization;
 
 
 namespace PloppableRICO
@@ -142,38 +139,14 @@ namespace PloppableRICO
         {
             get
             {
-                m_displayName = Locale.GetUnchecked("BUILDING_TITLE", name);
-                if (m_displayName.StartsWith("BUILDING_TITLE"))
-                {
-                    m_displayName = name.Substring(name.IndexOf('.') + 1).Replace("_Data", "");
-                }
-                m_displayName = CleanName(m_displayName, !name.Contains("."));
+                // Trim leading package name and trailing '_Data'.
+                m_displayName = name.Substring(name.IndexOf('.') + 1).Replace("_Data", "");
+
+                // Replace any remaining underscores with spaces.
+                m_displayName = m_displayName.Replace('_', ' ');
 
                 return m_displayName;
             }
-        }
-
-
-        /// <summary>
-        /// A regex prefab name cleaner.
-        /// TODO - future currently under review.
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="cleanNumbers"></param>
-        /// <returns></returns>
-        private static string CleanName(string name, bool cleanNumbers = false)
-        {
-            name = Regex.Replace(name, @"^{{.*?}}\.", "");
-            name = Regex.Replace(name, @"[_+\.]", " ");
-            name = Regex.Replace(name, @"(\d[xX]\d)|([HL]\d)", "");
-            if (cleanNumbers)
-            {
-                name = Regex.Replace(name, @"(\d+[\da-z])", "");
-                name = Regex.Replace(name, @"\s\d+", " ");
-            }
-            name = Regex.Replace(name, @"\s+", " ").Trim();
-
-            return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(name);
         }
     }
 }
