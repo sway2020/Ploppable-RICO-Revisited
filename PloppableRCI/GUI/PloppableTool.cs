@@ -5,7 +5,7 @@ using UnityEngine;
 using ColossalFramework.UI;
 using ColossalFramework.Math;
 using ColossalFramework.Globalization;
-
+using System.Collections.Generic;
 
 namespace PloppableRICO
 {
@@ -26,7 +26,6 @@ namespace PloppableRICO
         UIButton PloppableButton;
         UIPanel BuildingPanel;
         UITabstrip Tabs;
-        UIButton BuildingButton;
 
         // Number of UI categories.
         const int NumTypes = 14;
@@ -300,7 +299,7 @@ namespace PloppableRICO
 
                     if (buildingData.hasLocal && buildingData.local.ricoEnabled)
                     {
-                        DrawBuildingButton(buildingData, buildingData.local.uiCategory);
+                        AddBuildingButton(buildingData, buildingData.local.uiCategory);
                         RemoveUIButton(prefab);
                         continue;
                     }
@@ -309,7 +308,7 @@ namespace PloppableRICO
                     {
                         if (!buildingData.hasLocal)
                         {
-                            DrawBuildingButton(buildingData, buildingData.author.uiCategory);
+                            AddBuildingButton(buildingData, buildingData.author.uiCategory);
                             RemoveUIButton(prefab);
                             continue;
                         }
@@ -319,7 +318,7 @@ namespace PloppableRICO
                     {
                         if (!buildingData.hasLocal && !buildingData.hasAuthor)
                         {
-                            DrawBuildingButton(buildingData, buildingData.mod.uiCategory);
+                            AddBuildingButton(buildingData, buildingData.mod.uiCategory);
                             RemoveUIButton(prefab);
                         }
                     }
@@ -362,127 +361,33 @@ namespace PloppableRICO
         }
 
 
-        void DrawBuildingButton(BuildingData buildingData, string type)
+        /// <summary>
+        /// Generates a button for each ploppable building in the relevant panel as determined by UI category.
+        /// </summary>
+        /// <param name="buildingData">RICO building to add</param>
+        /// <param name="uiCategory">UI category</param>
+        public void AddBuildingButton(BuildingData buildingData, string uiCategory)
         {
-            BuildingInfo buildingPrefab = buildingData.prefab;
-
             // Don't do anything if UI category is set to 'none'.
-            if (type.Equals("none"))
+            if (uiCategory.Equals("none"))
             {
                 return;
             }
 
             try
             {
-                // Add building buttons to relevant panels.
-                BuildingButton = new UIButton();
+                // Add building button to relevant panel.
+                UIButton BuildingButton = new UIButton();
+                BuildingButton = BuildingPanels[UICategoryIndex(uiCategory)].AddUIComponent<UIButton>();
 
-                if (type == "reslow")
-                {
-                    BuildingButton = BuildingPanels[0].AddUIComponent<UIButton>();
-                }
-                else if (type == "reshigh")
-                {
-                    BuildingButton = BuildingPanels[1].AddUIComponent<UIButton>();
-                }
-                else if (type == "comlow")
-                {
-                    BuildingButton = BuildingPanels[2].AddUIComponent<UIButton>();
-                }
-                else if (type == "comhigh")
-                {
-                    BuildingButton = BuildingPanels[3].AddUIComponent<UIButton>();
-                }
-                else if (type == "office")
-                {
-                    BuildingButton = BuildingPanels[4].AddUIComponent<UIButton>();
-                }
-                else if (type == "industrial")
-                {
-                    BuildingButton = BuildingPanels[5].AddUIComponent<UIButton>();
-                }
-                else if (type == "farming")
-                {
-                    BuildingButton = BuildingPanels[6].AddUIComponent<UIButton>();
-                }
-                else if (type == "oil")
-                {
-                    BuildingButton = BuildingPanels[8].AddUIComponent<UIButton>();
-                }
-                else if (type == "forest")
-                {
-                    BuildingButton = BuildingPanels[7].AddUIComponent<UIButton>();
-                }
-                else if (type == "ore")
-                {
-                    BuildingButton = BuildingPanels[9].AddUIComponent<UIButton>();
-                }
-                else if (type == "leisure")
-                {
-                    if (Util.isADinstalled())
-                    {
-                        BuildingButton = BuildingPanels[10].AddUIComponent<UIButton>();
-                    }
-                    else
-                    {
-                        // If AD is not installed, default to low commercial.
-                        BuildingButton = BuildingPanels[2].AddUIComponent<UIButton>();
-                    }
-                }
-                else if (type == "tourist")
-                {
-                    if (Util.isADinstalled())
-                    {
-                        BuildingButton = BuildingPanels[11].AddUIComponent<UIButton>();
-                    }
-                    else
-                    {
-                        // If AD is not installed, fall back to low commercial.
-                        BuildingButton = BuildingPanels[2].AddUIComponent<UIButton>();
-                    }
-                }
-                else if (type == "organic")
-                {
-                    // Eco commercial.
-                    if (Util.isGCinstalled())
-                    {
-                        BuildingButton = BuildingPanels[12].AddUIComponent<UIButton>();
-                    }
-                    else
-                    {
-                        // If GC is not installed, fall back to low commercial.
-                        BuildingButton = BuildingPanels[2].AddUIComponent<UIButton>();
-                    }
-                }
-                else if (type == "hightech")
-                {
-                    // IT cluster.
-                    if (Util.isGCinstalled())
-                    {
-                        BuildingButton = BuildingPanels[13].AddUIComponent<UIButton>();
-                    }
-                    else
-                    {
-                        // If GC is not installed, fall back to office.
-                        BuildingButton = BuildingPanels[4].AddUIComponent<UIButton>();
-                    }
-                }
-                else if (type == "selfsufficient")
-                {
-                    // Self-sufficient (eco) residential.
-                    if (Util.isGCinstalled())
-                    {
-                        BuildingButton = BuildingPanels[14].AddUIComponent<UIButton>();
-                    }
-                    else
-                    {
-                        // If GC is not installed, fall back to low residential.
-                        BuildingButton = BuildingPanels[0].AddUIComponent<UIButton>();
-                    }
-                }
-
-                // Apply settings to building buttons.
+                // Appearance.
                 BuildingButton.size = new Vector2(109, 100);
+                BuildingButton.horizontalAlignment = UIHorizontalAlignment.Center;
+                BuildingButton.verticalAlignment = UIVerticalAlignment.Middle;
+                BuildingButton.pivot = UIPivotPoint.TopCenter;
+
+                // Prefab.
+                BuildingButton.objectUserData = buildingData.prefab;
 
                 // Create thumbnails.
                 Thumbnails.CreateThumbnail(buildingData);
@@ -492,11 +397,6 @@ namespace PloppableRICO
                 BuildingButton.hoveredFgSprite = buildingData.prefab.m_Thumbnail + "Hovered";
                 BuildingButton.pressedFgSprite = buildingData.prefab.m_Thumbnail + "Pressed";
                 BuildingButton.disabledFgSprite = buildingData.prefab.m_Thumbnail + "Disabled";
-
-                BuildingButton.objectUserData = buildingData.prefab;
-                BuildingButton.horizontalAlignment = UIHorizontalAlignment.Center;
-                BuildingButton.verticalAlignment = UIVerticalAlignment.Middle;
-                BuildingButton.pivot = UIPivotPoint.TopCenter;
 
                 // Information label - building name.
                 UILabel nameLabel = new UILabel();
@@ -539,14 +439,16 @@ namespace PloppableRICO
 
                 // Tooltip.
                 BuildingButton.tooltipAnchor = UITooltipAnchor.Anchored;
-                BuildingButton.isEnabled = enabled;
                 BuildingButton.tooltip = BuildingTooltip(buildingData);
                 BuildingButton.eventClick += (sender, e) => BuildingBClicked(sender, e, buildingData.prefab);
                 BuildingButton.eventMouseHover += (sender, e) => BuildingBHovered(sender, e, buildingData.prefab);
+
+                // Ready to use!
+                BuildingButton.isEnabled = true;
             }
             catch (Exception e)
             {
-                Debug.Log("RICO Revisited: BuildingButton creation exception with type '" + type + "'.");
+                Debug.Log("RICO Revisited: BuildingButton creation exception with UI category '" + uiCategory + "'.");
                 Debug.LogException(e);
             }
         }
@@ -584,6 +486,7 @@ namespace PloppableRICO
                 ((PrivateBuildingAI)building.prefab.GetAI()).CalculateWorkplaceCount(building.prefab.GetClassLevel(), new Randomizer(), building.prefab.GetWidth(), building.prefab.GetLength(), out workplaces[0], out workplaces[1], out workplaces[2], out workplaces[3]);
                 tooltip.AppendLine(workplaces.Sum().ToString());
             }
+
             // Physical size.
             tooltip.Append("Size: ");
             tooltip.Append(building.prefab.GetWidth());
@@ -663,6 +566,115 @@ namespace PloppableRICO
             if (sprite.spriteName != "IconPolicyLeisure" && sprite.spriteName != "IconPolicyTourist" && sprite.spriteName != "IconPolicyHightech" && sprite.spriteName != "IconPolicyOrganic" && sprite.spriteName != "IconPolicySelfsufficient")
             {
                 sprite.spriteName = sprite.spriteName + "Focused";
+            }
+        }
+
+
+        /// <summary>
+        /// Returns the UI category index for the given UI category string.
+        /// </summary>
+        /// <param name="uiCategory">Ploppable RICO UI category string</param>
+        /// <returns></returns>
+        private int UICategoryIndex(string uiCategory)
+        {
+            switch (uiCategory)
+            {
+                case "reslow":
+                    return 0;
+                case "reshigh":
+                    return 1;
+                case "comlow":
+                    return 2;
+                case "comhigh":
+                    return 3;
+                case "office":
+                    return 4;
+                case "industrial":
+                    return 5;
+                case "farming":
+                    return 6;
+                case "forest":
+                    return 7;
+                case "oil":
+                    return 8;
+                case "ore":
+                    return 9;
+                case "leisure":
+                    if (Util.isADinstalled())
+                    {
+                        return 10;
+                    }
+                    else
+                    {
+                        // If AD is not installed, default to low commercial.
+                        return 2;
+                    }
+                case "tourist":
+                    if (Util.isADinstalled())
+                    {
+                        return 11;
+                    }
+                    else
+                    {
+                        // If AD is not installed, fall back to low commercial.
+                        return 2;
+                    }
+                case "organic":
+                    if (Util.isGCinstalled())
+                    {
+                        return 12;
+                    }
+                    else
+                    {
+                        // If GC is not installed, fall back to low commercial.
+                        return 2;
+                    }
+                case "hightech":
+                    // IT cluster.
+                    if (Util.isGCinstalled())
+                    {
+                        return 13;
+                    }
+                    else
+                    {
+                        // If GC is not installed, fall back to office.
+                        return 4;
+                    }
+                case "selfsufficient":
+                    // Self-sufficient (eco) residential.
+                    if (Util.isGCinstalled())
+                    {
+                        return 14;
+                    }
+                    else
+                    {
+                        // If GC is not installed, fall back to low residential.
+                        return 0;
+                    }
+                default:
+                    return 0;
+            }
+        }
+
+
+        /// <summary>
+        /// Removes the building button (if any) in the specified panel for the specified prefab.
+        /// </summary>
+        /// <param name="prefabName">Raw BuildingInfo prefab name</param>
+        /// <param name="uiCategory">RICO UI category string</param>
+        public void DestroyBuildingButton(string prefabName, string uiCategory)
+        {
+            // Get all buttons in specified UI category panel and iterate through.
+            var buttons = BuildingPanels[UICategoryIndex(uiCategory)].GetComponentsInChildren(typeof(UIButton));
+
+            foreach (UIButton button in buttons)
+            {
+                if ((button.objectUserData as BuildingInfo).name == prefabName)
+                {
+                    // Found a match - destroy it and return.
+                    GameObject.Destroy(button);
+                    return;
+                }
             }
         }
     }

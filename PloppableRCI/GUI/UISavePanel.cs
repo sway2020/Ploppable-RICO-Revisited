@@ -143,30 +143,48 @@ namespace PloppableRICO
             // Apply changes button and warning label.
             UILabel warningLabel = this.AddUIComponent<UILabel>();
             warningLabel.textAlignment = UIHorizontalAlignment.Center;
+            warningLabel.autoSize = false;
+            warningLabel.autoHeight = true;
             warningLabel.width = this.width - autoLayoutPadding.left - autoLayoutPadding.right;
-            warningLabel.text = Translations.GetTranslation("\r\nDANGER: EXPERIMENTAL");
+            warningLabel.text = Translations.GetTranslation("\r\nCAUTION: EXPERIMENTAL");
 
             apply = UIUtils.CreateButton(this);
             apply.text = Translations.GetTranslation("Save and apply changes");
             apply.width = this.width - autoLayoutPadding.left - autoLayoutPadding.right;
             apply.eventClick += (c, p) =>
             {
-                // Save first.
-                Save();
-
                 // Find current prefab instance.
                 BuildingData currentBuildingData = Loading.xmlManager.prefabHash[currentSelection.prefab];
 
+                // Delete existing building button.
+                PloppableTool.instance.DestroyBuildingButton(currentBuildingData.prefab.name, CurrentUICategory());
+
+                // Save first.
+                Save();
+
                 // If we're converting a residential building to something else, then we first should clear out all households.
-                if (currentBuildingData.prefab.GetService() == ItemClass.Service.Residential && !currentSelection.local.service.Equals("residential"))
+                if (currentBuildingData.prefab.GetService() == ItemClass.Service.Residential && !IsCurrentResidential())
                 {
                     // removeAll argument to true to remove all households.
                     UpdateHouseholds(currentBuildingData.prefab.name, removeAll: true);
                 }
 
-                // Convert the 'live' prefab (instance in PrefabCollection) and update household count and builidng level for all current instances.
-                Loading.convertPrefabs.ConvertPrefab(currentBuildingData.local, PrefabCollection<BuildingInfo>.FindLoaded(currentBuildingData.prefab.name));
-                UpdateHouseholds(currentBuildingData.prefab.name, currentBuildingData.local.level);
+                // Get the currently applied RICO settings (local, author, mod).
+                RICOBuilding currentData = CurrentRICOSetting();
+
+                if (currentData != null)
+                {
+                    // Convert the 'live' prefab (instance in PrefabCollection) and update household count and builidng level for all current instances.
+                    Loading.convertPrefabs.ConvertPrefab(currentData, PrefabCollection<BuildingInfo>.FindLoaded(currentBuildingData.prefab.name));
+                    UpdateHouseholds(currentBuildingData.prefab.name, currentData.level);
+
+                    // Create new building button.
+                    PloppableTool.instance.AddBuildingButton(currentBuildingData, CurrentUICategory());
+                }
+                else
+                {
+                    Debug.Log("RICO Revisited: no current RICO settings to apply to prefab '" + currentBuildingData + "'.");
+                }
             };
         }
 
@@ -315,7 +333,7 @@ namespace PloppableRICO
                             instance.m_buildings.m_buffer[i].m_level = newLevel;
                         }
                     }
-                    
+
                     // Update homecounts for any residential buildings.
                     PrivateBuildingAI thisAI = instance.m_buildings.m_buffer[i].Info.GetAI() as ResidentialBuildingAI;
                     if (thisAI != null)
@@ -338,6 +356,77 @@ namespace PloppableRICO
             }
 
             Debug.Log("RICO Revisited: set household counts to " + homeCount + " for " + homeCountChanged + " '" + prefabName + "' buildings.");
+        }
+
+
+
+        /// <summary>
+        /// Checks to see if the currently applied RICO service for the selected building is residential.
+        /// </summary>
+        /// <returns>True if residential, otherwise false.</returns>
+        private bool IsCurrentResidential()
+        {
+            if (currentSelection.hasLocal)
+            {
+                return currentSelection.local.service == "residential";
+            }
+            else if (currentSelection.hasAuthor)
+            {
+                return currentSelection.author.service == "residential";
+            }
+            else if (currentSelection.hasMod)
+            {
+                return currentSelection.mod.service == "residential";
+            }
+
+            return false;
+        }
+
+
+
+        /// <summary>
+        /// Returns the currently applied RICO UI category for the selected building.
+        /// </summary>
+        /// <returns>True if residential, otherwise false.</returns>
+        private string CurrentUICategory()
+        {
+            if (currentSelection.hasLocal)
+            {
+                return currentSelection.local.uiCategory;
+            }
+            else if (currentSelection.hasAuthor)
+            {
+                return currentSelection.author.uiCategory;
+            }
+            else if (currentSelection.hasMod)
+            {
+                return currentSelection.mod.uiCategory;
+            }
+
+            return "none";
+        }
+
+
+        /// <summary>
+        /// Returns the currently applied RICO settings for the selected building.
+        /// </summary>
+        /// <returns></returns>
+        private RICOBuilding CurrentRICOSetting()
+        {
+            if (currentSelection.hasLocal)
+            {
+                return currentSelection.local;
+            }
+            else if (currentSelection.hasAuthor)
+            {
+                return currentSelection.author;
+            }
+            else if (currentSelection.hasMod)
+            {
+                return currentSelection.mod;
+            }
+
+            return null;
         }
     }
 }

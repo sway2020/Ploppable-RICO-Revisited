@@ -61,7 +61,7 @@ namespace PloppableRICO
             // If we still haven't gotten a mesh after the above, then something's not right; exit.
             if (thumbnailRenderer.Mesh == null)
             {
-                UnityEngine.Debug.Log("RICO Revisited: no thumbnail generated for null mesh " + building.prefab.name);
+                Debug.Log("RICO Revisited: no thumbnail generated for null mesh " + building.prefab.name);
                 return;
             }
 
