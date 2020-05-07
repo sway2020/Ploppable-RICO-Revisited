@@ -17,13 +17,16 @@ namespace PloppableRICO
         {
             // Apply Harmony patches via Cities Harmony.
             // Called here instead of OnCreated to allow the auto-downloader to do its work prior to launch.
-            HarmonyHelper.EnsureHarmonyInstalled();
+            HarmonyHelper.DoOnHarmonyReady(() => Patcher.PatchAll());
         }
 
         public void OnDisabled()
         {
             // Unapply Harmony patches via Cities Harmony.
-            if (HarmonyHelper.IsHarmonyInstalled) Patcher.UnpatchAll();
+            if (HarmonyHelper.IsHarmonyInstalled)
+            {
+                Patcher.UnpatchAll();
+            }
         }
     }
 }
