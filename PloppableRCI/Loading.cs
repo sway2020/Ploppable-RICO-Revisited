@@ -53,6 +53,14 @@ namespace PloppableRICO
                 return;
             }
 
+            // Make sure patches have been applied before proceeding.
+            if (!Patcher.patched)
+            {
+                Debug.Log("RICO Revisited: Harmony patches not applied, exiting.");
+                isModEnabled = false;
+                return;
+            }
+
             // Otherwise, game on!
             Debug.Log("RICO Revisited v" + PloppableRICOMod.version + " loading.");
             

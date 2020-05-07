@@ -1,4 +1,7 @@
-﻿Version 2.0
+﻿- Add additional check that Harmony patches have been applied before activation.
+
+
+Version 2.0
 
 - Process overhaul: load and apply RICO settings before game prefab initialisation by patching BuildingInfo.InitializePrefab(), instead of modifying post-initialisation
 - Implement growables

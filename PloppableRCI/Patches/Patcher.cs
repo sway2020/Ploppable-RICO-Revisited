@@ -14,7 +14,7 @@ namespace PloppableRICO
 
         // Instance and flag.
         private static Harmony harmonyInstance;
-        private static bool patched = false;
+        public static bool patched = false;
 
 
         /// <summary>
