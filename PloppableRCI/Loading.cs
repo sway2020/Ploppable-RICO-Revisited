@@ -2,7 +2,6 @@ using System.IO;
 using System.Collections.Generic;
 using ICities;
 using UnityEngine;
-using ColossalFramework.UI;
 
 
 namespace PloppableRICO
@@ -24,6 +23,9 @@ namespace PloppableRICO
 
         // Internal flags.
         private static bool isModEnabled;
+
+        // XML settings file.
+        public static SettingsFile settingsFile;
 
 
         /// <summary>
@@ -88,6 +90,9 @@ namespace PloppableRICO
             }
 
             base.OnCreated(loading);
+
+            // Apply translations.
+            Translations.TranslateUICategories();
         }
 
 
@@ -123,6 +128,16 @@ namespace PloppableRICO
             Debugging.ReportErrors();
 
             Debug.Log("RICO Revisited: loading complete.");
+
+            // Load settings file and check if we need to display update notification.
+            settingsFile = Configuration<SettingsFile>.Load();
+            if (settingsFile.NotificationVersion != 1)
+            {
+                // No update notification "Don't show again" flag found; show the notification.
+                UpdateNotification notification = new UpdateNotification();
+                notification.Create();
+                notification.Show();
+            }
         }
     }
 }

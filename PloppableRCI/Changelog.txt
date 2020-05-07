@@ -16,6 +16,7 @@
 - Default local settings are now drawn from the prefab (where possible)
 - Fix automatic workplace allocation sometimes not correctly identifying current level in options editor
 - Fix 'Leisure' and 'Tourism' tooltips being swapped around
+- Add update notification
 - Standardise lighting for builiding preview renders
 - Migrate to Harmony 2
 - Remove redundant CalculateHomeCount Harmony patch

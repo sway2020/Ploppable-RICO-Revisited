@@ -87,31 +87,66 @@ namespace PloppableRICO
             { "Local settings", "本地设置" },
             { "Any settings", "任何设置" },
             { "Settings filter: Mod/Author/Local/Any" , "按设置过滤 (MOD/作者/本地/任何设置)" },
+            { "\r\nCAUTION: EXPERIMENTAL", "\r\n小心：实验性" },
+            { "Save and apply changes", "保存并应用更改" },
+            { "Growable [EXPERIMENTAL]", "可成长[实验性]" },
             { "Allows Plopping of RICO Buildings (fork of AJ3D's original with bugfixes and new features)", "允许对RICO建筑（AJ3D原始版本的分叉，带有错误修复和新功能）进行噗通" },
             { "Original Ploppable RICO mod detected - RICO Revisited is shutting down to protect your game.\r\n\r\nOnly ONE of these mods can be enabled at the same time - please choose one and unsubscribe from the other!", "请取消原先版本的Ploppable RICO" },
             { "Enhanced Building Capacity mod detected - RICO Revisited is shutting down to protect your game.\r\n\r\nOnly ONE of these mods can be enabled at the same time - please choose one and unsubscribe from the other!", "请取消原先版本的Enhanced Building Capacity" },
+            { "Ploppable RICO Revisited has been updated to version 2.0.  Some key features of this update are:", "可访问的RICO重访版本已更新至2.0版。此更新的一些主要功能包括" },
+            { "Support for growable buildings (experimental)\r\n\r\nLive application of building configuration changes(experimental)\r\n\r\nDirectly access the Ploppable RICO settings for any building by clicking on the Ploppable RICO icon in the top - right of any info panel\r\n\r\nCode updates and improvements to fix a number of longstanding issues\r\n\r\nMany other minor changes and improvements", "支持可增长的建筑物（实验性）\r\n\r\n实时应用建筑配置更改（实验性）\r\n\r\n通过单击任何建筑物信息面板右上角的Ploppable RICO图标，直接访问任何建筑物的Ploppable RICO设置\r\n\r\n代码更新和改进，解决了许多长期存在的问题\r\n\r\n许多其他小的变化和改进" },
+            { "NOTE: Please make sure to make a backup of your savegames before trying out the new experimental features, just in case.", "注意：为了以防万一，在尝试新的实验性功能之前，请确保对保存的游戏进行备份" },
+            { "Close", "关" },
+            { "Don't show again", "不再显示" },
             { "", "" }
         };
 
 
         public static string[] UICategory = 
         {
-            Translations.GetTranslation("Residential low"),
-            Translations.GetTranslation("Residential high"),
-            Translations.GetTranslation("Commercial low"),
-            Translations.GetTranslation("Commercial high"),
-            Translations.GetTranslation("Office"),
-            Translations.GetTranslation("Industrial"),
-            Translations.GetTranslation("Farming"),
-            Translations.GetTranslation("Forestry"),
-            Translations.GetTranslation("Oil"),
-            Translations.GetTranslation("Ore"),
-            Translations.GetTranslation("Leisure"),
-            Translations.GetTranslation("Tourism"),
-            Translations.GetTranslation("Organic commercial"),
-            Translations.GetTranslation("IT cluster"),
-            Translations.GetTranslation("Self-sufficient homes"),
-            Translations.GetTranslation("None")
+            "Residential low",
+            "Residential high",
+            "Commercial low",
+            "Commercial high",
+            "Office",
+            "Industrial",
+            "Farming",
+            "Forestry",
+            "Oil",
+            "Ore",
+            "Leisure",
+            "Tourism",
+            "Organic commercial",
+            "IT cluster",
+            "Self-sufficient homes",
+            "None"
         };
+
+
+        public static void TranslateUICategories()
+        {
+            if(LocaleManager.instance.language == "zh")
+            {
+                UICategory[0] = "低密度住宅区";
+                UICategory[1] = "高密度住宅区";
+                UICategory[2] = "低密度商业区";
+                UICategory[3] = "高密度商业区";
+
+                UICategory[4] = "办公区";
+                UICategory[5] = "工业区";
+                UICategory[6] = "农业";
+                UICategory[7] = "林业";
+                UICategory[8] = "石油业";
+                UICategory[9] = "矿业";
+
+                UICategory[10] = "休闲业";
+                UICategory[11] = "旅游业";
+                UICategory[12] = "本地有机作物";
+                UICategory[13] = "信息产业区";
+                UICategory[14] = "自给建筑";
+
+                UICategory[15] = "全不选";
+            }
+        }
     }
 }
