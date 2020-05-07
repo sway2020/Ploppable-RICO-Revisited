@@ -52,20 +52,23 @@ namespace PloppableRICO
                 zoningToggles[i].relativePosition = new Vector3(40 * i, 0);
                 zoningToggles[i].isChecked = true;
                 zoningToggles[i].readOnly = true;
-                zoningToggles[i].checkedBoxObject.isInteractive = false; // Don't eat my double click event please
 
+                // Single click event handler - toggle state of this button.
                 zoningToggles[i].eventClick += (c, p) =>
                 {
-                    ((UICheckBox)c).isChecked = !((UICheckBox)c).isChecked;
-                    eventFilteringChanged(this, 0);
-                };
+                    // If either shift or control is NOT held down, deselect all other toggles.
+                    if (!(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)))
+                    {
+                        for (int j = 0; j < NumOfCategories; j++)
+                        {
+                            zoningToggles[j].isChecked = false;
+                        }
+                    }
 
-                zoningToggles[i].eventDoubleClick += (c, p) =>
-                {
-                    for (int j = 0; j < NumOfCategories; j++)
-                        zoningToggles[j].isChecked = false;
+                    // Select this toggle.
                     ((UICheckBox)c).isChecked = true;
 
+                    // Trigger an update.
                     eventFilteringChanged(this, 0);
                 };
             }

@@ -7,6 +7,7 @@
 - Update residential building household counts on load
 - Standardise building display names and avoid non-unique names for prefabs
 - Overhaul building AIs, implementing separate (inheriting) AIs for growables and ploppables
+- Change settings panel filter toggle button behaviour to match common standards
 - Generate standardised building preview images for thumbnail sprites
 - Building preview (thumbnails and settings panel) overlays include name, level and size
 - Replace default game tooltips with smaller ones with only relevant info
