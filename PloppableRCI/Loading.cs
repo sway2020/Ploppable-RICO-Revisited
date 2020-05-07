@@ -49,9 +49,12 @@ namespace PloppableRICO
             // If we're not enabling the mod due to one of the above checks failing, unapply Harmony patches before returning without doing anything.
             if (!isModEnabled)
             {
-                Patcher.UnpatchAll();
                 return;
             }
+
+            // Apply Harmony patches.
+            Debug.Log("RICO Revisited: applying Harmony patches.");
+            Patcher.PatchAll();
 
             // Make sure patches have been applied before proceeding.
             if (!Patcher.patched)

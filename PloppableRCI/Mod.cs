@@ -6,7 +6,7 @@ namespace PloppableRICO
 {
     public class PloppableRICOMod : IUserMod
     {
-        public static string version = "2.0";
+        public static string version = "2.0.1";
 
         public string Name => "RICO Revisited " + version;
 
@@ -17,7 +17,7 @@ namespace PloppableRICO
         {
             // Apply Harmony patches via Cities Harmony.
             // Called here instead of OnCreated to allow the auto-downloader to do its work prior to launch.
-            HarmonyHelper.DoOnHarmonyReady(() => Patcher.PatchAll());
+            HarmonyHelper.EnsureHarmonyInstalled();
         }
 
         public void OnDisabled()

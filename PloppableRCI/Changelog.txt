@@ -1,4 +1,6 @@
-﻿- Add additional check that Harmony patches have been applied before activation.
+﻿Version 2.0.1
+
+-  Tweak Harmony 2.0 installing and patching.
 
 
 Version 2.0
