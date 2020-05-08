@@ -29,7 +29,7 @@ namespace PloppableRICO
             renderCamera.targetTexture = new RenderTexture(512, 512, 24, RenderTextureFormat.ARGB32);
             renderCamera.allowHDR = true;
             renderCamera.enabled = false;
-            renderCamera.clearFlags = CameraClearFlags.Color;
+            renderCamera.clearFlags = CameraClearFlags.Skybox;
 
             // Basic defaults.
             renderCamera.pixelRect = new Rect(0f, 0f, 512, 512);

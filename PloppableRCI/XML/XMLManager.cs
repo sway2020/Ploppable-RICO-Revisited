@@ -115,10 +115,15 @@ namespace PloppableRICO
     /// </summary>
     public class BuildingData
     {
+        // Basic Ploppable RICO data.
         public BuildingInfo prefab;
         public string name;
         public Category category;
         private string m_displayName;
+
+        // Ploppable RICO Revisited additional data.
+        public BuildingInfo originalPrefab;
+        public int uiCategory;
 
         // Currently non-functional - see note to 'SetPrefabDensity' above.
         public int density;

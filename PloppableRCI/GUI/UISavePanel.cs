@@ -126,7 +126,7 @@ namespace PloppableRICO
                 // If there are no other settings, destroy existing building button.
                 if (!(currentSelection.hasAuthor || currentSelection.hasMod))
                 {
-                    PloppableTool.instance.DestroyBuildingButton(currentSelection.prefab.name, CurrentUICategory());
+                    PloppableTool.instance.DestroyBuildingButton(currentSelection.prefab.name, currentSelection.uiCategory);
                 }
 
                 currentSelection.local = null;
@@ -163,7 +163,7 @@ namespace PloppableRICO
                 BuildingData currentBuildingData = Loading.xmlManager.prefabHash[currentSelection.prefab];
 
                 // Delete existing building button.
-                PloppableTool.instance.DestroyBuildingButton(currentBuildingData.prefab.name, CurrentUICategory());
+                PloppableTool.instance.DestroyBuildingButton(currentBuildingData.prefab.name, currentSelection.uiCategory);
 
                 // Save first.
                 Save();

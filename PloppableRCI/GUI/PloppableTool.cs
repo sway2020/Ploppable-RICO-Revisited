@@ -367,6 +367,9 @@ namespace PloppableRICO
         /// <param name="uiCategory">UI category</param>
         public void AddBuildingButton(BuildingData buildingData, string uiCategory)
         {
+            // Set UI category index for this buildingData instance.
+            buildingData.uiCategory = UICategoryIndex(uiCategory);
+
             // Don't do anything if UI category is set to 'none'.
             if (uiCategory.Equals("none"))
             {
@@ -377,7 +380,7 @@ namespace PloppableRICO
             {
                 // Add building button to relevant panel.
                 UIButton BuildingButton = new UIButton();
-                BuildingButton = BuildingPanels[UICategoryIndex(uiCategory)].AddUIComponent<UIButton>();
+                BuildingButton = BuildingPanels[buildingData.uiCategory].AddUIComponent<UIButton>();
 
                 // Appearance.
                 BuildingButton.size = new Vector2(109, 100);
@@ -661,10 +664,10 @@ namespace PloppableRICO
         /// </summary>
         /// <param name="prefabName">Raw BuildingInfo prefab name</param>
         /// <param name="uiCategory">RICO UI category string</param>
-        public void DestroyBuildingButton(string prefabName, string uiCategory)
+        public void DestroyBuildingButton(string prefabName, int uiCategory)
         {
             // Get all buttons in specified UI category panel and iterate through.
-            var buttons = BuildingPanels[UICategoryIndex(uiCategory)].GetComponentsInChildren(typeof(UIButton));
+            var buttons = BuildingPanels[uiCategory].GetComponentsInChildren(typeof(UIButton));
 
             foreach (UIButton button in buttons)
             {
