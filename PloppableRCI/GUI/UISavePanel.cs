@@ -123,8 +123,15 @@ namespace PloppableRICO
             removeLocal = UIUtils.CreateButton(this);
             removeLocal.eventClick += (c, p) =>
             {
+                // If there are no other settings, destroy existing building button.
+                if (!(currentSelection.hasAuthor || currentSelection.hasMod))
+                {
+                    PloppableTool.instance.DestroyBuildingButton(currentSelection.prefab.name, CurrentUICategory());
+                }
+
                 currentSelection.local = null;
                 currentSelection.hasLocal = false;
+
                 RICOSettingsPanel.instance.UpdateBuildingInfo(currentSelection);
 
                 if (enabled) RICOSettingsPanel.instance.UpdateSelection();
@@ -138,7 +145,6 @@ namespace PloppableRICO
             {
                 Save();
             };
-
 
             // Apply changes button and warning label.
             UILabel warningLabel = this.AddUIComponent<UILabel>();
