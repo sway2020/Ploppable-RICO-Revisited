@@ -1,4 +1,7 @@
-﻿Version 2.0.1
+﻿- Clear camera flags before rendering preview thumbnails.
+
+
+Version 2.0.1
 
 -  Tweak Harmony 2.0 installing and patching.
 

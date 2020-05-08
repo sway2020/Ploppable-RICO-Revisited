@@ -27,11 +27,12 @@ namespace PloppableRICO
             renderCamera = new GameObject("Camera").AddComponent<Camera>();
             renderCamera.transform.SetParent(transform);
             renderCamera.targetTexture = new RenderTexture(512, 512, 24, RenderTextureFormat.ARGB32);
-            renderCamera.pixelRect = new Rect(0f, 0f, 512, 512);
             renderCamera.allowHDR = true;
             renderCamera.enabled = false;
+            renderCamera.clearFlags = CameraClearFlags.Color;
 
             // Basic defaults.
+            renderCamera.pixelRect = new Rect(0f, 0f, 512, 512);
             renderCamera.backgroundColor = new Color(0, 0, 0, 0);
             renderCamera.fieldOfView = 30f;
             renderCamera.nearClipPlane = 1f;
@@ -167,10 +168,12 @@ namespace PloppableRICO
             Vector3 pos = quaternion * -currentBounds.center;
             Matrix4x4 matrix = Matrix4x4.TRS(pos, quaternion, Vector3.one);
 
-            // Create new InfoManager instance and copy current game mode settings for rendering.
+            // Back up current game InfoManager mode.
             InfoManager infoManager = Singleton<InfoManager>.instance;
             InfoManager.InfoMode currentMode = infoManager.CurrentMode;
             InfoManager.SubInfoMode currentSubMode = infoManager.CurrentSubMode; ;
+
+            // Set current game InfoManager to default (don't want to render with an overlay mode).
             infoManager.SetCurrentMode(InfoManager.InfoMode.None, InfoManager.SubInfoMode.Default);
 
             // Render!
@@ -187,7 +190,7 @@ namespace PloppableRICO
                 DayNightProperties.instance.moonLightSource.enabled = true;
             }
 
-            // Reset mode.
+            // Restore game InfoManager mode.
             infoManager.SetCurrentMode(currentMode, currentSubMode);
         }
     }
