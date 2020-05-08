@@ -1,6 +1,6 @@
-﻿- Delete building button when local settings are removed and no other settings remain.
-- Clear camera flags before rendering preview thumbnails.
-
+﻿- Delete building button when local settings are removed and no other settings remain
+- Clear camera flags before rendering preview thumbnails
+- Fix transposition of 'tourism' and 'leisure' items in some settigns menus.
 
 Version 2.0.1
 

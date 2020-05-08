@@ -40,8 +40,8 @@ namespace PloppableRICO
         {
             Translations.GetTranslation("High"),
             Translations.GetTranslation("Low"),
-            Translations.GetTranslation("Tourism"),
             Translations.GetTranslation("Leisure"),
+            Translations.GetTranslation("Tourism"),
             Translations.GetTranslation("Eco (organic)")
         };
 
@@ -327,8 +327,8 @@ namespace PloppableRICO
             else if (uiCategory.selectedIndex == 7) currentSelection.uiCategory = "forest";
             else if (uiCategory.selectedIndex == 8) currentSelection.uiCategory = "oil";
             else if (uiCategory.selectedIndex == 9) currentSelection.uiCategory = "ore";
-            else if (uiCategory.selectedIndex == 10) currentSelection.uiCategory = "tourist";
-            else if (uiCategory.selectedIndex == 11) currentSelection.uiCategory = "leisure";
+            else if (uiCategory.selectedIndex == 10) currentSelection.uiCategory = "leisure";
+            else if (uiCategory.selectedIndex == 11) currentSelection.uiCategory = "tourist";
             else if (uiCategory.selectedIndex == 12) currentSelection.uiCategory = "organic";
             else if (uiCategory.selectedIndex == 13) currentSelection.uiCategory = "hightech";
             else if (uiCategory.selectedIndex == 14) currentSelection.uiCategory = "selfsufficient";
@@ -482,8 +482,8 @@ namespace PloppableRICO
 
                 if (currentSelection.subService == "high") subService.selectedIndex = 0;
                 else if (currentSelection.subService == "low") subService.selectedIndex = 1;
-                else if (currentSelection.subService == "tourist") subService.selectedIndex = 2;
-                else if (currentSelection.subService == "leisure") subService.selectedIndex = 3;
+                else if (currentSelection.subService == "leisure") subService.selectedIndex = 2;
+                else if (currentSelection.subService == "tourist") subService.selectedIndex = 3;
                 else if (currentSelection.subService == "eco") subService.selectedIndex = 4;
             }
             else if (buildingData.service == "extractor")
@@ -520,8 +520,8 @@ namespace PloppableRICO
             else if (buildingData.uiCategory == "forest") uiCategory.selectedIndex = 7;
             else if (buildingData.uiCategory == "oil") uiCategory.selectedIndex = 8;
             else if (buildingData.uiCategory == "ore") uiCategory.selectedIndex = 9;
-            else if (buildingData.uiCategory == "tourist") uiCategory.selectedIndex = 10;
-            else if (buildingData.uiCategory == "leisure") uiCategory.selectedIndex = 11;
+            else if (buildingData.uiCategory == "leisure") uiCategory.selectedIndex = 10;
+            else if (buildingData.uiCategory == "tourist") uiCategory.selectedIndex = 11;
             else if (buildingData.uiCategory == "organic") uiCategory.selectedIndex = 12;
             else if (buildingData.uiCategory == "hightech") uiCategory.selectedIndex = 13;
             else if (buildingData.uiCategory == "selfsufficient") uiCategory.selectedIndex = 14;
@@ -749,8 +749,8 @@ namespace PloppableRICO
                 serviceName = "commercial";
                 if (subService.selectedIndex == 0) subServiceName = "high";
                 else if (subService.selectedIndex == 1) subServiceName = "low";
-                else if (subService.selectedIndex == 2) subServiceName = "tourist";
-                else if (subService.selectedIndex == 3) subServiceName = "leisure";
+                else if (subService.selectedIndex == 2) subServiceName = "leisure";
+                else if (subService.selectedIndex == 3) subServiceName = "tourist";
                 else if (subService.selectedIndex == 4) subServiceName = "eco";
             }
             else if (service.selectedIndex == 5)
