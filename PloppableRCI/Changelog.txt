@@ -1,8 +1,10 @@
 ﻿Version 2.0.2
+
 - Delete building button when local settings are removed and no other settings remain
 - Fix building button not being deleted when a UI category change is saved and then applied
 - Reset camera flags before rendering preview thumbnails
 - Fix transposition of 'tourism' and 'leisure' items in some settings menus
+- Add explicit Harmony Prefix prioritisation over Prefab Hook
 
 
 Version 2.0.1

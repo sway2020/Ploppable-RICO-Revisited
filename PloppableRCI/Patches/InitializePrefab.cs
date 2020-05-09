@@ -17,9 +17,11 @@ namespace PloppableRICO
 		/// <summary>
 		/// Harmony prefix patch for BuildingInfo.InitializePrefab.
 		/// Reads and applies RICO settings prior to prefab initialization.
+		/// Harmony priority before boformer's Prefab Hook so that RICO assets are converted to their 'final' RICO state before initialization.
 		/// </summary>
 		/// <param name="__instance">Original method instance reference</param>
-		/// <returns></returns>
+		/// <returns>Whether to continue InitializePrefab (always true)</returns>
+		[HarmonyBefore(new string[] { "github.com/boformer/PrefabHook" })]
 		public static bool Prefix(ref BuildingInfo __instance)
 		{
 			// Create a new building record for this prefab and add it to our lists.
