@@ -1,4 +1,11 @@
-﻿Version 2.0.2
+﻿Version 2.0.3
+
+- Ensure Dummy AI initialises with beautification service
+- Catch NullReferenceException on building button tooltip creation if another mod is interfering with AI
+- Increase InitPrefab patch priority
+
+
+Version 2.0.2
 
 - Delete building button when local settings are removed and no other settings remain
 - Fix building button not being deleted when a UI category change is saved and then applied

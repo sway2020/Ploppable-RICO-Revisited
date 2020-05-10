@@ -29,7 +29,7 @@ namespace PloppableRICO
                 if (HarmonyHelper.IsHarmonyInstalled)
                 {
                     // Create harmony instance.
-                    Debug.Log("RICO Revisited v" + PloppableRICOMod.version + ": deploying Harmony patches.");
+                    Debug.Log("RICO Revisited v" + PloppableRICOMod.Version + ": deploying Harmony patches.");
 
                     // Apply all annotated patches and update flag.
                     Harmony harmonyInstance = new Harmony(harmonyID);

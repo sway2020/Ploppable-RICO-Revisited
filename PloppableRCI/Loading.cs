@@ -62,7 +62,7 @@ namespace PloppableRICO
             }
 
             // Otherwise, game on!
-            Debug.Log("RICO Revisited v" + PloppableRICOMod.version + " loading.");
+            Debug.Log("RICO Revisited v" + PloppableRICOMod.Version + " loading.");
             
             // Create instances if they don't already exist.
             if (convertPrefabs == null)

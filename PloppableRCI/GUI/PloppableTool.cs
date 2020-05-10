@@ -468,25 +468,36 @@ namespace PloppableRICO
             tooltip.AppendLine(building.displayName);
 
             // Construction cost.
-            tooltip.AppendLine(LocaleFormatter.FormatCost(building.prefab.GetConstructionCost(), false));
-
-            // Household or workplace count.
-            if (building.prefab.GetService() == ItemClass.Service.Residential)
+            try
             {
-                // Residential - households.
-                tooltip.Append(Translations.GetTranslation("Households"));
-                tooltip.Append(": ");
-                tooltip.AppendLine(((PrivateBuildingAI)building.prefab.GetAI()).CalculateHomeCount(building.prefab.GetClassLevel(), new Randomizer(), building.prefab.GetWidth(), building.prefab.GetLength()).ToString());
+                tooltip.AppendLine(LocaleFormatter.FormatCost(building.prefab.GetConstructionCost(), false));
             }
-            else
+            catch
             {
-                // Non-residential - workplaces.
-                int[] workplaces = new int[4];
+                // Don't care - just don't show construction cost in the tooltip.
+            }
 
-                tooltip.Append(Translations.GetTranslation("Workplaces"));
-                tooltip.Append(": ");
-                ((PrivateBuildingAI)building.prefab.GetAI()).CalculateWorkplaceCount(building.prefab.GetClassLevel(), new Randomizer(), building.prefab.GetWidth(), building.prefab.GetLength(), out workplaces[0], out workplaces[1], out workplaces[2], out workplaces[3]);
-                tooltip.AppendLine(workplaces.Sum().ToString());
+            // Only add households or workplaces for Private AI types, not for e.g. Beautification (dummy service).
+            if (building.prefab.GetAI() is PrivateBuildingAI thisAI)
+            {
+                // Household or workplace count.
+                if (building.prefab.GetService() == ItemClass.Service.Residential)
+                {
+                    // Residential - households.
+                    tooltip.Append(Translations.GetTranslation("Households"));
+                    tooltip.Append(": ");
+                    tooltip.AppendLine(thisAI.CalculateHomeCount(building.prefab.GetClassLevel(), new Randomizer(), building.prefab.GetWidth(), building.prefab.GetLength()).ToString());
+                }
+                else
+                {
+                    // Non-residential - workplaces.
+                    int[] workplaces = new int[4];
+
+                    tooltip.Append(Translations.GetTranslation("Workplaces"));
+                    tooltip.Append(": ");
+                    thisAI.CalculateWorkplaceCount(building.prefab.GetClassLevel(), new Randomizer(), building.prefab.GetWidth(), building.prefab.GetLength(), out workplaces[0], out workplaces[1], out workplaces[2], out workplaces[3]);
+                    tooltip.AppendLine(workplaces.Sum().ToString());
+                }
             }
 
             // Physical size.

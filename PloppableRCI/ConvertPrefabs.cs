@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+
 namespace PloppableRICO
 {
     /// <summary>
@@ -40,11 +41,11 @@ namespace PloppableRICO
                 {
                     var ai = prefab.gameObject.AddComponent<DummyBuildingAI>();
 
-                    // Dummy building AI requires different setup to ConvertPrefabs.InitializePrefab(), as it's not a PrivateBuildingAI.
-                    // So we just do it here instead.
-                    prefab.m_buildingAI = ai;
+                    // Use beautification ItemClass to avoid issues, and never make growable.
+                    InitializePrefab(prefab, ai, "Beautification Item", false);
+
+                    // Final circular reference.
                     prefab.m_buildingAI.m_info = prefab;
-                    prefab.m_placementStyle = ItemClass.Placement.Manual;
                 }
                 else if (buildingData.service == "residential")
                 {
@@ -227,15 +228,20 @@ namespace PloppableRICO
         /// <param name="ai">The building AI to apply.</param>
         /// <param name="aiClass">The AI class string to apply.</param>
         /// <param name="growable">Whether the prefab should be growable.</param>
-        public static void InitializePrefab(BuildingInfo prefab, PrivateBuildingAI ai, String aiClass, bool growable)
+        public static void InitializePrefab(BuildingInfo prefab, BuildingAI ai, String aiClass, bool growable)
         {
+            // Non-zero construction time important for other mods (Real Time, Real Construction) - only for private building AIs.
+            if (ai is PrivateBuildingAI)
+            {
+                ((PrivateBuildingAI)ai).m_constructionTime = 30;
+            }
+
             prefab.m_buildingAI = ai;
-            // Non-zero construction time important for other mods (Real Time, Real Construction)
-            ai.m_constructionTime = 30;
             prefab.m_buildingAI.m_info = prefab;
             prefab.m_class = ItemClassCollection.FindClass(aiClass);
             prefab.m_placementStyle = growable ? ItemClass.Placement.Automatic : ItemClass.Placement.Manual;
             prefab.m_autoRemove = false;
+
         }
     }
 }
