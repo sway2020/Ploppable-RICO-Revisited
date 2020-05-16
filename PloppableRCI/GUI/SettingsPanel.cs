@@ -159,7 +159,7 @@ namespace PloppableRICO
             m_savePanel.height = ((middle.height - SPACING) / 2) - 40; 
             m_savePanel.relativePosition = new Vector3(0, m_buildingPreview.height + SPACING);
 
-            m_buildingSelection = UIFastList.Create<UIBuildingItem>(left);
+            m_buildingSelection = UIFastList.Create<UIBuildingRow>(left);
             m_buildingSelection.backgroundSprite = "UnlockingPanel";
             m_buildingSelection.width = left.width;
             m_buildingSelection.height = left.height - 40;
@@ -186,7 +186,7 @@ namespace PloppableRICO
         
         }
 
-        public void UpdateBuildingInfo(BuildingData building) {
+        public void UpdateSelectedBuilding(BuildingData building) {
 
             if (building != null)
             {
@@ -298,7 +298,7 @@ namespace PloppableRICO
             m_buildingSelection.FindBuilding(building.name);
 
             // Update the selected building to the current.
-            UpdateBuildingInfo(building);
+            UpdateSelectedBuilding(building);
         }
 
 

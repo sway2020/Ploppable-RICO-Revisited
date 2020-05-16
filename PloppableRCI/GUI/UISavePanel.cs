@@ -110,7 +110,7 @@ namespace PloppableRICO
                     // Update settings panel with new settings if RICO is enabled for this building.
                     if (enabled)
                     {
-                        RICOSettingsPanel.instance.UpdateBuildingInfo(currentSelection);
+                        RICOSettingsPanel.instance.UpdateSelectedBuilding(currentSelection);
                         RICOSettingsPanel.instance.UpdateSelection();
 
                         // Update UI category.
@@ -132,7 +132,7 @@ namespace PloppableRICO
                 currentSelection.local = null;
                 currentSelection.hasLocal = false;
 
-                RICOSettingsPanel.instance.UpdateBuildingInfo(currentSelection);
+                RICOSettingsPanel.instance.UpdateSelectedBuilding(currentSelection);
 
                 if (enabled) RICOSettingsPanel.instance.UpdateSelection();
                 Save();

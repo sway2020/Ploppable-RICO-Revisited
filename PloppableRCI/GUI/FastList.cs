@@ -1,11 +1,15 @@
 ﻿using UnityEngine;
 using ColossalFramework.UI;
-
 using System;
+
 
 namespace PloppableRICO
 {
-    public interface IUIFastListRow
+    /// <summary>
+    /// From SamSamTS's work with Building Themes mod, via AJ3D's Ploppable RICO.
+    /// Code and comments are unchanged, except for FindBuilding() added by algernon.
+    /// </summary>
+    public interface UIFastListRow
     {
         #region Methods to implement
         /// <summary>
@@ -73,7 +77,7 @@ namespace PloppableRICO
         #region Private members
         private UIPanel m_panel;
         private UIScrollbar m_scrollbar;
-        private FastList<IUIFastListRow> m_rows;
+        private FastList<UIFastListRow> m_rows;
         private FastList<object> m_rowsData;
 
         private Type m_rowType;
@@ -100,7 +104,7 @@ namespace PloppableRICO
         /// <param name="parent"></param>
         /// <returns></returns>
         public static UIFastList Create<T>(UIComponent parent)
-            where T : UIPanel, IUIFastListRow
+            where T : UIPanel, UIFastListRow
         {
             UIFastList list = parent.AddUIComponent<UIFastList>();
             list.m_rowType = typeof(T);
@@ -310,6 +314,32 @@ namespace PloppableRICO
         #endregion
 
         #region Public methods
+
+        /// <summary>
+        /// Sets the selection to the named building.
+        /// If no building is found, clears the selection.
+        /// </summary>
+        /// <param name="building">The (raw prefab) name of the building to find</param>
+        /// <returns>The RICO BuildingData record for the building.</returns>
+        public void FindBuilding(string name)
+        {
+            // Iterate through the list 
+            for (int i = 0; i < m_rowsData.m_size; i++)
+            {
+                if (((BuildingData)m_rowsData.m_buffer[i]).prefab.name.Equals(name))
+                {
+                    selectedIndex = i;
+                    listPosition = i;
+                    return;
+                }
+            }
+
+            // No building found; reset the selection.
+            selectedIndex = -1;
+            listPosition = 0;
+        }
+
+
         /// <summary>
         /// Clear the list
         /// </summary>
@@ -426,31 +456,6 @@ namespace PloppableRICO
             if (selectOnMouseEnter)
                 OnRowClicked(m_lastMouseEnter, p);
         }
-
-
-        /// <summary>
-        /// Sets the selection to the named building.
-        /// If no building is found, clears the selection.
-        /// </summary>
-        /// <param name="building">The (raw prefab) name of the building to find</param>
-        /// <returns>The RICO BuildingData record for the building.</returns>
-        public void FindBuilding(string name)
-        {
-            // Iterate through the list 
-            for (int i = 0; i < m_rowsData.m_size; i++)
-            {
-                if (((BuildingData)m_rowsData.m_buffer[i]).prefab.name.Equals(name))
-                {
-                    selectedIndex = i;
-                    listPosition = i;
-                    return;
-                }
-            }
-
-            // No building found; reset the selection.
-            selectedIndex = -1;
-            listPosition = 0;
-        }
         #endregion
 
         #region Private methods
@@ -478,7 +483,7 @@ namespace PloppableRICO
 
             if (m_rows == null)
             {
-                m_rows = new FastList<IUIFastListRow>();
+                m_rows = new FastList<UIFastListRow>();
                 m_rows.SetCapacity(nbRows);
             }
 
@@ -487,7 +492,7 @@ namespace PloppableRICO
                 // Adding missing rows
                 for (int i = m_rows.m_size; i < nbRows; i++)
                 {
-                    m_rows.Add(m_panel.AddUIComponent(m_rowType) as IUIFastListRow);
+                    m_rows.Add(m_panel.AddUIComponent(m_rowType) as UIFastListRow);
                     if (m_canSelect && !selectOnMouseEnter) m_rows[i].eventClick += OnRowClicked;
                     else if (m_canSelect) m_rows[i].eventMouseEnter += OnRowClicked;
                 }

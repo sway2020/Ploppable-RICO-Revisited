@@ -4,167 +4,197 @@ using UnityEngine;
 
 namespace PloppableRICO
 {
+    /// <summary>
+    /// Panel that contains the building preview image.
+    /// </summary>
     public class UIBuildingPreview : UIPanel
     {
-        private BuildingData m_item;
-        private BuildingInfo m_renderPrefab;
+        // Panel components.
+        private UITextureSprite previewSprite;
+        private UISprite noPreviewSprite;
+        private UIPreviewRenderer previewRender;
+        private UILabel buildingName;
+        private UILabel buildingLevel;
+        private UILabel buildingSize;
 
-        private UITextureSprite m_preview;
-        private UISprite m_noPreview;
-        private UIPreviewRenderer m_previewRenderer;
+        // Currently selected building and its pre-rendered (by game) equivalent for rendering.
+        private BuildingData currentSelection;
+        private BuildingInfo renderPrefab;
 
-        private UILabel m_buildingName;
-        private UISprite m_categoryIcon;
-
-        private UILabel m_level;
-        private UILabel m_size;
-
+        /// <summary>
+        /// Create the panel; called by Unity just before any of the Update methods is called for the first time.
+        /// </summary>
         public override void Start()
         {
             base.Start();
 
+            // Set background and sprites.
             backgroundSprite = "GenericPanel";
 
-            // Preview
-            m_preview = AddUIComponent<UITextureSprite>();
-            m_preview.size = size;
-            m_preview.relativePosition = Vector3.zero;
+            previewSprite = AddUIComponent<UITextureSprite>();
+            previewSprite.size = size;
+            previewSprite.relativePosition = Vector3.zero;
 
-            m_noPreview = AddUIComponent<UISprite>();
-            m_noPreview.spriteName = "Niet";
-            m_noPreview.relativePosition = new Vector3((width - m_noPreview.spriteInfo.width) / 2, (height - m_noPreview.spriteInfo.height) / 2);
+            noPreviewSprite = AddUIComponent<UISprite>();
+            noPreviewSprite.size = size;
+            noPreviewSprite.relativePosition = Vector3.zero;
 
-            m_previewRenderer = gameObject.AddComponent<UIPreviewRenderer>();
-            m_previewRenderer.Size = m_preview.size * 2; // Twice the size for anti-aliasing
+            // Initialise renderer; use double size for anti-aliasing.
+            previewRender = gameObject.AddComponent<UIPreviewRenderer>();
+            previewRender.Size = previewSprite.size * 2;
 
-            eventMouseDown += (c, p) =>
+            // Click-and-drag rotation.
+            eventMouseDown += (component, mouseEvent) =>
             {
                 eventMouseMove += RotateCamera;
             };
 
-            eventMouseUp += (c, p) =>
+            eventMouseUp += (component, mouseEvent) =>
             {
                 eventMouseMove -= RotateCamera;
             };
 
-            eventMouseWheel += (c, p) =>
+            // Zoom with mouse wheel.
+            eventMouseWheel += (component, mouseEvent) =>
             {
-                m_previewRenderer.Zoom -= Mathf.Sign(p.wheelDelta) * 0.25f;
+                previewRender.Zoom -= Mathf.Sign(mouseEvent.wheelDelta) * 0.25f;
                 RenderPreview();
             };
 
-            // Name
-            m_buildingName = AddUIComponent<UILabel>();
-            m_buildingName.textScale = 0.9f;
-            m_buildingName.useDropShadow = true;
-            m_buildingName.dropShadowColor = new Color32(80, 80, 80, 255);
-            m_buildingName.dropShadowOffset = new Vector2(2, -2);
-            m_buildingName.text = "Name";
-            m_buildingName.isVisible = false;
-            m_buildingName.relativePosition = new Vector3(5, 10);
+            // Display building name.
+            buildingName = AddUIComponent<UILabel>();
+            buildingName.textScale = 0.9f;
+            buildingName.useDropShadow = true;
+            buildingName.dropShadowColor = new Color32(80, 80, 80, 255);
+            buildingName.dropShadowOffset = new Vector2(2, -2);
+            buildingName.text = "Name";
+            buildingName.isVisible = false;
+            buildingName.relativePosition = new Vector3(5, 10);
 
-            // Category icon
-            m_categoryIcon = AddUIComponent<UISprite>();
-            m_categoryIcon.size = new Vector2(35, 35);
-            m_categoryIcon.isVisible = false;
-            m_categoryIcon.relativePosition = new Vector3(width - 37, 2);
+            // Display building level.
+            buildingLevel = AddUIComponent<UILabel>();
+            buildingLevel.textScale = 0.9f;
+            buildingLevel.useDropShadow = true;
+            buildingLevel.dropShadowColor = new Color32(80, 80, 80, 255);
+            buildingLevel.dropShadowOffset = new Vector2(2, -2);
+            buildingLevel.text = "Level";
+            buildingLevel.isVisible = false;
+            buildingLevel.relativePosition = new Vector3(5, height - 20);
 
-            // Level
-            m_level = AddUIComponent<UILabel>();
-            m_level.textScale = 0.9f;
-            m_level.useDropShadow = true;
-            m_level.dropShadowColor = new Color32(80, 80, 80, 255);
-            m_level.dropShadowOffset = new Vector2(2, -2);
-            m_level.text = "Level";
-            m_level.isVisible = false;
-            m_level.relativePosition = new Vector3(5, height - 20);
-
-            // Size
-            m_size = AddUIComponent<UILabel>();
-            m_size.textScale = 0.9f;
-            m_size.useDropShadow = true;
-            m_size.dropShadowColor = new Color32(80, 80, 80, 255);
-            m_size.dropShadowOffset = new Vector2(2, -2);
-            m_size.text = "Size";
-            m_size.isVisible = false;
-            m_size.relativePosition = new Vector3(width - 50, height - 20);
+            // Display building size.
+            buildingSize = AddUIComponent<UILabel>();
+            buildingSize.textScale = 0.9f;
+            buildingSize.useDropShadow = true;
+            buildingSize.dropShadowColor = new Color32(80, 80, 80, 255);
+            buildingSize.dropShadowOffset = new Vector2(2, -2);
+            buildingSize.text = "Size";
+            buildingSize.isVisible = false;
+            buildingSize.relativePosition = new Vector3(width - 50, height - 20);
         }
 
-        public void Show(BuildingData item)
+
+        /// <summary>
+        /// Render and show a preview of a building.
+        /// </summary>
+        /// <param name="building">The building to render</param>
+        public void Show(BuildingData building)
         {
-            if (m_item == item) return;
-
-            m_item = item;
-            m_renderPrefab = (m_item == null) ? null : (PrefabCollection<BuildingInfo>.FindLoaded(m_item.name));
-
-            // Preview
-            if (m_renderPrefab != null && m_renderPrefab.m_mesh != null)
+            // If we're already showing this building, nothing further needs to be done.
+            if (building == currentSelection)
             {
-                m_previewRenderer.CameraRotation = 210f;
-                m_previewRenderer.Zoom = 4f;
-                m_previewRenderer.Mesh = m_renderPrefab.m_mesh;
-                m_previewRenderer.material = m_renderPrefab.m_material;
+                return;
+            }
+
+            // Update current selection to the new building.
+            currentSelection = building;
+            renderPrefab = (currentSelection == null) ? null : (PrefabCollection<BuildingInfo>.FindLoaded(currentSelection.name));
+
+            // Generate render if there's a selection with a mesh.
+            if (renderPrefab != null && renderPrefab.m_mesh != null)
+            {
+                // Set default values.
+                previewRender.CameraRotation = 210f;
+                previewRender.Zoom = 4f;
+                previewRender.Mesh = renderPrefab.m_mesh;
+                previewRender.material = renderPrefab.m_material;
 
                 RenderPreview();
 
-                m_preview.texture = m_previewRenderer.Texture;
-
-                m_noPreview.isVisible = false;
+                // Set background.
+                previewSprite.texture = previewRender.Texture;
+                noPreviewSprite.isVisible = false;
             }
             else
             {
-                m_preview.texture = null;
-                m_noPreview.isVisible = true;
+                // No valid current selection with a mesh; reset background.
+                previewSprite.texture = null;
+                noPreviewSprite.isVisible = true;
             }
 
-            m_buildingName.isVisible = false;
-            m_categoryIcon.isVisible = false;
-            m_level.isVisible = false;
-            m_size.isVisible = false;
+            // Hide any empty building names.
+            if (building == null)
+            {
+                buildingName.isVisible = false;
+                buildingLevel.isVisible = false;
+                buildingSize.isVisible = false;
+            }
+            else
+            {
+                // Set and show building name.
+                buildingName.isVisible = true;
+                buildingName.text = currentSelection.displayName;
+                UIUtils.TruncateLabel(buildingName, width - 45);
+                buildingName.autoHeight = true;
 
-            if (item == null) return;
+                // Set and show building level.
+                buildingLevel.isVisible = true;
+                buildingLevel.text = Translations.GetTranslation("Level") + " " + Mathf.Min((int)currentSelection.prefab.GetClassLevel() + 1, Util.MaxLevelOf(currentSelection.prefab.GetSubService()));
+                UIUtils.TruncateLabel(buildingLevel, width - 45);
+                buildingLevel.autoHeight = true;
 
-            // Name
-            m_buildingName.isVisible = true;
-            m_buildingName.text = m_item.displayName;
-            UIUtils.TruncateLabel(m_buildingName, width - 45);
-            m_buildingName.autoHeight = true;
-
-            // Level.
-            m_level.isVisible = true;
-            m_level.text = Translations.GetTranslation("Level") + " " + Mathf.Min((int)m_item.prefab.GetClassLevel() + 1, Util.MaxLevelOf(m_item.prefab.GetSubService()));
-            UIUtils.TruncateLabel(m_level, width - 45);
-            m_level.autoHeight = true;
-
-            // Size.
-            m_size.isVisible = true;
-            m_size.text = m_item.prefab.GetWidth() + "x" + m_item.prefab.GetLength();
-            UIUtils.TruncateLabel(m_size, width - 45);
-            m_size.autoHeight = true;
-
-
+                // Set and show building size.
+                buildingSize.isVisible = true;
+                buildingSize.text = currentSelection.prefab.GetWidth() + "x" + currentSelection.prefab.GetLength();
+                UIUtils.TruncateLabel(buildingSize, width - 45);
+                buildingSize.autoHeight = true;
+            }
         }
 
+
+        /// <summary>
+        /// Render the preview image.
+        /// </summary>
         private void RenderPreview()
         {
-            if (m_renderPrefab == null) return;
-
-            if (m_renderPrefab.m_useColorVariations)
+            if (renderPrefab == null)
             {
-                Color materialColor = m_renderPrefab.m_material.color;
-                m_renderPrefab.m_material.color = m_renderPrefab.m_color0;
-                m_previewRenderer.Render();
-                m_renderPrefab.m_material.color = materialColor;
+                return;
+            }
+
+            // If the selected building has colour variations, temporarily set the colour to the default for rendering.
+            if (renderPrefab.m_useColorVariations)
+            {
+                Color originalColor = renderPrefab.m_material.color;
+                renderPrefab.m_material.color = renderPrefab.m_color0;
+                previewRender.Render();
+                renderPrefab.m_material.color = originalColor;
             }
             else
             {
-                m_previewRenderer.Render();
+                // No temporary colour change needed.
+                previewRender.Render();
             }
         }
 
+
+        /// <summary>
+        /// Rotates the preview camera (model rotation) in accordance with mouse movement.
+        /// </summary>
+        /// <param name="c">Not used</param>
+        /// <param name="p">Mouse event</param>
         private void RotateCamera(UIComponent c, UIMouseEventParameter p)
         {
-            m_previewRenderer.CameraRotation -= p.moveDelta.x / m_preview.width * 360f;
+            previewRender.CameraRotation -= p.moveDelta.x / previewSprite.width * 360f;
             RenderPreview();
         }
     }

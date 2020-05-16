@@ -90,7 +90,7 @@
     <Compile Include="GUI\FastList.cs" />
     <Compile Include="GUI\SettingsPanel.cs" />
     <Compile Include="GUI\UIBuildingFilter.cs" />
-    <Compile Include="GUI\UIBuildingList.cs" />
+    <Compile Include="GUI\UIBuildingRow.cs" />
     <Compile Include="GUI\UIBuildingPreview.cs" />
     <Compile Include="GUI\UIOptionsPanel.cs" />
     <Compile Include="GUI\UISavePanel.cs" />
