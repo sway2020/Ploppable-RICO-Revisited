@@ -4,6 +4,9 @@ using CitiesHarmony.API;
 
 namespace PloppableRICO
 {
+    /// <summary>
+    /// The base mod class for instantiation by the game.
+    /// </summary>
     public class PloppableRICOMod : IUserMod
     {
         public static string Version => "2.0.3";
@@ -13,6 +16,9 @@ namespace PloppableRICO
         public string Description => Translations.GetTranslation("Allows Plopping of RICO Buildings (fork of AJ3D's original with bugfixes and new features)");
 
 
+        /// <summary>
+        /// Called by the game when the mod is enabled.
+        /// </summary>
         public void OnEnabled()
         {
             // Apply Harmony patches via Cities Harmony.
@@ -20,6 +26,10 @@ namespace PloppableRICO
             HarmonyHelper.DoOnHarmonyReady(() => Patcher.PatchAll());
         }
 
+
+        /// <summary>
+        /// Called by the game when the mod is disabled.
+        /// </summary>
         public void OnDisabled()
         {
             // Unapply Harmony patches via Cities Harmony.

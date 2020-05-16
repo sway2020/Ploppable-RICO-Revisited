@@ -1,4 +1,7 @@
-﻿Version 2.0.3
+﻿- Reduce logging detail
+
+
+Version 2.0.3
 
 - Ensure Dummy AI initialises with beautification service
 - Catch NullReferenceException on building button tooltip creation if another mod is interfering with AI
