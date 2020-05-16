@@ -7,7 +7,7 @@ namespace PloppableRICO
     /// <summary>
     /// Panel that contains the building preview image.
     /// </summary>
-    public class UIBuildingPreview : UIPanel
+    public class UIPreviewPanel : UIPanel
     {
         // Panel components.
         private UITextureSprite previewSprite;
@@ -99,12 +99,6 @@ namespace PloppableRICO
         /// <param name="building">The building to render</param>
         public void Show(BuildingData building)
         {
-            // If we're already showing this building, nothing further needs to be done.
-            if (building == currentSelection)
-            {
-                return;
-            }
-
             // Update current selection to the new building.
             currentSelection = building;
             renderPrefab = (currentSelection == null) ? null : (PrefabCollection<BuildingInfo>.FindLoaded(currentSelection.name));

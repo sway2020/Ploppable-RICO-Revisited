@@ -39,7 +39,7 @@ namespace PloppableRICO
 
         public event PropertyChangedEventHandler<int> eventFilteringChanged;
 
-        public override void Start()
+        public void Setup()
         {
             base.Start();
 

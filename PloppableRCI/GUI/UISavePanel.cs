@@ -114,7 +114,7 @@ namespace PloppableRICO
                         RICOSettingsPanel.instance.UpdateSelection();
 
                         // Update UI category.
-                        RICOSettingsPanel.instance.m_buildingOptions.UpdateUICategory();
+                        RICOSettingsPanel.instance.UpdateUICategory();
                     }
                     Save();
                 }
@@ -191,6 +191,9 @@ namespace PloppableRICO
                 {
                     Debug.Log("RICO Revisited: no current RICO settings to apply to prefab '" + currentBuildingData + "'.");
                 }
+
+                // Force an update of all panels with current values.
+                RICOSettingsPanel.instance.UpdateSelectedBuilding(currentSelection);
             };
         }
 
@@ -245,8 +248,8 @@ namespace PloppableRICO
 
             }
 
-            // Force an update of the settings panel with current values.
-            RICOSettingsPanel.instance.m_buildingOptions.SelectionChanged(currentSelection);
+            // Force an update of all panels with current values.
+            RICOSettingsPanel.instance.UpdateSelectedBuilding(currentSelection);
         }
 
         private string GetRICOService()

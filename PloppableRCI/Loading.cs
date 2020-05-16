@@ -127,7 +127,7 @@ namespace PloppableRICO
 
             // Init GUI.
             PloppableTool.Initialize();
-            RICOSettingsPanel.Initialize();
+            RICOSettingsPanel.Create();
 
             // Add buttons to access building details from zoned building info panels.
             RICOSettingsPanel.instance.AddInfoPanelButtons();
