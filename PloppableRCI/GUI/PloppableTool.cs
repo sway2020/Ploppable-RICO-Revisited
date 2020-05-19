@@ -14,31 +14,34 @@ namespace PloppableRICO
     /// 
     public class PloppableTool : ToolBase
     {
-        private static GameObject _gameObject;
-        private static PloppableTool _instance;
-        public static PloppableTool instance
-
-        {
-            get { return _instance; }
-        }
-
-        UIButton PloppableButton;
-        UIPanel BuildingPanel;
-        UITabstrip Tabs;
-
         // Number of UI categories.
         const int NumTypes = 14;
         // Number of UI tabs: +1 to account for 'Settings' tab.
         const int NumTabs = NumTypes + 1;
 
+
+        // Object instances.
+        private static GameObject _gameObject;
+        private static PloppableTool _instance;
+
+        public static PloppableTool instance => _instance;
+
+        // UI components.
+        UIButton PloppableButton;
+
+        UITabstrip Tabs;
         UISprite[] TabSprites = new UISprite[NumTabs];
+        UIButton[] TabButtons = new UIButton[NumTabs];
+
+        UIPanel BuildingPanel;
         UIScrollablePanel[] BuildingPanels = new UIScrollablePanel[NumTabs];
         UIScrollablePanel currentSelection = new UIScrollablePanel();
 
-        UIButton[] TabButtons = new UIButton[NumTabs];
-
         UIButton LeftButton = new UIButton();
         UIButton RightButton = new UIButton();
+
+        UITextureAtlas[] thumbnailAtlas;
+
 
         // Names used to identify icons for tabs (specific game icon names - not just made up).
         string[] Names = new string[]
@@ -60,12 +63,14 @@ namespace PloppableRICO
             "Selfsufficient"
         };
 
-        private UITextureAtlas ingame;
-        private UITextureAtlas thumbnails;
 
 
+        /// <summary>
+        /// Initializes the Ploppable Tool (including panel).
+        /// </summary>
         public static void Initialize()
         {
+            // Don't do anything if we're already setup.
             if (_instance == null)
             {
                 try
@@ -75,7 +80,7 @@ namespace PloppableRICO
                     _gameObject.transform.parent = UIView.GetAView().transform;
                     _instance = _gameObject.AddComponent<PloppableTool>();
                     _instance.DrawPloppablePanel();
-                    _instance.PopulateAssets();
+                    _instance.PopulateButtons();
                 }
                 catch (Exception e)
                 {
@@ -85,12 +90,18 @@ namespace PloppableRICO
         }
         
 
+        /// <summary>
+        /// Awaken the Kraken! Or PloppableTool tool controller, whatever.
+        /// </summary>
         protected override void Awake()
         {
             this.m_toolController = ToolsModifierControl.toolController;
         }
         
 
+        /// <summary>
+        /// Destroys the Ploppable Tool GameObject.
+        /// </summary>
         public static void Destroy()
         {
             try
@@ -105,17 +116,17 @@ namespace PloppableRICO
         }
 
 
+        /// <summary>
+        /// Draws the Ploppable Tool panel.
+        /// </summary>
         public void DrawPloppablePanel()
         {
+            // Check to make sure that we haven't already done this.
             if (PloppableButton == null)
             {
-                ingame = Resources.FindObjectsOfTypeAll<UITextureAtlas>().FirstOrDefault(a => a.name == "Ingame");
-                thumbnails = Resources.FindObjectsOfTypeAll<UITextureAtlas>().FirstOrDefault(a => a.name == "Thumbnails");
-
                 // Main button on ingame toolbar.
                 PloppableButton = UIView.GetAView().FindUIComponent<UITabstrip>("MainToolstrip").AddUIComponent<UIButton>();
                 PloppableButton.size = new Vector2(43, 49);
-                PloppableButton.eventClick += PloppablebuttonClicked;
                 PloppableButton.normalBgSprite = "ToolbarIconGroup6Normal";
                 PloppableButton.normalFgSprite = "IconPolicyBigBusiness";
                 PloppableButton.focusedBgSprite = "ToolbarIconGroup6Focused";
@@ -125,6 +136,13 @@ namespace PloppableRICO
                 PloppableButton.relativePosition = new Vector2(800, 0);
                 PloppableButton.name = "PloppableButton";
                 PloppableButton.tooltip = Translations.GetTranslation("Ploppable RICO");
+
+                // Event handler - show the Ploppable Tool panel when the button is clicked.
+                PloppableButton.eventClick += (component, clickEvent) =>
+                {
+                    component.Focus();
+                    BuildingPanel.isVisible = true;
+                };
 
                 // Base panel.
                 BuildingPanel = UIView.GetAView().FindUIComponent("TSContainer").AddUIComponent<UIPanel>();
@@ -141,9 +159,13 @@ namespace PloppableRICO
                 Tabs.pivot = UIPivotPoint.BottomCenter;
                 Tabs.padding = new RectOffset(0, 3, 0, 0);
 
+                // Get game sprite thumbnail atlas.
+                UITextureAtlas gameIconAtlas = Resources.FindObjectsOfTypeAll<UITextureAtlas>().FirstOrDefault(a => a.name == "Thumbnails");
+
+                // Scrollable panels.
                 for (int i = 0; i <= NumTypes; i++)
                 {
-                    // Draw scrollable panels.
+                    // Basic setup.
                     BuildingPanels[i] = new UIScrollablePanel();
                     BuildingPanels[i] = BuildingPanel.AddUIComponent<UIScrollablePanel>();
                     BuildingPanels[i].size = new Vector2(763, 109);
@@ -157,7 +179,6 @@ namespace PloppableRICO
                     BuildingPanels[i].clipChildren = true;
                     BuildingPanels[i].freeScroll = false;
                     BuildingPanels[i].horizontalScrollbar = new UIScrollbar();
-
                     BuildingPanels[i].scrollWheelAmount = 109;
                     BuildingPanels[i].horizontalScrollbar.stepSize = 1f;
                     BuildingPanels[i].horizontalScrollbar.incrementAmount = 109f;
@@ -183,16 +204,17 @@ namespace PloppableRICO
                     // Standard "Vanilla" categories (low and high residential, low and high commercial, and offices) - use standard zoning icons from original vanilla release.
                     if (i <= 5)
                     {
-                        TabSprites[i].atlas = thumbnails;
-                        SetSprites(TabSprites[i], "Zoning" + Names[i]);
+                        TabSprites[i].atlas = gameIconAtlas;
+                        SetTabSprite(TabSprites[i], "Zoning" + Names[i]);
                     }
                     else
                     {
                         // Other types don't have standard zoning icons; use policy icons instead.
-                        SetSprites(TabSprites[i], "IconPolicy" + Names[i]);
+                        SetTabSprite(TabSprites[i], "IconPolicy" + Names[i]);
                     }
                 }
                 
+                // 'Left' and 'Right' buttons to croll panel.
                 LeftButton = BuildingPanel.AddUIComponent<UIButton>();
                 RightButton = BuildingPanel.AddUIComponent<UIButton>();
 
@@ -212,11 +234,14 @@ namespace PloppableRICO
                 RightButton.hoveredBgSprite = "ArrowRightHovered";
                 RightButton.disabledBgSprite = "ArrowRightDisabled";
 
+                // Initialise current selection to first panel.
                 currentSelection = BuildingPanels[0];
 
-                RightButton.eventClick += (sender, e) => ArrowClicked(sender, e, currentSelection);
-                LeftButton.eventClick += (sender, e) => ArrowClicked(sender, e, currentSelection);
+                // Event handlers.
+                RightButton.eventClick += (component, clickEvent) => ArrowClicked(component);
+                LeftButton.eventClick += (component, clickEvent) => ArrowClicked(component);
 
+                // Show left/right scroll buttons if we've got more than seven buttons, otherwise hide.
                 if (BuildingPanels[0].childCount > 7)
                 {
                     LeftButton.isVisible = true;
@@ -229,22 +254,22 @@ namespace PloppableRICO
                 }
 
                 // This can't happen in a loop, because the loop index is undefined after setup has occured (i.e. when the function is actually called).
-                TabButtons[0].eventClick += (sender, e) => TabClicked(sender, e, BuildingPanels[0], TabButtons[0], TabSprites[0]);
-                TabButtons[1].eventClick += (sender, e) => TabClicked(sender, e, BuildingPanels[1], TabButtons[1], TabSprites[1]);
-                TabButtons[2].eventClick += (sender, e) => TabClicked(sender, e, BuildingPanels[2], TabButtons[2], TabSprites[2]);
-                TabButtons[3].eventClick += (sender, e) => TabClicked(sender, e, BuildingPanels[3], TabButtons[3], TabSprites[3]);
-                TabButtons[4].eventClick += (sender, e) => TabClicked(sender, e, BuildingPanels[4], TabButtons[4], TabSprites[4]);
-                TabButtons[5].eventClick += (sender, e) => TabClicked(sender, e, BuildingPanels[5], TabButtons[5], TabSprites[5]);
-                TabButtons[6].eventClick += (sender, e) => TabClicked(sender, e, BuildingPanels[6], TabButtons[6], TabSprites[6]);
-                TabButtons[7].eventClick += (sender, e) => TabClicked(sender, e, BuildingPanels[7], TabButtons[7], TabSprites[7]);
-                TabButtons[8].eventClick += (sender, e) => TabClicked(sender, e, BuildingPanels[8], TabButtons[8], TabSprites[8]);
-                TabButtons[9].eventClick += (sender, e) => TabClicked(sender, e, BuildingPanels[9], TabButtons[9], TabSprites[9]);
+                TabButtons[0].eventClick += (component, clickEvent) => TabClicked(BuildingPanels[0], TabSprites[0]);
+                TabButtons[1].eventClick += (component, clickEvent) => TabClicked(BuildingPanels[1], TabSprites[1]);
+                TabButtons[2].eventClick += (component, clickEvent) => TabClicked(BuildingPanels[2], TabSprites[2]);
+                TabButtons[3].eventClick += (component, clickEvent) => TabClicked(BuildingPanels[3], TabSprites[3]);
+                TabButtons[4].eventClick += (component, clickEvent) => TabClicked(BuildingPanels[4], TabSprites[4]);
+                TabButtons[5].eventClick += (component, clickEvent) => TabClicked(BuildingPanels[5], TabSprites[5]);
+                TabButtons[6].eventClick += (component, clickEvent) => TabClicked(BuildingPanels[6], TabSprites[6]);
+                TabButtons[7].eventClick += (component, clickEvent) => TabClicked(BuildingPanels[7], TabSprites[7]);
+                TabButtons[8].eventClick += (component, clickEvent) => TabClicked(BuildingPanels[8], TabSprites[8]);
+                TabButtons[9].eventClick += (component, clickEvent) => TabClicked(BuildingPanels[9], TabSprites[9]);
                 // Below are DLC categories - AD for first two, then GC for next 3.  Will be hidden if relevant DLC is not installed.
-                TabButtons[10].eventClick += (sender, e) => TabClicked(sender, e, BuildingPanels[10], TabButtons[10], TabSprites[10]);
-                TabButtons[11].eventClick += (sender, e) => TabClicked(sender, e, BuildingPanels[11], TabButtons[11], TabSprites[11]);
-                TabButtons[12].eventClick += (sender, e) => TabClicked(sender, e, BuildingPanels[12], TabButtons[12], TabSprites[12]);
-                TabButtons[13].eventClick += (sender, e) => TabClicked(sender, e, BuildingPanels[13], TabButtons[13], TabSprites[13]);
-                TabButtons[14].eventClick += (sender, e) => TabClicked(sender, e, BuildingPanels[14], TabButtons[14], TabSprites[14]);
+                TabButtons[10].eventClick += (component, clickEvent) => TabClicked(BuildingPanels[10], TabSprites[10]);
+                TabButtons[11].eventClick += (component, clickEvent) => TabClicked(BuildingPanels[11], TabSprites[11]);
+                TabButtons[12].eventClick += (component, clickEvent) => TabClicked(BuildingPanels[12], TabSprites[12]);
+                TabButtons[13].eventClick += (component, clickEvent) => TabClicked(BuildingPanels[13], TabSprites[13]);
+                TabButtons[14].eventClick += (component, clickEvent) => TabClicked(BuildingPanels[14], TabSprites[14]);
 
                 // Activate low residential panel to start with (what the user sees on first opening the panel).
                 BuildingPanels[0].isVisible = true;
@@ -264,99 +289,123 @@ namespace PloppableRICO
                     TabButtons[14].isVisible = false;
                 }
 
-                UIButton showThemeManager = UIUtils.CreateButton(Tabs);
-                showThemeManager.size = new Vector2(80, 25);
-                showThemeManager.normalBgSprite = "SubBarButtonBase";
-                showThemeManager.text = Translations.GetTranslation("Settings");
-                showThemeManager.eventClick += (c, p) => RICOSettingsPanel.instance.Toggle();
+                // Settings tab.
+                UIButton showSettings = UIUtils.CreateButton(Tabs);
+                showSettings.size = new Vector2(80, 25);
+                showSettings.normalBgSprite = "SubBarButtonBase";
+                showSettings.text = Translations.GetTranslation("Settings");
+                showSettings.eventClick += (component, clickEvent) => RICOSettingsPanel.instance.Toggle();
             }
         }
 
 
-        public void ArrowClicked(UIComponent component, UIMouseEventParameter eventParam, UIScrollablePanel selected)
+        /// <summary>
+        /// Scrolls the selected panel left or right if an arrow scrolling button is pressed.
+        /// </summary>
+        /// <param name="component">Selected component</param>
+        /// <param name="eventParam">Event parameter</param>
+        /// <param name="selected"></param>
+        public void ArrowClicked(UIComponent component)
         {
-            // Scrolling.
+            // Which direction to scroll depends on which button was clicked.
             if (component == LeftButton)
             {
+                // Scroll left.
                 currentSelection.scrollPosition = currentSelection.scrollPosition - new Vector2(109, 0);
             }
             else
             {
+                // Scroll right.
                 currentSelection.scrollPosition = currentSelection.scrollPosition + new Vector2(109, 0);
             }
 
         }
 
 
-        public void PopulateAssets()
+        /// <summary>
+        /// Fills the Ploppable Tool panel with building buttons.
+        /// </summary>
+        public void PopulateButtons()
         {
+            // Step through each loaded and active RICO prefab.
             foreach (var buildingData in Loading.xmlManager.prefabHash.Values)
             {
                 if (buildingData != null)
                 {
+                    // Get the prefab.
                     var prefab = PrefabCollection<BuildingInfo>.FindLoaded(buildingData.name);
 
-                    if (buildingData.hasLocal && buildingData.local.ricoEnabled)
+                    // Local settings first.
+                    if (buildingData.hasLocal)
                     {
-                        AddBuildingButton(buildingData, buildingData.local.uiCategory);
-                        RemoveUIButton(prefab);
-                        continue;
-                    }
-
-                    else if (buildingData.hasAuthor && buildingData.author.ricoEnabled)
-                    {
-                        if (!buildingData.hasLocal)
+                        // Only if enabled.
+                        if (buildingData.local.ricoEnabled)
                         {
+                            // Add button to panel and remove any existing UI button (in other base game ploppable panels).
+                            AddBuildingButton(buildingData, buildingData.local.uiCategory);
+                            RemoveUIButton(prefab);
+                            continue;
+                        }
+                    }
+                    // Author settings second.
+                    else if (buildingData.hasAuthor)
+                    {
+                        // Only if enabled.
+                        if (buildingData.author.ricoEnabled)
+                        {
+                            // Add button to panel and remove any existing UI button (in other base game ploppable panels).
                             AddBuildingButton(buildingData, buildingData.author.uiCategory);
                             RemoveUIButton(prefab);
                             continue;
                         }
                     }
-
+                    // Mod settings third.  Don't have to worry about enablement here.
                     else if (buildingData.hasMod)
                     {
-                        if (!buildingData.hasLocal && !buildingData.hasAuthor)
-                        {
-                            AddBuildingButton(buildingData, buildingData.mod.uiCategory);
-                            RemoveUIButton(prefab);
-                        }
+                        AddBuildingButton(buildingData, buildingData.mod.uiCategory);
+                        RemoveUIButton(prefab);
                     }
                 }
             }
         }
 
 
+        /// <summary>
+        /// Removes a given prefab's existing UI button, if any (e.g. from the game's Park menu if the prefab was originally a park, etc.)
+        /// Shouldn't really be needed in most cases since we're now converting prior to InitPrefab, but still useful in cases of live conversion of assets (and also just to make sure).
+        /// </summary>
+        /// <param name="prefab">Building prefab</param>
         public void RemoveUIButton(BuildingInfo prefab)
         {
-            var uiView = UIView.GetAView();
-            var refButton = new UIButton();
+            UIButton refButton = new UIButton();
 
-            if (prefab != null) refButton = uiView.FindUIComponent<UIButton>(prefab.name);
+            if (prefab != null)
+            {
+                // Find any existing UI component linked to this prefab.
+                refButton = UIView.GetAView().FindUIComponent<UIButton>(prefab.name);
+            }
 
             if (refButton != null)
             {
+                // We found one - destry it.
                 refButton.isVisible = false;
                 GameObject.Destroy(refButton.gameObject);
             }
         }
 
-
-        public void DrawPanels(UIScrollablePanel panel, string name)
+        
+        /// <summary>
+        /// Sets the sprite for a given Ploppable Tool panel tab.
+        /// </summary>
+        /// <param name="sprite">Panel tab</param>
+        /// <param name="spriteName">Name of sprite to set</param>
+        public void SetTabSprite(UISprite sprite, string spriteName)
         {
-            panel = UIView.GetAView().FindUIComponent("PloppableBuildingPanel").AddUIComponent<UIScrollablePanel>();
-            panel.size = new Vector2(763, 109);
-            panel.relativePosition = new Vector2(50, 0);
-            panel.Reset();
-        }
-
-
-        public void SetSprites(UISprite labe, string sprite)
-        {
-            UISprite label = labe;
-            label.isInteractive = false;
-            label.relativePosition = new Vector2(5, 0);
-            label.spriteName = sprite;
-            label.size = new Vector2(35, 25);
+            UISprite tabSprite = sprite;
+            tabSprite.isInteractive = false;
+            tabSprite.relativePosition = new Vector2(5, 0);
+            tabSprite.spriteName = spriteName;
+            tabSprite.size = new Vector2(35, 25);
         }
 
 
@@ -442,9 +491,10 @@ namespace PloppableRICO
                 // Tooltip.
                 BuildingButton.tooltipAnchor = UITooltipAnchor.Anchored;
                 BuildingButton.tooltip = BuildingTooltip(buildingData);
-                BuildingButton.eventClick += (sender, e) => BuildingBClicked(sender, e, buildingData.prefab);
+                BuildingButton.eventClick += (sender, e) => BuildingBClicked(buildingData.prefab);
                 BuildingButton.eventMouseHover += (component, mouseEvent) =>
                 {
+                    // Reset the tooltip before showing each time, as sometimes it gets clobbered either by the game or another mod.
                     component.tooltip = BuildingTooltip(buildingData);
                 };
 
@@ -513,29 +563,36 @@ namespace PloppableRICO
         }
 
 
-        void BuildingBClicked(UIComponent component, UIMouseEventParameter eventParam, BuildingInfo Binf)
+        /// <summary>
+        /// Handles click events for building buttons.
+        /// Basically, sets the current tool to plop the selected RICO building.
+        /// </summary>
+        /// <param name="component"></param>
+        /// <param name="eventParam"></param>
+        /// <param name="Binf"></param>
+        void BuildingBClicked(BuildingInfo prefab)
         {
             var buildingTool = ToolsModifierControl.SetTool<BuildingTool>();
             {
-                buildingTool.m_prefab = Binf;
+                buildingTool.m_prefab = prefab;
                 buildingTool.m_relocate = 0;
                 BuildingPanel.isVisible = true;
             }
         }
 
 
-        void PloppablebuttonClicked(UIComponent component, UIMouseEventParameter eventParam)
+        /// <summary>
+        /// Handles click events for Ploppable Tool panel tabs.
+        /// </summary>
+        /// <param name="panel">The Ploppable Tool panel for the selected tab</param>
+        /// <param name="sprite">The sprite icon for the selected tab</param>
+        void TabClicked(UIScrollablePanel thisPanel, UISprite sprite)
         {
-            component.Focus();
-            BuildingPanel.isVisible = true;
-        }
+            // Set current selection.
+            currentSelection = thisPanel;
 
-
-        void TabClicked(UIComponent component, UIMouseEventParameter eventParam, UIScrollablePanel panel, UIButton button, UISprite sprite)
-        {
-            currentSelection = panel;
-
-            if (panel.childCount > 7)
+            // Show left and right scroll buttons if we have more than seven building buttons on this panel; otherwise, hide.
+            if (thisPanel.childCount > 7)
             {
                 LeftButton.isVisible = true;
                 RightButton.isVisible = true;
@@ -546,13 +603,16 @@ namespace PloppableRICO
                 RightButton.isVisible = false;
             }
 
-            foreach (UIScrollablePanel pan in BuildingPanels)
+            // Hide all building panels.
+            foreach (UIScrollablePanel panel in BuildingPanels)
             {
-                pan.isVisible = false;
+                panel.isVisible = false;
             }
 
-            panel.isVisible = true;
+            // Show this panel.
+            thisPanel.isVisible = true;
 
+            // Redraw all tab sprites in their base state (unfocused).
             for (int i = 0; i <= NumTypes; i++)
             {
                 if (i <= 5)
@@ -566,7 +626,7 @@ namespace PloppableRICO
                 }
             }
 
-            // Add focused versions of sprites (no focused versions for AD or GC sprites so exclude those).
+            // Focus this sprite (no focused versions for AD or GC sprites so exclude those).
             if (sprite.spriteName != "IconPolicyLeisure" && sprite.spriteName != "IconPolicyTourist" && sprite.spriteName != "IconPolicyHightech" && sprite.spriteName != "IconPolicyOrganic" && sprite.spriteName != "IconPolicySelfsufficient")
             {
                 sprite.spriteName = sprite.spriteName + "Focused";
