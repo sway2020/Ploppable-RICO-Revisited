@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ColossalFramework.UI;
+using System.Collections.Generic;
 
 
 namespace PloppableRICO
@@ -135,6 +136,9 @@ namespace PloppableRICO
         public bool hasAuthor;
         public bool hasLocal;
         public bool hasMod;
+
+        // Building button thumbnails.
+        public UITextureAtlas thumbnailAtlas;
 
 
         /// Sanitises the raw prefab name for display.

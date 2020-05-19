@@ -107,16 +107,16 @@ namespace PloppableRICO
             // Restore game's current active texture.
             RenderTexture.active = gameActiveTexture;
 
+            // Thumbnail texture name is the same as the building's displayed name.
             thumbnailTexture.name = building.displayName;
-            building.prefab.m_Thumbnail = building.displayName;
 
-            // Add new texture and thumbnail to prefab texture atlas.
-            building.prefab.m_Atlas = ScriptableObject.CreateInstance<UITextureAtlas>();
-            building.prefab.m_Atlas.name = "RICOThumbnails_" + building.displayName;
-            building.prefab.m_Atlas.material = UnityEngine.Object.Instantiate<Material>(UIView.GetAView().defaultAtlas.material);
-            building.prefab.m_Atlas.material.mainTexture = new Texture2D(1, 1, TextureFormat.ARGB32, false);
+            // Add new texture and thumbnail to BuildingData texture atlas.
+            building.thumbnailAtlas = ScriptableObject.CreateInstance<UITextureAtlas>();
+            building.thumbnailAtlas.name = "RICOThumbnails_" + building.displayName;
+            building.thumbnailAtlas.material = UnityEngine.Object.Instantiate<Material>(UIView.GetAView().defaultAtlas.material);
+            building.thumbnailAtlas.material.mainTexture = new Texture2D(1, 1, TextureFormat.ARGB32, false);
 
-            AddTexturesToAtlas(building.prefab.m_Atlas, GenerateThumbnailVariants(thumbnailTexture));
+            AddTexturesToAtlas(building.thumbnailAtlas, GenerateThumbnailVariants(thumbnailTexture));
         }
 
 

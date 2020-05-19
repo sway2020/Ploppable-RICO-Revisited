@@ -40,8 +40,6 @@ namespace PloppableRICO
         UIButton LeftButton = new UIButton();
         UIButton RightButton = new UIButton();
 
-        UITextureAtlas[] thumbnailAtlas;
-
 
         // Names used to identify icons for tabs (specific game icon names - not just made up).
         string[] Names = new string[]
@@ -62,7 +60,6 @@ namespace PloppableRICO
             "Hightech",
             "Selfsufficient"
         };
-
 
 
         /// <summary>
@@ -367,6 +364,9 @@ namespace PloppableRICO
                     }
                 }
             }
+
+            // Set active tab as default.
+            TabClicked(BuildingPanels[0], TabSprites[0]);
         }
 
 
@@ -440,14 +440,19 @@ namespace PloppableRICO
                 // Prefab.
                 BuildingButton.objectUserData = buildingData.prefab;
 
-                // Create thumbnails.
-                Thumbnails.CreateThumbnail(buildingData);
-                BuildingButton.atlas = buildingData.prefab.m_Atlas;
-                BuildingButton.normalFgSprite = buildingData.prefab.m_Thumbnail;
-                BuildingButton.focusedFgSprite = buildingData.prefab.m_Thumbnail + "Focused";
-                BuildingButton.hoveredFgSprite = buildingData.prefab.m_Thumbnail + "Hovered";
-                BuildingButton.pressedFgSprite = buildingData.prefab.m_Thumbnail + "Pressed";
-                BuildingButton.disabledFgSprite = buildingData.prefab.m_Thumbnail + "Disabled";
+                // Create thumbnails if they don't already exist.
+                //if (buildingData.thumbnailAtlas == null)
+                {
+                    Thumbnails.CreateThumbnail(buildingData);
+                    BuildingButton.atlas = buildingData.thumbnailAtlas;
+                    BuildingButton.normalFgSprite = buildingData.displayName;
+
+                    // Variants.
+                    BuildingButton.focusedFgSprite = BuildingButton.normalFgSprite + "Focused";
+                    BuildingButton.hoveredFgSprite = BuildingButton.normalFgSprite + "Hovered";
+                    BuildingButton.pressedFgSprite = BuildingButton.normalFgSprite + "Pressed";
+                    BuildingButton.disabledFgSprite = BuildingButton.normalFgSprite + "Disabled";
+                }
 
                 // Information label - building name.
                 UILabel nameLabel = new UILabel();
@@ -491,7 +496,7 @@ namespace PloppableRICO
                 // Tooltip.
                 BuildingButton.tooltipAnchor = UITooltipAnchor.Anchored;
                 BuildingButton.tooltip = BuildingTooltip(buildingData);
-                BuildingButton.eventClick += (sender, e) => BuildingBClicked(buildingData.prefab);
+                BuildingButton.eventClick += (component, clickEvent) => BuildingBClicked(buildingData.prefab);
                 BuildingButton.eventMouseHover += (component, mouseEvent) =>
                 {
                     // Reset the tooltip before showing each time, as sometimes it gets clobbered either by the game or another mod.
@@ -567,9 +572,7 @@ namespace PloppableRICO
         /// Handles click events for building buttons.
         /// Basically, sets the current tool to plop the selected RICO building.
         /// </summary>
-        /// <param name="component"></param>
-        /// <param name="eventParam"></param>
-        /// <param name="Binf"></param>
+        /// <param name="prefab">Selected building prefab</param>
         void BuildingBClicked(BuildingInfo prefab)
         {
             var buildingTool = ToolsModifierControl.SetTool<BuildingTool>();
@@ -638,7 +641,7 @@ namespace PloppableRICO
         /// Returns the UI category index for the given UI category string.
         /// </summary>
         /// <param name="uiCategory">Ploppable RICO UI category string</param>
-        /// <returns></returns>
+        /// <returns>UI category index</returns>
         private int UICategoryIndex(string uiCategory)
         {
             switch (uiCategory)
