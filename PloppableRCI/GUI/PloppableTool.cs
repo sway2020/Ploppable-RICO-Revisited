@@ -443,7 +443,10 @@ namespace PloppableRICO
                 BuildingButton.tooltipAnchor = UITooltipAnchor.Anchored;
                 BuildingButton.tooltip = BuildingTooltip(buildingData);
                 BuildingButton.eventClick += (sender, e) => BuildingBClicked(sender, e, buildingData.prefab);
-                BuildingButton.eventMouseHover += (sender, e) => BuildingBHovered(sender, e, buildingData.prefab);
+                BuildingButton.eventMouseHover += (component, mouseEvent) =>
+                {
+                    component.tooltip = BuildingTooltip(buildingData);
+                };
 
                 // Ready to use!
                 BuildingButton.isEnabled = true;
@@ -518,18 +521,6 @@ namespace PloppableRICO
                 buildingTool.m_relocate = 0;
                 BuildingPanel.isVisible = true;
             }
-        }
-
-
-        void BuildingBHovered(UIComponent component, UIMouseEventParameter eventParam, BuildingInfo Binf)
-        {
-            var tooltipBoxa = UIView.GetAView().FindUIComponent<UIPanel>("InfoAdvancedTooltip");
-            var tooltipBox = UIView.GetAView().FindUIComponent<UIPanel>("InfoAdvancedTooltipDetail");
-            var spritea = tooltipBoxa.Find<UISprite>("Sprite");
-            var sprite = tooltipBox.Find<UISprite>("Sprite");
-
-            sprite.atlas = Binf.m_Atlas;
-            spritea.atlas = Binf.m_Atlas;
         }
 
 

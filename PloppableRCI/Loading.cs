@@ -125,9 +125,12 @@ namespace PloppableRICO
             if (mode == LoadMode.NewAsset || mode == LoadMode.LoadAsset)
                 return;
 
+            // Wait for loading to fully complete.
+            while (!LoadingManager.instance.m_loadingComplete) { }
+
             // Init GUI.
-            PloppableTool.Initialize();
             RICOSettingsPanel.Create();
+            PloppableTool.Initialize();
 
             // Add buttons to access building details from zoned building info panels.
             RICOSettingsPanel.instance.AddInfoPanelButtons();

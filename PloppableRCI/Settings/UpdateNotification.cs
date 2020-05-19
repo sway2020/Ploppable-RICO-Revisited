@@ -67,6 +67,9 @@ namespace PloppableRICO
                 relativePosition = new Vector3(Mathf.Floor((GetUIView().fixedWidth - width) / 2), Mathf.Floor((GetUIView().fixedHeight - height) / 2));
                 backgroundSprite = "UnlockingPanel2";
 
+                // Put behind other things.
+                zOrder = 2;
+
                 // Title.
                 UILabel title = this.AddUIComponent<UILabel>();
                 title.relativePosition = new Vector3(0, spacing);
