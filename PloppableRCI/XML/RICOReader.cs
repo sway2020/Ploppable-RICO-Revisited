@@ -82,9 +82,9 @@ namespace PloppableRICO
                                     Debugging.ErrorBuffer.Append(errorList.ToString());
                                     Debug.Log("RICO Revisited: non-fatal errors for building '" + building.name + "' in local settings.");
                                 }
-                                else
+                                else if (Settings.debugLogging)
                                 {
-                                    // Errors in other settings should be logged, but otherwise continue.
+                                    // Errors in other settings should be logged if verbose logging is enabled, but otherwise continue.
                                     errorList.Insert(0, "RICO Revisited found the following non-fatal errors for building '" + building.name + "' in author settings:\r\n");
                                     Debug.Log(errorList.ToString());
                                 }

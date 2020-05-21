@@ -220,7 +220,6 @@ namespace PloppableRICO
                 // We are okay with employees, or it's residential. Return
                 return;
             }
-            //Debugging.writeDebugToFile(buildingID + ". Workers needed: " + workersRequired[0] + ", " + workersRequired[1] + ", " + workersRequired[2] + ", " + workersRequired[3]);
 
             // Crime and garbage are reset
             data.m_crimeBuffer = 0;

@@ -65,7 +65,10 @@ namespace PloppableRICO
 								if (MatchRICOName(buildingDef.name, __instance.name, asset.package.packageName))
 								{
 									// Match!  Add these author settings to our prefab dictionary.
-									// Debug.Log("RICO Revisited: found author settings for '" + buildingDef.name + "'.");
+									if (Settings.debugLogging)
+									{
+										Debug.Log("RICO Revisited: found author settings for '" + buildingDef.name + "'.");
+									}
 									Loading.xmlManager.prefabHash[__instance].author = buildingDef;
 									Loading.xmlManager.prefabHash[__instance].hasAuthor = true;
 								}

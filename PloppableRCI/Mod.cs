@@ -38,5 +38,23 @@ namespace PloppableRICO
                 Patcher.UnpatchAll();
             }
         }
+
+
+        /// <summary>
+        /// Called by the game when the mod options panel is setup.
+        /// </summary>
+        public void OnSettingsUI(UIHelperBase helper)
+        {
+            // Read configuration file.
+            SettingsFile settingsFile = Configuration<SettingsFile>.Load();
+
+            // Add logging checkbox.
+            helper.AddCheckbox("Enable additional debugging logging", settingsFile.DebugLogging, isChecked =>
+            {
+                Settings.debugLogging = isChecked;
+                settingsFile.DebugLogging = isChecked;
+                Configuration<SettingsFile>.Save();
+            });
+        }
     }
 }

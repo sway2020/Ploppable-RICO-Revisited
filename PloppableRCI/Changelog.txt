@@ -1,9 +1,9 @@
 ﻿
+- Add mod options panel setting for extra debugging logging and reduce default logging detail
 - Wait until confirmation level is fully loaded before generating thumbnails
 - Cache thumbnails directly in BuildingData record
 - Force override of thumbnail tooltips on display (to ensure nothing else is overriding them)
 - Lower z-order of notification panels (to put them behind everything else)
-- Reduce logging detail
 
 
 Version 2.0.3
