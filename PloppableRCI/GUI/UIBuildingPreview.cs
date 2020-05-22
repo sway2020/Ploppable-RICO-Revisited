@@ -170,13 +170,13 @@ namespace PloppableRICO
             {
                 Color originalColor = renderPrefab.m_material.color;
                 renderPrefab.m_material.color = renderPrefab.m_color0;
-                previewRender.Render();
+                previewRender.Render(false);
                 renderPrefab.m_material.color = originalColor;
             }
             else
             {
                 // No temporary colour change needed.
-                previewRender.Render();
+                previewRender.Render(false);
             }
         }
 

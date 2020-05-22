@@ -70,13 +70,13 @@ namespace PloppableRICO
             {
                 Color originalColor = building.prefab.m_material.color;
                 building.prefab.m_material.color = building.prefab.m_color0;
-                thumbnailRenderer.Render();
+                thumbnailRenderer.Render(true);
                 building.prefab.m_material.color = originalColor;
             }
             else
             {
                 // No temporary colour change needed.
-                thumbnailRenderer.Render();
+                thumbnailRenderer.Render(true);
             }
 
             // Back up game's current active texture.

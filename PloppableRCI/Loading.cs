@@ -79,6 +79,11 @@ namespace PloppableRICO
                 };
             }
 
+            // Read mod settings.
+            SettingsFile settingsFile = Configuration<SettingsFile>.Load();
+            Settings.plainThumbs = settingsFile.PlainThumbs;
+            Settings.debugLogging = settingsFile.DebugLogging;
+
             // Read any local RICO settings.
             string ricoDefPath = "LocalRICOSettings.xml";
             localRicoDef = null;

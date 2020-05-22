@@ -29,7 +29,6 @@ namespace PloppableRICO
             renderCamera.targetTexture = new RenderTexture(512, 512, 24, RenderTextureFormat.ARGB32);
             renderCamera.allowHDR = true;
             renderCamera.enabled = false;
-            renderCamera.clearFlags = CameraClearFlags.Skybox;
 
             // Basic defaults.
             renderCamera.pixelRect = new Rect(0f, 0f, 512, 512);
@@ -127,14 +126,37 @@ namespace PloppableRICO
         /// <summary>
         /// Render the current mesh.
         /// </summary>
-        public void Render()
+        /// <param name="isThumb">True if this is a thumbnail render, false otherwise</param>
+        public void Render(bool isThumb)
         {
             if (currentMesh == null)
             {
                 return;
             }
 
-            // Basic setup.
+            // Set background.
+            if (isThumb && Settings.plainThumbs)
+            {
+                renderCamera.clearFlags = CameraClearFlags.Color;
+            }
+            else
+            {
+                renderCamera.clearFlags = CameraClearFlags.Skybox;
+            }
+
+            // Back up current game InfoManager mode.
+            InfoManager infoManager = Singleton<InfoManager>.instance;
+            InfoManager.InfoMode currentMode = infoManager.CurrentMode;
+            InfoManager.SubInfoMode currentSubMode = infoManager.CurrentSubMode; ;
+
+            // Set current game InfoManager to default (don't want to render with an overlay mode).
+            infoManager.SetCurrentMode(InfoManager.InfoMode.None, InfoManager.SubInfoMode.Default);
+            infoManager.UpdateInfoMode();
+
+            // Backup current game lighting.
+            Light gameMainLight = RenderManager.instance.MainLight;
+
+            // Set zoom to encapsulate entire model.
             float magnitude = currentBounds.extents.magnitude;
             float num = magnitude + 16f;
             float num2 = magnitude * currentZoom;
@@ -145,8 +167,7 @@ namespace PloppableRICO
             renderCamera.nearClipPlane = Mathf.Max(num2 - num * 1.5f, 0.01f);
             renderCamera.farClipPlane = num2 + num * 1.5f;
 
-            // Backup current lighting by game and replace with our render lighting settings.
-            Light gameMainLight = RenderManager.instance.MainLight;
+            // Set up our render lighting settings.
             Light renderLight = DayNightProperties.instance.sunLightSource;
 
             RenderManager.instance.MainLight = renderLight;
@@ -161,20 +182,12 @@ namespace PloppableRICO
             // Light settings. 
             renderLight.intensity = 2f;
             renderLight.color = Color.white;
-            renderLight.transform.eulerAngles = new Vector3(35, 0, 0);
+            renderLight.transform.eulerAngles = new Vector3(55, 0, 0);
 
             // Yay!  Matrix math, my favourite!
             Quaternion quaternion = Quaternion.Euler(-20f, 0f, 0f) * Quaternion.Euler(0f, currentRotation, 0f);
             Vector3 pos = quaternion * -currentBounds.center;
             Matrix4x4 matrix = Matrix4x4.TRS(pos, quaternion, Vector3.one);
-
-            // Back up current game InfoManager mode.
-            InfoManager infoManager = Singleton<InfoManager>.instance;
-            InfoManager.InfoMode currentMode = infoManager.CurrentMode;
-            InfoManager.SubInfoMode currentSubMode = infoManager.CurrentSubMode; ;
-
-            // Set current game InfoManager to default (don't want to render with an overlay mode).
-            infoManager.SetCurrentMode(InfoManager.InfoMode.None, InfoManager.SubInfoMode.Default);
 
             // Render!
             Graphics.DrawMesh(currentMesh, matrix, material, 0, renderCamera, 0, null, true, true);
@@ -192,6 +205,7 @@ namespace PloppableRICO
 
             // Restore game InfoManager mode.
             infoManager.SetCurrentMode(currentMode, currentSubMode);
+            infoManager.UpdateInfoMode();
         }
     }
 }

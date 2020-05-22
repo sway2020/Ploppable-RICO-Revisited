@@ -17,6 +17,7 @@ namespace PloppableRICO
         /// Stores the version of the most recent update notification that the user has decided to "Don't show again".
         /// </summary>
         public int NotificationVersion { get; set; } = 0;
+        public bool PlainThumbs { get; set; } = false;
         public bool DebugLogging { get; set; } = false;
     }
 

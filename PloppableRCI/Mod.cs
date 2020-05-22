@@ -48,6 +48,14 @@ namespace PloppableRICO
             // Read configuration file.
             SettingsFile settingsFile = Configuration<SettingsFile>.Load();
 
+            // Add thumbnail background checkbox.
+            helper.AddCheckbox("Use plain backgrounds for thumbnails", settingsFile.PlainThumbs, isChecked =>
+            {
+                Settings.plainThumbs = isChecked;
+                settingsFile.PlainThumbs = isChecked;
+                Configuration<SettingsFile>.Save();
+            });
+
             // Add logging checkbox.
             helper.AddCheckbox("Enable additional debugging logging", settingsFile.DebugLogging, isChecked =>
             {

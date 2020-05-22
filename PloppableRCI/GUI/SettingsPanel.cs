@@ -39,7 +39,7 @@ namespace PloppableRICO
         // Instance references.
         private static GameObject uiGameObject;
         private static RICOSettingsPanel _instance;
-        public static RICOSettingsPanel instance { get { return _instance; } }
+        public static RICOSettingsPanel instance => _instance;
 
 
         /// <summary>
