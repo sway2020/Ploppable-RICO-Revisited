@@ -40,23 +40,45 @@ namespace PloppableRICO
 						__instance.AdjustWorkplaceCount(buildingID, ref data, ref level, ref level2, ref level3, ref level4);
 
 						int workCount = level + level2 + level3 + level4;
-						int homeCount;
+						int targetHomeCount = 0;
 
-						// Check and override homecounts if the building is residential and we're not using Realistic Population.
-						if (building.RealityIgnored && building.service == "residential")
+						// Update visitor count.
+						int visitCount = __instance.CalculateVisitplaceCount((ItemClass.Level)data.m_level, new Randomizer(buildingID), data.Width, data.Length);
+
+						// Check to see if rsidential building homecounts differ from settings.
+						if (building.service == "residential") 
 						{
-							homeCount = building.homeCount;
-							Debug.Log("RICO Revisited: found Residential prefab " + building.name + " with homecount " + building.homeCount + "; forcing homecount reset.");
-						}
-						else
-						{
-							// Realistic population in use - use it's (patched) CalculateHomeCount via original method.
-							homeCount = __instance.CalculateHomeCount((ItemClass.Level)data.m_level, new Randomizer(buildingID), data.Width, data.Length);
+							int currentHomeCount = 0;
+
+							// Count currently applied citizen units (households).
+							if (data.m_citizenUnits != 0)
+							{
+								// At least one household here; get the first.
+								CitizenUnit citizenUnit = Singleton<CitizenManager>.instance.m_units.m_buffer[data.m_citizenUnits];
+								currentHomeCount = 1;
+
+								// Step through all applied citizen units (linked via m_nextUnit), counting as we go,
+								while (citizenUnit.m_nextUnit != 0)
+								{
+									citizenUnit = Singleton<CitizenManager>.instance.m_units.m_buffer[citizenUnit.m_nextUnit];
+									currentHomeCount++;
+								}
+							}
+
+							// Determine target household count.
+							targetHomeCount = __instance.CalculateHomeCount((ItemClass.Level)data.m_level, new Randomizer(buildingID), data.Width, data.Length);
+
+							// If target household count is lower than the current household count, we need to perform a forced reset.
+							// The reverse case, targets greater than current, will be caught with the base-case call to EnsureCitizenUnits below.
+							if (targetHomeCount < currentHomeCount)
+							{
+								Debug.Log("RICO Revisited: found Residential prefab " + building.name + " with target homecount " + targetHomeCount + " and citizen units " + currentHomeCount + "; forcing homecount reset.");
+								RealisticCitizenUnits.EnsureCitizenUnits(ref __instance, buildingID, ref data, targetHomeCount, workCount, visitCount, 0);
+							}
 						}
 
 						// Update citizen units to match new totals.
-						int visitCount = __instance.CalculateVisitplaceCount((ItemClass.Level)data.m_level, new Randomizer(buildingID), data.Width, data.Length);
-						RealisticCitizenUnits.EnsureCitizenUnits(ref __instance, buildingID, ref data, homeCount, workCount, visitCount, 0);
+						EnsureCitizenUnitsRev(__instance, buildingID, ref data, targetHomeCount, workCount, visitCount, 0);
 
 						// Clear any problems (so we don't have any residual issues from changing service types, for example (new) residential buildings showing 'not enough goods'.
 						// Any 'genuine' problems will be quickly reapplied by the game.
@@ -70,6 +92,26 @@ namespace PloppableRICO
 
 			// If we've hit this point, then no Ploppable RICO setup has occured - fall through to game code.
 			return true;
+		}
+
+
+		/// <summary>
+		/// Reverse patch for BuildinAI.EnsureCitizenUnits to access private method of original instance.
+		/// </summary>
+		/// <param name="instance">Object instance</param>
+		/// <param name="buildingID">ID of this building (for game method)</param>
+		/// <param name="data">Building data (for game method)</param>
+		/// <param name="homeCount">Household count (for game method)</param>
+		/// <param name="workCount">Workplace count (for game method)</param>
+		/// <param name="visitCount">Visitor count (for game method)</param>
+		/// <param name="studentCount">Student count (for game method)</param>
+		[HarmonyReversePatch]
+		[HarmonyPatch((typeof(BuildingAI)), "EnsureCitizenUnits")]
+		public static void EnsureCitizenUnitsRev(object instance, ushort buildingID, ref Building data, int homeCount, int workCount, int visitCount, int studentCount)
+		{
+			string message = "Ploppable RICO Revisited: EnsureCitizenUnits reverse Harmony patch wasn't applied.";
+			Debug.Log(message);
+			throw new NotImplementedException(message);
 		}
 	}
 }
