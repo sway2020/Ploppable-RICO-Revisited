@@ -137,8 +137,8 @@ namespace PloppableRICO
         public bool hasLocal;
         public bool hasMod;
 
-        // Building button thumbnails.
-        public UITextureAtlas thumbnailAtlas;
+        // Building button.
+        public UIButton buildingButton;
 
 
         /// Sanitises the raw prefab name for display.

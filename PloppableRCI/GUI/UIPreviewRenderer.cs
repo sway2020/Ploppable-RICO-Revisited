@@ -179,7 +179,7 @@ namespace PloppableRICO
                 DayNightProperties.instance.moonLightSource.enabled = false;
             }
 
-            // Light settings. 
+            // Light settings.
             renderLight.intensity = 2f;
             renderLight.color = Color.white;
             renderLight.transform.eulerAngles = new Vector3(55, 0, 0);

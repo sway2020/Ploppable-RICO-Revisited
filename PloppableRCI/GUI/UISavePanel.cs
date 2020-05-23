@@ -123,10 +123,10 @@ namespace PloppableRICO
             removeLocal = UIUtils.CreateButton(this);
             removeLocal.eventClick += (c, p) =>
             {
-                // If there are no other settings, destroy existing building button.
-                if (!(currentSelection.hasAuthor || currentSelection.hasMod))
+                // If there are no other settings, destroy any existing building button.
+                if (!(currentSelection.hasAuthor || currentSelection.hasMod ) && currentSelection.buildingButton != null)
                 {
-                    PloppableTool.instance.DestroyBuildingButton(currentSelection.prefab.name, currentSelection.uiCategory);
+                    Destroy(currentSelection.buildingButton);
                 }
 
                 currentSelection.local = null;
@@ -162,8 +162,11 @@ namespace PloppableRICO
                 // Find current prefab instance.
                 BuildingData currentBuildingData = Loading.xmlManager.prefabHash[currentSelection.prefab];
 
-                // Delete existing building button.
-                PloppableTool.instance.DestroyBuildingButton(currentBuildingData.prefab.name, currentSelection.uiCategory);
+                // Delete existing building button, if any.
+                if (currentBuildingData.buildingButton != null)
+                {
+                    Destroy(currentBuildingData.buildingButton);
+                }
 
                 // Save first.
                 Save();

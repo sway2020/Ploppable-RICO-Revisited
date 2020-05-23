@@ -346,7 +346,7 @@ namespace PloppableRICO
             AddInfoPanelButton(UIView.library.Get<ZonedBuildingWorldInfoPanel>(typeof(ZonedBuildingWorldInfoPanel).Name), 40f);
 
             // Service building (PlayerBuilding) info panel.
-            AddInfoPanelButton(UIView.library.Get<CityServiceWorldInfoPanel>(typeof(CityServiceWorldInfoPanel).Name), 80f);
+            AddInfoPanelButton(UIView.library.Get<CityServiceWorldInfoPanel>(typeof(CityServiceWorldInfoPanel).Name), 77f);
         }
     }
 }

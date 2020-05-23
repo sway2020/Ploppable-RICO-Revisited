@@ -428,35 +428,24 @@ namespace PloppableRICO
             try
             {
                 // Add building button to relevant panel.
-                UIButton BuildingButton = new UIButton();
-                BuildingButton = BuildingPanels[buildingData.uiCategory].AddUIComponent<UIButton>();
+                buildingData.buildingButton = new UIButton();
+                buildingData.buildingButton = BuildingPanels[buildingData.uiCategory].AddUIComponent<UIButton>();
 
                 // Appearance.
-                BuildingButton.size = new Vector2(109, 100);
-                BuildingButton.horizontalAlignment = UIHorizontalAlignment.Center;
-                BuildingButton.verticalAlignment = UIVerticalAlignment.Middle;
-                BuildingButton.pivot = UIPivotPoint.TopCenter;
+                buildingData.buildingButton.size = new Vector2(109, 100);
+                buildingData.buildingButton.horizontalAlignment = UIHorizontalAlignment.Center;
+                buildingData.buildingButton.verticalAlignment = UIVerticalAlignment.Middle;
+                buildingData.buildingButton.pivot = UIPivotPoint.TopCenter;
 
-                // Prefab.
-                BuildingButton.objectUserData = buildingData.prefab;
+                // Assign prefab.
+                buildingData.buildingButton.objectUserData = buildingData.prefab;
 
-                // Create thumbnails if they don't already exist.
-                //if (buildingData.thumbnailAtlas == null)
-                {
-                    Thumbnails.CreateThumbnail(buildingData);
-                    BuildingButton.atlas = buildingData.thumbnailAtlas;
-                    BuildingButton.normalFgSprite = buildingData.displayName;
-
-                    // Variants.
-                    BuildingButton.focusedFgSprite = BuildingButton.normalFgSprite + "Focused";
-                    BuildingButton.hoveredFgSprite = BuildingButton.normalFgSprite + "Hovered";
-                    BuildingButton.pressedFgSprite = BuildingButton.normalFgSprite + "Pressed";
-                    BuildingButton.disabledFgSprite = BuildingButton.normalFgSprite + "Disabled";
-                }
+                // Thumbnail.
+                Thumbnails.CreateThumbnail(buildingData);
 
                 // Information label - building name.
                 UILabel nameLabel = new UILabel();
-                nameLabel = BuildingButton.AddUIComponent<UILabel>();
+                nameLabel = buildingData.buildingButton.AddUIComponent<UILabel>();
                 nameLabel.textScale = 0.6f;
                 nameLabel.useDropShadow = true;
                 nameLabel.dropShadowColor = new Color32(80, 80, 80, 255);
@@ -465,13 +454,13 @@ namespace PloppableRICO
                 nameLabel.autoSize = false;
                 nameLabel.autoHeight = true;
                 nameLabel.wordWrap = true;
-                nameLabel.width = BuildingButton.width - 10;
+                nameLabel.width = buildingData.buildingButton.width - 10;
                 nameLabel.isVisible = true;
                 nameLabel.relativePosition = new Vector3(5, 5);
 
                 // Information label - building level.
                 UILabel levelLabel = new UILabel();
-                levelLabel = BuildingButton.AddUIComponent<UILabel>();
+                levelLabel = buildingData.buildingButton.AddUIComponent<UILabel>();
                 levelLabel.textScale = 0.6f;
                 levelLabel.useDropShadow = true;
                 levelLabel.dropShadowColor = new Color32(80, 80, 80, 255);
@@ -479,11 +468,11 @@ namespace PloppableRICO
                 levelLabel.text = Translations.GetTranslation("Lvl ") + ((int)buildingData.prefab.m_class.m_level + 1);
                 levelLabel.autoSize = true;
                 levelLabel.isVisible = true;
-                levelLabel.relativePosition = new Vector3(5, BuildingButton.height - levelLabel.height - 5);
+                levelLabel.relativePosition = new Vector3(5, buildingData.buildingButton.height - levelLabel.height - 5);
 
                 // Information label - building size.
                 UILabel sizeLabel = new UILabel();
-                sizeLabel = BuildingButton.AddUIComponent<UILabel>();
+                sizeLabel = buildingData.buildingButton.AddUIComponent<UILabel>();
                 sizeLabel.textScale = 0.6f;
                 sizeLabel.useDropShadow = true;
                 sizeLabel.dropShadowColor = new Color32(80, 80, 80, 255);
@@ -491,20 +480,20 @@ namespace PloppableRICO
                 sizeLabel.text = buildingData.prefab.GetWidth() + "x" + buildingData.prefab.GetLength();
                 sizeLabel.autoSize = true;
                 sizeLabel.isVisible = true;
-                sizeLabel.relativePosition = new Vector3(BuildingButton.width - sizeLabel.width - 5, BuildingButton.height - sizeLabel.height - 5);
+                sizeLabel.relativePosition = new Vector3(buildingData.buildingButton.width - sizeLabel.width - 5, buildingData.buildingButton.height - sizeLabel.height - 5);
 
                 // Tooltip.
-                BuildingButton.tooltipAnchor = UITooltipAnchor.Anchored;
-                BuildingButton.tooltip = BuildingTooltip(buildingData);
-                BuildingButton.eventClick += (component, clickEvent) => BuildingBClicked(buildingData.prefab);
-                BuildingButton.eventMouseHover += (component, mouseEvent) =>
+                buildingData.buildingButton.tooltipAnchor = UITooltipAnchor.Anchored;
+                buildingData.buildingButton.tooltip = BuildingTooltip(buildingData);
+                buildingData.buildingButton.eventClick += (component, clickEvent) => BuildingBClicked(buildingData.prefab);
+                buildingData.buildingButton.eventMouseHover += (component, mouseEvent) =>
                 {
                     // Reset the tooltip before showing each time, as sometimes it gets clobbered either by the game or another mod.
                     component.tooltip = BuildingTooltip(buildingData);
                 };
 
                 // Ready to use!
-                BuildingButton.isEnabled = true;
+                buildingData.buildingButton.isEnabled = true;
             }
             catch (Exception e)
             {
@@ -720,28 +709,6 @@ namespace PloppableRICO
                     }
                 default:
                     return 0;
-            }
-        }
-
-
-        /// <summary>
-        /// Removes the building button (if any) in the specified panel for the specified prefab.
-        /// </summary>
-        /// <param name="prefabName">Raw BuildingInfo prefab name</param>
-        /// <param name="uiCategory">RICO UI category string</param>
-        public void DestroyBuildingButton(string prefabName, int uiCategory)
-        {
-            // Get all buttons in specified UI category panel and iterate through.
-            var buttons = BuildingPanels[uiCategory].GetComponentsInChildren(typeof(UIButton));
-
-            foreach (UIButton button in buttons)
-            {
-                if ((button.objectUserData as BuildingInfo).name == prefabName)
-                {
-                    // Found a match - destroy it and return.
-                    GameObject.Destroy(button);
-                    return;
-                }
             }
         }
     }

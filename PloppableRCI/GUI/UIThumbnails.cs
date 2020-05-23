@@ -37,8 +37,8 @@ namespace PloppableRICO
             // Reset zoom.
             thumbnailRenderer.Zoom = 4f;
 
-            // Don't do anything with null prefabs.
-            if (building == null)
+            // Don't do anything with null prefabs or prefabs without buttons.
+            if (building == null || building.buildingButton == null)
             {
                 return;
             }
@@ -110,13 +110,22 @@ namespace PloppableRICO
             // Thumbnail texture name is the same as the building's displayed name.
             thumbnailTexture.name = building.displayName;
 
-            // Add new texture and thumbnail to BuildingData texture atlas.
-            building.thumbnailAtlas = ScriptableObject.CreateInstance<UITextureAtlas>();
-            building.thumbnailAtlas.name = "RICOThumbnails_" + building.displayName;
-            building.thumbnailAtlas.material = UnityEngine.Object.Instantiate<Material>(UIView.GetAView().defaultAtlas.material);
-            building.thumbnailAtlas.material.mainTexture = new Texture2D(1, 1, TextureFormat.ARGB32, false);
+            // Create new texture atlas with thumnails.
+            UITextureAtlas thumbnailAtlas = ScriptableObject.CreateInstance<UITextureAtlas>();
+            thumbnailAtlas.name = "RICOThumbnails_" + building.displayName;
+            thumbnailAtlas.material = UnityEngine.Object.Instantiate<Material>(UIView.GetAView().defaultAtlas.material);
+            thumbnailAtlas.material.mainTexture = new Texture2D(1, 1, TextureFormat.ARGB32, false);
+            AddTexturesToAtlas(thumbnailAtlas, GenerateThumbnailVariants(thumbnailTexture));
 
-            AddTexturesToAtlas(building.thumbnailAtlas, GenerateThumbnailVariants(thumbnailTexture));
+            // Add atlas to building button.
+            building.buildingButton.atlas = thumbnailAtlas;
+            building.buildingButton.normalFgSprite = thumbnailTexture.name;
+
+            // Variants.
+            building.buildingButton.focusedFgSprite = thumbnailTexture.name + "Focused";
+            building.buildingButton.hoveredFgSprite = thumbnailTexture.name + "Hovered";
+            building.buildingButton.pressedFgSprite = thumbnailTexture.name + "Pressed";
+            building.buildingButton.disabledFgSprite = thumbnailTexture.name + "Disabled";
         }
 
 
