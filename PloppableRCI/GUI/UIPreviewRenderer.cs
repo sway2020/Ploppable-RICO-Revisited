@@ -59,6 +59,27 @@ namespace PloppableRICO
 
 
         /// <summary>
+        /// Sets mesh and material from a BuildingInfo prefab.
+        /// </summary>
+        /// <param name="prefab">Prefab to render</param>
+        public void SetTarget(BuildingInfo prefab)
+        {
+            // If the prefab has submeshes and the first submesh has more tris than the main mesh, then use that submesh as our render mesh.
+            if (prefab.m_subMeshes != null && prefab.m_subMeshes.Length > 0 && prefab.m_subMeshes[0].m_subInfo.m_mesh.triangles.Length > prefab.m_mesh.triangles.Length)
+            {
+                Mesh = prefab.m_subMeshes[0].m_subInfo.m_mesh;
+                material = prefab.m_subMeshes[0].m_subInfo.m_material;
+            }
+            else
+            {
+                // Otherwise, just use the main mesh and material for render.
+                Mesh = prefab.m_mesh;
+                material = prefab.m_material;
+            }
+        }
+
+
+        /// <summary>
         /// Currently rendered mesh.
         /// </summary>
         public Mesh Mesh

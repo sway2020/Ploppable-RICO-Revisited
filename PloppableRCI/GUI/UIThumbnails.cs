@@ -43,9 +43,8 @@ namespace PloppableRICO
                 return;
             }
 
-            // Set mesh and material for render from prefab.
-            thumbnailRenderer.Mesh = building.prefab.m_mesh;
-            thumbnailRenderer.material = building.prefab.m_material;
+            // Set mesh and material for render.
+            thumbnailRenderer.SetTarget(building.prefab);
 
             if (thumbnailRenderer.Mesh == null)
             {
