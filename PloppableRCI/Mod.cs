@@ -1,3 +1,4 @@
+using UnityEngine;
 using ICities;
 using CitiesHarmony.API;
 
@@ -63,6 +64,9 @@ namespace PloppableRICO
                 settingsFile.DebugLogging = isChecked;
                 Configuration<SettingsFile>.Save();
             });
+
+            // Add regenerate thumbnails button.
+            helper.AddButton("Regenerate thumbnails", () => PloppableTool.RebuildButtons());
         }
     }
 }

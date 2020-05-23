@@ -1,9 +1,10 @@
 ﻿
 - Add mod options panel setting for plain or skybox thumbnail backgrounds
 - Add mod options panel setting for extra debugging logging and reduce default logging detail
+- Add mod options panel button to regenerate building buttons
 - Adjust render lighting angle to reduce effects of themes with over-saturated light
 - Wait until confirmation level is fully loaded before generating thumbnails
-- Cache thumbnails directly in BuildingData record
+- Store building buttons directly in BuildingData record
 - Force override of thumbnail tooltips on display (to ensure nothing else is overriding them)
 - Only force building household count updates when actual counts differ from specified
 - Use EnableCitizenUnits reverse redirect to reallocate household counts where actual counts are lower than specified

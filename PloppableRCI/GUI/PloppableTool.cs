@@ -324,6 +324,8 @@ namespace PloppableRICO
         /// </summary>
         public void PopulateButtons()
         {
+            Debug.Log("RICO Revisited: populating building buttons.");
+
             // Step through each loaded and active RICO prefab.
             foreach (var buildingData in Loading.xmlManager.prefabHash.Values)
             {
@@ -709,6 +711,33 @@ namespace PloppableRICO
                     }
                 default:
                     return 0;
+            }
+        }
+
+
+        /// <summary>
+        /// Destroys all building buttons and generates a new set.
+        /// Useful for e.g. regenerating thumbnails.
+        /// </summary>
+        public static void RebuildButtons()
+        {
+            // Only do this if the ploppable tool has been created.
+            if (instance != null)
+            {
+                Debug.Log("RICO Revisited: destroying all building buttons.");
+
+                // Step through each loaded and active RICO prefab.
+                foreach (var buildingData in Loading.xmlManager.prefabHash.Values)
+                {
+                    // Destroy all existing building buttons.
+                    if (buildingData.buildingButton != null)
+                    {
+                        GameObject.Destroy(buildingData.buildingButton);
+                    }
+                }
+
+                // Repopulate building buttons.
+                instance.PopulateButtons();
             }
         }
     }
