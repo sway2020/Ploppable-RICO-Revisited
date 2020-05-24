@@ -174,8 +174,17 @@ namespace PloppableRICO
             infoManager.SetCurrentMode(InfoManager.InfoMode.None, InfoManager.SubInfoMode.Default);
             infoManager.UpdateInfoMode();
 
+            // Backup current exposure and sky tint.
+            float gameExposure = DayNightProperties.instance.m_Exposure;
+            Color gameSkyTint = DayNightProperties.instance.m_SkyTint;
+
             // Backup current game lighting.
             Light gameMainLight = RenderManager.instance.MainLight;
+
+            // Set exposure and sky tint for render.
+            DayNightProperties.instance.m_Exposure = 0.5f;
+            DayNightProperties.instance.m_SkyTint = new Color(0, 0, 0);
+            DayNightProperties.instance.Refresh();
 
             // Set zoom to encapsulate entire model.
             float magnitude = currentBounds.extents.magnitude;
@@ -223,6 +232,10 @@ namespace PloppableRICO
                 DayNightProperties.instance.sunLightSource.enabled = false;
                 DayNightProperties.instance.moonLightSource.enabled = true;
             }
+
+            // Restore game exposure and sky tint.
+            DayNightProperties.instance.m_Exposure = gameExposure;
+            DayNightProperties.instance.m_SkyTint = gameSkyTint;
 
             // Restore game InfoManager mode.
             infoManager.SetCurrentMode(currentMode, currentSubMode);
