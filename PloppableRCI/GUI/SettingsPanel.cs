@@ -3,6 +3,7 @@ using ColossalFramework.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 using UnityEngine;
 
 
@@ -310,9 +311,8 @@ namespace PloppableRICO
         /// </summary>
         /// <param name="infoPanel">Infopanel to apply the button to</param>
         /// <param name="relativeY">The relative Y position of the button within the panel</param>
-        private void AddInfoPanelButton(BuildingWorldInfoPanel infoPanel, float relativeY)
+        private void AddInfoPanelButton(BuildingWorldInfoPanel infoPanel)
         {
-            // Button instance.
             UIButton panelButton = infoPanel.component.AddUIComponent<UIButton>();
 
             // Basic button setup.
@@ -323,9 +323,39 @@ namespace PloppableRICO
             panelButton.hoveredBgSprite = "ToolbarIconGroup6Hovered";
             panelButton.pressedBgSprite = "ToolbarIconGroup6Pressed";
             panelButton.disabledBgSprite = "ToolbarIconGroup6Disabled";
-            panelButton.relativePosition = new Vector2(infoPanel.component.width - panelButton.width - 5f, relativeY);
             panelButton.name = "PloppableButton";
             panelButton.tooltip = Translations.GetTranslation("RICO Settings");
+
+            // Find ProblemsPanel relative position to position button.
+            // We'll use 40f as a default relative Y in case something doesn't work.
+            UIComponent problemsPanel;
+            float relativeY = 40f;
+
+            // Player info panels have wrappers, zoned ones don't.
+            UIComponent wrapper = infoPanel.Find("Wrapper");
+            if (wrapper == null)
+            {
+                problemsPanel = infoPanel.Find("ProblemsPanel");
+            }
+            else
+            {
+                problemsPanel = wrapper.Find("ProblemsPanel");
+            }
+
+            try
+            {
+                // Position button vertically in the middle of the problems panel.  If wrapper panel exists, we need to add its offset as well.
+                relativeY = (wrapper == null ? 0 : wrapper.relativePosition.y) + problemsPanel.relativePosition.y + ((problemsPanel.height - 34) / 2);
+            }
+            catch
+            {
+                // Don't really care; just use default relative Y.
+                Debug.Log("RICO Revisited: couldn't find ProblemsPanel relative position.");
+            }
+
+            // Set position.
+            panelButton.AlignTo(infoPanel.component, UIAlignAnchor.TopRight);
+            panelButton.relativePosition += new Vector3(-5f, relativeY, 0f);
 
             // Event handler.
             panelButton.eventClick += (c, p) =>
@@ -343,10 +373,10 @@ namespace PloppableRICO
         public void AddInfoPanelButtons()
         {
             // Zoned building (PrivateBuilding) info panel.
-            AddInfoPanelButton(UIView.library.Get<ZonedBuildingWorldInfoPanel>(typeof(ZonedBuildingWorldInfoPanel).Name), 40f);
+            AddInfoPanelButton(UIView.library.Get<ZonedBuildingWorldInfoPanel>(typeof(ZonedBuildingWorldInfoPanel).Name));
 
             // Service building (PlayerBuilding) info panel.
-            AddInfoPanelButton(UIView.library.Get<CityServiceWorldInfoPanel>(typeof(CityServiceWorldInfoPanel).Name), 77f);
+            AddInfoPanelButton(UIView.library.Get<CityServiceWorldInfoPanel>(typeof(CityServiceWorldInfoPanel).Name));
         }
     }
 }

@@ -7,10 +7,11 @@
 - Override theme exposure and sky tint when rendering previews
 - Use first submesh as render mesh when it has more tris than main mesh
 - Wait until confirmation level is fully loaded before generating thumbnails
-- Store building buttons directly in BuildingData record
 - Force override of thumbnail tooltips on display (to ensure nothing else is overriding them)
 - Only force building household count updates when actual counts differ from specified
 - Use EnableCitizenUnits reverse redirect to reallocate household counts where actual counts are lower than specified
+- Add dynamic positioning of settings button in building info panels; aligns with Repaint color patch
+- Store building buttons directly in BuildingData record
 - Lower z-order of notification panels (to put them behind everything else)
 
 
