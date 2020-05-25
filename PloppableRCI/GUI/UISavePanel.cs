@@ -97,14 +97,48 @@ namespace PloppableRICO
                         currentSelection.local.subService = GetRICOSubService();
                         currentSelection.local.level = (int)currentSelection.prefab.GetClassLevel() + 1;
                         currentSelection.local.constructionCost = 10;
-                        currentSelection.local.homeCount = 10;
+
+                        // See if selected 'virgin' prefab has Private AI.
+                        if (currentSelection.prefab.GetAI() is PrivateBuildingAI privateAI)
+                        {
+                            // It does - let's copy across growable statuts and household/workplace info.
+                            int buildingWidth = currentSelection.prefab.GetWidth();
+                            int buildingLength = currentSelection.prefab.GetLength();
+
+                            // Set homes/workplaces.
+                            if (privateAI is ResidentialBuildingAI)
+                            {
+                                // It's residential - set homes.
+                                currentSelection.local.homeCount = privateAI.CalculateHomeCount(currentSelection.prefab.GetClassLevel(), new Randomizer(), buildingWidth, buildingLength);
+                            }
+                            else
+                            {
+                                // Not residential - set workplaces.
+                                int[] workplaces = new int[4];
+
+                                privateAI.CalculateWorkplaceCount(currentSelection.prefab.GetClassLevel(), new Randomizer(), buildingWidth, buildingLength, out workplaces[0], out workplaces[1], out workplaces[2], out workplaces[3]);
+
+                                currentSelection.local.workplaces = workplaces;
+                            }
+
+                            // Set as growable if building is appropriate size.
+                            if (buildingWidth <= 4 && buildingLength <= 4)
+                            {
+                                currentSelection.local.growable = true;
+                            }
+                        }
+                        else
+                        {
+                            // Basic catchall defaults for homes and workplaces.
+                            currentSelection.local.homeCount = 1;
+                            currentSelection.local.workplaces = new int[] { 1, 0, 0, 0 };
+                        }
 
                         // UI Category will be updated later.
                         currentSelection.local.uiCategory = "none";
                     }
 
                     currentSelection.local.name = currentSelection.name;
-                    //currentSelection.local = (PloppableRICODefinition.Building)newlocal.Clone();
 
                     // Update settings panel with new settings if RICO is enabled for this building.
                     if (enabled)
@@ -228,7 +262,7 @@ namespace PloppableRICO
                     localSettings = xmlSerializer.Deserialize(streamReader) as PloppableRICODefinition;
                 }
 
-                //Loop though all buildings in the file. If they arent the current selection, write them back to file. 
+                // Loop though all buildings in the file. If they arent the current selection, write them back to file. 
                 foreach (var buildingDef in localSettings.Buildings)
                 {
                     if (buildingDef.name != currentSelection.name)
@@ -237,7 +271,7 @@ namespace PloppableRICO
                     }
                 }
 
-                //If current selection has local settings, add them to file. 
+                // If current selection has local settings, add them to file. 
                 if (currentSelection.hasLocal)
                 {
                     newlocalSettings.Buildings.Add(currentSelection.local);

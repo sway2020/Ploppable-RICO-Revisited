@@ -3,7 +3,6 @@ using ColossalFramework.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
 using UnityEngine;
 
 
@@ -54,7 +53,7 @@ namespace PloppableRICO
                 uiGameObject = GameObject.Find("RICOSettingsPanel");
                 if (uiGameObject != null)
                 {
-                    UnityEngine.Debug.Log("Ploppable RICO Revisited: destroying existing building details panel instance.");
+                    UnityEngine.Debug.Log("Ploppable RICO Revisited: destroying existing settings panel instance.");
                     GameObject.Destroy(uiGameObject);
                 }
 
@@ -171,7 +170,7 @@ namespace PloppableRICO
 
 
         /// <summary>
-        /// Shows/hides the building details screen.
+        /// Shows/hides the settings panel.
         /// </summary>
         public void Toggle()
         {

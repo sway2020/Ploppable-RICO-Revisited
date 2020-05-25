@@ -3,6 +3,7 @@
 - Add mod options panel setting for plain or skybox thumbnail backgrounds
 - Add mod options panel setting for extra debugging logging and reduce default logging detail
 - Add mod options panel button to regenerate building buttons
+- When creating local settings from growables, set growable option by default and pre-populate with home/workplace counts from original prefab
 - Adjust render lighting angle to reduce effects of themes with over-saturated light
 - Override theme exposure and sky tint when rendering previews
 - Use first submesh as render mesh when it has more tris than main mesh
