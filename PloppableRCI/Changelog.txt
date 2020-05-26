@@ -13,6 +13,7 @@
 - Use EnableCitizenUnits reverse redirect to reallocate household counts where actual counts are lower than specified
 - Add dynamic positioning of settings button in building info panels; aligns with Repaint color patch
 - Store building buttons directly in BuildingData record
+- Increse building selection list height
 - Lower z-order of notification panels (to put them behind everything else)
 
 

@@ -148,7 +148,7 @@ namespace PloppableRICO
                 buildingSelection = UIFastList.Create<UIBuildingRow>(leftPanel);
                 buildingSelection.backgroundSprite = "UnlockingPanel";
                 buildingSelection.width = leftPanel.width;
-                buildingSelection.height = leftPanel.height - checkFilterHeight;
+                buildingSelection.height = leftPanel.height;
                 buildingSelection.canSelect = true;
                 buildingSelection.rowHeight = 40;
                 buildingSelection.autoHideScrollbar = true;
