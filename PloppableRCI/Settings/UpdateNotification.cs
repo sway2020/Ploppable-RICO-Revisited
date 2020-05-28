@@ -74,7 +74,7 @@ namespace PloppableRICO
                 UILabel title = this.AddUIComponent<UILabel>();
                 title.relativePosition = new Vector3(0, spacing);
                 title.textAlignment = UIHorizontalAlignment.Center;
-                title.text = "Plopplable RICO Revisited 2.0 update";
+                title.text = "Plopplable RICO Revisited 2.1 update";
                 title.textScale = 1.0f;
                 title.autoSize = false;
                 title.width = this.width;
@@ -83,7 +83,7 @@ namespace PloppableRICO
                 UILabel note1 = this.AddUIComponent<UILabel>();
                 note1.relativePosition = new Vector3(spacing, 40);
                 note1.textAlignment = UIHorizontalAlignment.Left;
-                note1.text = Translations.GetTranslation("Ploppable RICO Revisited has been updated to version 2.0.  Some key features of this update are:");
+                note1.text = Translations.GetTranslation("Ploppable RICO Revisited has been updated to version 2.1.  Some key features of this update are:");
                 note1.textScale = 0.8f;
                 note1.autoSize = false;
                 note1.autoHeight = true;
@@ -94,26 +94,15 @@ namespace PloppableRICO
                 UILabel note2 = this.AddUIComponent<UILabel>();
                 note2.relativePosition = new Vector3(spacing *2, 40 + note1.height + spacing);
                 note2.textAlignment = UIHorizontalAlignment.Left;
-                note2.text = Translations.GetTranslation("Support for growable buildings (experimental)\r\n\r\nLive application of building configuration changes(experimental)\r\n\r\nDirectly access the Ploppable RICO settings for any building by clicking on the Ploppable RICO icon in the top - right of any info panel\r\n\r\nCode updates and improvements to fix a number of longstanding issues\r\n\r\nMany other minor changes and improvements");
+                note2.text = Translations.GetTranslation("New mod options panel (accessed via game options), including option for plain thumbnail backgrounds.\r\n\r\nAdjusted lighting of thumnail image renders to help users with over-saturated map themes.\r\n\r\nLocal RICO settings created from existing growable buildings will be growable by default and inherit the default household/workplace counts of the original.\r\n\r\nAdditional failsafes to reduce risk of residential building household counts being reduced on game load if your city is close to hitting internal game limits.");
                 note2.textScale = 0.8f;
                 note2.autoSize = false;
                 note2.autoHeight = true;
                 note2.width = this.width - (spacing * 4);
                 note2.wordWrap = true;
 
-                // Note 3.
-                UILabel note3 = this.AddUIComponent<UILabel>();
-                note3.relativePosition = new Vector3(spacing, 40 + note1.height + note2.height + (spacing*2));
-                note3.textAlignment = UIHorizontalAlignment.Left;
-                note3.text = Translations.GetTranslation("NOTE: Please make sure to make a backup of your savegames before trying out the new experimental features, just in case.");
-                note3.textScale = 0.8f;
-                note3.autoSize = false;
-                note3.autoHeight = true;
-                note3.width = this.width - (spacing * 2);
-                note3.wordWrap = true;
-
                 // Auto resize panel to accomodate note.
-                this.height = 80 + note1.height + note2.height + note3.height + (spacing * 3);
+                this.height = 80 + note1.height + note2.height + (spacing * 3);
 
                 // Close button.
                 UIButton closeButton = UIUtils.CreateButton(this);
@@ -141,7 +130,7 @@ namespace PloppableRICO
                 noShowButton.eventClick += (c, p) =>
                 {
                     // Update and save settings file.
-                    Loading.settingsFile.NotificationVersion = 1;
+                    Loading.settingsFile.NotificationVersion = 2;
                     Configuration<SettingsFile>.Save();
 
                     // Just hide this panel and destroy the game object - nothing more to do.
@@ -154,7 +143,5 @@ namespace PloppableRICO
                 UnityEngine.Debug.LogException(e);
             }
         }
-
-
     }
 }

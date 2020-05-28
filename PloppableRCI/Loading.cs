@@ -147,7 +147,7 @@ namespace PloppableRICO
 
             // Load settings file and check if we need to display update notification.
             settingsFile = Configuration<SettingsFile>.Load();
-            if (settingsFile.NotificationVersion != 1)
+            if (settingsFile.NotificationVersion != 2)
             {
                 // No update notification "Don't show again" flag found; show the notification.
                 UpdateNotification notification = new UpdateNotification();

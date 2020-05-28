@@ -50,7 +50,7 @@ namespace PloppableRICO
             SettingsFile settingsFile = Configuration<SettingsFile>.Load();
 
             // Add thumbnail background checkbox.
-            helper.AddCheckbox("Use plain backgrounds for thumbnails", settingsFile.PlainThumbs, isChecked =>
+            helper.AddCheckbox(Translations.GetTranslation("Use plain backgrounds for thumbnails"), settingsFile.PlainThumbs, isChecked =>
             {
                 Settings.plainThumbs = isChecked;
                 settingsFile.PlainThumbs = isChecked;
@@ -58,7 +58,7 @@ namespace PloppableRICO
             });
 
             // Add logging checkbox.
-            helper.AddCheckbox("Enable additional debugging logging", settingsFile.DebugLogging, isChecked =>
+            helper.AddCheckbox(Translations.GetTranslation("Enable additional debugging logging"), settingsFile.DebugLogging, isChecked =>
             {
                 Settings.debugLogging = isChecked;
                 settingsFile.DebugLogging = isChecked;
@@ -66,7 +66,7 @@ namespace PloppableRICO
             });
 
             // Add regenerate thumbnails button.
-            helper.AddButton("Regenerate thumbnails", () => PloppableTool.RebuildButtons());
+            helper.AddButton(Translations.GetTranslation("Regenerate thumbnails"), () => PloppableTool.RebuildButtons());
         }
     }
 }
