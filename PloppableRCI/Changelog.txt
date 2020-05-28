@@ -15,6 +15,7 @@
 - Store building buttons directly in BuildingData record
 - Increse building selection list height
 - Lower z-order of notification panels (to put them behind everything else)
+- Update CitiesHarmony to 1.0.5
 
 
 Version 2.0.3

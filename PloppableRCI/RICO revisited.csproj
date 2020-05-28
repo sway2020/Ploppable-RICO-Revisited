@@ -40,13 +40,11 @@
     <SkipPostSharp>True</SkipPostSharp>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="0Harmony, Version=2.0.0.9, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Lib.Harmony.2.0.0.9\lib\net35\0Harmony.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="0Harmony, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Lib.Harmony.2.0.1\lib\net35\0Harmony.dll</HintPath>
     </Reference>
-    <Reference Include="CitiesHarmony.API, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\CitiesHarmony.API.1.0.4\lib\net35\CitiesHarmony.API.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="CitiesHarmony.API, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\CitiesHarmony.API.1.0.5\lib\net35\CitiesHarmony.API.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <HintPath>E:\SteamLibrary\steamapps\common\Cities_Skylines\Cities_Data\Managed\System.dll</HintPath>
@@ -132,7 +130,7 @@ del "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName
 xcopy /y "$(TargetPath)" "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)"
 del "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)\0Harmony.dll"
 del "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)\CitiesHarmony.API.dll"
-xcopy /y "$(SolutionDir)packages\CitiesHarmony.API.1.0.4\lib\net35\CitiesHarmony.API.dll" "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)"</PostBuildEvent>
+xcopy /y "$(SolutionDir)packages\CitiesHarmony.API.1.0.5\lib\net35\CitiesHarmony.API.dll" "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="packages\PostSharp.4.2.29\tools\PostSharp.targets" Condition="Exists('packages\PostSharp.4.2.29\tools\PostSharp.targets')" />
   <Target Name="EnsurePostSharpImported" BeforeTargets="BeforeBuild" Condition="'$(PostSharp30Imported)' == ''">
