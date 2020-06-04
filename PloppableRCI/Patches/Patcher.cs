@@ -14,7 +14,8 @@ namespace PloppableRICO
         private const string harmonyID = "com.github.algernon-A.csl.ploppablericorevisited";
 
         // Flag.
-        public static bool patched = false;
+        internal static bool Patched => _patched;
+        private static bool _patched = false;
 
 
         /// <summary>
@@ -23,7 +24,7 @@ namespace PloppableRICO
         public static void PatchAll()
         {
             // Don't do anything if already patched.
-            if (!patched)
+            if (!_patched)
             {
                 // Ensure Harmony is ready before patching.
                 if (HarmonyHelper.IsHarmonyInstalled)
@@ -33,7 +34,7 @@ namespace PloppableRICO
                     // Apply all annotated patches and update flag.
                     Harmony harmonyInstance = new Harmony(harmonyID);
                     harmonyInstance.PatchAll();
-                    patched = true;
+                    _patched = true;
                 }
                 else
                 {
@@ -46,14 +47,14 @@ namespace PloppableRICO
         public static void UnpatchAll()
         {
             // Only unapply if patches appplied.
-            if (patched)
+            if (_patched)
             {
                 Debug.Log("RICO Revisited: reverting Harmony patches.");
 
                 // Unapply patches, but only with our HarmonyID.
                 Harmony harmonyInstance = new Harmony(harmonyID);
                 harmonyInstance.UnpatchAll(harmonyID);
-                patched = false;
+                _patched = false;
             }
         }
     }

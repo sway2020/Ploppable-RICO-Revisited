@@ -7,9 +7,9 @@ namespace PloppableRICO
 {
     // This is a really basic translation framework; it's the start of a process, and not the end.
     // At this point just directly translating the English default (no standardised keys).
-    public class Translations
+    internal class Translations
     {
-        public static string GetTranslation(string phrase)
+        internal static string GetTranslation(string phrase)
         {
             string _translation;
 
@@ -24,7 +24,7 @@ namespace PloppableRICO
         }
 
         // Chinese translations provided by Yuuki
-        public static readonly Dictionary<string, string> UITranslations_zh = new Dictionary<string, string>()
+        internal static readonly Dictionary<string, string> UITranslations_zh = new Dictionary<string, string>()
         {
             { "Settings", "设置" },
             { "RICO Settings", "RICO设置" },
@@ -104,7 +104,7 @@ namespace PloppableRICO
         };
 
 
-        public static string[] UICategory = 
+        internal static string[] UICategory = 
         {
             "Residential low",
             "Residential high",
@@ -125,7 +125,7 @@ namespace PloppableRICO
         };
 
 
-        public static void TranslateUICategories()
+        internal static void TranslateUICategories()
         {
             if(LocaleManager.instance.language == "zh")
             {

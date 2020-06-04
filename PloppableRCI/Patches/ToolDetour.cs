@@ -13,7 +13,7 @@ namespace PloppableRICO
 	[HarmonyPatch("IsImportantBuilding")]
 	[HarmonyPatch(new Type[] { typeof(BuildingInfo), typeof(Building) },
 		new ArgumentType[] { ArgumentType.Normal, ArgumentType.Ref })]
-	public class BuildingToolDetour
+	internal class BuildingToolDetour
 	{
 		private static bool Prefix (ref bool __result, BuildingInfo info, ref Building building)
 		{

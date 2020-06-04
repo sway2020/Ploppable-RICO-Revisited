@@ -1,4 +1,3 @@
-using UnityEngine;
 using ICities;
 using CitiesHarmony.API;
 
@@ -66,7 +65,7 @@ namespace PloppableRICO
             });
 
             // Add regenerate thumbnails button.
-            helper.AddButton(Translations.GetTranslation("Regenerate thumbnails"), () => PloppableTool.RebuildButtons());
+            helper.AddButton(Translations.GetTranslation("Regenerate thumbnails"), () => PloppableTool.instance.RebuildButtons());
         }
     }
 }

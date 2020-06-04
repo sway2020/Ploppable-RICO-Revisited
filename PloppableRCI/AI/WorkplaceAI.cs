@@ -1,9 +1,7 @@
-
-﻿using UnityEngine;
 using ColossalFramework;
 using ColossalFramework.Math;
 using System.Linq;
-using System.Collections.Generic;
+
 
 namespace PloppableRICO
 {
@@ -14,16 +12,16 @@ namespace PloppableRICO
         void CalculateBaseWorkplaceCount(ItemClass.Level level, Randomizer r, int width, int length, out int level0, out int level1, out int level2, out int level3);
     }
 
-    public static class WorkplaceAIHelper
+    internal static class WorkplaceAIHelper
     {
-        public static int GetConstructionCost(int constructionCostValue, ItemClass.Service service, ItemClass.SubService subService, ItemClass.Level level)
+        internal static int GetConstructionCost(int constructionCostValue, ItemClass.Service service, ItemClass.SubService subService, ItemClass.Level level)
         {
             int result = (constructionCostValue * 100);
             Singleton<EconomyManager>.instance.m_EconomyWrapper.OnGetConstructionCost(ref result, service, subService, level);
             return result;
         }
 
-        public static void CalculateWorkplaceCount(ItemClass.Level level, RICOBuilding ricoData, IWorkplaceLevelCalculator ai, Randomizer r, int width, int length, out int level0, out int level1, out int level2, out int level3)
+        internal static void CalculateWorkplaceCount(ItemClass.Level level, RICOBuilding ricoData, IWorkplaceLevelCalculator ai, Randomizer r, int width, int length, out int level0, out int level1, out int level2, out int level3)
         {
             SetWorkplaceLevels(out level0, out level1, out level2, out level3, 0, 0, 0, 0);
             RICOBuilding rc = ricoData;
@@ -38,12 +36,12 @@ namespace PloppableRICO
             }
         }
 
-        public static void SetWorkplaceLevels(out int level0, out int level1, out int level2, out int level3, int l0, int l1, int l2, int l3)
+        private static void SetWorkplaceLevels(out int level0, out int level1, out int level2, out int level3, int l0, int l1, int l2, int l3)
         {
             SetWorkplaceLevels(out level0, out level1, out level2, out level3, new int[] { l0, l1, l2, l3 });
         }
 
-        public static void SetWorkplaceLevels(out int level0, out int level1, out int level2, out int level3, int[] values)
+        internal static void SetWorkplaceLevels(out int level0, out int level1, out int level2, out int level3, int[] values)
         {
             level0 = values[0];
             level1 = values[1];
@@ -51,20 +49,7 @@ namespace PloppableRICO
             level3 = values[3];
         }
 
-        public static void distributeWorkplaceLevels( RICOBuilding ricoData, out int level0, out int level1, out int level2, out int level3 )
-        {
-            distributeWorkplaceLevels( ricoData.workplaceCount, Util.WorkplaceDistributionOf(ricoData.service, ricoData.subService, "Level" + ricoData.level.ToString() ), ricoData.workplaceDeviation, out level0, out level1, out level2, out level3 );
-        }
-
-
-        public static void distributeWorkplaceLevels( int workplaces, int[] workplaceDistribution, int[] workplaceDeviation, out int level0, out int level1, out int level2, out int level3 )
-        {
-            var jobs = distributeWorkplaceLevels( workplaces, workplaceDistribution, workplaceDeviation);
-            SetWorkplaceLevels( out level0, out level1, out level2, out level3, jobs );
-
-        }
-
-        public static int[] distributeWorkplaceLevels( int workplaces, int[] workplaceDistribution, int[] workplaceDeviation)
+        internal static int[] distributeWorkplaceLevels( int workplaces, int[] workplaceDistribution, int[] workplaceDeviation)
         {
             int[] wd = workplaceDistribution;
             int[] wv = workplaceDeviation;
@@ -83,7 +68,7 @@ namespace PloppableRICO
             return jobs;
         }
 
-        public static int[] deviateWorkplaces( int[] workplaces, int[] deviatons )
+        private static int[] deviateWorkplaces( int[] workplaces, int[] deviatons )
         {
             if (deviatons != null)
                 return workplaces.Select(

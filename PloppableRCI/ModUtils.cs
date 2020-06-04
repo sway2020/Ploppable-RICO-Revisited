@@ -13,23 +13,23 @@ namespace PloppableRICO
     /// <summary>
     /// Class that manages interactions with other mods, including compatibility and functionality checks.
     /// </summary>
-    public class ModUtils
+    internal class ModUtils
     {
         /// <summary>
         ///  Flag to determine whether or not a realistic population mod is installed and enabled.
         /// </summary>
-        public static bool realPopEnabled = false;
+        internal static bool realPopEnabled = false;
 
         // Flags for handling mod conflicts.
         private static bool conflictingMod = false;
-        public static string conflictMessage;
+        internal static string conflictMessage;
 
 
         /// <summary>
         /// Checks for known mod conflicts and function extenders.
         /// </summary>
         /// <returns>Whether or not Ploppable RICO should load</returns>
-        public static bool CheckMods()
+        internal static bool CheckMods()
         {
             // Check for conflicting mods.
             if (IsModEnabled(586012417ul))
@@ -76,7 +76,7 @@ namespace PloppableRICO
         /// Mod conflicts are determined at Loading.OnCreated(); this is called at Loading.OnLevelLoaded() to provide the notification to the user.
         /// (UI can only be accessed after loading is complete).
         /// </summary>
-        public static void NotifyConflict()
+        internal static void NotifyConflict()
         {
             // If a conflicting mod has been detected, show the notification.
             if (conflictingMod)
@@ -93,7 +93,7 @@ namespace PloppableRICO
         /// </summary>
         /// <param name="id">Steam workshop ID</param>
         /// <returns>True if the mod is installed and enabled, false otherwise</returns>
-        public static bool IsModEnabled(UInt64 id)
+        internal static bool IsModEnabled(UInt64 id)
         {
             return PluginManager.instance.GetPluginsInfo().Any(mod => (mod.publishedFileID.AsUInt64 == id && mod.isEnabled));
         }
@@ -104,7 +104,7 @@ namespace PloppableRICO
         /// </summary>
         /// <param name="assemblyName">Name of the mod assembly</param>
         /// <returns>True if the mod is installed and enabled, false otherwise</returns>
-        public static bool IsModEnabled(string assemblyName)
+        internal static bool IsModEnabled(string assemblyName)
         {
             // Convert assembly name to lower case.
             string assemblyNameLower = assemblyName.ToLower();
@@ -146,7 +146,7 @@ namespace PloppableRICO
         /// <summary>
         /// Creates the panel object in-game.
         /// </summary>
-        public void Create()
+        internal void Create()
         {
             try
             {

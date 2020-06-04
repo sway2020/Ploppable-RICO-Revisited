@@ -45,7 +45,7 @@ namespace PloppableRICO
         /// <summary>
         /// Creates the panel object in-game.
         /// </summary>
-        public static void Create()
+        internal static void Create()
         {
             try
             {
@@ -185,7 +185,7 @@ namespace PloppableRICO
         /// Called when the building selection changes to update other panels.
         /// </summary>
         /// <param name="building"></param>
-        public void UpdateSelectedBuilding(BuildingData building)
+        internal void UpdateSelectedBuilding(BuildingData building)
         {
             if (building != null)
             {
@@ -202,7 +202,7 @@ namespace PloppableRICO
         /// <summary>
         /// Called to save building data.
         /// </summary>
-        public void Save()
+        internal void Save()
         {
             buildingOptionsPanel.SaveRICO();
         }
@@ -221,7 +221,7 @@ namespace PloppableRICO
         /// <summary>
         /// Updates the UI Category of the building in the options panel.
         /// </summary>
-        public void UpdateUICategory()
+        internal void UpdateUICategory()
         {
             buildingOptionsPanel.UpdateUICategory();
         }

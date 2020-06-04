@@ -9,7 +9,7 @@ namespace PloppableRICO
     /// This class generates building preview thumbnails for the Ploppable Tool panel.
     /// Inspired by Boogieman Sam's FindIt! UI.
     /// </summary>
-    public class Thumbnails
+    internal class Thumbnails
     {
         // Renderer for thumbnail images.
         private static UIPreviewRenderer thumbnailRenderer;
@@ -21,7 +21,7 @@ namespace PloppableRICO
         /// </summary>
         /// <param name="prefab">The BuildingInfo prefab to generate thumbnails for</param>
         /// <param name="name">The display name of the prefab.</param>
-        public static void CreateThumbnail(BuildingData building)
+        internal static void CreateThumbnail(BuildingData building)
         {
             // Create the renderer if it hasn't already been set up.
             if (thumbnailRenderer == null)
@@ -133,7 +133,7 @@ namespace PloppableRICO
         /// </summary>
         /// <param name="baseTexture">Base texture of the thumbnail</param>
         /// <returns>2d variant icon textures</returns>
-        public static Texture2D[] GenerateThumbnailVariants(Texture2D baseTexture)
+        private static Texture2D[] GenerateThumbnailVariants(Texture2D baseTexture)
         {
             var variantPixels = new Color32[baseTexture.width * baseTexture.height];
             var basePixels = baseTexture.GetPixels32();
@@ -205,7 +205,7 @@ namespace PloppableRICO
         /// </summary>
         /// <param name="atlas">Atlas to add to</param>
         /// <param name="newTextures">Textures to add</param>
-        public static void AddTexturesToAtlas(UITextureAtlas atlas, Texture2D[] newTextures)
+        private static void AddTexturesToAtlas(UITextureAtlas atlas, Texture2D[] newTextures)
         {
             Texture2D[] textures = new Texture2D[atlas.count + newTextures.Length];
 

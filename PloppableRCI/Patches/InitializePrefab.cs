@@ -12,7 +12,7 @@ namespace PloppableRICO
 	/// and opens a lot of doors.
 	/// </summary>
 	[HarmonyPatch(typeof(BuildingInfo), "InitializePrefab")]
-	public static class InitPatch
+	internal static class InitPatch
 	{
 		/// <summary>
 		/// Harmony prefix patch for BuildingInfo.InitializePrefab.
@@ -23,7 +23,7 @@ namespace PloppableRICO
 		/// <returns>Whether to continue InitializePrefab (always true)</returns>
 		[HarmonyPriority(Priority.High)]
 		[HarmonyBefore(new string[] { "github.com/boformer/PrefabHook" })]
-		public static bool Prefix(ref BuildingInfo __instance)
+		private static bool Prefix(BuildingInfo __instance)
 		{
 			// Create a new building record for this prefab and add it to our lists.
 			var buildingData = new BuildingData
@@ -191,7 +191,7 @@ namespace PloppableRICO
 		/// <param name="prefabName">BuildingInfo prefab name to match against</param>
 		/// <param name="packageName">Prefab package name</param>
 		/// <returns>True if a match was found, false otherwise.</returns>
-		public static bool MatchRICOName(string ricoName, string prefabName, string packageName)
+		private static bool MatchRICOName(string ricoName, string prefabName, string packageName)
 		{
 			// Ordered in order of assumed probability.
 			// Standard full workshop asset name - all local settings for workshop assets should match against this, as well as many author settings files.

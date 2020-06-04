@@ -2,16 +2,17 @@
 using UnityEngine;
 using ColossalFramework.UI;
 
+
 namespace PloppableRICO
 {
-    class Debugging
+    internal class Debugging
     {
         // Buffer errors (used during loading to display an error modal dialog after loading has completed).
-        public static StringBuilder ErrorBuffer = new StringBuilder();
+        internal static StringBuilder ErrorBuffer = new StringBuilder();
 
 
         // Display and log any buffered errors.
-        public static void ReportErrors()
+        internal static void ReportErrors()
         {
             if (ErrorBuffer.Length > 0)
             {

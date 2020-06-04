@@ -15,9 +15,9 @@ namespace PloppableRICO
     public class PloppableTool : ToolBase
     {
         // Number of UI categories.
-        const int NumTypes = 14;
+        private const int NumTypes = 14;
         // Number of UI tabs: +1 to account for 'Settings' tab.
-        const int NumTabs = NumTypes + 1;
+        private const int NumTabs = NumTypes + 1;
 
 
         // Object instances.
@@ -27,22 +27,22 @@ namespace PloppableRICO
         public static PloppableTool instance => _instance;
 
         // UI components.
-        UIButton PloppableButton;
+        private UIButton PloppableButton;
 
-        UITabstrip Tabs;
-        UISprite[] TabSprites = new UISprite[NumTabs];
-        UIButton[] TabButtons = new UIButton[NumTabs];
+        private UITabstrip Tabs;
+        private UISprite[] TabSprites = new UISprite[NumTabs];
+        private UIButton[] TabButtons = new UIButton[NumTabs];
 
-        UIPanel BuildingPanel;
-        UIScrollablePanel[] BuildingPanels = new UIScrollablePanel[NumTabs];
-        UIScrollablePanel currentSelection = new UIScrollablePanel();
+        private UIPanel BuildingPanel;
+        private UIScrollablePanel[] BuildingPanels = new UIScrollablePanel[NumTabs];
+        private UIScrollablePanel currentSelection = new UIScrollablePanel();
 
-        UIButton LeftButton = new UIButton();
-        UIButton RightButton = new UIButton();
+        private UIButton LeftButton = new UIButton();
+        private UIButton RightButton = new UIButton();
 
 
         // Names used to identify icons for tabs (specific game icon names - not just made up).
-        string[] Names = new string[]
+        private string[] Names = new string[]
         {
             "ResidentialLow",
             "ResidentialHigh",
@@ -65,7 +65,7 @@ namespace PloppableRICO
         /// <summary>
         /// Initializes the Ploppable Tool (including panel).
         /// </summary>
-        public static void Initialize()
+        internal static void Initialize()
         {
             // Don't do anything if we're already setup.
             if (_instance == null)
@@ -116,7 +116,7 @@ namespace PloppableRICO
         /// <summary>
         /// Draws the Ploppable Tool panel.
         /// </summary>
-        public void DrawPloppablePanel()
+        private void DrawPloppablePanel()
         {
             // Check to make sure that we haven't already done this.
             if (PloppableButton == null)
@@ -322,7 +322,7 @@ namespace PloppableRICO
         /// <summary>
         /// Fills the Ploppable Tool panel with building buttons.
         /// </summary>
-        public void PopulateButtons()
+        private void PopulateButtons()
         {
             Debug.Log("RICO Revisited: populating building buttons.");
 
@@ -377,7 +377,7 @@ namespace PloppableRICO
         /// Shouldn't really be needed in most cases since we're now converting prior to InitPrefab, but still useful in cases of live conversion of assets (and also just to make sure).
         /// </summary>
         /// <param name="prefab">Building prefab</param>
-        public void RemoveUIButton(BuildingInfo prefab)
+        private void RemoveUIButton(BuildingInfo prefab)
         {
             UIButton refButton = new UIButton();
 
@@ -395,13 +395,13 @@ namespace PloppableRICO
             }
         }
 
-        
+
         /// <summary>
         /// Sets the sprite for a given Ploppable Tool panel tab.
         /// </summary>
         /// <param name="sprite">Panel tab</param>
         /// <param name="spriteName">Name of sprite to set</param>
-        public void SetTabSprite(UISprite sprite, string spriteName)
+        private void SetTabSprite(UISprite sprite, string spriteName)
         {
             UISprite tabSprite = sprite;
             tabSprite.isInteractive = false;
@@ -416,7 +416,7 @@ namespace PloppableRICO
         /// </summary>
         /// <param name="buildingData">RICO building to add</param>
         /// <param name="uiCategory">UI category</param>
-        public void AddBuildingButton(BuildingData buildingData, string uiCategory)
+        internal void AddBuildingButton(BuildingData buildingData, string uiCategory)
         {
             // Set UI category index for this buildingData instance.
             buildingData.uiCategory = UICategoryIndex(uiCategory);
@@ -510,7 +510,7 @@ namespace PloppableRICO
         /// </summary>
         /// <param name="building">Building to generate for</param>
         /// <returns>A tooltip string</returns>
-        string BuildingTooltip(BuildingData building)
+        private string BuildingTooltip(BuildingData building)
         {
             StringBuilder tooltip = new StringBuilder();
 
@@ -564,7 +564,7 @@ namespace PloppableRICO
         /// Basically, sets the current tool to plop the selected RICO building.
         /// </summary>
         /// <param name="prefab">Selected building prefab</param>
-        void BuildingBClicked(BuildingInfo prefab)
+        public void BuildingBClicked(BuildingInfo prefab)
         {
             var buildingTool = ToolsModifierControl.SetTool<BuildingTool>();
             {
@@ -580,7 +580,7 @@ namespace PloppableRICO
         /// </summary>
         /// <param name="panel">The Ploppable Tool panel for the selected tab</param>
         /// <param name="sprite">The sprite icon for the selected tab</param>
-        void TabClicked(UIScrollablePanel thisPanel, UISprite sprite)
+        public void TabClicked(UIScrollablePanel thisPanel, UISprite sprite)
         {
             // Set current selection.
             currentSelection = thisPanel;
@@ -719,7 +719,7 @@ namespace PloppableRICO
         /// Destroys all building buttons and generates a new set.
         /// Useful for e.g. regenerating thumbnails.
         /// </summary>
-        public static void RebuildButtons()
+        internal void RebuildButtons()
         {
             // Only do this if the ploppable tool has been created.
             if (instance != null)

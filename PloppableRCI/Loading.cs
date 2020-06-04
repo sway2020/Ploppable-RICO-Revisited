@@ -12,20 +12,19 @@ namespace PloppableRICO
     public class Loading : LoadingExtensionBase
     {
         // Internal instances.
-        public GameObject RICODataManager;
-        public static RICOPrefabManager xmlManager;
-        public static ConvertPrefabs convertPrefabs;
+        internal static RICOPrefabManager xmlManager;
+        internal static ConvertPrefabs convertPrefabs;
 
         // RICO definitions.
-        public static PloppableRICODefinition localRicoDef;
-        public static PloppableRICODefinition mod1RicoDef;
-        public static PloppableRICODefinition mod2RicoDef;
+        internal static PloppableRICODefinition localRicoDef;
+        internal static PloppableRICODefinition mod1RicoDef;
+        internal static PloppableRICODefinition mod2RicoDef;
 
         // Internal flags.
         private static bool isModEnabled;
 
         // XML settings file.
-        public static SettingsFile settingsFile;
+        internal static SettingsFile settingsFile;
 
 
         /// <summary>
@@ -54,7 +53,7 @@ namespace PloppableRICO
             }
 
             // Make sure patches have been applied before proceeding.
-            if (!Patcher.patched)
+            if (!Patcher.Patched)
             {
                 Debug.Log("RICO Revisited: Harmony patches not applied, exiting.");
                 isModEnabled = false;

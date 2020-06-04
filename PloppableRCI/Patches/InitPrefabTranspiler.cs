@@ -14,7 +14,7 @@ namespace PloppableRICO
     /// </summary>
     [HarmonyPatch(typeof(BuildingInfo))]
     [HarmonyPatch("InitializePrefab")]
-    public static class InitPrefabTranspiler
+    internal static class InitPrefabTranspiler
     {
         /// <summary>
         /// Harmony transpiler removing two checks from BuildingInfo.InitializePrefab.

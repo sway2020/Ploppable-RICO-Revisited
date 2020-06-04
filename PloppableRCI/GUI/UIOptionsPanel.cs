@@ -11,7 +11,7 @@ namespace PloppableRICO
 
     public class UIBuildingOptions : UIScrollablePanel
     {
-        string[] Service = new string[]
+        private string[] Service = new string[]
         {
             Translations.GetTranslation("None"),
             Translations.GetTranslation("Residential"),
@@ -22,13 +22,13 @@ namespace PloppableRICO
             Translations.GetTranslation("Dummy")
         };
 
-        string[] OfficeSub = new string[]
+        private string[] OfficeSub = new string[]
         {
             Translations.GetTranslation("Generic"),
             Translations.GetTranslation("IT cluster")
         };
 
-        string[] ResSub = new string[]
+        private string[] ResSub = new string[]
         {
             Translations.GetTranslation("High"),
             Translations.GetTranslation("Low"),
@@ -36,7 +36,7 @@ namespace PloppableRICO
             Translations.GetTranslation("Low eco")
         };
 
-        string[] ComSub = new string[]
+        private string[] ComSub = new string[]
         {
             Translations.GetTranslation("High"),
             Translations.GetTranslation("Low"),
@@ -45,7 +45,7 @@ namespace PloppableRICO
             Translations.GetTranslation("Eco (organic)")
         };
 
-        string[] IndustrialSub = new string[]
+        private string[] IndustrialSub = new string[]
         {
             Translations.GetTranslation("Generic"),
             Translations.GetTranslation("Farming"),
@@ -54,7 +54,7 @@ namespace PloppableRICO
             Translations.GetTranslation("Ore")
         };
 
-        string[] ExtractorSub = new string[]
+        private string[] ExtractorSub = new string[]
         {
             Translations.GetTranslation("Farming"),
             Translations.GetTranslation("Forestry"),
@@ -62,19 +62,19 @@ namespace PloppableRICO
             Translations.GetTranslation("Ore")
         };
 
-        string[] DummySub = new string[]
+        private string[] DummySub = new string[]
         {
             Translations.GetTranslation("None")
         };
 
-        string[] Level = new string[]
+        private string[] Level = new string[]
         {
             "1",
             "2",
             "3",
         };
 
-        string[] resLevel = new string[]
+        private string[] resLevel = new string[]
         {
             "1",
             "2",
@@ -83,7 +83,7 @@ namespace PloppableRICO
             "5"
         };
 
-        string[] extLevel = new string[]
+        private string[] extLevel = new string[]
         {
             "1"
         };
@@ -127,10 +127,7 @@ namespace PloppableRICO
         public UIPanel labelpanel;
 
         private static UIBuildingOptions _instance;
-        public static UIBuildingOptions instance
-        {
-            get { return _instance; }
-        }
+        public static UIBuildingOptions instance => _instance;
 
 
         public override void Start()
@@ -241,7 +238,7 @@ namespace PloppableRICO
         }
 
 
-        public void UpdateService(UIComponent c, int value)
+        internal void UpdateService(UIComponent c, int value)
         {
             // Update options panel if the service is changed.
 
@@ -258,7 +255,7 @@ namespace PloppableRICO
         }
 
 
-        public void UpdateSubService(UIComponent c, int value)
+        internal void UpdateSubService(UIComponent c, int value)
         {
             // Update UI category if the subservice is changed.
 
@@ -269,7 +266,7 @@ namespace PloppableRICO
         }
 
 
-        public void SaveRICO()
+        internal void SaveRICO()
         {
             // Reads current settings from UI elements, and saves them to the XMLData.
 
@@ -342,7 +339,7 @@ namespace PloppableRICO
         }
 
 
-        public void SelectionChanged(BuildingData buildingData)
+        internal void SelectionChanged(BuildingData buildingData)
         {
             // Disable the event logic while dropdowns are being updated.
             disableEvents = true;
@@ -425,16 +422,8 @@ namespace PloppableRICO
         }
 
 
-        public void NoSettings()
-        {
 
-            // Hide all options if selected building has no RICO settings.
-
-            ricoEnabled.Disable();
-        }
-
-
-        public void UpdateValues(RICOBuilding buildingData)
+        internal void UpdateValues(RICOBuilding buildingData)
         {
             // Updates the values in the RICO options panel to match the selected building.
 

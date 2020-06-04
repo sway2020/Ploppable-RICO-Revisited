@@ -3,20 +3,21 @@ using ColossalFramework.Math;
 using ColossalFramework;
 using UnityEngine;
 
+
 namespace PloppableRICO
 {
     /// <summary>
     /// Taken from Realistic Population Revisited.  Original by Whitefang Greytail.
     /// Applies exact household and workplace totals, moving citizens if necessary.
     /// </summary>
-    public class RealisticCitizenUnits
+    internal class RealisticCitizenUnits
     {
         private static CitizenManager citizenManager = Singleton<CitizenManager>.instance;
         private static CitizenUnit[] citizenUnitArray = Singleton<CitizenManager>.instance.m_units.m_buffer;
         private static Citizen[] citizenArray = Singleton<CitizenManager>.instance.m_citizens.m_buffer;
 
 
-        public static void EnsureCitizenUnits(ref PrivateBuildingAI __instance, ushort buildingID, ref Building data, int homeCount, int workCount, int visitCount, int studentCount)
+        internal static void EnsureCitizenUnits(ref PrivateBuildingAI __instance, ushort buildingID, ref Building data, int homeCount, int workCount, int visitCount, int studentCount)
         {
             int totalWorkCount = (workCount + 4) / 5;
             int totalVisitCount = (visitCount + 4) / 5;

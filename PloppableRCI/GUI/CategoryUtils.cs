@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace PloppableRICO
+﻿namespace PloppableRICO
 {
  
     public enum Category
@@ -21,14 +16,14 @@ namespace PloppableRICO
         Industrial
     }
 
-    public class CategoryIcons
+    internal class CategoryIcons
     {
 
-        public static readonly string[] atlases = {"Ingame", "Ingame" , "Ingame", "Ingame", "Ingame", "Ingame",
+        internal static readonly string[] atlases = {"Ingame", "Ingame" , "Ingame", "Ingame", "Ingame", "Ingame",
 
             "Thumbnails" , "Thumbnails","Thumbnails", "Thumbnails" };
 
-        public static readonly string[] spriteNames = {
+        internal static readonly string[] spriteNames = {
 
             "ToolbarIconMonuments",
             "ToolbarIconBeautification",
@@ -42,7 +37,7 @@ namespace PloppableRICO
             "ZoningIndustrial"
         };
 
-        public static readonly string[] tooltips = {
+        internal static readonly string[] tooltips = {
             Translations.GetTranslation("Monuments"),
             Translations.GetTranslation("Beautification"),
             Translations.GetTranslation("Education"),

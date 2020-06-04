@@ -1,23 +1,24 @@
 ﻿using UnityEngine;
 using ColossalFramework.UI;
 
+
 namespace PloppableRICO
 {
     public class UIBuildingFilter : UIPanel
     {
         private const int NumOfCategories = 10;
-        public UICheckBox[] zoningToggles;
-        public UIButton allZones;
-        public UIButton noZones;
-        public UITextField nameFilter;
-        public UICheckBox[] settingsFilter;
+        internal UICheckBox[] zoningToggles;
+        private UIButton allZones;
+        private UIButton noZones;
+        internal UITextField nameFilter;
+        internal UICheckBox[] settingsFilter;
 
-        public bool IsZoneSelected(Category zone)
+        internal bool IsZoneSelected(Category zone)
         {
             return zoningToggles[(int)zone].isChecked;
         }
 
-        public bool IsAllZoneSelected()
+        internal bool IsAllZoneSelected()
         {
             return zoningToggles[(int)Category.Monument].isChecked &&
                 zoningToggles[(int)Category.Beautification].isChecked &&
@@ -32,14 +33,14 @@ namespace PloppableRICO
         }
 
 
-        public string buildingName
+        internal string buildingName
         {
             get { return nameFilter.text.Trim(); }
         }
 
         public event PropertyChangedEventHandler<int> eventFilteringChanged;
 
-        public void Setup()
+        internal void Setup()
         {
             base.Start();
 
@@ -184,7 +185,7 @@ namespace PloppableRICO
         /// Sets the category toggles so that the one that includes the provided category is on, and the rest are off.
         /// </summary>
         /// <param name="buildingClass">RICO category of the building (to match toggle categories)</param>
-        public void SelectBuildingCategory(Category category)
+        internal void SelectBuildingCategory(Category category)
         {
             // Iterate through each category.
             for (int i = 0; i < NumOfCategories; i ++)

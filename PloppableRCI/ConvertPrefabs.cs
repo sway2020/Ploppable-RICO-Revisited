@@ -8,14 +8,14 @@ namespace PloppableRICO
     ///This class assigns the RICO settings to the prefabs. 
     /// </summary>
     ///
-    public class ConvertPrefabs
+    internal class ConvertPrefabs
     {
         /// <summary>
         /// Interpret and apply RICO settings to a building prefab.
         /// </summary>
         /// <param name="buildingData">RICO building data to apply</param>
         /// <param name="prefab">The building prefab to be changed</param>
-        public void ConvertPrefab(RICOBuilding buildingData, BuildingInfo prefab)
+        internal void ConvertPrefab(RICOBuilding buildingData, BuildingInfo prefab)
         {
             if (prefab != null)
             {
@@ -228,7 +228,7 @@ namespace PloppableRICO
         /// <param name="ai">The building AI to apply.</param>
         /// <param name="aiClass">The AI class string to apply.</param>
         /// <param name="growable">Whether the prefab should be growable.</param>
-        public static void InitializePrefab(BuildingInfo prefab, BuildingAI ai, String aiClass, bool growable)
+        private void InitializePrefab(BuildingInfo prefab, BuildingAI ai, String aiClass, bool growable)
         {
             // Non-zero construction time important for other mods (Real Time, Real Construction) - only for private building AIs.
             if (ai is PrivateBuildingAI)

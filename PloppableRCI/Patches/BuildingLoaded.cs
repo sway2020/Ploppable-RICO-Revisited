@@ -14,9 +14,9 @@ namespace PloppableRICO
     [HarmonyPatch(typeof(PrivateBuildingAI))]
     [HarmonyPatch("BuildingLoaded")]
     [HarmonyPriority(Priority.VeryHigh)]
-    class RICOBuildingLoaded
+    internal static class RICOBuildingLoaded
     {
-		public static bool Prefix(ref PrivateBuildingAI __instance, ushort buildingID, ref Building data, uint version)
+		private static bool Prefix(ref PrivateBuildingAI __instance, ushort buildingID, ref Building data, uint version)
 		{
 			// Check to see if we've preloaded a local settings file.
 			if (Loading.localRicoDef != null)
@@ -107,7 +107,7 @@ namespace PloppableRICO
 		/// <param name="studentCount">Student count (for game method)</param>
 		[HarmonyReversePatch]
 		[HarmonyPatch((typeof(BuildingAI)), "EnsureCitizenUnits")]
-		public static void EnsureCitizenUnitsRev(object instance, ushort buildingID, ref Building data, int homeCount, int workCount, int visitCount, int studentCount)
+		private static void EnsureCitizenUnitsRev(object instance, ushort buildingID, ref Building data, int homeCount, int workCount, int visitCount, int studentCount)
 		{
 			string message = "Ploppable RICO Revisited: EnsureCitizenUnits reverse Harmony patch wasn't applied.";
 			Debug.Log(message);

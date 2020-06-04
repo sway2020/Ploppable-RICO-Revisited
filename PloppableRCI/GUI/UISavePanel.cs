@@ -25,11 +25,8 @@ namespace PloppableRICO
 
 
         private static UISavePanel _instance;
-        public static UISavePanel instance
-
-        {
-            get { return _instance; }
-        }
+        public static UISavePanel instance=> _instance;
+        
 
         public override void Start()
         {
@@ -233,7 +230,7 @@ namespace PloppableRICO
             };
         }
 
-        public void Save()
+        private void Save()
         {
 
             RICOSettingsPanel.instance.Save();
