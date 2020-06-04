@@ -4,11 +4,9 @@ using HarmonyLib;
 
 namespace PloppableRICO
 {
-
 	/// <summary>
 	///This detours the CheckCollidingBuildngs method in BuildingTool. Its based on boformers Larger Footprints mod. Many thanks to him for his work. 
 	/// </summary>
-
 	[HarmonyPatch(typeof(BuildingTool))]
 	[HarmonyPatch("IsImportantBuilding")]
 	[HarmonyPatch(new Type[] { typeof(BuildingInfo), typeof(Building) },

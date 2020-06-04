@@ -1,4 +1,7 @@
-﻿Version 2.1
+﻿- Add exception catcher for monuments panel setup (stop game hanging during load due to no valid monuments)
+
+
+Version 2.1
 
 - Add mod options panel setting for plain or skybox thumbnail backgrounds
 - Add mod options panel setting for extra debugging logging and reduce default logging detail

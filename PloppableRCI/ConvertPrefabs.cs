@@ -7,7 +7,6 @@ namespace PloppableRICO
     /// <summary>
     ///This class assigns the RICO settings to the prefabs. 
     /// </summary>
-    ///
     internal class ConvertPrefabs
     {
         /// <summary>
