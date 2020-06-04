@@ -93,6 +93,7 @@ namespace PloppableRICO
             { "Allows Plopping of RICO Buildings (fork of AJ3D's original with bugfixes and new features)", "允许对RICO建筑（AJ3D原始版本的分叉，带有错误修复和新功能）进行噗通" },
             { "Use plain backgrounds for thumbnails", "将纯背景用作缩略图" },
             { "Enable additional debugging logging", "启用其他调试日志记录" },
+            { "Force reset of existing building stats on game load", "在游戏加载时强制重置现有建筑统计数据" },
             { "Regenerate thumbnails", "重新生成缩略图" },
             { "Original Ploppable RICO mod detected - RICO Revisited is shutting down to protect your game.\r\n\r\nOnly ONE of these mods can be enabled at the same time - please choose one and unsubscribe from the other!", "请取消原先版本的Ploppable RICO" },
             { "Enhanced Building Capacity mod detected - RICO Revisited is shutting down to protect your game.\r\n\r\nOnly ONE of these mods can be enabled at the same time - please choose one and unsubscribe from the other!", "请取消原先版本的Enhanced Building Capacity" },

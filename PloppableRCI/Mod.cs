@@ -48,19 +48,26 @@ namespace PloppableRICO
             // Read configuration file.
             SettingsFile settingsFile = Configuration<SettingsFile>.Load();
 
-            // Add thumbnail background checkbox.
-            helper.AddCheckbox(Translations.GetTranslation("Use plain backgrounds for thumbnails"), settingsFile.PlainThumbs, isChecked =>
-            {
-                Settings.plainThumbs = isChecked;
-                settingsFile.PlainThumbs = isChecked;
-                Configuration<SettingsFile>.Save();
-            });
-
             // Add logging checkbox.
             helper.AddCheckbox(Translations.GetTranslation("Enable additional debugging logging"), settingsFile.DebugLogging, isChecked =>
             {
                 Settings.debugLogging = isChecked;
                 settingsFile.DebugLogging = isChecked;
+                Configuration<SettingsFile>.Save();
+            });
+
+            // Add reset on load checkbox.
+            helper.AddCheckbox(Translations.GetTranslation("Force reset of existing building stats on game load"), settingsFile.ResetOnLoad, isChecked =>
+            {
+                settingsFile.ResetOnLoad = isChecked;
+                Configuration<SettingsFile>.Save();
+            });
+
+            // Add thumbnail background checkbox.
+            helper.AddCheckbox(Translations.GetTranslation("Use plain backgrounds for thumbnails"), settingsFile.PlainThumbs, isChecked =>
+            {
+                Settings.plainThumbs = isChecked;
+                settingsFile.PlainThumbs = isChecked;
                 Configuration<SettingsFile>.Save();
             });
 

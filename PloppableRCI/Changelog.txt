@@ -1,4 +1,5 @@
-﻿- Add exception catcher for monuments panel setup (stop game hanging during load due to no valid monuments)
+﻿- Add mod options panel setting to toggle forced update of existing building stats on game load
+- Add exception catcher for monuments panel setup (stop game hanging during load due to no valid monuments)
 
 
 Version 2.1

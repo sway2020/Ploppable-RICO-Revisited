@@ -7,6 +7,7 @@
     {
         internal static bool plainThumbs = false;
         internal static bool debugLogging = false;
+        internal static bool resetOnLoad = true;
     }
 
 
@@ -22,5 +23,6 @@
         public int NotificationVersion { get; set; } = 0;
         public bool PlainThumbs { get; set; } = false;
         public bool DebugLogging { get; set; } = false;
+        public bool ResetOnLoad { get; set; } = true;
     }
 }

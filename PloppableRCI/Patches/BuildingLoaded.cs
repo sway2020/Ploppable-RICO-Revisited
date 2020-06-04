@@ -19,6 +19,13 @@ namespace PloppableRICO
     {
 		private static bool Prefix(ref PrivateBuildingAI __instance, ushort buildingID, ref Building data, uint version)
 		{
+			// Don't do anything if the flag isn't set.
+			if (!Settings.resetOnLoad)
+            {
+				// Carry on to original method.
+				return true;
+            }
+
 			// Check to see if we've preloaded a local settings file.
 			if (Loading.localRicoDef != null)
 			{

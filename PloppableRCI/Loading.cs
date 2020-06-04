@@ -4,6 +4,8 @@ using ICities;
 using UnityEngine;
 
 
+using CitiesHarmony.API;
+
 namespace PloppableRICO
 {
     /// <summary>
@@ -82,7 +84,8 @@ namespace PloppableRICO
             SettingsFile settingsFile = Configuration<SettingsFile>.Load();
             Settings.plainThumbs = settingsFile.PlainThumbs;
             Settings.debugLogging = settingsFile.DebugLogging;
-
+            Settings.resetOnLoad = settingsFile.ResetOnLoad;
+            
             // Read any local RICO settings.
             string ricoDefPath = "LocalRICOSettings.xml";
             localRicoDef = null;
