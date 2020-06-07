@@ -75,6 +75,8 @@
     <Compile Include="GUI\UIPreviewRenderer.cs" />
     <Compile Include="GUI\UIThumbnails.cs" />
     <Compile Include="ModUtils.cs" />
+    <Compile Include="Notifications\ConflictNotification.cs" />
+    <Compile Include="Notifications\ErrorNotification.cs" />
     <Compile Include="Patches\BuildingLoaded.cs" />
     <Compile Include="Patches\MonumentsPatch.cs" />
     <Compile Include="Patches\RealisticCitizenUnits.cs" />
@@ -83,7 +85,7 @@
     <Compile Include="Patches\InitPrefabTranspiler.cs" />
     <Compile Include="Settings\Settings.cs" />
     <Compile Include="Settings\SettingsXML.cs" />
-    <Compile Include="Settings\UpdateNotification.cs" />
+    <Compile Include="Notifications\UpdateNotification.cs" />
     <Compile Include="Translations.cs" />
     <Compile Include="ConvertPrefabs.cs" />
     <Compile Include="GUI\CategoryUtils.cs" />

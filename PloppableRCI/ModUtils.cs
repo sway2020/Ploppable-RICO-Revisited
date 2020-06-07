@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
-using ColossalFramework.UI;
 using ColossalFramework.Plugins;
 using ColossalFramework.Packaging;
 
@@ -91,6 +90,7 @@ namespace PloppableRICO
             {
                 ConflictNotification notification = new ConflictNotification();
                 notification.Create();
+                notification.instance.messageText = conflictMessage;
                 notification.Show();
             }
         }
@@ -143,113 +143,6 @@ namespace PloppableRICO
 
             // If we've made it here, then we haven't found a matching assembly.
             return false;
-        }
-    }
-
-    
-    /// <summary>
-    /// A simple UI panel to show any mod conflict notifications.
-    /// </summary>
-    class ConflictNotification : UIPanel
-    {
-        // Constants.
-        private const float panelWidth = 450;
-        private const float panelHeight = 200;
-        private const float spacing = 10;
-
-        // Instance references.
-        private static GameObject uiGameObject;
-        private static ConflictNotification _instance;
-
-
-        /// <summary>
-        /// Creates the panel object in-game.
-        /// </summary>
-        internal void Create()
-        {
-            try
-            {
-                // Destroy existing (if any) instances.
-                uiGameObject = GameObject.Find("RICORevisitedConflictNotification");
-                if (uiGameObject != null)
-                {
-                    UnityEngine.Debug.Log("RICO Revisited: found existing upgrade notification instance.");
-                    GameObject.Destroy(uiGameObject);
-                }
-
-                // Create new instance.
-                // Give it a unique name for easy finding with ModTools.
-                uiGameObject = new GameObject("RICORevisitedConflictNotification");
-                uiGameObject.transform.parent = UIView.GetAView().transform;
-                _instance = uiGameObject.AddComponent<ConflictNotification>();
-            }
-            catch (Exception e)
-            {
-                UnityEngine.Debug.LogException(e);
-            }
-        }
-
-
-        /// <summary>
-        /// Sets up the panel; called by Unity just before any of the Update methods is called for the first time..
-        /// </summary>
-        public override void Start()
-        {
-            base.Start();
-
-            try
-            {
-                // Basic setup.
-                isVisible = true;
-                canFocus = true;
-                isInteractive = true;
-                width = panelWidth;
-                height = panelHeight;
-                relativePosition = new Vector3(Mathf.Floor((GetUIView().fixedWidth - width) / 2), Mathf.Floor((GetUIView().fixedHeight - height) / 2));
-                backgroundSprite = "UnlockingPanel2";
-
-                // Put behind other things.
-                zOrder = 1;
-
-                // Title.
-                UILabel title = this.AddUIComponent<UILabel>();
-                title.relativePosition = new Vector3(0, spacing);
-                title.textAlignment = UIHorizontalAlignment.Center;
-                title.text = "Ploppable RICO Revisited: mod conflict";
-                title.textScale = 1.0f;
-                title.autoSize = false;
-                title.width = this.width;
-
-                // Note 1.
-                UILabel note1 = this.AddUIComponent<UILabel>();
-                note1.relativePosition = new Vector3(spacing, 40);
-                note1.textAlignment = UIHorizontalAlignment.Left;
-                note1.text = ModUtils.conflictMessage;
-                note1.textScale = 0.8f;
-                note1.autoSize = false;
-                note1.autoHeight = true;
-                note1.width = this.width - (spacing * 2);
-                note1.wordWrap = true;
-
-                // Close button.
-                UIButton closeButton = UIUtils.CreateButton(this);
-                closeButton.width = 200;
-                closeButton.relativePosition = new Vector3((this.width - closeButton.width) / 2, this.height - closeButton.height - spacing);
-                closeButton.text = "Close";
-                closeButton.Enable();
-
-                // Event handler.
-                closeButton.eventClick += (c, p) =>
-                {
-                    // Just hide this panel and destroy the game object - nothing more to do this load.
-                    this.Hide();
-                    GameObject.Destroy(uiGameObject);
-                };
-            }
-            catch (Exception e)
-            {
-                UnityEngine.Debug.LogException(e);
-            }
         }
     }
 }
