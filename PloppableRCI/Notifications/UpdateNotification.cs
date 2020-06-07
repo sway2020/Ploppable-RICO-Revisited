@@ -44,7 +44,7 @@ namespace PloppableRICO
                 noShowButton.eventClick += (control, clickEvent) =>
                 {
                     // Update and save settings file.
-                    Loading.settingsFile.NotificationVersion = 3;
+                    Loading.settingsFile.NotificationVersion = 2;
                     Configuration<SettingsFile>.Save();
 
                     // Just hide this panel and destroy the game object - nothing more to do.
