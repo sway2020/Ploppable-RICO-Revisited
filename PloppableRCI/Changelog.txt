@@ -1,4 +1,7 @@
-﻿Version 2.1.1
+﻿- Add mod compatibility check for old Painter mod
+
+
+Version 2.1.1
 
 - Add mod options panel setting to toggle forced update of existing building stats on game load
 - Add exception catcher for monuments panel setup (stop game hanging during load due to no valid monuments)

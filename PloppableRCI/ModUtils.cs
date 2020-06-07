@@ -48,6 +48,14 @@ namespace PloppableRICO
                 conflictMessage = Translations.GetTranslation("Enhanced Building Capacity mod detected - RICO Revisited is shutting down to protect your game.\r\n\r\nnOnly ONE of these mods can be enabled at the same time - please choose one and unsubscribe from the other!");
                 return false;
             }
+            else if (IsModInstalled(1372431101ul))
+            {
+                // Painter mod detected.
+                conflictingMod = true;
+                Debug.Log("Painter detected - RICO Revisited exiting.");
+                conflictMessage = Translations.GetTranslation("Old Painter mod detected - RICO Revisited is shutting down to protect your game.\r\n\r\nThe old Painter mod causes problems with the Harmony libraries used by this mod, resulting in random errors.  Please UNSUBSCRIBE from Painter (merely disabling is NOT sufficient); the Repaint mod can be used as a replacement.");
+                return false;
+            }
 
             // No conflicts - now check for realistic population mods.
             realPopEnabled = (IsModEnabled("RealPopRevisited") || IsModEnabled("WG_BalancedPopMod"));
@@ -85,6 +93,17 @@ namespace PloppableRICO
                 notification.Create();
                 notification.Show();
             }
+        }
+
+
+        /// <summary>
+        /// Checks to see if another mod is installed, based on a provided Steam Workshop ID.
+        /// </summary>
+        /// <param name="id">Steam workshop ID</param>
+        /// <returns>True if the mod is installed and enabled, false otherwise</returns>
+        internal static bool IsModInstalled(UInt64 id)
+        {
+            return PluginManager.instance.GetPluginsInfo().Any(mod => (mod.publishedFileID.AsUInt64 == id));
         }
 
 
