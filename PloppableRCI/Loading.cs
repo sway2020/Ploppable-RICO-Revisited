@@ -2,9 +2,7 @@ using System.IO;
 using System.Collections.Generic;
 using ICities;
 using UnityEngine;
-
-
-using CitiesHarmony.API;
+using HarmonyLib;
 
 namespace PloppableRICO
 {
@@ -24,6 +22,7 @@ namespace PloppableRICO
 
         // Internal flags.
         private static bool isModEnabled;
+        internal static bool patchOperating;
 
         // XML settings file.
         internal static SettingsFile settingsFile;
@@ -64,7 +63,10 @@ namespace PloppableRICO
 
             // Otherwise, game on!
             Debug.Log("RICO Revisited v" + PloppableRICOMod.Version + " loading.");
-            
+
+            // Ensure patch watchdog flag is properly initialised.
+            patchOperating = false;
+
             // Create instances if they don't already exist.
             if (convertPrefabs == null)
             {
@@ -130,10 +132,23 @@ namespace PloppableRICO
 
             // Don't do anything if in asset editor.
             if (mode == LoadMode.NewAsset || mode == LoadMode.LoadAsset)
+            {
                 return;
+            }
 
             // Wait for loading to fully complete.
             while (!LoadingManager.instance.m_loadingComplete) { }
+
+            // Check watchdog flag.
+            if (!patchOperating)
+            {
+                // Patch wasn't operating; display warning notification and exit.
+                HarmonyNotification notification = new HarmonyNotification();
+                notification.Create();
+                notification.Show();
+
+                return;
+            }
 
             // Init GUI.
             RICOSettingsPanel.Create();

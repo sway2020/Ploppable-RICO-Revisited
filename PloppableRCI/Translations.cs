@@ -101,6 +101,8 @@ namespace PloppableRICO
             { "New mod options panel (accessed via game options), including option for plain thumbnail backgrounds.\r\n\r\nAdjusted lighting of thumnail image renders to help users with over-saturated map themes.\r\n\r\nLocal RICO settings created from existing growable buildings will be growable by default and inherit the default household/workplace counts of the original.\r\n\r\nAdditional failsafes to reduce risk of residential building household counts being reduced on game load if your city is close to hitting internal game limits.", "新的mod选项面板（可通过游戏选项访问），包括纯缩略图背景的选项\r\n\r\n调整后的缩略图图像照明可以帮助用户使用饱和度更高的地图主题\r\n\r\n从现有可增长建筑物创建的本地RICO设置将默认为可增长，并继承原始建筑物的默认家庭/工作场所计数\r\n\r\n代如果您的城市接近内部游戏限制，则额外的故障保护措施可减少住宅建筑的家庭人数减少游戏负荷的风险" },
             { "Close", "关" },
             { "Don't show again", "不再显示" },
+            { "Ploppable RICO Revisited was unable to complete its required Harmony patches.  This means that the mod is not able to operate, and has shut down to protect your save file from damage.\r\n\r\nPossible causes of this problem include:", "可重新访问的RICO无法完成其所需的Harmony补丁。这意味着它无法运行，并且已经关闭以保护您的保存文件不受损坏\r\n\r\n此问题的可能原因包括" },
+            { "The required Harmony 2 mod dependency was not installed\r\n\r\nAn old and/or broken mod is preventing Harmony 2 from operating properly (the old Painter mod is known to cause this)", "未安装所需的Harmony 2 mod依赖项\r\n\r\n旧的和/或损坏的mod阻止Harmony 2正常运行（已知旧的Painter mod导致了此问题" },
             { "", "" }
         };
 
