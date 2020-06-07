@@ -11,7 +11,7 @@ namespace PloppableRICO
 	/// Doing it this way (as opposed to the previous approach of changing prefab settings after initialization) solves a whole lot of issues,
 	/// and opens a lot of doors.
 	/// </summary>
-	//[HarmonyPatch(typeof(BuildingInfo), "InitializePrefab")]
+	[HarmonyPatch(typeof(BuildingInfo), "InitializePrefab")]
 	internal static class InitPatch
 	{
 		/// <summary>
