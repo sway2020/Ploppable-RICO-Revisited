@@ -292,6 +292,12 @@ namespace PloppableRICO
                 showSettings.normalBgSprite = "SubBarButtonBase";
                 showSettings.text = Translations.GetTranslation("Settings");
                 showSettings.eventClick += (component, clickEvent) => RICOSettingsPanel.instance.Toggle();
+
+                // Toggle active state on visibility changed (deactivating when hidden to minimise UI workload and impact on performance).
+                BuildingPanel.eventVisibilityChanged += (component, isVisible) =>
+                {
+                    BuildingPanel.gameObject.SetActive(isVisible);
+                };
             }
         }
 

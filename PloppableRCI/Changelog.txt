@@ -1,4 +1,9 @@
-﻿- Add check to ensure that InitPrefab patch has applied and operated
+﻿- Perfomance improvement: deactivate ploppable panel when not visible
+
+
+Version 2.1.2
+
+- Add check to ensure that InitPrefab patch has applied and operated
 - Add mod compatibility check for old Painter mod
 - Streamlined notification messaging
 

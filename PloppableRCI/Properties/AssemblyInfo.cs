@@ -20,6 +20,7 @@ using System.Runtime.CompilerServices;
 
 [assembly: AssemblyVersion("2.1.2")]
 [assembly: ComVisible(false)]
+[assembly: AssemblyFileVersion("2.1.2")]
 
 // The following attributes are used to specify the signing key for the assembly,
 // if desired. See the Mono documentation for more information about signing.
