@@ -17,12 +17,10 @@ namespace PloppableRICO
 
 
         /// <summary>
-        /// Create the titlebar; called by Unity just before any of the Update methods is called for the first time.
+        /// Create the titlebar; we no longer use Start() as that's not sufficiently reliable (race conditions), and is no longer needed, with the new create/destroy process.
         /// </summary>
-        public override void Start()
+        public override void Setup()
         {
-            base.Start();
-
             // Basic setup.
             width = parent.width;
             height = RICOSettingsPanel.titleHeight;

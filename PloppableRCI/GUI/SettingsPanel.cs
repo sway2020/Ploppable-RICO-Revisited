@@ -8,6 +8,9 @@ using ColossalFramework.UI;
 
 namespace PloppableRICO
 {
+    /// <summary>
+    /// Settings panel manager static class.
+    /// </summary>
     public static class SettingsPanel
     {
         // Instance references.
@@ -185,6 +188,7 @@ namespace PloppableRICO
 
                 // Titlebar.
                 titleBar = AddUIComponent<UITitleBar>();
+                titleBar.Setup();
 
                 // Filter.
                 filterBar = AddUIComponent<UIBuildingFilter>();
