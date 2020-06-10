@@ -21,13 +21,12 @@ namespace PloppableRICO
         private BuildingData currentSelection;
         private BuildingInfo renderPrefab;
 
-        /// <summary>
-        /// Create the panel; called by Unity just before any of the Update methods is called for the first time.
-        /// </summary>
-        public override void Start()
-        {
-            base.Start();
 
+        /// <summary>
+        /// Performs initial setup for the panel; we no longer use Start() as that's not sufficiently reliable (race conditions), and is no longer needed, with the new create/destroy process.
+        /// </summary>
+        internal void Setup()
+        {
             // Set background and sprites.
             backgroundSprite = "GenericPanel";
 
@@ -101,7 +100,7 @@ namespace PloppableRICO
         {
             // Update current selection to the new building.
             currentSelection = building;
-            renderPrefab = (currentSelection == null) ? null : (PrefabCollection<BuildingInfo>.FindLoaded(currentSelection.name));
+            renderPrefab = (currentSelection == null || currentSelection.name == null) ? null : (PrefabCollection<BuildingInfo>.FindLoaded(currentSelection.name));
 
             // Generate render if there's a selection with a mesh.
             if (renderPrefab != null && renderPrefab.m_mesh != null)

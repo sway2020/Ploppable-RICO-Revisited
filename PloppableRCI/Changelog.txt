@@ -1,4 +1,5 @@
-﻿- Perfomance improvement: deactivate ploppable panel when not visible
+﻿- Performance improvement: deactivate ploppable panel when not visible
+- Performance improvement: destroy settings panel when not visible
 
 
 Version 2.1.2

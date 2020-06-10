@@ -26,12 +26,13 @@ namespace PloppableRICO
 
         private static UISavePanel _instance;
         public static UISavePanel instance=> _instance;
-        
 
-        public override void Start()
+
+        /// <summary>
+        /// Performs initial setup for the panel; we no longer use Start() as that's not sufficiently reliable (race conditions), and is no longer needed, with the new create/destroy process.
+        /// </summary>
+        internal void Setup()
         {
-            base.Start();
-
             _instance = this;
             isVisible = true;
             canFocus = true;
@@ -140,11 +141,11 @@ namespace PloppableRICO
                     // Update settings panel with new settings if RICO is enabled for this building.
                     if (enabled)
                     {
-                        RICOSettingsPanel.instance.UpdateSelectedBuilding(currentSelection);
-                        RICOSettingsPanel.instance.UpdateSelection();
+                        SettingsPanel.Panel.UpdateSelectedBuilding(currentSelection);
+                        SettingsPanel.Panel.UpdateSelection();
 
                         // Update UI category.
-                        RICOSettingsPanel.instance.UpdateUICategory();
+                        SettingsPanel.Panel.UpdateUICategory();
                     }
                     Save();
                 }
@@ -162,9 +163,9 @@ namespace PloppableRICO
                 currentSelection.local = null;
                 currentSelection.hasLocal = false;
 
-                RICOSettingsPanel.instance.UpdateSelectedBuilding(currentSelection);
+                SettingsPanel.Panel.UpdateSelectedBuilding(currentSelection);
 
-                if (enabled) RICOSettingsPanel.instance.UpdateSelection();
+                if (enabled) SettingsPanel.Panel.UpdateSelection();
                 Save();
 
             };
@@ -218,7 +219,7 @@ namespace PloppableRICO
                     UpdateHouseholds(currentBuildingData.prefab.name, currentData.level);
 
                     // Create new building button.
-                    PloppableTool.instance.AddBuildingButton(currentBuildingData, CurrentUICategory());
+                    PloppableTool.Instance.AddBuildingButton(currentBuildingData, CurrentUICategory());
                 }
                 else
                 {
@@ -226,14 +227,14 @@ namespace PloppableRICO
                 }
 
                 // Force an update of all panels with current values.
-                RICOSettingsPanel.instance.UpdateSelectedBuilding(currentSelection);
+                SettingsPanel.Panel.UpdateSelectedBuilding(currentSelection);
             };
         }
 
         private void Save()
         {
 
-            RICOSettingsPanel.instance.Save();
+            SettingsPanel.Panel.Save();
 
             if (!File.Exists("LocalRICOSettings.xml"))
             {
@@ -282,7 +283,7 @@ namespace PloppableRICO
             }
 
             // Force an update of all panels with current values.
-            RICOSettingsPanel.instance.UpdateSelectedBuilding(currentSelection);
+            SettingsPanel.Panel.UpdateSelectedBuilding(currentSelection);
         }
 
         private string GetRICOService()

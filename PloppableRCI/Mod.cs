@@ -72,7 +72,7 @@ namespace PloppableRICO
             });
 
             // Add regenerate thumbnails button.
-            helper.AddButton(Translations.GetTranslation("Regenerate thumbnails"), () => PloppableTool.instance.RebuildButtons());
+            helper.AddButton(Translations.GetTranslation("Regenerate thumbnails"), () => PloppableTool.Instance.RebuildButtons());
         }
     }
 }

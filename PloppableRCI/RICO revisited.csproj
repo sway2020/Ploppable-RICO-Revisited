@@ -94,7 +94,7 @@
     <Compile Include="GUI\SettingsPanel.cs" />
     <Compile Include="GUI\UIBuildingFilter.cs" />
     <Compile Include="GUI\UIBuildingRow.cs" />
-    <Compile Include="GUI\UIBuildingPreview.cs" />
+    <Compile Include="GUI\UIPreviewPanel.cs" />
     <Compile Include="GUI\UIOptionsPanel.cs" />
     <Compile Include="GUI\UISavePanel.cs" />
     <Compile Include="GUI\UITitlebar.cs" />

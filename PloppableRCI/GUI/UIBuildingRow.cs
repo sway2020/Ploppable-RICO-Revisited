@@ -61,7 +61,6 @@ namespace PloppableRICO
         }
 
 
-
         /// <summary>
         /// Mouse click event handler - updates the selected building to what was clicked.
         /// </summary>
@@ -69,8 +68,9 @@ namespace PloppableRICO
         protected override void OnClick(UIMouseEventParameter p)
         {
             base.OnClick(p);
-            RICOSettingsPanel.instance.UpdateSelectedBuilding(buildingData);
+            SettingsPanel.Panel.UpdateSelectedBuilding(buildingData);
         }
+
 
         /// <summary>
         /// Generates and displays a building row.

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 using ColossalFramework.UI;
 using UnityEngine;
 
@@ -8,9 +9,9 @@ namespace PloppableRICO
     /// <summary>
     ///The far right column of the settigns panel. Contains the drop downs and entry fields that allows players to assign RICO settings. 
     /// </summary>
-
     public class UIBuildingOptions : UIScrollablePanel
     {
+        // Whole buncha UI strings.
         private string[] Service = new string[]
         {
             Translations.GetTranslation("None"),
@@ -88,14 +89,25 @@ namespace PloppableRICO
             "1"
         };
 
+        // Flages.
         public bool disableEvents;
+
+        // Selection.
         public RICOBuilding currentSelection;
+
+        // Panel components.
+        // Panel title.
+        public UILabel label;
+        public UIPanel labelpanel;
+
         // Enable RICO.
         public UICheckBox ricoEnabled;
         public UIPanel enableRICOPanel;
 
+        // Growable.
         public UICheckBox growable;
 
+        // Fundamental attributes.
         public UIDropDown service;
         public UIDropDown subService;
         public UIDropDown level;
@@ -114,61 +126,57 @@ namespace PloppableRICO
         public UICheckBox pollutionEnabled;
         public UIPanel pollutionPanel;
 
+        // Realistic population.
         public UICheckBox realityIgnored;
-        public UICheckBox manualWorkersEnabled;
-        public UIPanel manualPanel;
+        //public UICheckBox manualWorkersEnabled;
+        //public UIPanel manualPanel;
 
         // Construction.
         public UICheckBox constructionCostEnabled;
         public UIPanel constructionPanel;
         public UITextField construction;
 
-        public UILabel label;
-        public UIPanel labelpanel;
 
-        private static UIBuildingOptions _instance;
-        public static UIBuildingOptions instance => _instance;
-
-
-        public override void Start()
+        /// <summary>
+        /// Performs initial setup for the panel; we no longer use Start() as that's not sufficiently reliable (race conditions), and is no longer needed, with the new create/destroy process.
+        /// </summary>
+        internal void Setup()
         {
-            base.Start();
-
-            _instance = this;
+            // Basic setup.
             isVisible = true;
             canFocus = true;
             isInteractive = true;
             backgroundSprite = "UnlockingPanel";
+
+            // Layout.
             autoLayout = true;
             autoLayoutDirection = LayoutDirection.Vertical;
             autoLayoutPadding.top = 5;
             autoLayoutPadding.right = 5;
-            builtinKeyNavigation = true;
             clipChildren = true;
-            freeScroll = false;
-            scrollWheelDirection = UIOrientation.Vertical;
-            verticalScrollbar = new UIScrollbar();
-            scrollWheelAmount = 10;
-            verticalScrollbar.stepSize = 1f;
-            verticalScrollbar.incrementAmount = 10f;
-            SetupControls();
-        }
 
+            // Controls.
+            builtinKeyNavigation = true;
+            //freeScroll = false;
+            //scrollWheelDirection = UIOrientation.Vertical;
+            //verticalScrollbar = new UIScrollbar();
+            //scrollWheelAmount = 10;
+            //verticalScrollbar.stepSize = 1f;
+            //verticalScrollbar.incrementAmount = 10f;
 
-        private void SetupControls()
-        {
             // Subpanels.
             labelpanel = this.AddUIComponent<UIPanel>();
             labelpanel.height = 20;
 
+            // Title panel.
             label = labelpanel.AddUIComponent<UILabel>();
             label.relativePosition = new Vector3(80, 0);
             label.width = 270;
             label.textAlignment = UIHorizontalAlignment.Center;
             label.text = Translations.GetTranslation("No settings");
 
+            // RICO enabled.
             ricoEnabled = UIUtils.CreateCheckBar(this, Translations.GetTranslation("Enable RICO"));
-
             enableRICOPanel = this.AddUIComponent<UIPanel>();
             enableRICOPanel.height = 0;
             enableRICOPanel.isVisible = false;
@@ -188,21 +196,24 @@ namespace PloppableRICO
                 }
             };
 
-            // Dropdown menus.
+            // Dropdown menu - service.
             service = UIUtils.CreateDropDown(enableRICOPanel, 30, Translations.GetTranslation("Service"));
             service.items = Service;
             service.selectedIndex = 0;
             service.eventSelectedIndexChanged += UpdateService;
 
+
+            // Dropdown menu - sub-service.
             subService = UIUtils.CreateDropDown(enableRICOPanel, 60, Translations.GetTranslation("Sub-service"));
             subService.selectedIndex = 0;
-            // Update UI category when subservice changes.
             subService.eventSelectedIndexChanged += UpdateSubService;
 
+            // Dropdown menu - UI category.
             uiCategory = UIUtils.CreateDropDown(enableRICOPanel, 90, Translations.GetTranslation("UI category"));
             uiCategory.selectedIndex = 0;
             uiCategory.items = Translations.UICategory;
 
+            // Dropdown menu - building level.
             level = UIUtils.CreateDropDown(enableRICOPanel, 120, Translations.GetTranslation("Level"));
             level.selectedIndex = 0;
             level.items = Level;
@@ -238,27 +249,53 @@ namespace PloppableRICO
         }
 
 
-        internal void UpdateService(UIComponent c, int value)
+        /// <summary>
+        /// Event handler - updates the options panel when the service dropdown is changed.
+        /// </summary>
+        /// <param name="component">Calling component (ignored)</param>
+        /// <param name="value">New service dropdown selected index</param>
+        public void UpdateService(UIComponent component, int value)
         {
-            // Update options panel if the service is changed.
-
+            // Ignore event if disabled flag is set.
             if (!disableEvents)
             {
-                if (value == 0) UpdateElements("none");
-                else if (value == 1) UpdateElements("residential");
-                else if (value == 2) UpdateElements("industrial");
-                else if (value == 3) UpdateElements("office");
-                else if (value == 4) UpdateElements("commercial");
-                else if (value == 5) UpdateElements("extractor");
-                else if (value == 6) UpdateElements("dummy");
+                // Translate index to relevant UpdateElements parameter.
+                switch(value)
+                {
+                    case 0:
+                        UpdateElements("none");
+                        break;
+                    case 1:
+                        UpdateElements("residential");
+                        break;
+                    case 2:
+                        UpdateElements("industrial");
+                        break;
+                    case 3:
+                        UpdateElements("office");
+                        break;
+                    case 4:
+                        UpdateElements("commercial");
+                        break;
+                    case 5:
+                        UpdateElements("extractor");
+                        break;
+                    case 6:
+                        UpdateElements("dummy");
+                        break;
+                }
             }
         }
 
 
-        internal void UpdateSubService(UIComponent c, int value)
+        /// <summary>
+        /// Event handler - updates the options panel when the sub-service dropdown is changed.
+        /// </summary>
+        /// <param name="component">Calling component (ignored)</param>
+        /// <param name="value">New service dropdown selected index (ignored)</param>
+        public void UpdateSubService(UIComponent component, int value)
         {
-            // Update UI category if the subservice is changed.
-
+            // Ignore event if disabled flag is set.
             if (!disableEvents)
             {
                 UpdateUICategory();
@@ -266,10 +303,11 @@ namespace PloppableRICO
         }
 
 
+        /// <summary>
+        /// Reads current settings from UI elements, and saves them to XML.
+        /// </summary>
         internal void SaveRICO()
         {
-            // Reads current settings from UI elements, and saves them to the XMLData.
-
             // Set service and subservice.
             string serviceString = String.Empty;
             string subServiceString = String.Empty;
@@ -311,25 +349,61 @@ namespace PloppableRICO
                 construction.text = currentSelection.constructionCost.ToString();
             }
 
+            // Get home/total worker count.
             currentSelection.homeCount = int.Parse(manual.text);
 
             // UI categories from menu.
-            if (uiCategory.selectedIndex == 0) currentSelection.uiCategory = "reslow";
-            else if (uiCategory.selectedIndex == 1) currentSelection.uiCategory = "reshigh";
-            else if (uiCategory.selectedIndex == 2) currentSelection.uiCategory = "comlow";
-            else if (uiCategory.selectedIndex == 3) currentSelection.uiCategory = "comhigh";
-            else if (uiCategory.selectedIndex == 4) currentSelection.uiCategory = "office";
-            else if (uiCategory.selectedIndex == 5) currentSelection.uiCategory = "industrial";
-            else if (uiCategory.selectedIndex == 6) currentSelection.uiCategory = "farming";
-            else if (uiCategory.selectedIndex == 7) currentSelection.uiCategory = "forest";
-            else if (uiCategory.selectedIndex == 8) currentSelection.uiCategory = "oil";
-            else if (uiCategory.selectedIndex == 9) currentSelection.uiCategory = "ore";
-            else if (uiCategory.selectedIndex == 10) currentSelection.uiCategory = "leisure";
-            else if (uiCategory.selectedIndex == 11) currentSelection.uiCategory = "tourist";
-            else if (uiCategory.selectedIndex == 12) currentSelection.uiCategory = "organic";
-            else if (uiCategory.selectedIndex == 13) currentSelection.uiCategory = "hightech";
-            else if (uiCategory.selectedIndex == 14) currentSelection.uiCategory = "selfsufficient";
-            else if (uiCategory.selectedIndex == 15) currentSelection.uiCategory = "none";
+            switch(uiCategory.selectedIndex)
+            {
+                case 0:
+                    currentSelection.uiCategory = "reslow";
+                    break;
+                case 1:
+                    currentSelection.uiCategory = "reshigh";
+                    break;
+                case 2:
+                    currentSelection.uiCategory = "comlow";
+                    break;
+                case 3:
+                    currentSelection.uiCategory = "comhigh";
+                    break;
+                case 4:
+                    currentSelection.uiCategory = "office";
+                    break;
+                case 5:
+                    currentSelection.uiCategory = "industrial";
+                    break;
+                case 6:
+                    currentSelection.uiCategory = "farming";
+                    break;
+                case 7:
+                    currentSelection.uiCategory = "forest";
+                    break;
+                case 8:
+                    currentSelection.uiCategory = "oil";
+                    break;
+                case 9:
+                    currentSelection.uiCategory = "ore";
+                    break;
+                case 10:
+                    currentSelection.uiCategory = "leisure";
+                    break;
+                case 11:
+                    currentSelection.uiCategory = "tourist";
+                    break;
+                case 12:
+                    currentSelection.uiCategory = "organic";
+                    break;
+                case 13:
+                    currentSelection.uiCategory = "hightech";
+                    break;
+                case 14:
+                    currentSelection.uiCategory = "selfsufficient";
+                    break;
+                default:
+                    currentSelection.uiCategory = "none";
+                    break;
+            }
 
             // Remaining items.
             currentSelection.ricoEnabled = ricoEnabled.isChecked;
@@ -339,6 +413,10 @@ namespace PloppableRICO
         }
 
 
+        /// <summary>
+        /// Updates the options panel when the building selection changes, including showing/hiding relevant controls.
+        /// </summary>
+        /// <param name="buildingData">RICO building data</param>
         internal void SelectionChanged(BuildingData buildingData)
         {
             // Disable the event logic while dropdowns are being updated.
@@ -423,120 +501,177 @@ namespace PloppableRICO
 
 
 
-        internal void UpdateValues(RICOBuilding buildingData)
+        /// <summary>
+        /// Updates the values in the RICO options panel to match the selected building (control visibility should already be set).
+        /// </summary>
+        /// <param name="buildingData">RICO building record</param>
+        internal void UpdateValues(RICOBuilding building)
         {
             // Updates the values in the RICO options panel to match the selected building.
 
             // Workplaces.
-            manual.text = buildingData.workplaceCount.ToString();
-            uneducated.text = buildingData.workplaces[0].ToString();
-            educated.text = buildingData.workplaces[1].ToString();
-            welleducated.text = buildingData.workplaces[2].ToString();
-            highlyeducated.text = buildingData.workplaces[3].ToString();
+            manual.text = building.workplaceCount.ToString();
+            uneducated.text = building.workplaces[0].ToString();
+            educated.text = building.workplaces[1].ToString();
+            welleducated.text = building.workplaces[2].ToString();
+            highlyeducated.text = building.workplaces[3].ToString();
 
             // Service and sub-service.
-            if (buildingData.service == "residential")
+            switch (building.service)
             {
-                manual.text = buildingData.homeCount.ToString();
-                service.selectedIndex = 1;
+                case "residential":
 
-                if (currentSelection.subService == "high") subService.selectedIndex = 0;
-                else if (currentSelection.subService == "low") subService.selectedIndex = 1;
-                else if (currentSelection.subService == "high eco") subService.selectedIndex = 2;
-                else if (currentSelection.subService == "low eco") subService.selectedIndex = 3;
-            }
-            else if (buildingData.service == "industrial")
-            {
-                service.selectedIndex = 2;
-                subService.items = IndustrialSub;
+                    manual.text = building.homeCount.ToString();
+                    service.selectedIndex = 1;
 
-                if (currentSelection.subService == "generic") subService.selectedIndex = 0;
-                else if (currentSelection.subService == "farming") subService.selectedIndex = 1;
-                else if (currentSelection.subService == "forest") subService.selectedIndex = 2;
-                else if (currentSelection.subService == "oil") subService.selectedIndex = 3;
-                else if (currentSelection.subService == "ore") subService.selectedIndex = 4;
-            }
-            else if (buildingData.service == "office")
-            {
-                service.selectedIndex = 3;
-                subService.items = OfficeSub;
+                    if (currentSelection.subService == "high") subService.selectedIndex = 0;
+                    else if (currentSelection.subService == "low") subService.selectedIndex = 1;
+                    else if (currentSelection.subService == "high eco") subService.selectedIndex = 2;
+                    else if (currentSelection.subService == "low eco") subService.selectedIndex = 3;
 
-                if (currentSelection.subService == "none") subService.selectedIndex = 0;
-                else if (currentSelection.subService == "high tech") subService.selectedIndex = 1;
-            }
-            else if (buildingData.service == "commercial")
-            {
-                service.selectedIndex = 4;
-                subService.items = ComSub;
+                    break;
 
-                if (currentSelection.subService == "high") subService.selectedIndex = 0;
-                else if (currentSelection.subService == "low") subService.selectedIndex = 1;
-                else if (currentSelection.subService == "leisure") subService.selectedIndex = 2;
-                else if (currentSelection.subService == "tourist") subService.selectedIndex = 3;
-                else if (currentSelection.subService == "eco") subService.selectedIndex = 4;
-            }
-            else if (buildingData.service == "extractor")
-            {
-                service.selectedIndex = 5;
-                subService.items = ExtractorSub;
+                case "industrial":
 
-                if (currentSelection.subService == "farming") subService.selectedIndex = 0;
-                else if (currentSelection.subService == "forest") subService.selectedIndex = 1;
-                else if (currentSelection.subService == "oil") subService.selectedIndex = 2;
-                else if (currentSelection.subService == "ore") subService.selectedIndex = 3;
-            }
-            else if (buildingData.service == "dummy")
-            {
-                service.selectedIndex = 6;
-                subService.selectedIndex = 0;
-                subService.items = DummySub;
-            }
-            else if (buildingData.service == "none")
-            {
-                service.selectedIndex = 0;
-                subService.selectedIndex = 0;
-                subService.items = DummySub;
+                    service.selectedIndex = 2;
+                    subService.items = IndustrialSub;
+
+                    if (currentSelection.subService == "generic") subService.selectedIndex = 0;
+                    else if (currentSelection.subService == "farming") subService.selectedIndex = 1;
+                    else if (currentSelection.subService == "forest") subService.selectedIndex = 2;
+                    else if (currentSelection.subService == "oil") subService.selectedIndex = 3;
+                    else if (currentSelection.subService == "ore") subService.selectedIndex = 4;
+
+                    break;
+
+                case "office":
+
+                    service.selectedIndex = 3;
+                    subService.items = OfficeSub;
+
+                    if (currentSelection.subService == "none") subService.selectedIndex = 0;
+                    else if (currentSelection.subService == "high tech") subService.selectedIndex = 1;
+                    break;
+
+                case "commercial":
+
+                    service.selectedIndex = 4;
+                    subService.items = ComSub;
+
+                    if (currentSelection.subService == "high") subService.selectedIndex = 0;
+                    else if (currentSelection.subService == "low") subService.selectedIndex = 1;
+                    else if (currentSelection.subService == "leisure") subService.selectedIndex = 2;
+                    else if (currentSelection.subService == "tourist") subService.selectedIndex = 3;
+                    else if (currentSelection.subService == "eco") subService.selectedIndex = 4;
+                    break;
+
+                case "extractor":
+
+                    service.selectedIndex = 5;
+                    subService.items = ExtractorSub;
+
+                    if (currentSelection.subService == "farming") subService.selectedIndex = 0;
+                    else if (currentSelection.subService == "forest") subService.selectedIndex = 1;
+                    else if (currentSelection.subService == "oil") subService.selectedIndex = 2;
+                    else if (currentSelection.subService == "ore") subService.selectedIndex = 3;
+
+                    break;
+
+                case "dummy":
+
+                    service.selectedIndex = 6;
+                    subService.selectedIndex = 0;
+                    subService.items = DummySub;
+
+                    break;
+
+                default:
+
+                    service.selectedIndex = 0;
+                    subService.selectedIndex = 0;
+                    subService.items = DummySub;
+                    break;
             }
 
             // UI category.
-            if (buildingData.uiCategory == "reslow") uiCategory.selectedIndex = 0;
-            else if (buildingData.uiCategory == "reshigh") uiCategory.selectedIndex = 1;
-            else if (buildingData.uiCategory == "comlow") uiCategory.selectedIndex = 2;
-            else if (buildingData.uiCategory == "comhigh") uiCategory.selectedIndex = 3;
-            else if (buildingData.uiCategory == "office") uiCategory.selectedIndex = 4;
-            else if (buildingData.uiCategory == "industrial") uiCategory.selectedIndex = 5;
-            else if (buildingData.uiCategory == "farming") uiCategory.selectedIndex = 6;
-            else if (buildingData.uiCategory == "forest") uiCategory.selectedIndex = 7;
-            else if (buildingData.uiCategory == "oil") uiCategory.selectedIndex = 8;
-            else if (buildingData.uiCategory == "ore") uiCategory.selectedIndex = 9;
-            else if (buildingData.uiCategory == "leisure") uiCategory.selectedIndex = 10;
-            else if (buildingData.uiCategory == "tourist") uiCategory.selectedIndex = 11;
-            else if (buildingData.uiCategory == "organic") uiCategory.selectedIndex = 12;
-            else if (buildingData.uiCategory == "hightech") uiCategory.selectedIndex = 13;
-            else if (buildingData.uiCategory == "selfsufficient") uiCategory.selectedIndex = 14;
-            else if (buildingData.uiCategory == "none") uiCategory.selectedIndex = 15;
+            switch (building.uiCategory)
+            {
+                case "reslow":
+                    uiCategory.selectedIndex = 0;
+                    break;
+                case "reshigh":
+                    uiCategory.selectedIndex = 1;
+                    break;
+                case "comlow":
+                    uiCategory.selectedIndex = 2;
+                    break;
+                case "comhigh":
+                    uiCategory.selectedIndex = 3;
+                    break;
+                case "office":
+                    uiCategory.selectedIndex = 4;
+                    break;
+                case "industrial":
+                    uiCategory.selectedIndex = 5;
+                    break;
+                case "farming":
+                    uiCategory.selectedIndex = 6;
+                    break;
+                case "forest":
+                    uiCategory.selectedIndex = 7;
+                    break;
+                case "oil":
+                    uiCategory.selectedIndex = 8;
+                    break;
+                case "ore":
+                    uiCategory.selectedIndex = 9;
+                    break;
+                case "leisure":
+                    uiCategory.selectedIndex = 10;
+                    break;
+                case "tourist":
+                    uiCategory.selectedIndex = 11;
+                    break;
+                case "organic":
+                    uiCategory.selectedIndex = 12;
+                    break;
+                case "hightech":
+                    uiCategory.selectedIndex = 13;
+                    break;
+                case "selfsufficient":
+                    uiCategory.selectedIndex = 14;
+                    break;
+                default:
+                    uiCategory.selectedIndex = 15;
+                    break;
+            }
 
             // Building level.
-            level.selectedIndex = (buildingData.level - 1);
+            level.selectedIndex = (building.level - 1);
 
             // Construction cost.
-            construction.text = buildingData.constructionCost.ToString();
+            construction.text = building.constructionCost.ToString();
 
             // Use realistic population.
-            realityIgnored.isChecked = !buildingData.RealityIgnored;
+            realityIgnored.isChecked = !building.RealityIgnored;
 
             // Pollution enabled
-            pollutionEnabled.isChecked = buildingData.pollutionEnabled;
+            pollutionEnabled.isChecked = building.pollutionEnabled;
 
             // Growable.
-            growable.isChecked = buildingData.growable;
+            growable.isChecked = building.growable;
 
             // Enable RICO.
-            ricoEnabled.isChecked = buildingData.ricoEnabled;
+            ricoEnabled.isChecked = building.ricoEnabled;
         }
 
 
-        public void UpdateElements(string service)
+        /// <summary>
+        /// Reconfigures the RICO options panel to display relevant options for a given service.
+        /// This simply hides/shows different option fields for the various services.
+        /// </summary>
+        /// <param name="service">RICO service</param>
+        internal void UpdateElements(string service)
         {
             // Reconfigure the RICO options panel to display relevant options for a given service.
             // This simply hides/shows different option fields for the various services.
@@ -549,54 +684,62 @@ namespace PloppableRICO
             welleducated.parent.Show();
             highlyeducated.parent.Show();
 
-            if (service == "residential")
+            switch (service)
             {
-                level.items = resLevel;
-                subService.items = ResSub;
+                case "residential":
+                    level.items = resLevel;
+                    subService.items = ResSub;
 
-                // No workplaces breakdown for residential - hide them.
-                uneducated.parent.Hide();
-                educated.parent.Hide();
-                welleducated.parent.Hide();
-                highlyeducated.parent.Hide();
-            }
-            else if (service == "office")
-            {
-                level.items = Level;
-                subService.items = OfficeSub;
-                // Maximum legitimate level is 3 (selectedIndex is level - 1)
-                level.selectedIndex = Math.Min(level.selectedIndex, 2);
-            }
-            else if (service == "industrial")
-            {
-                level.items = Level;
-                subService.items = IndustrialSub;
-                // Industries can pollute.
-                pollutionEnabled.enabled = true;
-                pollutionEnabled.parent.Show();
-                // Maximum legitimate level is 3 (selectedIndex is level - 1)
-                level.selectedIndex = Math.Min(level.selectedIndex, 2);
-            }
-            else if (service == "extractor")
-            {
-                level.items = extLevel;
-                subService.items = ExtractorSub;
-                // Extractors can pollute.
-                pollutionEnabled.enabled = true;
-                // Maximum legitimate level is 1 (selectedIndex is level - 1)
-                level.selectedIndex = 0;
-            }
-            else if (service == "commercial")
-            {
-                level.items = Level;
-                subService.items = ComSub;
-                // Maximum legitimate level is 3 (selectedIndex is level - 1)
-                level.selectedIndex = Math.Min(level.selectedIndex, 2);
-            }
-            else if (service == "dummy" || service == "none")
-            {
-                level.items = extLevel;
-                subService.items = DummySub;
+                    // No workplaces breakdown for residential - hide them.
+                    uneducated.parent.Hide();
+                    educated.parent.Hide();
+                    welleducated.parent.Hide();
+                    highlyeducated.parent.Hide();
+                    break;
+
+                case "office":
+                    level.items = Level;
+                    subService.items = OfficeSub;
+
+                    // Maximum legitimate level is 3 (selectedIndex is level - 1)
+                    level.selectedIndex = Math.Min(level.selectedIndex, 2);
+                    break;
+
+                case "industrial":
+                    level.items = Level;
+                    subService.items = IndustrialSub;
+
+                    // Industries can pollute.
+                    pollutionEnabled.enabled = true;
+                    pollutionEnabled.parent.Show();
+
+                    // Maximum legitimate level is 3 (selectedIndex is level - 1)
+                    level.selectedIndex = Math.Min(level.selectedIndex, 2);
+                    break;
+
+                case "extractor":
+                    level.items = extLevel;
+                    subService.items = ExtractorSub;
+
+                    // Extractors can pollute.
+                    pollutionEnabled.enabled = true;
+
+                    // Maximum legitimate level is 1 (selectedIndex is level - 1)
+                    level.selectedIndex = 0;
+                    break;
+
+                case "commercial":
+                    level.items = Level;
+                    subService.items = ComSub;
+
+                    // Maximum legitimate level is 3 (selectedIndex is level - 1)
+                    level.selectedIndex = Math.Min(level.selectedIndex, 2);
+                    break;
+
+                default:
+                    level.items = extLevel;
+                    subService.items = DummySub;
+                    break;
             }
 
             // Reset subservice and UI category on change.
@@ -604,10 +747,12 @@ namespace PloppableRICO
             UpdateUICategory();
         }
 
-        public void UpdateUICategory()
-        {
-            // Updates UI category selection based on selected service and subservice.
 
+        /// <summary>
+        /// Automatically pdates UI category selection based on selected service and subservice.
+        /// </summary>
+        internal void UpdateUICategory()
+        {
             switch (service.selectedIndex)
             {
                 case 0:
@@ -702,59 +847,104 @@ namespace PloppableRICO
         /// </summary>
         private void GetService(ref string serviceName, ref string subServiceName)
         {
-            if (service.selectedIndex == 0)
+            switch (service.selectedIndex)
             {
-                currentSelection.service = "none";
-                currentSelection.subService = "none";
-            }
+                case 0:
+                    currentSelection.service = "none";
+                    currentSelection.subService = "none";
+                    break;
+                case 1:
+                    serviceName = "residential";
+                    switch (subService.selectedIndex)
+                    {
+                        case 0:
+                            subServiceName = "high";
+                            break;
+                        case 1:
+                            subServiceName = "low";
+                            break;
+                        case 2:
+                            subServiceName = "high eco";
+                            break;
+                        case 3:
+                            subServiceName = "low eco";
+                            break;
+                    }
+                    break;
 
-            else if (service.selectedIndex == 1)
-            {
-                serviceName = "residential";
-                if (subService.selectedIndex == 0) subServiceName = "high";
-                else if (subService.selectedIndex == 1) subServiceName = "low";
-                else if (subService.selectedIndex == 2) subServiceName = "high eco";
-                else if (subService.selectedIndex == 3) subServiceName = "low eco";
-            }
-            else if (service.selectedIndex == 2)
-            {
-                serviceName = "industrial";
+                case 2:
+                    serviceName = "industrial";
+                    switch (subService.selectedIndex)
+                    {
+                        case 0:
+                            subServiceName = "generic";
+                            break;
+                        case 1:
+                            subServiceName = "farming";
+                            break;
+                        case 2:
+                            subServiceName = "forest";
+                            break;
+                        case 3:
+                            subServiceName = "oil";
+                            break;
+                        case 4:
+                            subServiceName = "ore";
+                            break;
+                    }
+                    break;
 
-                if (subService.selectedIndex == 0) subServiceName = "generic";
-                else if (subService.selectedIndex == 1) subServiceName = "farming";
-                else if (subService.selectedIndex == 2) subServiceName = "forest";
-                else if (subService.selectedIndex == 3) subServiceName = "oil";
-                else if (subService.selectedIndex == 4) subServiceName = "ore";
-            }
-            else if (service.selectedIndex == 3)
-            {
-                serviceName = "office";
+                case 3:
+                    serviceName = "office";
+                    if (subService.selectedIndex == 0) subServiceName = "none";
+                    else if (subService.selectedIndex == 1) subServiceName = "high tech";
+                    break;
 
-                if (subService.selectedIndex == 0) subServiceName = "none";
-                else if (subService.selectedIndex == 1) subServiceName = "high tech";
-            }
-            else if (service.selectedIndex == 4)
-            {
-                serviceName = "commercial";
-                if (subService.selectedIndex == 0) subServiceName = "high";
-                else if (subService.selectedIndex == 1) subServiceName = "low";
-                else if (subService.selectedIndex == 2) subServiceName = "leisure";
-                else if (subService.selectedIndex == 3) subServiceName = "tourist";
-                else if (subService.selectedIndex == 4) subServiceName = "eco";
-            }
-            else if (service.selectedIndex == 5)
-            {
-                serviceName = "extractor";
-                if (subService.selectedIndex == 0) subServiceName = "farming";
-                else if (subService.selectedIndex == 1) subServiceName = "forest";
-                else if (subService.selectedIndex == 2) subServiceName = "oil";
-                else if (subService.selectedIndex == 3) subServiceName = "ore";
+                case 4:
+                    serviceName = "commercial";
+                    switch (subService.selectedIndex)
+                    {
+                        case 0:
+                            subServiceName = "high";
+                            break;
+                        case 1:
+                            subServiceName = "low";
+                            break;
+                        case 2:
+                            subServiceName = "leisure";
+                            break;
+                        case 3:
+                            subServiceName = "tourist";
+                            break;
+                        case 4:
+                            subServiceName = "eco";
+                            break;
+                    }
+                    break;
 
-            }
-            else if (service.selectedIndex == 6)
-            {
-                serviceName = "dummy";
-                subServiceName = "none";
+                case 5:
+                    serviceName = "extractor";
+                    switch (subService.selectedIndex)
+                    {
+                        case 0:
+                            subServiceName = "farming";
+                            break;
+                        case 1:
+                            subServiceName = "forest";
+                            break;
+                        case 2:
+                            subServiceName = "oil";
+                            break;
+                        case 3:
+                            subServiceName = "ore";
+                            break;
+                    }
+                    break;
+
+                default:
+                    serviceName = "dummy";
+                    subServiceName = "none";
+                    break;
             }
         }
 

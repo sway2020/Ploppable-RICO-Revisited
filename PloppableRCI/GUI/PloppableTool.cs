@@ -24,7 +24,7 @@ namespace PloppableRICO
         private static GameObject _gameObject;
         private static PloppableTool _instance;
 
-        public static PloppableTool instance => _instance;
+        public static PloppableTool Instance => _instance;
 
         // UI components.
         private UIButton PloppableButton;
@@ -291,7 +291,7 @@ namespace PloppableRICO
                 showSettings.size = new Vector2(80, 25);
                 showSettings.normalBgSprite = "SubBarButtonBase";
                 showSettings.text = Translations.GetTranslation("Settings");
-                showSettings.eventClick += (component, clickEvent) => RICOSettingsPanel.instance.Toggle();
+                showSettings.eventClick += (component, clickEvent) => SettingsPanel.Open();
 
                 // Toggle active state on visibility changed (deactivating when hidden to minimise UI workload and impact on performance).
                 BuildingPanel.eventVisibilityChanged += (component, isVisible) =>
@@ -728,7 +728,7 @@ namespace PloppableRICO
         internal void RebuildButtons()
         {
             // Only do this if the ploppable tool has been created.
-            if (instance != null)
+            if (Instance != null)
             {
                 Debug.Log("RICO Revisited: destroying all building buttons.");
 
@@ -743,7 +743,7 @@ namespace PloppableRICO
                 }
 
                 // Repopulate building buttons.
-                instance.PopulateButtons();
+                Instance.PopulateButtons();
             }
         }
     }

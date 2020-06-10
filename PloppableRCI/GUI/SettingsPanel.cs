@@ -1,19 +1,147 @@
-﻿using ColossalFramework;
-using ColossalFramework.UI;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using ColossalFramework;
+using ColossalFramework.UI;
 
 
 namespace PloppableRICO
 {
+    public static class SettingsPanel
+    {
+        // Instance references.
+        private static GameObject uiGameObject;
+        private static RICOSettingsPanel _panel;
+        public static RICOSettingsPanel Panel => _panel;
+
+
+        /// <summary>
+        /// Creates the panel object in-game and displays it.
+        /// </summary>
+        internal static void Open(BuildingInfo selected = null)
+        {
+            try
+            {
+                // If no instance already set, create one.
+                if (uiGameObject == null)
+                {
+                    // Give it a unique name for easy finding with ModTools.
+                    uiGameObject = new GameObject("RICOSettingsPanel");
+                    uiGameObject.transform.parent = UIView.GetAView().transform;
+
+                    _panel = uiGameObject.AddComponent<RICOSettingsPanel>();
+
+                    // Set up panel.
+                    Panel.Setup();
+                }
+
+                // Select appropriate building if there's a preselection.
+                if (selected != null)
+                {
+                    Panel.SelectBuilding(selected);
+                }
+
+                Panel.Show();
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return;
+            }
+        }
+
+
+        /// <summary>
+        /// Closes the panel by destroying the object (removing any ongoing UI overhead).
+        /// </summary>
+        internal static void Close()
+        {
+            GameObject.Destroy(_panel);
+            GameObject.Destroy(uiGameObject);
+        }
+
+
+        /// <summary>
+        /// Adds a Ploppable RICO button to a building info panel to directly access that building's RICO settings.
+        /// The button will be added to the right of the panel with a small margin from the panel edge, at the relative Y position specified.
+        /// </summary>
+        /// <param name="infoPanel">Infopanel to apply the button to</param>
+        /// <param name="relativeY">The relative Y position of the button within the panel</param>
+        private static void AddInfoPanelButton(BuildingWorldInfoPanel infoPanel)
+        {
+            UIButton panelButton = infoPanel.component.AddUIComponent<UIButton>();
+
+            // Basic button setup.
+            panelButton.size = new Vector2(34, 34);
+            panelButton.normalBgSprite = "ToolbarIconGroup6Normal";
+            panelButton.normalFgSprite = "IconPolicyBigBusiness";
+            panelButton.focusedBgSprite = "ToolbarIconGroup6Focused";
+            panelButton.hoveredBgSprite = "ToolbarIconGroup6Hovered";
+            panelButton.pressedBgSprite = "ToolbarIconGroup6Pressed";
+            panelButton.disabledBgSprite = "ToolbarIconGroup6Disabled";
+            panelButton.name = "PloppableButton";
+            panelButton.tooltip = Translations.GetTranslation("RICO Settings");
+
+            // Find ProblemsPanel relative position to position button.
+            // We'll use 40f as a default relative Y in case something doesn't work.
+            UIComponent problemsPanel;
+            float relativeY = 40f;
+
+            // Player info panels have wrappers, zoned ones don't.
+            UIComponent wrapper = infoPanel.Find("Wrapper");
+            if (wrapper == null)
+            {
+                problemsPanel = infoPanel.Find("ProblemsPanel");
+            }
+            else
+            {
+                problemsPanel = wrapper.Find("ProblemsPanel");
+            }
+
+            try
+            {
+                // Position button vertically in the middle of the problems panel.  If wrapper panel exists, we need to add its offset as well.
+                relativeY = (wrapper == null ? 0 : wrapper.relativePosition.y) + problemsPanel.relativePosition.y + ((problemsPanel.height - 34) / 2);
+            }
+            catch
+            {
+                // Don't really care; just use default relative Y.
+                Debug.Log("RICO Revisited: couldn't find ProblemsPanel relative position.");
+            }
+
+            // Set position.
+            panelButton.AlignTo(infoPanel.component, UIAlignAnchor.TopRight);
+            panelButton.relativePosition += new Vector3(-5f, relativeY, 0f);
+
+            // Event handler.
+            panelButton.eventClick += (c, p) =>
+            {
+                // Select current building in the building details panel and show.
+                Open(InstanceManager.GetPrefabInfo(WorldInfoPanel.GetCurrentInstanceID()) as BuildingInfo);
+            };
+        }
+
+
+        /// <summary>
+        /// Adds Ploppable RICO settings buttons to building info panels to directly access that building's RICO settings.
+        /// </summary>
+        public static void AddInfoPanelButtons()
+        {
+            // Zoned building (PrivateBuilding) info panel.
+            AddInfoPanelButton(UIView.library.Get<ZonedBuildingWorldInfoPanel>(typeof(ZonedBuildingWorldInfoPanel).Name));
+
+            // Service building (PlayerBuilding) info panel.
+            AddInfoPanelButton(UIView.library.Get<CityServiceWorldInfoPanel>(typeof(CityServiceWorldInfoPanel).Name));
+        }
+    }
+
+
     /// <summary>
     /// Base class of the RICO settings panel.  Based (via AJ3D's Ploppable RICO) ultimately on SamsamTS's Building Themes panel; many thanks to him for his work.
     /// </summary>
     public class RICOSettingsPanel : UIPanel
     {
-
         // Constants.
         private const float leftWidth = 400;
         private const float middleWidth = 250;
@@ -23,7 +151,7 @@ namespace PloppableRICO
         private const float bottomMargin = 10;
         private const float spacing = 5;
         private const float checkFilterHeight = 30;
-        public const float titleHeight = 40;
+        internal const float titleHeight = 40;
 
         // Panel components.
         private UITitleBar titleBar;
@@ -34,53 +162,20 @@ namespace PloppableRICO
         private UIBuildingOptions buildingOptionsPanel;
 
         // Selected items.
-        public BuildingData currentSelection;
-
-        // Instance references.
-        private static GameObject uiGameObject;
-        private static RICOSettingsPanel _instance;
-        public static RICOSettingsPanel instance => _instance;
+        internal BuildingData currentSelection;
 
 
         /// <summary>
-        /// Creates the panel object in-game.
+        /// Performs initial setup for the panel; we no longer use Start() as that's not sufficiently reliable (race conditions), and is no longer needed, with the new create/destroy process.
         /// </summary>
-        internal static void Create()
+        public void Setup()
         {
             try
             {
-                // Destroy existing (if any) instances.
-                uiGameObject = GameObject.Find("RICOSettingsPanel");
-                if (uiGameObject != null)
-                {
-                    UnityEngine.Debug.Log("Ploppable RICO Revisited: destroying existing settings panel instance.");
-                    GameObject.Destroy(uiGameObject);
-                }
-
-                // Create new instance.
-                // Give it a unique name for easy finding with ModTools.
-                uiGameObject = new GameObject("RICOSettingsPanel");
-                uiGameObject.transform.parent = UIView.GetAView().transform;
-                _instance = uiGameObject.AddComponent<RICOSettingsPanel>();
-            }
-            catch (Exception e)
-            {
-                Debug.LogException(e);
-            }
-        }
-
-
-        /// <summary>
-        /// Create the RICO settings panel; called by Unity just before any of the Update methods is called for the first time.
-        /// </summary>
-        public override void Start()
-        {
-            base.Start();
-
-            try
-            {
-                // Basic setup.
+                // Hide while we're setting up.
                 isVisible = false;
+
+                // Basic setup.
                 canFocus = true;
                 isInteractive = true;
                 width = leftWidth + middleWidth + rightWidth + (spacing * 4);
@@ -127,11 +222,13 @@ namespace PloppableRICO
                 previewPanel.width = middlePanel.width;
                 previewPanel.height = (panelHeight - spacing) / 2;
                 previewPanel.relativePosition = Vector3.zero;
+                previewPanel.Setup();
 
                 savePanel = middlePanel.AddUIComponent<UISavePanel>();
                 savePanel.width = middlePanel.width;
                 savePanel.height = (panelHeight - spacing) / 2;
                 savePanel.relativePosition = new Vector3(0, previewPanel.height + spacing);
+                savePanel.Setup();
 
                 // Right panel - mod calculations.
                 UIPanel rightPanel = AddUIComponent<UIPanel>();
@@ -143,6 +240,7 @@ namespace PloppableRICO
                 buildingOptionsPanel.width = rightWidth;
                 buildingOptionsPanel.height = panelHeight;
                 buildingOptionsPanel.relativePosition = Vector3.zero;
+                buildingOptionsPanel.Setup();
 
                 // Building selection list.
                 buildingSelection = UIFastList.Create<UIBuildingRow>(leftPanel);
@@ -166,18 +264,6 @@ namespace PloppableRICO
             {
                 Debug.LogException(e);
             }
-        }
-
-
-        /// <summary>
-        /// Shows/hides the settings panel.
-        /// </summary>
-        public void Toggle()
-        {
-            if (isVisible)
-                Hide();
-            else
-                Show(true);
         }
 
 
@@ -226,12 +312,13 @@ namespace PloppableRICO
             buildingOptionsPanel.UpdateUICategory();
         }
 
+
         /// <summary>
         /// Called to select a building from 'outside' the building details editor (e.g. by button on building info panel).
         /// Sets the filter to only display the relevant category for the relevant building, and makes that building selected in the list.
         /// </summary>
         /// <param name="building">The BuildingInfo record for this building.</param>
-        private void SelectBuilding(BuildingInfo buildingInfo)
+        public void SelectBuilding(BuildingInfo buildingInfo)
         {
             // Get the RICO BuildingData associated with this prefab.
             BuildingData building = Loading.xmlManager.prefabHash[buildingInfo];
@@ -301,81 +388,6 @@ namespace PloppableRICO
             fastList.m_size = filteredList.Count;
 
             return fastList;
-        }
-
-
-        /// <summary>
-        /// Adds a Ploppable RICO button to a building info panel to directly access that building's RICO settings.
-        /// The button will be added to the right of the panel with a small margin from the panel edge, at the relative Y position specified.
-        /// </summary>
-        /// <param name="infoPanel">Infopanel to apply the button to</param>
-        /// <param name="relativeY">The relative Y position of the button within the panel</param>
-        private void AddInfoPanelButton(BuildingWorldInfoPanel infoPanel)
-        {
-            UIButton panelButton = infoPanel.component.AddUIComponent<UIButton>();
-
-            // Basic button setup.
-            panelButton.size = new Vector2(34, 34);
-            panelButton.normalBgSprite = "ToolbarIconGroup6Normal";
-            panelButton.normalFgSprite = "IconPolicyBigBusiness";
-            panelButton.focusedBgSprite = "ToolbarIconGroup6Focused";
-            panelButton.hoveredBgSprite = "ToolbarIconGroup6Hovered";
-            panelButton.pressedBgSprite = "ToolbarIconGroup6Pressed";
-            panelButton.disabledBgSprite = "ToolbarIconGroup6Disabled";
-            panelButton.name = "PloppableButton";
-            panelButton.tooltip = Translations.GetTranslation("RICO Settings");
-
-            // Find ProblemsPanel relative position to position button.
-            // We'll use 40f as a default relative Y in case something doesn't work.
-            UIComponent problemsPanel;
-            float relativeY = 40f;
-
-            // Player info panels have wrappers, zoned ones don't.
-            UIComponent wrapper = infoPanel.Find("Wrapper");
-            if (wrapper == null)
-            {
-                problemsPanel = infoPanel.Find("ProblemsPanel");
-            }
-            else
-            {
-                problemsPanel = wrapper.Find("ProblemsPanel");
-            }
-
-            try
-            {
-                // Position button vertically in the middle of the problems panel.  If wrapper panel exists, we need to add its offset as well.
-                relativeY = (wrapper == null ? 0 : wrapper.relativePosition.y) + problemsPanel.relativePosition.y + ((problemsPanel.height - 34) / 2);
-            }
-            catch
-            {
-                // Don't really care; just use default relative Y.
-                Debug.Log("RICO Revisited: couldn't find ProblemsPanel relative position.");
-            }
-
-            // Set position.
-            panelButton.AlignTo(infoPanel.component, UIAlignAnchor.TopRight);
-            panelButton.relativePosition += new Vector3(-5f, relativeY, 0f);
-
-            // Event handler.
-            panelButton.eventClick += (c, p) =>
-            {
-                // Select current building in the building details panel and show.
-                SelectBuilding(InstanceManager.GetPrefabInfo(WorldInfoPanel.GetCurrentInstanceID()) as BuildingInfo);
-                Show();
-            };
-        }
-
-
-        /// <summary>
-        /// Adds Ploppable RICO settings buttons to building info panels to directly access that building's RICO settings.
-        /// </summary>
-        public void AddInfoPanelButtons()
-        {
-            // Zoned building (PrivateBuilding) info panel.
-            AddInfoPanelButton(UIView.library.Get<ZonedBuildingWorldInfoPanel>(typeof(ZonedBuildingWorldInfoPanel).Name));
-
-            // Service building (PlayerBuilding) info panel.
-            AddInfoPanelButton(UIView.library.Get<CityServiceWorldInfoPanel>(typeof(CityServiceWorldInfoPanel).Name));
         }
     }
 }
