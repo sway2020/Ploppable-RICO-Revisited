@@ -1,6 +1,7 @@
 ﻿- Add configurable XML translation framework (based on BloodyPenguin's translation framework)
 - Performance improvement: deactivate ploppable panel when not visible
 - Performance improvement: destroy settings panel when not visible
+- Standardise all logging
 
 
 Version 2.1.2

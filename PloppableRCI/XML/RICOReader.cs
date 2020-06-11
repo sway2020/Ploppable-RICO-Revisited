@@ -2,7 +2,6 @@
 using System.Xml.Serialization;
 using System.IO;
 using System.Text;
-using UnityEngine;
 
 
 namespace PloppableRICO
@@ -59,7 +58,7 @@ namespace PloppableRICO
 
                 if (result.Buildings.Count == 0)
                 {
-                    Debug.Log("RICO Revisited: no parseable buildings in " + localOrAuthor + " XML settings file.");
+                    Debugging.Message("no parseable buildings in " + localOrAuthor + " XML settings file");
                 }
                 else
                 {
@@ -80,13 +79,13 @@ namespace PloppableRICO
                                 {
                                     // Errors in local settings need to be reported direct to user, except for buildings that aren't activated in RICO.
                                     Debugging.ErrorBuffer.Append(errorList.ToString());
-                                    Debug.Log("RICO Revisited: non-fatal errors for building '" + building.name + "' in local settings.");
+                                    Debugging.Message("non-fatal errors for building '" + building.name + "' in local settings");
                                 }
                                 else if (Settings.debugLogging)
                                 {
                                     // Errors in other settings should be logged if verbose logging is enabled, but otherwise continue.
-                                    errorList.Insert(0, "RICO Revisited found the following non-fatal errors for building '" + building.name + "' in author settings:\r\n");
-                                    Debug.Log(errorList.ToString());
+                                    errorList.Insert(0, "found the following non-fatal errors for building '" + building.name + "' in author settings:\r\n");
+                                    Debugging.Message(errorList.ToString());
                                 }
                             }
 
@@ -97,7 +96,7 @@ namespace PloppableRICO
                         {
                             // Fatal errors!  Need to be reported direct to user and the building ignored.
                             Debugging.ErrorBuffer.Append(errorList.ToString());
-                            Debug.Log("RICO Revisited: fatal errors for building '" + building.name + "' in " + localOrAuthor + " settings.");
+                            Debugging.Message("fatal errors for building '" + building.name + "' in " + localOrAuthor + " settings");
                         }
                     }
                 }

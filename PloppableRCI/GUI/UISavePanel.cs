@@ -2,7 +2,6 @@
 using System.Xml.Serialization;
 using System.Xml;
 using ColossalFramework;
-using UnityEngine;
 using ColossalFramework.Math;
 using ColossalFramework.UI;
 
@@ -223,7 +222,7 @@ namespace PloppableRICO
                 }
                 else
                 {
-                    Debug.Log("RICO Revisited: no current RICO settings to apply to prefab '" + currentBuildingData + "'.");
+                    Debugging.Message("no current RICO settings to apply to prefab " + currentBuildingData);
                 }
 
                 // Force an update of all panels with current values.
@@ -372,7 +371,7 @@ namespace PloppableRICO
 
                         if (instance.m_buildings.m_buffer[i].m_level != newLevel)
                         {
-                            Debug.Log("RICO Revisited: Found building '" + prefabName + "' with level " + (instance.m_buildings.m_buffer[i].m_level + 1) + ", overriding to level " + level + ".");
+                            Debugging.Message("found building '" + prefabName + "' with level " + (instance.m_buildings.m_buffer[i].m_level + 1) + ", overriding to level " + level);
                             instance.m_buildings.m_buffer[i].m_level = newLevel;
                         }
                     }
@@ -398,7 +397,7 @@ namespace PloppableRICO
                 }
             }
 
-            Debug.Log("RICO Revisited: set household counts to " + homeCount + " for " + homeCountChanged + " '" + prefabName + "' buildings.");
+            Debugging.Message("set household counts to " + homeCount + " for " + homeCountChanged + " '" + prefabName + "' buildings");
         }
 
 

@@ -1,8 +1,7 @@
 using System.IO;
 using System.Collections.Generic;
 using ICities;
-using UnityEngine;
-using HarmonyLib;
+
 
 namespace PloppableRICO
 {
@@ -38,7 +37,7 @@ namespace PloppableRICO
             if (loading.currentMode != AppMode.Game)
             {
                 isModEnabled = false;
-                Debug.Log("RICO Revisited: not loading into game, skipping activation.");
+                Debugging.Message("not loading into game, skipping activation");
             }
             else
             {
@@ -56,13 +55,13 @@ namespace PloppableRICO
             // Make sure patches have been applied before proceeding.
             if (!Patcher.Patched)
             {
-                Debug.Log("RICO Revisited: Harmony patches not applied, exiting.");
+                Debugging.Message("Harmony patches not applied, exiting");
                 isModEnabled = false;
                 return;
             }
 
             // Otherwise, game on!
-            Debug.Log("RICO Revisited v" + PloppableRICOMod.Version + " loading.");
+            Debugging.Message("v" + PloppableRICOMod.Version + " loading");
 
             // Ensure patch watchdog flag is properly initialised.
             patchOperating = false;
@@ -94,7 +93,7 @@ namespace PloppableRICO
 
             if (!File.Exists(ricoDefPath))
             {
-                Debug.Log("RICO Revisited: no " + ricoDefPath + " file found.");
+                Debugging.Message("no " + ricoDefPath + " file found");
             }
             else
             {
@@ -102,7 +101,7 @@ namespace PloppableRICO
 
                 if (localRicoDef == null)
                 {
-                    Debug.Log("RICO Revisited: no valid definitions in " + ricoDefPath);
+                    Debugging.Message("no valid definitions in " + ricoDefPath);
                 }
             }
 
@@ -159,7 +158,7 @@ namespace PloppableRICO
             // Report any loading errors.
             Debugging.ReportErrors();
 
-            Debug.Log("RICO Revisited: loading complete.");
+            Debugging.Message("loading complete");
 
             // Load settings file and check if we need to display update notification.
             settingsFile = Configuration<SettingsFile>.Load();

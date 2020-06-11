@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using UnityEngine;
 using ColossalFramework.Packaging;
 using HarmonyLib;
 
@@ -67,7 +66,7 @@ namespace PloppableRICO
 									// Match!  Add these author settings to our prefab dictionary.
 									if (Settings.debugLogging)
 									{
-										Debug.Log("RICO Revisited: found author settings for '" + buildingDef.name + "'.");
+										Debugging.Message("found author settings for '" + buildingDef.name);
 									}
 									Loading.xmlManager.prefabHash[__instance].author = buildingDef;
 									Loading.xmlManager.prefabHash[__instance].hasAuthor = true;
@@ -176,7 +175,7 @@ namespace PloppableRICO
 			else
 			{
 				// This means that there's been a significant failure.  Ploppable RICO settings can't be applied.
-				Debug.Log("RICO Revisited: convertPrefabs not initialised!");
+				Debugging.Message("convertPrefabs not initialised");
 			}
 
 			// If we've made it this far, the patch is working fine - set the watchdog flag to confirm.

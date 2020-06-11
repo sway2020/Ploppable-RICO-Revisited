@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Reflection.Emit;
 using System.Linq;
-using UnityEngine;
 using HarmonyLib;
 
 
@@ -55,7 +54,7 @@ namespace PloppableRICO
                                 cutCount++;
                             }
 
-                            Debug.Log("RICO Revisited: InitPrefab transpiler removing CIL (offset " + cutCount + ") from " + i + " (" + codes[i].opcode + " to " + codes[i + cutCount].opcode + ") - " + targetOperand);
+                            Debugging.Message("InitPrefab transpiler removing CIL (offset " + cutCount + ") from " + i + " (" + codes[i].opcode + " to " + codes[i + cutCount].opcode + ") - " + targetOperand);
 
                             // Remove the CIL from the ldarg.0 to the throw (inclusive).
                             // +1 to avoid fencepost error (need to include original instruction as well).

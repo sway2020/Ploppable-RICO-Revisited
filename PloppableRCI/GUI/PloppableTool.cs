@@ -330,7 +330,7 @@ namespace PloppableRICO
         /// </summary>
         private void PopulateButtons()
         {
-            Debug.Log("RICO Revisited: populating building buttons.");
+            Debugging.Message("populating building buttons");
 
             // Step through each loaded and active RICO prefab.
             foreach (var buildingData in Loading.xmlManager.prefabHash.Values)
@@ -505,7 +505,7 @@ namespace PloppableRICO
             }
             catch (Exception e)
             {
-                Debug.Log("RICO Revisited: BuildingButton creation exception with UI category '" + uiCategory + "'.");
+                Debugging.Message("BuildingButton creation exception with UI category '" + uiCategory);
                 Debug.LogException(e);
             }
         }
@@ -730,7 +730,7 @@ namespace PloppableRICO
             // Only do this if the ploppable tool has been created.
             if (Instance != null)
             {
-                Debug.Log("RICO Revisited: destroying all building buttons.");
+                Debugging.Message("destroying all building buttons");
 
                 // Step through each loaded and active RICO prefab.
                 foreach (var buildingData in Loading.xmlManager.prefabHash.Values)

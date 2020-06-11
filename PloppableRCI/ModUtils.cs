@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using UnityEngine;
 using ColossalFramework.Plugins;
 using ColossalFramework.Packaging;
 
@@ -35,7 +34,7 @@ namespace PloppableRICO
             {
                 // Original Ploppable RICO mod detected.
                 conflictingMod = true;
-                Debug.Log("Original Ploppable RICO detected - RICO Revisited exiting.");
+                Debugging.Message("Original Ploppable RICO detected - RICO Revisited exiting");
                 conflictMessage = Translations.Translate("PRR_CON_OPR") + " - " + Translations.Translate("PRR_CON_DWN") + "\r\n\r\n" + Translations.Translate("PRR_CON_ONE");
                 return false;
             }
@@ -43,7 +42,7 @@ namespace PloppableRICO
             {
                 // Enhanced Building Capacity mod detected.
                 conflictingMod = true;
-                Debug.Log("Enhanced Building Capacity mod detected - RICO Revisited exiting.");
+                Debugging.Message("Enhanced Building Capacity mod detected - RICO Revisited exiting");
                 conflictMessage = Translations.Translate("PRR_CON_EBC") + " - " + Translations.Translate("PRR_CON_DWN") + "\r\n\r\n" + Translations.Translate("PRR_CON_ONE");
                 return false;
             }
@@ -51,7 +50,7 @@ namespace PloppableRICO
             {
                 // Painter mod detected.
                 conflictingMod = true;
-                Debug.Log("Painter detected - RICO Revisited exiting.");
+                Debugging.Message("Painter detected - RICO Revisited exiting");
                 conflictMessage = Translations.Translate("PRR_CON_PTR") + " - " + Translations.Translate("PRR_CON_DWN") + "\r\n\r\n" + Translations.Translate("PRR_CON_PTR1");
                 return false;
             }
@@ -62,7 +61,7 @@ namespace PloppableRICO
             // Check for Workshop RICO settings mod.
             if (IsModEnabled(629850626uL))
             {
-                Debug.Log("RICO Revisited: found Workshop RICO settings mod.");
+                Debugging.Message("found Workshop RICO settings mod");
                 Loading.mod1RicoDef = RICOReader.ParseRICODefinition("", Path.Combine(Util.SettingsModPath("629850626"), "WorkshopRICOSettings.xml"), false);
             }
 
@@ -70,7 +69,7 @@ namespace PloppableRICO
             Package modernJapanRICO = PackageManager.GetPackage("2035770233");
             if (modernJapanRICO != null)
             {
-                Debug.Log("RICO Revisited: found RICO Settings for Modern Japan CCP.");
+                Debugging.Message("found RICO Settings for Modern Japan CCP");
                 Loading.mod2RicoDef = RICOReader.ParseRICODefinition("", Path.Combine(Path.GetDirectoryName(modernJapanRICO.packagePath), "PloppableRICODefinition.xml"), false);
             }
 
@@ -135,7 +134,7 @@ namespace PloppableRICO
                 {
                     if (assembly.GetName().Name.ToLower().Equals(assemblyNameLower))
                     {
-                        Debug.Log("RICO Revisited: found mod assembly " + assemblyName + " with status " + (plugin.isEnabled ? "enabled." : "disabled."));
+                        Debugging.Message("found mod assembly " + assemblyName + " with status " + (plugin.isEnabled ? "enabled" : "disabled"));
                         return plugin.isEnabled;
                     }
                 }

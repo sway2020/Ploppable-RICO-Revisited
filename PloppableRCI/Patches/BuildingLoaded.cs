@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-using UnityEngine;
 using ColossalFramework;
 using ColossalFramework.Math;
 using HarmonyLib;
@@ -39,7 +38,7 @@ namespace PloppableRICO
 
 						if (data.m_level != newLevel)
 						{
-							Debug.Log("RICO Revisited: Found building '" + building.name + "' with level " + (data.m_level + 1) + ", overriding to level " + building.level + ".");
+							Debugging.Message("found building '" + building.name + "' with level " + (data.m_level + 1) + ", overriding to level " + building.level);
 							data.m_level = newLevel;
 						}
 
@@ -80,7 +79,7 @@ namespace PloppableRICO
 							// The reverse case, targets greater than current, will be caught with the base-case call to EnsureCitizenUnits below.
 							if (targetHomeCount < currentHomeCount)
 							{
-								Debug.Log("RICO Revisited: found Residential prefab " + building.name + " with target homecount " + targetHomeCount + " and citizen units " + currentHomeCount + "; forcing homecount reset.");
+								Debugging.Message("found Residential prefab " + building.name + " with target homecount " + targetHomeCount + " and citizen units " + currentHomeCount + "; forcing homecount reset");
 								RealisticCitizenUnits.EnsureCitizenUnits(ref __instance, buildingID, ref data, targetHomeCount, workCount, visitCount, 0);
 							}
 						}
@@ -118,9 +117,8 @@ namespace PloppableRICO
 		[MethodImpl(MethodImplOptions.NoInlining)]
 		private static void EnsureCitizenUnitsRev(object instance, ushort buildingID, ref Building data, int homeCount, int workCount, int visitCount, int studentCount)
 		{
-			string message = "Ploppable RICO Revisited: EnsureCitizenUnits reverse Harmony patch wasn't applied.";
-			Debug.Log(message);
-			throw new NotImplementedException(message);
+			Debugging.Message("EnsureCitizenUnits reverse Harmony patch wasn't applied");
+			throw new NotImplementedException("Harmony reverse patch not applied");
 		}
 	}
 }

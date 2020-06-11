@@ -23,5 +23,15 @@ namespace PloppableRICO
                 ErrorBuffer.Remove(0, ErrorBuffer.Length);
             }
         }
+
+        
+        /// <summary>
+        /// Prints a single-line debugging message to the Unity output log.
+        /// </summary>
+        /// <param name="message"></param>
+        internal static void Message(string message)
+        {
+            Debug.Log("RICO Revisited: " + message + ".");
+        }
     }
 }

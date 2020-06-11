@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using UnityEngine;
 using ICities;
 using ColossalFramework;
 using ColossalFramework.Plugins;
@@ -82,7 +81,7 @@ namespace PloppableRICO
                 }
                 else
                 {
-                    Debug.Log("RICO Revisited: no translation for language '" + currentLanguage.uniqueName + "' found for key '" + key + "'.");
+                    Debugging.Message("no translation for language " + currentLanguage.uniqueName + " found for key " + key);
 
                     // Attempt fallack language; if even that fails, just return the key.
                     return FallbackLanguage().translationDictionary.ContainsKey(key) ? FallbackLanguage().translationDictionary[key] ?? key : key;
@@ -90,7 +89,7 @@ namespace PloppableRICO
             }
             else
             {
-                Debug.Log("RICO Revisited: no current language set when translating key '" + key + "'.");
+                Debugging.Message("no current language set when translating key " + key);
             }
 
             // If we've made it this far, something went wrong; just return the key.
@@ -153,19 +152,19 @@ namespace PloppableRICO
                             }
                             else
                             {
-                                Debug.Log("RICO Revisited: couldn't deserialize translation file '" + translationFile + "'.");
+                                Debugging.Message("couldn't deserialize translation file '" + translationFile);
                             }
                         }
                     }
                 }
                 else
                 {
-                    Debug.Log("RICO Revisited: translations directory not found!");
+                    Debugging.Message("translations directory not found");
                 }
             }
             else
             {
-                Debug.Log("RICO Revisited: assembly path was empty!");
+                Debugging.Message("assembly path was empty");
             }
         }
 
@@ -201,7 +200,7 @@ namespace PloppableRICO
             }
 
             // If we got here, then we didn't find the assembly.
-            Debug.Log("RICO Revisited: assembly path not found!");
+            Debugging.Message("assembly path not found");
             throw new FileNotFoundException("RICO Revisited: assembly path not found!");
         }
     }

@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 
 
 namespace PloppableRICO
@@ -25,14 +24,14 @@ namespace PloppableRICO
                     if (prefab.GetWidth() > 4 || prefab.GetLength() > 4)
                     {
                         buildingData.growable = false;
-                        Debug.Log("RICO Revisited: building '" + prefab.name + "' can't be growable because it is too big.");
+                        Debugging.Message("building '" + prefab.name + "' can't be growable because it is too big");
                     }
 
                     // Growables can't have net structures.
                     if (prefab.m_paths != null && prefab.m_paths.Length != 0)
                     {
                         buildingData.growable = false;
-                        Debug.Log("RICO Revisited: building '" + prefab.name + "' can't be growable because it contains network assets.");
+                        Debugging.Message("building '" + prefab.name + "' can't be growable because it contains network assets");
                     }
                 }
 

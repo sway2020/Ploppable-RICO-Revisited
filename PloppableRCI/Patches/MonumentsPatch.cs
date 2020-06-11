@@ -1,5 +1,4 @@
 ﻿using System.Runtime.CompilerServices;
-using UnityEngine;
 using HarmonyLib;
 
 
@@ -26,7 +25,7 @@ namespace PloppableRICO
             }
             catch
             {
-                Debug.Log("RICO Revisited: caught monuments panel exception - no valid monuments?");
+                Debugging.Message("caught monuments panel exception");
             }
 
             // Don't call base method after this.
@@ -43,8 +42,7 @@ namespace PloppableRICO
         [MethodImpl(MethodImplOptions.NoInlining)]
         private static void RefreshMonumentsPanelRev(object instance)
         {
-            string message = "Ploppable RICO Revisited: RefreshMonumentsPanel reverse Harmony patch wasn't applied.";
-            Debug.Log(message);
+            Debugging.Message("RefreshMonumentsPanel reverse Harmony patch wasn't applied");
         }
     }
 }

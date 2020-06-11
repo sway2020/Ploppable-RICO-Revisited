@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using HarmonyLib;
+﻿using HarmonyLib;
 using CitiesHarmony.API;
 
 
@@ -29,7 +28,7 @@ namespace PloppableRICO
                 // Ensure Harmony is ready before patching.
                 if (HarmonyHelper.IsHarmonyInstalled)
                 {
-                    Debug.Log("RICO Revisited v" + PloppableRICOMod.Version + ": deploying Harmony patches.");
+                    Debugging.Message("deploying Harmony patches");
 
                     // Apply all annotated patches and update flag.
                     Harmony harmonyInstance = new Harmony(harmonyID);
@@ -38,7 +37,7 @@ namespace PloppableRICO
                 }
                 else
                 {
-                    Debug.Log("RICO Revisited: Harmony not ready.");
+                    Debugging.Message("Harmony not ready");
                 }
             }
         }
@@ -49,7 +48,7 @@ namespace PloppableRICO
             // Only unapply if patches appplied.
             if (_patched)
             {
-                Debug.Log("RICO Revisited: reverting Harmony patches.");
+                Debugging.Message("reverting Harmony patches");
 
                 // Unapply patches, but only with our HarmonyID.
                 Harmony harmonyInstance = new Harmony(harmonyID);

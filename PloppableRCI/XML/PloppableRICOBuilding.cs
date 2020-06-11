@@ -5,7 +5,6 @@ using System.ComponentModel;
 using System.Xml.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
-using UnityEngine;
 
 
 namespace PloppableRICO
@@ -403,7 +402,7 @@ namespace PloppableRICO
 
                     if (Settings.debugLogging)
                     {
-                        Debug.Log("RICO Revisited: " + originalWorkplaces + " old-format workplaces for building '" + name + "'; replacing with workplaces " + _workplaces[0] + " " + _workplaces[1] + " " + _workplaces[2] + " " + _workplaces[3] + ".");
+                        Debugging.Message(originalWorkplaces + " old-format workplaces for building '" + name + "'; replacing with workplaces " + _workplaces[0] + " " + _workplaces[1] + " " + _workplaces[2] + " " + _workplaces[3]);
                     }
 
                     // Reset flag; these workplaces are now updated.
@@ -486,7 +485,7 @@ namespace PloppableRICO
                     else
                     {
                         // If office or industrial, at least reset subservice to something decent.
-                        Debug.Log("RICO Revisited: Building '" + name + "' has " + (service == "" ? "no " : "an invalid ") + "sub-service.  Resetting to 'generic'.");
+                        Debugging.Message("building '" + name + "' has " + (service == "" ? "no " : "an invalid ") + "sub-service.  Resetting to 'generic'");
                         subService = "generic";
                     }
                 }
@@ -624,7 +623,7 @@ namespace PloppableRICO
                     if (newLevel == 1)
                     {
                         // Don't bother reporting errors for levels reset to 1, as those are generally for buildings that only have one level anwyay and it's just annoying users.
-                        Debug.Log("RICO Revisited: building '" + name + "' has invalid level '" + level.ToString() + "'. Resetting to level '" + newLevel + "'.");
+                        Debugging.Message("building '" + name + "' has invalid level '" + level.ToString() + "'. Resetting to level '" + newLevel);
                     }
                     else
                     {

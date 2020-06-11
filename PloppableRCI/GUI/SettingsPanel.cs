@@ -123,7 +123,7 @@ namespace PloppableRICO
             catch
             {
                 // Don't really care; just use default relative Y.
-                Debug.Log("RICO Revisited: couldn't find ProblemsPanel relative position.");
+                Debugging.Message("couldn't find ProblemsPanel relative position");
             }
 
             // Set position.
