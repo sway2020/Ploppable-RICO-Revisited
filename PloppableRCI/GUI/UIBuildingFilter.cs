@@ -48,8 +48,8 @@ namespace PloppableRICO
             zoningToggles = new UICheckBox[NumOfCategories];
             for (int i = 0; i < NumOfCategories; i++)
             {
-                zoningToggles[i] = UIUtils.CreateIconToggle(this, CategoryIcons.atlases[i], CategoryIcons.spriteNames[i], CategoryIcons.spriteNames[i] + "Disabled");
-                zoningToggles[i].tooltip = CategoryIcons.tooltips[i];
+                zoningToggles[i] = UIUtils.CreateIconToggle(this, OriginalCategories.atlases[i], OriginalCategories.spriteNames[i], OriginalCategories.spriteNames[i] + "Disabled");
+                zoningToggles[i].tooltip = OriginalCategories.tooltips[i];
                 zoningToggles[i].relativePosition = new Vector3(40 * i, 0);
                 zoningToggles[i].isChecked = true;
                 zoningToggles[i].readOnly = true;
@@ -76,7 +76,7 @@ namespace PloppableRICO
 
             allZones = UIUtils.CreateButton(this);
             allZones.width = 55;
-            allZones.text = Translations.GetTranslation("All");
+            allZones.text = Translations.Translate("PRR_FTR_ALL");
             allZones.relativePosition = new Vector3(405, 5);
 
             allZones.eventClick += (c, p) =>
@@ -90,7 +90,7 @@ namespace PloppableRICO
 
             noZones = UIUtils.CreateButton(this);
             noZones.width = 55;
-            noZones.text = Translations.GetTranslation("None");
+            noZones.text = Translations.Translate("PRR_FTR_NON");
             noZones.relativePosition = new Vector3(465, 5);
 
             noZones.eventClick += (c, p) =>
@@ -107,7 +107,7 @@ namespace PloppableRICO
             nameLabel.textScale = 0.8f;
             nameLabel.padding = new RectOffset(0, 0, 8, 0);
             nameLabel.relativePosition = new Vector3(width - 250, 0);
-            nameLabel.text = Translations.GetTranslation("Name") + ": ";
+            nameLabel.text = Translations.Translate("PRR_FTR_NAM") + ": ";
 
             nameFilter = UIUtils.CreateTextField(this);
             nameFilter.width = 200;
@@ -121,7 +121,7 @@ namespace PloppableRICO
             // Create settings filters.
             UILabel filterLabel = this.AddUIComponent<UILabel>();
             filterLabel.textScale = 0.8f;
-            filterLabel.text = Translations.GetTranslation("Settings filter: Mod/Author/Local/Any");
+            filterLabel.text = Translations.Translate("PRR_FTR_SET");
             filterLabel.relativePosition = new Vector3(10, 50, 0);
 
             // Setting filter checkboxes.
@@ -174,10 +174,10 @@ namespace PloppableRICO
             }
 
             // Settings filter tooltips.
-            settingsFilter[0].tooltip = Translations.GetTranslation("Mod settings");
-            settingsFilter[1].tooltip = Translations.GetTranslation("Author settings");
-            settingsFilter[2].tooltip = Translations.GetTranslation("Local settings");
-            settingsFilter[3].tooltip = Translations.GetTranslation("Any settings");
+            settingsFilter[0].tooltip = Translations.Translate("PRR_SET_HASMOD");
+            settingsFilter[1].tooltip = Translations.Translate("PRR_SET_HASAUT");
+            settingsFilter[2].tooltip = Translations.Translate("PRR_SET_HASLOC");
+            settingsFilter[3].tooltip = Translations.Translate("PRR_SET_HASANY");
         }
 
 

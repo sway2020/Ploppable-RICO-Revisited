@@ -12,8 +12,7 @@ namespace PloppableRICO
         public static string Version => "2.1.2";
 
         public string Name => "RICO Revisited " + Version;
-
-        public string Description => Translations.GetTranslation("Allows Plopping of RICO Buildings (fork of AJ3D's original with bugfixes and new features)");
+        public string Description => Translations.Translate("PRR_DESCRIPTION");
 
 
         /// <summary>
@@ -24,6 +23,9 @@ namespace PloppableRICO
             // Apply Harmony patches via Cities Harmony.
             // Called here instead of OnCreated to allow the auto-downloader to do its work prior to launch.
             HarmonyHelper.DoOnHarmonyReady(() => Patcher.PatchAll());
+
+            // Setup translation framework.
+            Translations.Setup();
         }
 
 
@@ -49,7 +51,7 @@ namespace PloppableRICO
             SettingsFile settingsFile = Configuration<SettingsFile>.Load();
 
             // Add logging checkbox.
-            helper.AddCheckbox(Translations.GetTranslation("Enable additional debugging logging"), settingsFile.DebugLogging, isChecked =>
+            helper.AddCheckbox(Translations.Translate("PRR_OPTION_MOREDEBUG"), settingsFile.DebugLogging, isChecked =>
             {
                 Settings.debugLogging = isChecked;
                 settingsFile.DebugLogging = isChecked;
@@ -57,14 +59,14 @@ namespace PloppableRICO
             });
 
             // Add reset on load checkbox.
-            helper.AddCheckbox(Translations.GetTranslation("Force reset of existing building stats on game load"), settingsFile.ResetOnLoad, isChecked =>
+            helper.AddCheckbox(Translations.Translate("PRR_OPTION_FORCERESET"), settingsFile.ResetOnLoad, isChecked =>
             {
                 settingsFile.ResetOnLoad = isChecked;
                 Configuration<SettingsFile>.Save();
             });
 
             // Add thumbnail background checkbox.
-            helper.AddCheckbox(Translations.GetTranslation("Use plain backgrounds for thumbnails"), settingsFile.PlainThumbs, isChecked =>
+            helper.AddCheckbox(Translations.Translate("PRR_OPTION_PLAINTHUMBS"), settingsFile.PlainThumbs, isChecked =>
             {
                 Settings.plainThumbs = isChecked;
                 settingsFile.PlainThumbs = isChecked;
@@ -72,7 +74,7 @@ namespace PloppableRICO
             });
 
             // Add regenerate thumbnails button.
-            helper.AddButton(Translations.GetTranslation("Regenerate thumbnails"), () => PloppableTool.Instance.RebuildButtons());
+            helper.AddButton(Translations.Translate("PRR_OPTION_REGENTHUMBS"), () => PloppableTool.Instance.RebuildButtons());
         }
     }
 }

@@ -26,9 +26,9 @@ namespace PloppableRICO
         public override void Start()
         {
             // Add text.
-            headerText = "Plopplable RICO Revisited 2.1 update";
-            messageText = Translations.GetTranslation("Ploppable RICO Revisited has been updated to version 2.1.  Some key features of this update are:");
-            listText = Translations.GetTranslation("New mod options panel (accessed via game options), including option for plain thumbnail backgrounds.\r\n\r\nAdjusted lighting of thumnail image renders to help users with over-saturated map themes.\r\n\r\nLocal RICO settings created from existing growable buildings will be growable by default and inherit the default household/workplace counts of the original.\r\n\r\nAdditional failsafes to reduce risk of residential building household counts being reduced on game load if your city is close to hitting internal game limits.");
+            headerText = Translations.Translate("PRR_UPD_21_0");
+            messageText = Translations.Translate("PRR_UPD_21_1");
+            listText = Translations.Translate("PRR_UPD_21_2") + "\r\n\r\n" + Translations.Translate("PRR_UPD_21_3") + "\r\n\r\n" + Translations.Translate("PRR_UPD_21_4") + "\r\n\r\n" + Translations.Translate("PRR_UPD_21_5");
 
             base.Start();
 

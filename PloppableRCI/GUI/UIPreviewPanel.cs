@@ -142,7 +142,7 @@ namespace PloppableRICO
 
                 // Set and show building level.
                 buildingLevel.isVisible = true;
-                buildingLevel.text = Translations.GetTranslation("Level") + " " + Mathf.Min((int)currentSelection.prefab.GetClassLevel() + 1, Util.MaxLevelOf(currentSelection.prefab.GetSubService()));
+                buildingLevel.text = Translations.Translate("PRR_LEVEL") + " " + Mathf.Min((int)currentSelection.prefab.GetClassLevel() + 1, Util.MaxLevelOf(currentSelection.prefab.GetSubService()));
                 UIUtils.TruncateLabel(buildingLevel, width - 45);
                 buildingLevel.autoHeight = true;
 

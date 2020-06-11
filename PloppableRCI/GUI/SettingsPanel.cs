@@ -66,6 +66,19 @@ namespace PloppableRICO
 
 
         /// <summary>
+        /// Adds Ploppable RICO settings buttons to building info panels to directly access that building's RICO settings.
+        /// </summary>
+        internal static void AddInfoPanelButtons()
+        {
+            // Zoned building (PrivateBuilding) info panel.
+            AddInfoPanelButton(UIView.library.Get<ZonedBuildingWorldInfoPanel>(typeof(ZonedBuildingWorldInfoPanel).Name));
+
+            // Service building (PlayerBuilding) info panel.
+            AddInfoPanelButton(UIView.library.Get<CityServiceWorldInfoPanel>(typeof(CityServiceWorldInfoPanel).Name));
+        }
+
+
+        /// <summary>
         /// Adds a Ploppable RICO button to a building info panel to directly access that building's RICO settings.
         /// The button will be added to the right of the panel with a small margin from the panel edge, at the relative Y position specified.
         /// </summary>
@@ -84,7 +97,7 @@ namespace PloppableRICO
             panelButton.pressedBgSprite = "ToolbarIconGroup6Pressed";
             panelButton.disabledBgSprite = "ToolbarIconGroup6Disabled";
             panelButton.name = "PloppableButton";
-            panelButton.tooltip = Translations.GetTranslation("RICO Settings");
+            panelButton.tooltip = Translations.Translate("PRR_SET_RICO");
 
             // Find ProblemsPanel relative position to position button.
             // We'll use 40f as a default relative Y in case something doesn't work.
@@ -126,19 +139,6 @@ namespace PloppableRICO
                 // Manually unfocus control, otherwise it can stay focused until next UI event (looks untidy).
                 control.Unfocus();
             };
-        }
-
-
-        /// <summary>
-        /// Adds Ploppable RICO settings buttons to building info panels to directly access that building's RICO settings.
-        /// </summary>
-        public static void AddInfoPanelButtons()
-        {
-            // Zoned building (PrivateBuilding) info panel.
-            AddInfoPanelButton(UIView.library.Get<ZonedBuildingWorldInfoPanel>(typeof(ZonedBuildingWorldInfoPanel).Name));
-
-            // Service building (PlayerBuilding) info panel.
-            AddInfoPanelButton(UIView.library.Get<CityServiceWorldInfoPanel>(typeof(CityServiceWorldInfoPanel).Name));
         }
     }
 

@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Language UniqueName="en" ReadableName="English">
+  <Translations>
+    <Translation ID="PRR_LEVEL" String="Level" />
+    <Translation ID="PRR_LVL" String="Lvl" />
+    <Translation ID="PRR_HOU" String="Households" />
+    <Translation ID="PRR_WOR" String="Workplaces" />
+    <Translation ID="PRR_SRV_NON" String="None" />
+    <Translation ID="PRR_SRV_RES" String="Residential" />
+    <Translation ID="PRR_SRV_IND" String="Industrial" />
+    <Translation ID="PRR_SRV_OFF" String="Office" />
+    <Translation ID="PRR_SRV_COM" String="Commercial" />
+    <Translation ID="PRR_SRV_EXT" String="Extractor" />
+    <Translation ID="PRR_SRV_DUM" String="Dummy" />
+    <Translation ID="PRR_SUB_HIG" String="High" />
+    <Translation ID="PRR_SUB_LOW" String="Low" />
+    <Translation ID="PRR_SUB_HEC" String="High eco" />
+    <Translation ID="PRR_SUB_LEC" String="Low eco" />
+    <Translation ID="PRR_SUB_LEI" String="Leisure" />
+    <Translation ID="PRR_SUB_TOU" String="Tourism" />
+    <Translation ID="PRR_SUB_ORG" String="Eco (organic)" />
+    <Translation ID="PRR_SUB_GEN" String="Generic" />
+    <Translation ID="PRR_SUB_ITC" String="IT cluster" />
+    <Translation ID="PRR_SUB_FAR" String="Farming" />
+    <Translation ID="PRR_SUB_FOR" String="Forestry" />
+    <Translation ID="PRR_SUB_OIL" String="Oil" />
+    <Translation ID="PRR_SUB_ORE" String="Ore" />
+    <Translation ID="PRR_FTR_ALL" String="All" />
+    <Translation ID="PRR_FTR_NON" String="None" />
+    <Translation ID="PRR_FTR_NAM" String="Name" />
+    <Translation ID="PRR_FTR_SET" String="Settings filter: Mod/Author/Local/Any" />
+    <Translation ID="PRR_OPT_ENA" String="Enable RICO" />
+    <Translation ID="PRR_OPT_SER" String="Service" />
+    <Translation ID="PRR_OPT_SUB" String="Sub-service" />
+    <Translation ID="PRR_OPT_UIC" String="UI category" />
+    <Translation ID="PRR_OPT_CST" String="Construction cost" />
+    <Translation ID="PRR_OPT_CNT" String="Worker/Home count" />
+    <Translation ID="PRR_OPT_POP" String="Use Realistic Pop mod" />
+    <Translation ID="PRR_OPT_POL" String="Enable pollution" />
+    <Translation ID="PRR_OPT_GRO" String="Growable" />
+    <Translation ID="PRR_OPT_JB0" String="Uneducated jobs" />
+    <Translation ID="PRR_OPT_JB1" String="Educated jobs" />
+    <Translation ID="PRR_OPT_JB2" String="Well-educated jobs" />
+    <Translation ID="PRR_OPT_JB3" String="Highly-educated jobs" />
+    <Translation ID="PRR_CAT_MON" String="Monuments" />
+    <Translation ID="PRR_CAT_BEA" String="Beautification" />
+    <Translation ID="PRR_CAT_EDU" String="Education" />
+    <Translation ID="PRR_CAT_POW" String="Power" />
+    <Translation ID="PRR_CAT_WAT" String="Water" />
+    <Translation ID="PRR_CAT_HEA" String="Health" />
+    <Translation ID="PRR_CAT_RES" String="Residential" />
+    <Translation ID="PRR_CAT_COM" String="Commercial" />
+    <Translation ID="PRR_CAT_OFF" String="Office" />
+    <Translation ID="PRR_CAT_IND" String="Industrial" />
+    <Translation ID="PRR_UIC_REL" String="Residential low" />
+    <Translation ID="PRR_UIC_REH" String="Residential high" />
+    <Translation ID="PRR_UIC_COL" String="Commercial low" />
+    <Translation ID="PRR_UIC_COH" String="Commercial high" />
+    <Translation ID="PRR_UIC_OFF" String="Office" />
+    <Translation ID="PRR_UIC_IND" String="Industrial" />
+    <Translation ID="PRR_UIC_FAR" String="Farming" />
+    <Translation ID="PRR_UIC_FOR" String="Forestry" />
+    <Translation ID="PRR_UIC_OIL" String="Oil" />
+    <Translation ID="PRR_UIC_ORE" String="Ore" />
+    <Translation ID="PRR_UIC_LEI" String="Leisure" />
+    <Translation ID="PRR_UIC_TOU" String="Tourism" />
+    <Translation ID="PRR_UIC_ORG" String="Organic commercial" />
+    <Translation ID="PRR_UIC_ITC" String="IT cluster" />
+    <Translation ID="PRR_UIC_ECO" String="Self-sufficient homes" />
+    <Translation ID="PRR_UIC_NON" String="None" />
+    <Translation ID="PRR_SET" String="Settings" />
+    <Translation ID="PRR_SET_RICO" String="RICO settings" />
+    <Translation ID="PRR_SET_HASMOD" String="Mod settings" />
+    <Translation ID="PRR_SET_HASAUT" String="Author settings" />
+    <Translation ID="PRR_SET_HASLOC" String="Local settings" />
+    <Translation ID="PRR_SET_HASANY" String="Any settings" />
+    <Translation ID="PRR_SET_HASNON" String="No settings" />
+    <Translation ID="PRR_SAV_SAV" String="Save" />
+    <Translation ID="PRR_SAV_ADD" String="Add local" />
+    <Translation ID="PRR_SAV_REM" String="Remove local" />
+    <Translation ID="PRR_SAV_APP" String="Save and apply changes" />
+    <Translation ID="PRR_EXP" String="CAUTION: EXPERIMENTAL" />
+    <Translation ID="PRR_DESCRIPTION" String="Allows RICO buildings greater than 4x4 in size and RICO building customisation" />
+    <Translation ID="PRR_OPTION_MOREDEBUG" String="Enable additional debugging logging" />
+    <Translation ID="PRR_OPTION_FORCERESET" String="Force reset of existing building stats on game load" />
+    <Translation ID="PRR_OPTION_PLAINTHUMBS" String="Use plain backgrounds for thumbnails" />
+    <Translation ID="PRR_OPTION_REGENTHUMBS" String="Regenerate thumbnails" />
+    <Translation ID="PRR_ERR_HAR0" String="Harmony patching error" />
+    <Translation ID="PRR_ERR_HAR1" String="Ploppable RICO Revisited was unable to complete its required Harmony patches.  This means that the mod is not able to operate, and has shut down to protect your save file from damage." />
+    <Translation ID="PRR_ERR_HAR2" String="Possible causes of this problem include:" />
+    <Translation ID="PRR_ERR_HAR3" String="The required Harmony 2 mod dependency was not installed" />
+    <Translation ID="PRR_ERR_HAR4" String="An old and/or broken mod is preventing Harmony 2 from operating properly (the old Painter and Garbage Bin Controller mods are known to cause this)" />
+    <Translation ID="PRR_CON_DWN" String="RICO Revisited is shutting down to protect your game." />
+    <Translation ID="PRR_CON_ONE" String="Only ONE of these mods can be enabled at the same time - please choose one and unsubscribe from the other!" />
+    <Translation ID="PRR_CON_OPR" String="Original Ploppable RICO mod detected" />
+    <Translation ID="PRR_CON_EBC" String="Enhanced Building Capacity mod detected" />
+    <Translation ID="PRR_CON_PTR" String="Old Painter mod detected" />
+    <Translation ID="PRR_CON_PTR1" String="The old Painter mod causes problems with the Harmony libraries used by this mod, resulting in random errors.  Please UNSUBSCRIBE from Painter (merely disabling is NOT sufficient); the Repaint mod can be used as a replacement." />
+    <Translation ID="PRR_UPD_21_0" String="Plopplable RICO Revisited 2.1 update" />
+    <Translation ID="PRR_UPD_21_1" String="Ploppable RICO Revisited has been updated to version 2.1.  Some key features of this update are:" />
+    <Translation ID="PRR_UPD_21_2" String="New mod options panel (accessed via game options), including option for plain thumbnail backgrounds." />
+    <Translation ID="PRR_UPD_21_3" String="Adjusted lighting of thumnail image renders to help users with over-saturated map themes." />
+    <Translation ID="PRR_UPD_21_4" String="Local RICO settings created from existing growable buildings will be growable by default and inherit the default household/workplace counts of the original." />
+    <Translation ID="PRR_UPD_21_5" String="Additional failsafes to reduce risk of residential building household counts being reduced on game load if your city is close to hitting internal game limits." />
+  </Translations>
+</Language>

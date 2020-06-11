@@ -36,7 +36,7 @@ namespace PloppableRICO
                 // Original Ploppable RICO mod detected.
                 conflictingMod = true;
                 Debug.Log("Original Ploppable RICO detected - RICO Revisited exiting.");
-                conflictMessage = Translations.GetTranslation("Original Ploppable RICO mod detected - RICO Revisited is shutting down to protect your game.\r\n\r\nOnly ONE of these mods can be enabled at the same time - please choose one and unsubscribe from the other!");
+                conflictMessage = Translations.Translate("PRR_CON_OPR") + " - " + Translations.Translate("PRR_CON_DWN") + "\r\n\r\n" + Translations.Translate("PRR_CON_ONE");
                 return false;
             }
             else if (IsModEnabled("EnhancedBuildingCapacity"))
@@ -44,7 +44,7 @@ namespace PloppableRICO
                 // Enhanced Building Capacity mod detected.
                 conflictingMod = true;
                 Debug.Log("Enhanced Building Capacity mod detected - RICO Revisited exiting.");
-                conflictMessage = Translations.GetTranslation("Enhanced Building Capacity mod detected - RICO Revisited is shutting down to protect your game.\r\n\r\nnOnly ONE of these mods can be enabled at the same time - please choose one and unsubscribe from the other!");
+                conflictMessage = Translations.Translate("PRR_CON_EBC") + " - " + Translations.Translate("PRR_CON_DWN") + "\r\n\r\n" + Translations.Translate("PRR_CON_ONE");
                 return false;
             }
             else if (IsModInstalled(1372431101ul))
@@ -52,7 +52,7 @@ namespace PloppableRICO
                 // Painter mod detected.
                 conflictingMod = true;
                 Debug.Log("Painter detected - RICO Revisited exiting.");
-                conflictMessage = Translations.GetTranslation("Old Painter mod detected - RICO Revisited is shutting down to protect your game.\r\n\r\nThe old Painter mod causes problems with the Harmony libraries used by this mod, resulting in random errors.  Please UNSUBSCRIBE from Painter (merely disabling is NOT sufficient); the Repaint mod can be used as a replacement.");
+                conflictMessage = Translations.Translate("PRR_CON_PTR") + " - " + Translations.Translate("PRR_CON_DWN") + "\r\n\r\n" + Translations.Translate("PRR_CON_PTR1");
                 return false;
             }
 

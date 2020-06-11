@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Language UniqueName="zh" ReadableName="简体中文">
+  <Translations>
+    <Translation ID="PRR_LEVEL" String="建筑等级" />
+    <Translation ID="PRR_LVL" String="建筑等级" />
+    <Translation ID="PRR_HOU" String="居民数量" />
+    <Translation ID="PRR_WOR" String="容纳工人" />
+    <Translation ID="PRR_SRV_NON" String="全不选" />
+    <Translation ID="PRR_SRV_RES" String="住宅区" />
+    <Translation ID="PRR_SRV_IND" String="工业区" />
+    <Translation ID="PRR_SRV_OFF" String="办公区" />
+    <Translation ID="PRR_SRV_COM" String="商业区" />
+    <Translation ID="PRR_SRV_EXT" String="工业建筑" />
+    <Translation ID="PRR_SRV_DUM" String="混合型" />
+    <Translation ID="PRR_SUB_HIG" String="高密度" />
+    <Translation ID="PRR_SUB_LOW" String="低密度" />
+    <Translation ID="PRR_SUB_HEC" String="高密度ECO" />
+    <Translation ID="PRR_SUB_LEC" String="低密度ECO" />
+    <Translation ID="PRR_SUB_LEI" String="休闲业" />
+    <Translation ID="PRR_SUB_TOU" String="旅游业" />
+    <Translation ID="PRR_SUB_ORG" String="本地有机作物" />
+    <Translation ID="PRR_SUB_GEN" String="通用的" />
+    <Translation ID="PRR_SUB_ITC" String="信息产业区" />
+    <Translation ID="PRR_SUB_FAR" String="农业" />
+    <Translation ID="PRR_SUB_FOR" String="林业" />
+    <Translation ID="PRR_SUB_OIL" String="石油业" />
+    <Translation ID="PRR_SUB_ORE" String="矿业" />
+    <Translation ID="PRR_FTR_ALL" String="全选" />
+    <Translation ID="PRR_FTR_NON" String="全不选" />
+    <Translation ID="PRR_FTR_NAM" String="名称" />
+    <Translation ID="PRR_FTR_SET" String="按设置过滤 (MOD/作者/本地/任何设置)" />
+    <Translation ID="PRR_OPT_ENA" String="成为RICO建筑" />
+    <Translation ID="PRR_OPT_SER" String="建筑类型" />
+    <Translation ID="PRR_OPT_SUB" String="建筑子类型" />
+    <Translation ID="PRR_OPT_UIC" String="建筑分类" />
+    <Translation ID="PRR_OPT_CST" String="建筑造价" />
+    <Translation ID="PRR_OPT_CNT" String="容纳工人/居民数量" />
+    <Translation ID="PRR_OPT_POP" String="使用真实人口MOD" />
+    <Translation ID="PRR_OPT_POL" String="建筑物污染" />
+    <Translation ID="PRR_OPT_GRO" String="可成长" />
+    <Translation ID="PRR_OPT_JB0" String="未受教育工作" />
+    <Translation ID="PRR_OPT_JB1" String="受初等教育工作" />
+    <Translation ID="PRR_OPT_JB2" String="受中等教育工作" />
+    <Translation ID="PRR_OPT_JB3" String="受高等教育工作" />
+    <Translation ID="PRR_CAT_MON" String="独特建筑" />
+    <Translation ID="PRR_CAT_BEA" String="环境美化" />
+    <Translation ID="PRR_CAT_EDU" String="教育服务" />
+    <Translation ID="PRR_CAT_POW" String="电力能源" />
+    <Translation ID="PRR_CAT_WAT" String="水源与供暖" />
+    <Translation ID="PRR_CAT_HEA" String="医疗服务" />
+    <Translation ID="PRR_CAT_RES" String="住宅区" />
+    <Translation ID="PRR_CAT_COM" String="商业区" />
+    <Translation ID="PRR_CAT_OFF" String="办公区" />
+    <Translation ID="PRR_CAT_IND" String="工业区" />
+    <Translation ID="PRR_UIC_REL" String="低密度住宅区" />
+    <Translation ID="PRR_UIC_REH" String="高密度住宅区" />
+    <Translation ID="PRR_UIC_COL" String="低密度商业区" />
+    <Translation ID="PRR_UIC_COH" String="高密度商业区" />
+    <Translation ID="PRR_UIC_OFF" String="办公区" />
+    <Translation ID="PRR_UIC_IND" String="工业区" />
+    <Translation ID="PRR_UIC_FAR" String="农业" />
+    <Translation ID="PRR_UIC_FOR" String="林业" />
+    <Translation ID="PRR_UIC_OIL" String="石油业" />
+    <Translation ID="PRR_UIC_ORE" String="矿业" />
+    <Translation ID="PRR_UIC_LEI" String="休闲业" />
+    <Translation ID="PRR_UIC_TOU" String="旅游业" />
+    <Translation ID="PRR_UIC_ORG" String="本地有机作物" />
+    <Translation ID="PRR_UIC_ITC" String="信息产业区" />
+    <Translation ID="PRR_UIC_ECO" String="自给建筑" />
+    <Translation ID="PRR_UIC_NON" String="全不选" />
+    <Translation ID="PRR_SET" String="设置" />
+    <Translation ID="PRR_SET_RICO" String="RICO设置" />
+    <Translation ID="PRR_SET_HASMOD" String="MOD设置" />
+    <Translation ID="PRR_SET_HASAUT" String="作者设置" />
+    <Translation ID="PRR_SET_HASLOC" String="本地设置" />
+    <Translation ID="PRR_SET_HASANY" String="任何设置" />
+    <Translation ID="PRR_SET_HASNON" String="没有设置项" />
+    <Translation ID="PRR_SAV_SAV" String="保存" />
+    <Translation ID="PRR_SAV_ADD" String="添加到本地" />
+    <Translation ID="PRR_SAV_REM" String="从本地删除" />
+    <Translation ID="PRR_SAV_APP" String="保存并应用更改" />
+    <Translation ID="PRR_EXP" String="小心：实验性" />
+    <Translation ID="PRR_DESCRIPTION" String="允许大小大于4x4的RICO建筑物和RICO建筑物定制" />
+    <Translation ID="PRR_OPTION_MOREDEBUG" String="启用其他调试日志记录" />
+    <Translation ID="PRR_OPTION_FORCERESET" String="在游戏加载时强制重置现有建筑统计数据" />
+    <Translation ID="PRR_OPTION_PLAINTHUMBS" String="将纯背景用作缩略图" />
+    <Translation ID="PRR_OPTION_REGENTHUMBS" String="重新生成缩略图" />
+    <Translation ID="PRR_ERR_HAR0" String="HARMONY修补错误" />
+    <Translation ID="PRR_ERR_HAR1" String="可重新访问的RICO无法完成其所需的Harmony补丁。这意味着它无法运行，并且已经关闭以保护您的保存文件不受损坏" />
+    <Translation ID="PRR_ERR_HAR2" String="此问题的可能原因包括:" />
+    <Translation ID="PRR_ERR_HAR3" String="未安装所需的HARMONY 2 MOD依赖项" />
+    <Translation ID="PRR_ERR_HAR4" String="较旧和/或损坏的mod导致HARMONY 2无法正常运行。已知旧的PAINTER和GARBAGE BIN CONTROLLER会导致这种情况)" />
+    <Translation ID="PRR_CON_DWN" String="RICO Revisited即将关闭以保护您的游戏。" />
+    <Translation ID="PRR_CON_ONE" String="这些模组中只有一个可以同时启用-请选择一个模组，然后取消订阅另一个模组" />
+    <Translation ID="PRR_CON_OPR" String="请取消原先版本的Ploppable RICO" />
+    <Translation ID="PRR_CON_EBC" String="检测到Enhanced Building Capacity mod" />
+    <Translation ID="PRR_CON_PTR" String="检测到Painter mod" />
+    <Translation ID="PRR_CON_PTR1" String="旧的Painter Mod导致此Mod使用的Harmony库出现问题，从而导致随机错误。请从Painter取消订阅（仅禁用是不够的）； Repaint mod可以替代" />
+    <Translation ID="PRR_UPD_21_0" String="Plopplable RICO Revisited 2.1更新" />
+    <Translation ID="PRR_UPD_21_1" String="Ploppable RICO Revisited已更新至版本2.1。此更新的一些关键功能是:" />
+    <Translation ID="PRR_UPD_21_2" String="新的mod选项面板（可通过游戏选项访问），包括纯缩略图背景的选项" />
+    <Translation ID="PRR_UPD_21_3" String="调整了缩略图图像的照明亮度，以帮助用户处理过饱和的地图主题" />
+    <Translation ID="PRR_UPD_21_4" String="从现有的可生长建筑物创建的本地RICO设置在默认情况下将是可扩展的，并继承原始建筑物的默认家庭/工作场所计数" />
+    <Translation ID="PRR_UPD_21_5" String="如果您的城市接近内部游戏限制，则额外的故障保护功能可减少住宅建筑的家庭人数减少游戏负担的风险" />
+  </Translations>
+</Language>

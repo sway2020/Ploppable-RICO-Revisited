@@ -107,9 +107,6 @@ namespace PloppableRICO
             }
 
             base.OnCreated(loading);
-
-            // Apply translations.
-            Translations.TranslateUICategories();
         }
 
 

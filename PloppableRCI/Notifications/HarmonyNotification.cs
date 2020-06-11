@@ -22,9 +22,9 @@ namespace PloppableRICO
         /// </summary>
         public override void Start()
         {
-            headerText = "Harmony patching error";
-            messageText = Translations.GetTranslation("Ploppable RICO Revisited was unable to complete its required Harmony patches.  This means that the mod is not able to operate, and has shut down to protect your save file from damage.\r\n\r\nPossible causes of this problem include:");
-            listText = Translations.GetTranslation("The required Harmony 2 mod dependency was not installed\r\n\r\nAn old and/or broken mod is preventing Harmony 2 from operating properly (the old Painter mod is known to cause this)");
+            headerText = "PRR_ERR_HAR0";
+            messageText = Translations.Translate("PRR_ERR_HAR1") + "\r\n\r\n" + Translations.Translate("PRR_ERR_HAR2");
+            listText = Translations.Translate("PRR_ERR_HAR3") + "\r\n\r\n" + Translations.Translate("PRR_ERR_HAR4");
 
             base.Start();
         }

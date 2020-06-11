@@ -7,7 +7,7 @@ namespace PloppableRICO
 {
     // This is a really basic translation framework; it's the start of a process, and not the end.
     // At this point just directly translating the English default (no standardised keys).
-    internal class Translations
+    internal class TranslationsA
     {
         internal static string GetTranslation(string phrase)
         {

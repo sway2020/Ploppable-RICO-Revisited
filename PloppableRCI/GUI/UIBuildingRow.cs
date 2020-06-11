@@ -95,17 +95,17 @@ namespace PloppableRICO
                 hasModSettings = AddUIComponent<UISprite>();
                 hasModSettings.size = new Vector2(20, 20);
                 hasModSettings.relativePosition = new Vector3(340, 10);
-                hasModSettings.tooltip = Translations.GetTranslation("Mod settings");
+                hasModSettings.tooltip = Translations.Translate("PRR_SET_HASMOD");
 
                 hasAuthorSettings = AddUIComponent<UISprite>();
                 hasAuthorSettings.size = new Vector2(20, 20);
                 hasAuthorSettings.relativePosition = new Vector3(340, 10);
-                hasAuthorSettings.tooltip = Translations.GetTranslation("Author settings");
+                hasAuthorSettings.tooltip = Translations.Translate("PRR_SET_HASAUT");
 
                 hasLocalSettings = AddUIComponent<UISprite>();
                 hasLocalSettings.size = new Vector2(20, 20);
                 hasLocalSettings.relativePosition = new Vector3(340, 10);
-                hasLocalSettings.tooltip = Translations.GetTranslation("Local settings");
+                hasLocalSettings.tooltip = Translations.Translate("PRR_SET_HASLOC");
             }
 
             // Set selected building.

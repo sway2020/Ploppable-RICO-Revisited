@@ -132,7 +132,7 @@ namespace PloppableRICO
                 PloppableButton.disabledBgSprite = "ToolbarIconGroup6Disabled";
                 PloppableButton.relativePosition = new Vector2(800, 0);
                 PloppableButton.name = "PloppableButton";
-                PloppableButton.tooltip = Translations.GetTranslation("Ploppable RICO");
+                PloppableButton.tooltip = Translations.Translate("PRR_NAME");
 
                 // Event handler - show the Ploppable Tool panel when the button is clicked.
                 PloppableButton.eventClick += (component, clickEvent) =>
@@ -192,7 +192,7 @@ namespace PloppableRICO
                     TabButtons[i].focusedBgSprite = "SubBarButtonBaseFocused";
                     TabButtons[i].state = UIButton.ButtonState.Normal;
                     TabButtons[i].name = Names[i] + "Button";
-                    TabButtons[i].tooltip = Translations.UICategory[i];
+                    TabButtons[i].tooltip = UICategories.names[i];
                     TabButtons[i].tabStrip = true;
 
                     TabSprites[i] = new UISprite();
@@ -290,7 +290,7 @@ namespace PloppableRICO
                 UIButton showSettings = UIUtils.CreateButton(Tabs);
                 showSettings.size = new Vector2(80, 25);
                 showSettings.normalBgSprite = "SubBarButtonBase";
-                showSettings.text = Translations.GetTranslation("Settings");
+                showSettings.text = Translations.Translate("PRR_SET");
                 showSettings.eventClick += (component, clickEvent) => SettingsPanel.Open();
 
                 // Toggle active state on visibility changed (deactivating when hidden to minimise UI workload and impact on performance).
@@ -473,7 +473,7 @@ namespace PloppableRICO
                 levelLabel.useDropShadow = true;
                 levelLabel.dropShadowColor = new Color32(80, 80, 80, 255);
                 levelLabel.dropShadowOffset = new Vector2(2, -2);
-                levelLabel.text = Translations.GetTranslation("Lvl ") + ((int)buildingData.prefab.m_class.m_level + 1);
+                levelLabel.text = Translations.Translate("PRR_LVL") + " " + ((int)buildingData.prefab.m_class.m_level + 1);
                 levelLabel.autoSize = true;
                 levelLabel.isVisible = true;
                 levelLabel.relativePosition = new Vector3(5, buildingData.buildingButton.height - levelLabel.height - 5);
@@ -539,7 +539,7 @@ namespace PloppableRICO
                 if (building.prefab.GetService() == ItemClass.Service.Residential)
                 {
                     // Residential - households.
-                    tooltip.Append(Translations.GetTranslation("Households"));
+                    tooltip.Append(Translations.Translate("PRR_HOU"));
                     tooltip.Append(": ");
                     tooltip.AppendLine(thisAI.CalculateHomeCount(building.prefab.GetClassLevel(), new Randomizer(), building.prefab.GetWidth(), building.prefab.GetLength()).ToString());
                 }
@@ -548,7 +548,7 @@ namespace PloppableRICO
                     // Non-residential - workplaces.
                     int[] workplaces = new int[4];
 
-                    tooltip.Append(Translations.GetTranslation("Workplaces"));
+                    tooltip.Append(Translations.Translate("PRR_WOR"));
                     tooltip.Append(": ");
                     thisAI.CalculateWorkplaceCount(building.prefab.GetClassLevel(), new Randomizer(), building.prefab.GetWidth(), building.prefab.GetLength(), out workplaces[0], out workplaces[1], out workplaces[2], out workplaces[3]);
                     tooltip.AppendLine(workplaces.Sum().ToString());
