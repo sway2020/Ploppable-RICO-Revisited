@@ -9,7 +9,7 @@ namespace PloppableRICO
     /// <summary>
     ///The far right column of the settigns panel. Contains the drop downs and entry fields that allows players to assign RICO settings. 
     /// </summary>
-    public class UIBuildingOptions : UIScrollablePanel
+    public class UIBuildingOptions : UIPanel
     {
         // Whole buncha UI strings.
         private string[] Service = new string[]
@@ -157,12 +157,6 @@ namespace PloppableRICO
 
             // Controls.
             builtinKeyNavigation = true;
-            //freeScroll = false;
-            //scrollWheelDirection = UIOrientation.Vertical;
-            //verticalScrollbar = new UIScrollbar();
-            //scrollWheelAmount = 10;
-            //verticalScrollbar.stepSize = 1f;
-            //verticalScrollbar.incrementAmount = 10f;
 
             // Subpanels.
             labelpanel = this.AddUIComponent<UIPanel>();
