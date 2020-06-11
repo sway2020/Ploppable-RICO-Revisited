@@ -118,10 +118,13 @@ namespace PloppableRICO
             panelButton.relativePosition += new Vector3(-5f, relativeY, 0f);
 
             // Event handler.
-            panelButton.eventClick += (c, p) =>
+            panelButton.eventClick += (control, clickEvent) =>
             {
                 // Select current building in the building details panel and show.
                 Open(InstanceManager.GetPrefabInfo(WorldInfoPanel.GetCurrentInstanceID()) as BuildingInfo);
+
+                // Manually unfocus control, otherwise it can stay focused until next UI event (looks untidy).
+                control.Unfocus();
             };
         }
 

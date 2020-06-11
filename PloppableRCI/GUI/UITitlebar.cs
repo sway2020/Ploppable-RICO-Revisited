@@ -19,7 +19,7 @@ namespace PloppableRICO
         /// <summary>
         /// Create the titlebar; we no longer use Start() as that's not sufficiently reliable (race conditions), and is no longer needed, with the new create/destroy process.
         /// </summary>
-        public override void Setup()
+        public void Setup()
         {
             // Basic setup.
             width = parent.width;
