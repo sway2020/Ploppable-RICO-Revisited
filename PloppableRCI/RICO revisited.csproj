@@ -87,7 +87,6 @@
     <Compile Include="Settings\Settings.cs" />
     <Compile Include="Settings\SettingsXML.cs" />
     <Compile Include="Notifications\UpdateNotification.cs" />
-    <Compile Include="Translations.cs" />
     <Compile Include="ConvertPrefabs.cs" />
     <Compile Include="GUI\CategoryUtils.cs" />
     <Compile Include="GUI\FastList.cs" />
