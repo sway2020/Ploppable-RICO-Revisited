@@ -364,10 +364,10 @@ namespace PloppableRICO
                 }
 
                 // Filter by zoning category.
-                if (!filterBar.IsAllZoneSelected())
+                if (!filterBar.AllCatsSelected())
                 {
                     Category category = item.category;
-                    if (category == Category.None || !filterBar.IsZoneSelected(category))
+                    if (category == Category.None || !filterBar.IsCatSelected(category))
                     {
                         continue;
                     }
@@ -380,7 +380,7 @@ namespace PloppableRICO
                 if (filterBar.settingsFilter[3].isChecked && !(item.hasMod || item.hasAuthor || item.hasLocal)) continue;
 
                 // Filter by name.
-                if (!filterBar.buildingName.IsNullOrWhiteSpace() && !item.name.ToLower().Contains(filterBar.buildingName.ToLower()))
+                if (!filterBar.FilterString.IsNullOrWhiteSpace() && !item.name.ToLower().Contains(filterBar.FilterString.ToLower()))
                 {
                     continue;
                 }
