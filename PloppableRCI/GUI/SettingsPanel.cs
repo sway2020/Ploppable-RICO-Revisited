@@ -304,7 +304,7 @@ namespace PloppableRICO
         /// <summary>
         /// Refreshes the building selection list.
         /// </summary>
-        public void UpdateSelection()
+        public void RefreshList()
         {
             // Refresh the building list.
             buildingSelection.Refresh();

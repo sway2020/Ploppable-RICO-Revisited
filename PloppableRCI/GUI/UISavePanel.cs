@@ -1,43 +1,43 @@
 ﻿using System.IO;
-using System.Xml.Serialization;
 using System.Xml;
+using System.Xml.Serialization;
 using ColossalFramework;
-using ColossalFramework.Math;
 using ColossalFramework.UI;
+using ColossalFramework.Math;
 
 
 namespace PloppableRICO
 {
     /// <summary>
-    ///This panel is in the middle column on the bottom. It contains the save and reset buttons, and will possibly contain more settings in the future. 
+    ///This panel is in the middle column on the bottom. It contains buttons to action changes to the RICO settings file and apply changes to the live game.
     /// </summary>
-
-    public class UISavePanel : UIScrollablePanel
+    public class UISavePanel : UIPanel
     {
+        // Panel components.
+        private UIButton saveButton;
+        private UIButton addLocalButton;
+        private UIButton removeLocalButton;
+        private UIButton applyButton;
 
-        public BuildingData currentSelection;
-        public UIButton save;
-        public UIButton addLocal;
-        public UIButton removeLocal;
-        public UIButton reset;
-        public UIButton apply;
+        // Selection reference.
+        private BuildingData currentSelection;
 
 
-        private static UISavePanel _instance;
-        public static UISavePanel instance=> _instance;
-
+        public void SelectionChanged(BuildingData buildingData)
+        {
+            currentSelection = buildingData;
+        }
 
         /// <summary>
         /// Performs initial setup for the panel; we no longer use Start() as that's not sufficiently reliable (race conditions), and is no longer needed, with the new create/destroy process.
         /// </summary>
         internal void Setup()
         {
-            _instance = this;
+            // Basic setup.
             isVisible = true;
             canFocus = true;
             isInteractive = true;
             backgroundSprite = "UnlockingPanel";
-            //padding = new RectOffset(5, 5, 5, 0);
             autoLayout = true;
             autoLayoutDirection = LayoutDirection.Vertical;
             autoLayoutPadding.top = 5;
@@ -45,138 +45,26 @@ namespace PloppableRICO
             autoLayoutPadding.right = 5;
             builtinKeyNavigation = true;
             clipChildren = true;
-            freeScroll = false;
-            scrollWheelDirection = UIOrientation.Vertical;
-            verticalScrollbar = new UIScrollbar();
-            scrollWheelAmount = 10;
-            verticalScrollbar.stepSize = 1f;
-            verticalScrollbar.incrementAmount = 10f;
-            SetupControls();
-        }
-        public void SelectionChanged(BuildingData buildingData)
-        {
-            currentSelection = buildingData;
-        }
 
-        private void SetupControls()
-        {
-            save = UIUtils.CreateButton(this);
-            save.text = Translations.Translate("PRR_SAV_SAV");
-            save.width = 140;
+            // Save button.
+            saveButton = UIUtils.CreateButton(this);
+            saveButton.width = 140;
+            saveButton.text = Translations.Translate("PRR_SAV_SAV");
+            saveButton.eventClick += (control, clickEvent) => Save();
 
-            addLocal = UIUtils.CreateButton(this);
-            addLocal.text = Translations.Translate("PRR_SAV_ADD");
-            addLocal.width = 140;
+            // Add local settings button.
+            addLocalButton = UIUtils.CreateButton(this);
+            addLocalButton.width = 140;
+            addLocalButton.text = Translations.Translate("PRR_SAV_ADD");
+            addLocalButton.eventClick += (control, clickEvent) => AddLocal();
 
-            addLocal.eventClick += (c, p) =>
-            {
-                if (!currentSelection.hasLocal)
-                {
+            // 'Remove local settings' button.
+            removeLocalButton = UIUtils.CreateButton(this);
+            removeLocalButton.width = 140;
+            removeLocalButton.text = Translations.Translate("PRR_SAV_REM");
+            removeLocalButton.eventClick += (control, clickEvent) => RemoveLocal();
 
-                    currentSelection.local = new RICOBuilding();
-                    currentSelection.hasLocal = true;
-
-                    //If selected asset has author settings, copy those to local
-                    if (currentSelection.hasAuthor)
-                    {
-                        currentSelection.local = (RICOBuilding)currentSelection.author.Clone();
-                    }
-                    else if (currentSelection.hasMod)
-                    {
-                        currentSelection.local = (RICOBuilding)currentSelection.mod.Clone();
-                    }
-                    else
-                    {
-                        // Set some basic settings for assets with no settings.
-                        currentSelection.local.name = currentSelection.name;
-                        currentSelection.local.ricoEnabled = true;
-                        currentSelection.local.service = GetRICOService();
-                        currentSelection.local.subService = GetRICOSubService();
-                        currentSelection.local.level = (int)currentSelection.prefab.GetClassLevel() + 1;
-                        currentSelection.local.constructionCost = 10;
-
-                        // See if selected 'virgin' prefab has Private AI.
-                        if (currentSelection.prefab.GetAI() is PrivateBuildingAI privateAI)
-                        {
-                            // It does - let's copy across growable statuts and household/workplace info.
-                            int buildingWidth = currentSelection.prefab.GetWidth();
-                            int buildingLength = currentSelection.prefab.GetLength();
-
-                            // Set homes/workplaces.
-                            if (privateAI is ResidentialBuildingAI)
-                            {
-                                // It's residential - set homes.
-                                currentSelection.local.homeCount = privateAI.CalculateHomeCount(currentSelection.prefab.GetClassLevel(), new Randomizer(), buildingWidth, buildingLength);
-                            }
-                            else
-                            {
-                                // Not residential - set workplaces.
-                                int[] workplaces = new int[4];
-
-                                privateAI.CalculateWorkplaceCount(currentSelection.prefab.GetClassLevel(), new Randomizer(), buildingWidth, buildingLength, out workplaces[0], out workplaces[1], out workplaces[2], out workplaces[3]);
-
-                                currentSelection.local.workplaces = workplaces;
-                            }
-
-                            // Set as growable if building is appropriate size.
-                            if (buildingWidth <= 4 && buildingLength <= 4)
-                            {
-                                currentSelection.local.growable = true;
-                            }
-                        }
-                        else
-                        {
-                            // Basic catchall defaults for homes and workplaces.
-                            currentSelection.local.homeCount = 1;
-                            currentSelection.local.workplaces = new int[] { 1, 0, 0, 0 };
-                        }
-
-                        // UI Category will be updated later.
-                        currentSelection.local.uiCategory = "none";
-                    }
-
-                    currentSelection.local.name = currentSelection.name;
-
-                    // Update settings panel with new settings if RICO is enabled for this building.
-                    if (enabled)
-                    {
-                        SettingsPanel.Panel.UpdateSelectedBuilding(currentSelection);
-                        SettingsPanel.Panel.UpdateSelection();
-
-                        // Update UI category.
-                        SettingsPanel.Panel.UpdateUICategory();
-                    }
-                    Save();
-                }
-            };
-
-            removeLocal = UIUtils.CreateButton(this);
-            removeLocal.eventClick += (c, p) =>
-            {
-                // If there are no other settings, destroy any existing building button.
-                if (!(currentSelection.hasAuthor || currentSelection.hasMod ) && currentSelection.buildingButton != null)
-                {
-                    Destroy(currentSelection.buildingButton);
-                }
-
-                currentSelection.local = null;
-                currentSelection.hasLocal = false;
-
-                SettingsPanel.Panel.UpdateSelectedBuilding(currentSelection);
-
-                if (enabled) SettingsPanel.Panel.UpdateSelection();
-                Save();
-
-            };
-            removeLocal.text = Translations.Translate("PRR_SAV_REM");
-            removeLocal.width = 140;
-
-            save.eventClick += (c, p) =>
-            {
-                Save();
-            };
-
-            // Apply changes button and warning label.
+            // Warning label for 'apply changes' being experimental.
             UILabel warningLabel = this.AddUIComponent<UILabel>();
             warningLabel.textAlignment = UIHorizontalAlignment.Center;
             warningLabel.autoSize = false;
@@ -184,107 +72,253 @@ namespace PloppableRICO
             warningLabel.width = this.width - autoLayoutPadding.left - autoLayoutPadding.right;
             warningLabel.text = "\r\n" + Translations.Translate("PRR_EXP");
 
-            apply = UIUtils.CreateButton(this);
-            apply.text = Translations.Translate("PRR_SAV_APP");
-            apply.width = this.width - autoLayoutPadding.left - autoLayoutPadding.right;
-            apply.eventClick += (c, p) =>
-            {
-                // Find current prefab instance.
-                BuildingData currentBuildingData = Loading.xmlManager.prefabHash[currentSelection.prefab];
-
-                // Delete existing building button, if any.
-                if (currentBuildingData.buildingButton != null)
-                {
-                    Destroy(currentBuildingData.buildingButton);
-                }
-
-                // Save first.
-                Save();
-
-                // If we're converting a residential building to something else, then we first should clear out all households.
-                if (currentBuildingData.prefab.GetService() == ItemClass.Service.Residential && !IsCurrentResidential())
-                {
-                    // removeAll argument to true to remove all households.
-                    UpdateHouseholds(currentBuildingData.prefab.name, removeAll: true);
-                }
-
-                // Get the currently applied RICO settings (local, author, mod).
-                RICOBuilding currentData = CurrentRICOSetting();
-
-                if (currentData != null)
-                {
-                    // Convert the 'live' prefab (instance in PrefabCollection) and update household count and builidng level for all current instances.
-                    Loading.convertPrefabs.ConvertPrefab(currentData, PrefabCollection<BuildingInfo>.FindLoaded(currentBuildingData.prefab.name));
-                    UpdateHouseholds(currentBuildingData.prefab.name, currentData.level);
-
-                    // Create new building button.
-                    PloppableTool.Instance.AddBuildingButton(currentBuildingData, CurrentUICategory());
-                }
-                else
-                {
-                    Debugging.Message("no current RICO settings to apply to prefab " + currentBuildingData);
-                }
-
-                // Force an update of all panels with current values.
-                SettingsPanel.Panel.UpdateSelectedBuilding(currentSelection);
-            };
+            // 'Save and apply changes' button.
+            applyButton = UIUtils.CreateButton(this);
+            applyButton.width = this.width - autoLayoutPadding.left - autoLayoutPadding.right;
+            applyButton.text = Translations.Translate("PRR_SAV_APP");
+            applyButton.eventClick += (control, clickEvent) => SaveAndApply();
         }
 
+
+        /// <summary>
+        /// Saves the current RICO settings to file.
+        /// </summary>
         private void Save()
         {
-
+            // Read current settings from UI elements and convert to XML.
             SettingsPanel.Panel.Save();
 
+            // If the local settings file doesn't already exist, create a new blank template.
             if (!File.Exists("LocalRICOSettings.xml"))
             {
-
-                var newlocalSettings = new PloppableRICODefinition();
+                var newLocalSettings = new PloppableRICODefinition();
                 var xmlSerializer = new XmlSerializer(typeof(PloppableRICODefinition));
 
+                // Create blank file template.
                 using (XmlWriter writer = XmlWriter.Create("LocalRICOSettings.xml"))
                 {
-                    xmlSerializer.Serialize(writer, newlocalSettings);
+                    xmlSerializer.Serialize(writer, newLocalSettings);
                 }
             }
 
+            // Check that file exists before continuing (it really should at this point, but just in case).
             if (File.Exists("LocalRICOSettings.xml"))
             {
-                PloppableRICODefinition localSettings;
-                var newlocalSettings = new PloppableRICODefinition();
+                PloppableRICODefinition oldLocalSettings;
+                PloppableRICODefinition newLocalSettings = new PloppableRICODefinition();
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(PloppableRICODefinition));
 
-                var xmlSerializer = new XmlSerializer(typeof(PloppableRICODefinition));
-
-                using (StreamReader streamReader = new System.IO.StreamReader("LocalRICOSettings.xml"))
+                // Read existing file.
+                using (StreamReader streamReader = new StreamReader("LocalRICOSettings.xml"))
                 {
-                    localSettings = xmlSerializer.Deserialize(streamReader) as PloppableRICODefinition;
+                    oldLocalSettings = xmlSerializer.Deserialize(streamReader) as PloppableRICODefinition;
                 }
 
-                // Loop though all buildings in the file. If they arent the current selection, write them back to file. 
-                foreach (var buildingDef in localSettings.Buildings)
+                // Loop though all buildings in the existing file. If they aren't the current selection, write them back to the replacement file.
+                foreach (var buildingDef in oldLocalSettings.Buildings)
                 {
                     if (buildingDef.name != currentSelection.name)
                     {
-                        newlocalSettings.Buildings.Add(buildingDef);
+                        newLocalSettings.Buildings.Add(buildingDef);
                     }
                 }
 
-                // If current selection has local settings, add them to file. 
+                // If current selection has local settings, add them to the reokacenent file. 
                 if (currentSelection.hasLocal)
                 {
-                    newlocalSettings.Buildings.Add(currentSelection.local);
+                    newLocalSettings.Buildings.Add(currentSelection.local);
                 }
 
+                // Write replacement file to disk.
                 using (TextWriter writer = new StreamWriter("LocalRICOSettings.xml"))
                 {
-                    xmlSerializer.Serialize(writer, newlocalSettings);
+                    xmlSerializer.Serialize(writer, newLocalSettings);
                 }
-
+            }
+            else
+            {
+                Debugging.Message("couldn't find local settings file to save");
             }
 
             // Force an update of all panels with current values.
             SettingsPanel.Panel.UpdateSelectedBuilding(currentSelection);
         }
 
+
+        /// <summary>
+        /// Saves the current RICO settings to file and then applies them live in-game.
+        /// </summary>
+        private void SaveAndApply()
+        {
+            // Find current prefab instance.
+            BuildingData currentBuildingData = Loading.xmlManager.prefabHash[currentSelection.prefab];
+
+            // Delete existing building button, if any.
+            if (currentBuildingData.buildingButton != null)
+            {
+                Destroy(currentBuildingData.buildingButton);
+            }
+
+            // Save first.
+            Save();
+
+            // If we're converting a residential building to something else, then we first should clear out all households.
+            if (currentBuildingData.prefab.GetService() == ItemClass.Service.Residential && !IsCurrentResidential())
+            {
+                // removeAll argument to true to remove all households.
+                UpdateHouseholds(currentBuildingData.prefab.name, removeAll: true);
+            }
+
+            // Get the currently applied RICO settings (local, author, mod).
+            RICOBuilding currentData = CurrentRICOSetting();
+
+            if (currentData != null)
+            {
+                // Convert the 'live' prefab (instance in PrefabCollection) and update household count and builidng level for all current instances.
+                Loading.convertPrefabs.ConvertPrefab(currentData, PrefabCollection<BuildingInfo>.FindLoaded(currentBuildingData.prefab.name));
+                UpdateHouseholds(currentBuildingData.prefab.name, currentData.level);
+
+                // Create new building button.
+                PloppableTool.Instance.AddBuildingButton(currentBuildingData, CurrentUICategory());
+            }
+            else
+            {
+                Debugging.Message("no current RICO settings to apply to prefab " + currentBuildingData);
+            }
+
+            // Force an update of all panels with current values.
+            SettingsPanel.Panel.UpdateSelectedBuilding(currentSelection);
+        }
+
+
+        /// <summary>
+        /// Adds new (default) local RICO settings to the selected building.
+        /// </summary>
+        private void AddLocal()
+        {
+            // Don't do anything if there's already local settings.
+            if (currentSelection.hasLocal)
+            {
+                return;
+            }
+
+            // Create new local settings.
+            currentSelection.local = new RICOBuilding();
+            currentSelection.hasLocal = true;
+
+            // If selected asset has author or mod settings (in order), copy those to the local settings.
+            if (currentSelection.hasAuthor)
+            {
+                currentSelection.local = (RICOBuilding)currentSelection.author.Clone();
+            }
+            else if (currentSelection.hasMod)
+            {
+                currentSelection.local = (RICOBuilding)currentSelection.mod.Clone();
+            }
+            else
+            {
+                // Set some basic settings for assets with no settings.
+                currentSelection.local.name = currentSelection.name;
+                currentSelection.local.ricoEnabled = true;
+                currentSelection.local.service = GetRICOService();
+                currentSelection.local.subService = GetRICOSubService();
+                currentSelection.local.level = (int)currentSelection.prefab.GetClassLevel() + 1;
+                currentSelection.local.constructionCost = 10;
+
+                // See if selected 'virgin' prefab has Private AI.
+                if (currentSelection.prefab.GetAI() is PrivateBuildingAI privateAI)
+                {
+                    // It does - let's copy across growable statuts and household/workplace info.
+                    int buildingWidth = currentSelection.prefab.GetWidth();
+                    int buildingLength = currentSelection.prefab.GetLength();
+
+                    // Set homes/workplaces.
+                    if (privateAI is ResidentialBuildingAI)
+                    {
+                        // It's residential - set homes.
+                        currentSelection.local.homeCount = privateAI.CalculateHomeCount(currentSelection.prefab.GetClassLevel(), new Randomizer(), buildingWidth, buildingLength);
+                    }
+                    else
+                    {
+                        // Not residential - set workplaces.
+                        int[] workplaces = new int[4];
+
+                        privateAI.CalculateWorkplaceCount(currentSelection.prefab.GetClassLevel(), new Randomizer(), buildingWidth, buildingLength, out workplaces[0], out workplaces[1], out workplaces[2], out workplaces[3]);
+
+                        currentSelection.local.workplaces = workplaces;
+                    }
+
+                    // Set as growable if building is appropriate size.
+                    if (buildingWidth <= 4 && buildingLength <= 4)
+                    {
+                        currentSelection.local.growable = true;
+                    }
+                }
+                else
+                {
+                    // Basic catchall defaults for homes and workplaces.
+                    currentSelection.local.homeCount = 1;
+                    currentSelection.local.workplaces = new int[] { 1, 0, 0, 0 };
+                }
+
+                // UI Category will be updated later.
+                currentSelection.local.uiCategory = "none";
+            }
+
+            currentSelection.local.name = currentSelection.name;
+
+            // Update settings panel with new settings if RICO is enabled for this building.
+            SettingsPanel.Panel.UpdateSelectedBuilding(currentSelection);
+
+            // Refresh the selection list (to make sure settings checkboxes reflect new state).
+            SettingsPanel.Panel.RefreshList();
+
+            // Update UI category.
+            SettingsPanel.Panel.UpdateUICategory();
+
+            // Save new settings to file.
+            Save();
+        }
+
+
+        /// <summary>
+        /// Removes RICO local settings from the currently selected prefab.
+        /// </summary>
+        private void RemoveLocal()
+        {
+            // Don't do anything if there's no local settings.
+            if (!currentSelection.hasLocal)
+            {
+                return;
+            }
+
+
+            // If there are no other settings, destroy any existing building button.
+            if (!(currentSelection.hasAuthor || currentSelection.hasMod) && currentSelection.buildingButton != null)
+            {
+                Destroy(currentSelection.buildingButton);
+            }
+
+            // Destroy local settings.
+            currentSelection.local = null;
+            currentSelection.hasLocal = false;
+
+            // Update the current selection now that it no longer has local settings.
+            SettingsPanel.Panel.UpdateSelectedBuilding(currentSelection);
+
+            // Refresh the selection list (to make sure settings checkboxes reflect new state).
+            SettingsPanel.Panel.RefreshList();
+
+            // Update settings file with change.
+            Save();
+        }
+
+
+        /// <summary>
+        /// Returns the RICO service (as a string) of the currently selected prefab.
+        /// Used to populate intial values when local settings are created from 'virgin' prefabs.
+        /// </summary>
+        /// <returns>RICO service</returns>
         private string GetRICOService()
         {
             switch (currentSelection.prefab.m_class.m_service)
@@ -301,6 +335,11 @@ namespace PloppableRICO
         }
 
 
+        /// <summary>
+        /// Returns the RICO subservice (as a string) of the currently selected prefab.
+        /// Used to populate intial values when local settings are created from 'virgin' prefabs.
+        /// </summary>
+        /// <returns>RICO subservice</returns>
         private string GetRICOSubService()
         {
             switch (currentSelection.prefab.m_class.m_subService)
@@ -423,7 +462,6 @@ namespace PloppableRICO
 
             return false;
         }
-
 
 
         /// <summary>

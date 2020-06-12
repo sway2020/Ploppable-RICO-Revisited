@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Forms;
 using ColossalFramework.UI;
 using UnityEngine;
 
@@ -303,10 +302,7 @@ namespace PloppableRICO
         internal void SaveRICO()
         {
             // Set service and subservice.
-            string serviceString = String.Empty;
-            string subServiceString = String.Empty;
-
-            GetService(ref serviceString, ref subServiceString);
+            GetService(out string serviceString, out string subServiceString);
             currentSelection.service = serviceString;
             currentSelection.subService = subServiceString;
 
@@ -839,13 +835,16 @@ namespace PloppableRICO
         /// <summary>
         /// Returns the current service and subservice based on current menu selections.
         /// </summary>
-        private void GetService(ref string serviceName, ref string subServiceName)
+        private void GetService(out string serviceName, out string subServiceName)
         {
+            // Default return value for subservice if we can't match it below.
+            subServiceName = "none";
+
             switch (service.selectedIndex)
             {
                 case 0:
-                    currentSelection.service = "none";
-                    currentSelection.subService = "none";
+                    serviceName = "none";
+                    subServiceName = "none";
                     break;
                 case 1:
                     serviceName = "residential";
@@ -966,10 +965,7 @@ namespace PloppableRICO
             if (totalJobs > 0)
             {
                 // Get current service and sub-service.
-                string serviceString = string.Empty;
-                string subServiceString = string.Empty;
-
-                GetService(ref serviceString, ref subServiceString);
+                GetService(out string serviceString, out string subServiceString);
 
                 // Allocate out total workplaces ('manual').
                 int[] distribution = Util.WorkplaceDistributionOf(serviceString, subServiceString, "Level" + (level.selectedIndex + 1));
