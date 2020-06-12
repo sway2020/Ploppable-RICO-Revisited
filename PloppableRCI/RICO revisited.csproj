@@ -98,7 +98,7 @@
     <Compile Include="GUI\UISavePanel.cs" />
     <Compile Include="GUI\UITitlebar.cs" />
     <Compile Include="GUI\UIutils.cs" />
-    <Compile Include="Translations\Translations.cs" />
+    <Compile Include="Translations\TranslationFramework.cs" />
     <Compile Include="Translations\TranslationXML.cs" />
     <Compile Include="XML\CrpDataProvider.cs" />
     <Compile Include="XML\PloppableRICOBuilding.cs" />
