@@ -46,10 +46,11 @@ namespace PloppableRICO
 
             // Zoning
             zoningToggles = new UICheckBox[NumOfCategories];
+            CategoryNames tooltips = new CategoryNames();
             for (int i = 0; i < NumOfCategories; i++)
             {
                 zoningToggles[i] = UIUtils.CreateIconToggle(this, OriginalCategories.atlases[i], OriginalCategories.spriteNames[i], OriginalCategories.spriteNames[i] + "Disabled");
-                zoningToggles[i].tooltip = OriginalCategories.tooltips[i];
+                zoningToggles[i].tooltip = tooltips.names[i];
                 zoningToggles[i].relativePosition = new Vector3(40 * i, 0);
                 zoningToggles[i].isChecked = true;
                 zoningToggles[i].readOnly = true;

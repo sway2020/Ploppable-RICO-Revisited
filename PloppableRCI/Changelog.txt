@@ -1,5 +1,6 @@
 ﻿- Add configurable XML translation framework (based on BloodyPenguin's translation framework)
 - Add Traditional Chinese translation by M.S.Referee
+- Mod now responds to in-game language changes
 - Performance improvement: deactivate ploppable panel when not visible
 - Performance improvement: destroy settings panel when not visible
 - Standardise all logging

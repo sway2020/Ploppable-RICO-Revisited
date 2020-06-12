@@ -125,9 +125,9 @@
   <ItemGroup>
     <Content Include="Changelog.txt" />
     <Content Include="Images\PreviewImage.png" />
-    <Content Include="Translations\TranslationFiles\ChineseTrad.xml" />
-    <Content Include="Translations\TranslationFiles\English.xml" />
-    <Content Include="Translations\TranslationFiles\Chinese.xml" />
+    <Content Include="Translations\TranslationFiles\zh-tw.xml" />
+    <Content Include="Translations\TranslationFiles\en.xml" />
+    <Content Include="Translations\TranslationFiles\zh.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

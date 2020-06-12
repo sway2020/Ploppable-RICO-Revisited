@@ -15,11 +15,10 @@
         Industrial
     }
 
-
     /// <summary>
     /// Data struct for original building categories (to sort settings panel building list).
     /// </summary>
-    internal class OriginalCategories
+    internal static class OriginalCategories
     {
         // Icons representing each category.
         internal static readonly string[] spriteNames =
@@ -50,9 +49,13 @@
             "Thumbnails",
             "Thumbnails"
         };
+    }
 
+
+    internal class CategoryNames
+    {
         // Tooltips.
-        internal static readonly string[] tooltips =
+        internal readonly string[] names =
         {
             Translations.Translate("PRR_CAT_MON"),
             Translations.Translate("PRR_CAT_BEA"),
@@ -71,9 +74,9 @@
     /// <summary>
     /// Data struct for Ploppable RICO Revisited UI category names.
     /// </summary>
-    internal struct UICategories
+    internal class UICategories
     {
-        internal static readonly string[] names =
+        internal readonly string[] names =
         {
             Translations.Translate("PRR_UIC_REL"),
             Translations.Translate("PRR_UIC_REH"),

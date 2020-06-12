@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Language UniqueName="zh-tw" ReadableName="中文">
+<Language UniqueName="zh-tw" ReadableName="繁體中文">
   <Translations>
     <Translation ID="PRR_LEVEL" String="建築等級" />
     <Translation ID="PRR_LVL" String="等級" />

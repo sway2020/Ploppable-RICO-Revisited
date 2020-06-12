@@ -32,6 +32,7 @@ namespace PloppableRICO
         private UITabstrip Tabs;
         private UISprite[] TabSprites = new UISprite[NumTabs];
         private UIButton[] TabButtons = new UIButton[NumTabs];
+        private UIButton showSettings;
 
         private UIPanel BuildingPanel;
         private UIScrollablePanel[] BuildingPanels = new UIScrollablePanel[NumTabs];
@@ -192,7 +193,6 @@ namespace PloppableRICO
                     TabButtons[i].focusedBgSprite = "SubBarButtonBaseFocused";
                     TabButtons[i].state = UIButton.ButtonState.Normal;
                     TabButtons[i].name = Names[i] + "Button";
-                    TabButtons[i].tooltip = UICategories.names[i];
                     TabButtons[i].tabStrip = true;
 
                     TabSprites[i] = new UISprite();
@@ -287,11 +287,13 @@ namespace PloppableRICO
                 }
 
                 // Settings tab.
-                UIButton showSettings = UIUtils.CreateButton(Tabs);
+                showSettings = UIUtils.CreateButton(Tabs);
                 showSettings.size = new Vector2(80, 25);
                 showSettings.normalBgSprite = "SubBarButtonBase";
-                showSettings.text = Translations.Translate("PRR_SET");
                 showSettings.eventClick += (component, clickEvent) => SettingsPanel.Open();
+
+                // Add UI text.
+                SetText();
 
                 // Toggle active state on visibility changed (deactivating when hidden to minimise UI workload and impact on performance).
                 BuildingPanel.eventVisibilityChanged += (component, isVisible) =>
@@ -322,6 +324,23 @@ namespace PloppableRICO
                 currentSelection.scrollPosition = currentSelection.scrollPosition + new Vector2(109, 0);
             }
 
+        }
+
+
+        /// <summary>
+        /// Adds/updates text components of the Ploppable Tool Panel (tooltips, settings button) according to the current language.
+        /// </summary>
+        public void SetText()
+        {
+            // Set settings button text.
+            showSettings.text = Translations.Translate("PRR_SET");
+
+            // Populate tooltips.
+            UICategories tooltips = new UICategories();
+            for (int i = 0; i <= NumTypes; i++)
+            {
+                TabButtons[i].tooltip = tooltips.names[i];
+            }
         }
 
 

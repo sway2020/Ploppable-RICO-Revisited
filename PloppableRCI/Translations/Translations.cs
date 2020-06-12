@@ -107,6 +107,9 @@ namespace PloppableRICO
             {
                 // Try to set current language, falling back to default if null.
                 currentLanguage = languages.Find(language => language.uniqueName == LocaleManager.instance.language) ?? FallbackLanguage();
+
+                // Update ploppable tool.
+                PloppableTool.Instance.SetText();
             }
         }
 

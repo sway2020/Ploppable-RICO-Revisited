@@ -205,7 +205,7 @@ namespace PloppableRICO
             // Dropdown menu - UI category.
             uiCategory = UIUtils.CreateDropDown(enableRICOPanel, 90, Translations.Translate("PRR_OPT_UIC"));
             uiCategory.selectedIndex = 0;
-            uiCategory.items = UICategories.names;
+            uiCategory.items = (new UICategories()).names;
 
             // Dropdown menu - building level.
             level = UIUtils.CreateDropDown(enableRICOPanel, 120, Translations.Translate("PRR_LEVEL"));

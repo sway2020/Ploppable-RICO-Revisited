@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Language UniqueName="en" ReadableName="English">
   <Translations>
+    <Translation ID="PRR_NAME" String="Ploppable RICO Revisited" />
     <Translation ID="PRR_LEVEL" String="Level" />
     <Translation ID="PRR_LVL" String="Lvl" />
     <Translation ID="PRR_HOU" String="Households" />
