@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Language UniqueName="zh-tw" ReadableName="中文">
+  <Translations>
+    <Translation ID="PRR_LEVEL" String="建築等級" />
+    <Translation ID="PRR_LVL" String="等級" />
+    <Translation ID="PRR_HOU" String="戶數" />
+    <Translation ID="PRR_WOR" String="工作數量" />
+    <Translation ID="PRR_SRV_NON" String="無" />
+    <Translation ID="PRR_SRV_RES" String="住宅建築" />
+    <Translation ID="PRR_SRV_IND" String="工業建築" />
+    <Translation ID="PRR_SRV_OFF" String="辦公建築" />
+    <Translation ID="PRR_SRV_COM" String="商業建築" />
+    <Translation ID="PRR_SRV_EXT" String="萃取器" />
+    <Translation ID="PRR_SRV_DUM" String="虛擬建築" />
+    <Translation ID="PRR_SUB_HIG" String="高密度" />
+    <Translation ID="PRR_SUB_LOW" String="低密度" />
+    <Translation ID="PRR_SUB_HEC" String="高密度-自給住宅行政專區建築" />
+    <Translation ID="PRR_SUB_LEC" String="低密度-自給住宅行政專區建築" />
+    <Translation ID="PRR_SUB_LEI" String="休閒娛樂行政專區建築" />
+    <Translation ID="PRR_SUB_TOU" String="觀光旅遊行政專區建築" />
+    <Translation ID="PRR_SUB_ORG" String="本土製造服務和有機農業行政專區建築" />
+    <Translation ID="PRR_SUB_GEN" String="一般類型建築" />
+    <Translation ID="PRR_SUB_ITC" String="IT產業行政專區建築" />
+    <Translation ID="PRR_SUB_FAR" String="農牧業行政專區建築" />
+    <Translation ID="PRR_SUB_FOR" String="林業行政專區建築" />
+    <Translation ID="PRR_SUB_OIL" String="石化工業行政專區建" />
+    <Translation ID="PRR_SUB_ORE" String="礦業行政專區建築" />
+    <Translation ID="PRR_FTR_ALL" String="全選" />
+    <Translation ID="PRR_FTR_NON" String="全不選" />
+    <Translation ID="PRR_FTR_NAM" String="名稱" />
+    <Translation ID="PRR_FTR_SET" String="過濾器設置：模組(Mod)/作者/本地/任意" />
+    <Translation ID="PRR_OPT_ENA" String="啟用為可放置型(RICO)建築" />
+    <Translation ID="PRR_OPT_SER" String="建築類型" />
+    <Translation ID="PRR_OPT_SUB" String="建築子級" />
+    <Translation ID="PRR_OPT_UIC" String="建築界面分類" />
+    <Translation ID="PRR_OPT_CST" String="建造花費" />
+    <Translation ID="PRR_OPT_CNT" String="勞工(工人)/居民" />
+    <Translation ID="PRR_OPT_POP" String="使用“真實人口(Realistic Population)”模組(Mod)" />
+    <Translation ID="PRR_OPT_POL" String="啟用建築污染擴散" />
+    <Translation ID="PRR_OPT_GRO" String="建築可成長(Growable)功能" />
+    <Translation ID="PRR_OPT_JB0" String="未受教育之職缺" />
+    <Translation ID="PRR_OPT_JB1" String="受普通教育之職缺" />
+    <Translation ID="PRR_OPT_JB2" String="受良好教育之職缺" />
+    <Translation ID="PRR_OPT_JB3" String="受高等教育之職缺" />
+    <Translation ID="PRR_CAT_MON" String="宏偉巨作建築" />
+    <Translation ID="PRR_CAT_BEA" String="城市美化" />
+    <Translation ID="PRR_CAT_EDU" String="教育系統" />
+    <Translation ID="PRR_CAT_POW" String="供電系統" />
+    <Translation ID="PRR_CAT_WAT" String="供水污水供暖系統" />
+    <Translation ID="PRR_CAT_HEA" String="醫療保健系統" />
+    <Translation ID="PRR_CAT_RES" String="住宅區" />
+    <Translation ID="PRR_CAT_COM" String="商業區" />
+    <Translation ID="PRR_CAT_OFF" String="辦公區" />
+    <Translation ID="PRR_CAT_IND" String="工業區" />
+    <Translation ID="PRR_UIC_REL" String="低密度住宅區" />
+    <Translation ID="PRR_UIC_REH" String="高密度住宅區" />
+    <Translation ID="PRR_UIC_COL" String="低密度商業區" />
+    <Translation ID="PRR_UIC_COH" String="高密度商業區" />
+    <Translation ID="PRR_UIC_OFF" String="辦公區" />
+    <Translation ID="PRR_UIC_IND" String="工業區" />
+    <Translation ID="PRR_UIC_FAR" String="農牧業行政專區" />
+    <Translation ID="PRR_UIC_FOR" String="林業行政專區" />
+    <Translation ID="PRR_UIC_OIL" String="礦業行政專區" />
+    <Translation ID="PRR_UIC_ORE" String="礦業行政專區" />
+    <Translation ID="PRR_UIC_LEI" String="休閒娛樂行政專區" />
+    <Translation ID="PRR_UIC_TOU" String="觀光旅遊行政專區" />
+    <Translation ID="PRR_UIC_ORG" String="本土製造服務和有機農業行政專區" />
+    <Translation ID="PRR_UIC_ITC" String="IT產業行政專區" />
+    <Translation ID="PRR_UIC_ECO" String="自給住宅行政專區" />
+    <Translation ID="PRR_UIC_NON" String="全不選" />
+    <Translation ID="PRR_SET" String="設置" />
+    <Translation ID="PRR_SET_RICO" String="可放置型(RICO)設置" />
+    <Translation ID="PRR_SET_HASMOD" String="模組(Mod)設置" />
+    <Translation ID="PRR_SET_HASAUT" String="作者設置" />
+    <Translation ID="PRR_SET_HASLOC" String="本地設置" />
+    <Translation ID="PRR_SET_HASANY" String="任意設置" />
+    <Translation ID="PRR_SET_HASNON" String="無設置" />
+    <Translation ID="PRR_SAV_SAV" String="保存設訂" />
+    <Translation ID="PRR_SAV_ADD" String="添加此建築設訂到全局文檔" />
+    <Translation ID="PRR_SAV_REM" String="從全局文檔中刪除此建築設訂" />
+    <Translation ID="PRR_SAV_APP" String="保存並即刻添加此建築設訂到對應界面" />
+    <Translation ID="PRR_EXP" String="注意：本“Real-Time”功能仍為測試版" />
+    <Translation ID="PRR_DESCRIPTION" String="允許可放置型(RICO)建築大於4x4區域尺吋和可客制化" />
+    <Translation ID="PRR_OPTION_MOREDEBUG" String="啟用額外的除錯日誌記錄" />
+    <Translation ID="PRR_OPTION_FORCERESET" String="在遊戲加載時強制重置現有建築統計數值" />
+    <Translation ID="PRR_OPTION_PLAINTHUMBS" String="使用特寫式資訊縮略圖" />
+    <Translation ID="PRR_OPTION_REGENTHUMBS" String="重創建特寫式資訊縮略圖" />
+    <Translation ID="PRR_ERR_HAR0" String="“Harmony” 擴展文檔錯誤" />
+    <Translation ID="PRR_ERR_HAR1" String="“Ploppable RICO Revisited” 模組(Mod)無法獲取所需的“Harmony”擴展文檔。 這意味著本模組(Mod)無法正常運轉，並且模組(Mod)已自動禁用以保護您的存檔不受損壞" />
+    <Translation ID="PRR_ERR_HAR2" String="此問題的可能原因包括:" />
+    <Translation ID="PRR_ERR_HAR3" String="未安裝“Harmony 2”擴展文檔" />
+    <Translation ID="PRR_ERR_HAR4" String="舊的或損壞、不兼容的模組(Mod)阻止“Harmony 2”擴展文檔正常運作。(已知舊的“Painter”模組(Mod)和“Garbage Bin Controller” 模組(Mod)會導致此問題。）" />
+    <Translation ID="PRR_CON_DWN" String="“Ploppable RICO Revisited” 模組(Mod)已自動禁用以保護您的遊戲。" />
+    <Translation ID="PRR_CON_ONE" String="在這些模組(Mods)中只能同時啟用一個-請選擇一個，然後取消訂閱其他模組(Mods)！" />
+    <Translation ID="PRR_CON_OPR" String="發現原版“Ploppable RICO” 模組(Mod)！" />
+    <Translation ID="PRR_CON_EBC" String="發現“Enhanced Building Capacity”模組(Mod)！" />
+    <Translation ID="PRR_CON_PTR" String="發現“Painter”模組(Mod)！" />
+    <Translation ID="PRR_CON_PTR1" String="原版“Painter”模組(Mod)導致“Ploppable RICO Revisited”模組(Mod)使用的“Harmony 2” 數據庫出現問題，從而導致隨機錯誤。 請：取消訂閱，原版“Painter”模組(Mod)而不是在遊戲內‘禁用’。訂閱“Repaint”模組(Mod)可以替代原版。" />
+    <Translation ID="PRR_UPD_21_0" String="“Ploppable RICO Revisited” 模組(Mod)已更新至2.1版本。 更新帶來的一些主要功能包括：" />
+    <Translation ID="PRR_UPD_21_1" String="Ploppable RICO Revisited已更新至版本2.1。此更新的一些关键功能是:" />
+    <Translation ID="PRR_UPD_21_2" String="新的模組(Mod)設置面板(可通過遊戲選項訪問)，包括‘特寫式資訊縮略圖’選項" />
+    <Translation ID="PRR_UPD_21_3" String="調整縮略圖圖像的渲染亮度可以幫助玩家用於過飽和的地圖主題。" />
+    <Translation ID="PRR_UPD_21_4" String="從現有可增長建築物創建的全局RICO設置在默認狀況下是啟用的，並繼承原始的默認 戶數/工作數量 數值。" />
+    <Translation ID="PRR_UPD_21_5" String="如果您的城市接近遊戲最大值限制，則額外的故障保護功能可減少住宅建築的家庭人數減少游戲負擔風險。" />
+  </Translations>
+</Language>

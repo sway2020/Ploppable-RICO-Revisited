@@ -1,4 +1,5 @@
 ﻿- Add configurable XML translation framework (based on BloodyPenguin's translation framework)
+- Add Traditional Chinese translation by M.S.Referee
 - Performance improvement: deactivate ploppable panel when not visible
 - Performance improvement: destroy settings panel when not visible
 - Standardise all logging

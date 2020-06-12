@@ -5,7 +5,7 @@ using ColossalFramework.UI;
 
 namespace PloppableRICO
 {
-    internal class Debugging
+    internal static class Debugging
     {
         // Buffer errors (used during loading to display an error modal dialog after loading has completed).
         internal static StringBuilder ErrorBuffer = new StringBuilder();
