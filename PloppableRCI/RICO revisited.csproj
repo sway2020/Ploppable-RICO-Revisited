@@ -98,8 +98,8 @@
     <Compile Include="GUI\UISavePanel.cs" />
     <Compile Include="GUI\UITitlebar.cs" />
     <Compile Include="GUI\UIutils.cs" />
-    <Compile Include="Translations\TranslationFramework.cs" />
-    <Compile Include="Translations\TranslationXML.cs" />
+    <Compile Include="TranslationFramework\TranslationFramework.cs" />
+    <Compile Include="TranslationFramework\TranslationXML.cs" />
     <Compile Include="XML\CrpDataProvider.cs" />
     <Compile Include="XML\PloppableRICOBuilding.cs" />
     <Compile Include="XML\PloppableRICODefinition.cs" />
@@ -125,9 +125,9 @@
   <ItemGroup>
     <Content Include="Changelog.txt" />
     <Content Include="Images\PreviewImage.png" />
-    <Content Include="Translations\TranslationFiles\zh-tw.xml" />
-    <Content Include="Translations\TranslationFiles\en.xml" />
-    <Content Include="Translations\TranslationFiles\zh.xml" />
+    <Content Include="TranslationFiles\zh-tw.xml" />
+    <Content Include="TranslationFiles\en.xml" />
+    <Content Include="TranslationFiles\zh.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -141,7 +141,8 @@ del "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName
 del "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)\CitiesHarmony.API.dll"
 xcopy /y "$(SolutionDir)packages\CitiesHarmony.API.1.0.5\lib\net35\CitiesHarmony.API.dll" "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)"
 mkdir "$(LOCALAPPDATA)\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)\Translations"
-xcopy /y "$(SolutionDir)\Translations\TranslationFiles\" "$(LOCALAPPDATA)\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)\Translations" /s /e
+del "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)\Translations\*"
+xcopy /y "$(SolutionDir)\Translations\" "$(LOCALAPPDATA)\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)\Translations" /s /e
 </PostBuildEvent>
   </PropertyGroup>
   <Import Project="packages\PostSharp.4.2.29\tools\PostSharp.targets" Condition="Exists('packages\PostSharp.4.2.29\tools\PostSharp.targets')" />

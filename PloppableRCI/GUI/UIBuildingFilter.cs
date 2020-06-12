@@ -44,19 +44,24 @@ namespace PloppableRICO
         /// Category togle button event handler.  Toggles the button state and updates the filter accordingly.
         /// </summary>
         /// <param name="control"></param>
-        public void ToggleCat(UIComponent control)
+        public void ToggleCat(UICheckBox control)
         {
-            // If either shift or control is NOT held down, deselect all other toggles.
+            // If either shift or control is NOT held down, deselect all other toggles and select this one.
             if (!(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)))
             {
                 for (int i = 0; i < NumOfCategories; i++)
                 {
                     categoryToggles[i].isChecked = false;
                 }
+                
+                // Select this toggle.
+                control.isChecked = true;
             }
-            
-            // Select this toggle.
-            (control as UICheckBox).isChecked = true;
+            else
+            {
+                // Shift or control IS held down; toggle this control.
+                control.isChecked = !control.isChecked;
+            }
 
             // Trigger an update.
             eventFilteringChanged(this, 0);
@@ -142,7 +147,7 @@ namespace PloppableRICO
                 categoryToggles[i].relativePosition = new Vector3(40 * i, 0);
                 categoryToggles[i].isChecked = true;
                 categoryToggles[i].readOnly = true;
-                categoryToggles[i].eventClick += (control, clickEvent) => ToggleCat(control);
+                categoryToggles[i].eventClick += (control, clickEvent) => ToggleCat(control as UICheckBox);
             }
 
             // 'Select all' button.
