@@ -1,4 +1,6 @@
-﻿- Add configurable XML translation framework (based on BloodyPenguin's translation framework)
+﻿Version 2.2
+
+- Add configurable XML translation framework (based on BloodyPenguin's translation framework)
 - Add Traditional Chinese translation by M.S.Referee
 - Mod now responds to in-game language changes
 - Add active detection of prefabs that failed game init
