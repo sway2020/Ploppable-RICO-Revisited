@@ -40,6 +40,9 @@ namespace PloppableRICO
 			};
 			Loading.xmlManager.prefabHash[__instance] = buildingData;
 
+			// Add to broken prefabs list (will be removed later if it's not broken).
+			Loading.brokenPrefabs.Add(__instance);
+
 			// Search for PloppableRICODefinition.xml files with this asset.
 			// Need to use FindAssetByName(string, AssetType) because FindAssetByName(string) doesn't catch all assets at this stage of initialisation
 			// (those two methods are more different than you might think - discovered that the hard way).
@@ -185,6 +188,18 @@ namespace PloppableRICO
 
 			// Continue on to execute game InitializePrefab.
 			return true;
+		}
+
+
+		/// <summary>
+		/// Harmony prefix patch for BuildingInfo.InitializePrefab.
+		/// Confirms that the prefab made it through initialisation.
+		/// </summary>
+		/// <param name="__instance"></param>
+		private static void Postfix(BuildingInfo __instance)
+		{
+			// If we've made it here, the asset has initialised correctly (no PrefabExceptions thrown); remove it from broken prefabs list.
+			Loading.brokenPrefabs.Remove(__instance);
 		}
 
 

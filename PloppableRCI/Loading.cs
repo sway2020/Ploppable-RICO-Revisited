@@ -14,6 +14,9 @@ namespace PloppableRICO
         internal static RICOPrefabManager xmlManager;
         internal static ConvertPrefabs convertPrefabs;
 
+        // Broken prefabs list.
+        internal static List<BuildingInfo> brokenPrefabs;
+
         // RICO definitions.
         internal static PloppableRICODefinition localRicoDef;
         internal static PloppableRICODefinition mod1RicoDef;
@@ -80,6 +83,9 @@ namespace PloppableRICO
                 };
             }
 
+            // Reset broken prefabs list.
+            brokenPrefabs = new List<BuildingInfo>();
+
             // Read mod settings.
             SettingsFile settingsFile = Configuration<SettingsFile>.Load();
             Settings.plainThumbs = settingsFile.PlainThumbs;
@@ -145,6 +151,14 @@ namespace PloppableRICO
                 return;
             }
 
+            // Report any broken assets and remove from our prefab dictionary.
+            foreach (BuildingInfo prefab in brokenPrefabs)
+            {
+                Debugging.Message("broken prefab: " + prefab.name);
+                xmlManager.prefabHash.Remove(prefab);
+            }
+            brokenPrefabs.Clear();
+
             // Init Ploppable Tool panel.
             PloppableTool.Initialize();
 
@@ -156,7 +170,7 @@ namespace PloppableRICO
 
             // Report any loading errors.
             Debugging.ReportErrors();
-
+            
             Debugging.Message("loading complete");
 
             // Load settings file and check if we need to display update notification.
