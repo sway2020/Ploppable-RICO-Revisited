@@ -11,7 +11,6 @@ namespace PloppableRICO
     public class RICOPrefabManager
     {
         public Dictionary<BuildingInfo, BuildingData> prefabHash;
-        public List<BuildingData> prefabList;
 
         
         /// <summary>

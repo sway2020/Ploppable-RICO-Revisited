@@ -24,6 +24,12 @@ namespace PloppableRICO
 		[HarmonyBefore(new string[] { "github.com/boformer/PrefabHook" })]
 		private static bool Prefix(BuildingInfo __instance)
 		{
+			// Basic sanity check before proceeding; if failed, don't do anything here - just continue on to game method.
+			if (__instance.name == null)
+			{
+				return true;
+			}
+
 			// Create a new building record for this prefab and add it to our lists.
 			var buildingData = new BuildingData
 			{
@@ -32,7 +38,6 @@ namespace PloppableRICO
 				density = Loading.xmlManager.SetPrefabDensity(__instance),
 				category = Loading.xmlManager.AssignCategory(__instance),
 			};
-			Loading.xmlManager.prefabList.Add(buildingData);
 			Loading.xmlManager.prefabHash[__instance] = buildingData;
 
 			// Search for PloppableRICODefinition.xml files with this asset.
@@ -40,37 +45,34 @@ namespace PloppableRICO
 			// (those two methods are more different than you might think - discovered that the hard way).
 			var asset = PackageManager.FindAssetByName(__instance.name, Package.AssetType.Object);
 
-			if (asset != null && asset.package != null)
+			if (asset?.package?.packagePath != null)
 			{
 				// Get custom asset filesystem location (if CRP pacakge).
-				var crpPath = asset.package.packagePath;
+				string crpPath = asset.package.packagePath;
+				
+				// Look for RICO settings file.
+				string ricoDefPath = Path.Combine(Path.GetDirectoryName(crpPath), "PloppableRICODefinition.xml");
 
-				if (crpPath != null)
+				if (File.Exists(ricoDefPath))
 				{
-					// Look for RICO settings file.
-					var ricoDefPath = Path.Combine(Path.GetDirectoryName(crpPath), "PloppableRICODefinition.xml");
+					// Parse the file.
+					// TODO - ParseRICODefinition - check need for args
+					var tempRicoDef = RICOReader.ParseRICODefinition(asset.package.packageName, ricoDefPath);
 
-					if (File.Exists(ricoDefPath))
+					if (tempRicoDef != null)
 					{
-						// Parse the file.
-						// TODO - ParseRICODefinition - check need for args
-						var tempRicoDef = RICOReader.ParseRICODefinition(asset.package.packageName, ricoDefPath);
-
-						if (tempRicoDef != null)
+						foreach (var buildingDef in tempRicoDef.Buildings)
 						{
-							foreach (var buildingDef in tempRicoDef.Buildings)
+							// Go through each building parsed and check to see if we've got a match for this prefab.
+							if (MatchRICOName(buildingDef.name, __instance.name, asset.package.packageName))
 							{
-								// Go through each building parsed and check to see if we've got a match for this prefab.
-								if (MatchRICOName(buildingDef.name, __instance.name, asset.package.packageName))
+								// Match!  Add these author settings to our prefab dictionary.
+								if (Settings.debugLogging)
 								{
-									// Match!  Add these author settings to our prefab dictionary.
-									if (Settings.debugLogging)
-									{
-										Debugging.Message("found author settings for '" + buildingDef.name);
-									}
-									Loading.xmlManager.prefabHash[__instance].author = buildingDef;
-									Loading.xmlManager.prefabHash[__instance].hasAuthor = true;
+									Debugging.Message("found author settings for '" + buildingDef.name);
 								}
+								Loading.xmlManager.prefabHash[__instance].author = buildingDef;
+								Loading.xmlManager.prefabHash[__instance].hasAuthor = true;
 							}
 						}
 					}

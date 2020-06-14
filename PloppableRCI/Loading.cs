@@ -77,7 +77,6 @@ namespace PloppableRICO
                 xmlManager = new RICOPrefabManager
                 {
                     prefabHash = new Dictionary<BuildingInfo, BuildingData>(),
-                    prefabList = new List<BuildingData>()
                 };
             }
 
