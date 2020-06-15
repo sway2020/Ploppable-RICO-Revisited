@@ -38,12 +38,20 @@ namespace PloppableRICO
                 conflictMessage = Translations.Translate("PRR_CON_OPR") + " - " + Translations.Translate("PRR_CON_DWN") + "\r\n\r\n" + Translations.Translate("PRR_CON_ONE");
                 return false;
             }
-            else if (IsModEnabled("EnhancedBuildingCapacity"))
+            else if (IsModInstalled("EnhancedBuildingCapacity"))
             {
                 // Enhanced Building Capacity mod detected.
                 conflictingMod = true;
                 Debugging.Message("Enhanced Building Capacity mod detected - RICO Revisited exiting");
                 conflictMessage = Translations.Translate("PRR_CON_EBC") + " - " + Translations.Translate("PRR_CON_DWN") + "\r\n\r\n" + Translations.Translate("PRR_CON_ONE");
+                return false;
+            }
+            else if (IsModInstalled("VanillaGarbageBinBlocker"))
+            {
+                // Enhanced Building Capacity mod detected.
+                conflictingMod = true;
+                Debugging.Message("Garbage Bin Controller mod detected - RICO Revisited exiting");
+                conflictMessage = Translations.Translate("PRR_CON_GBC") + " - " + Translations.Translate("PRR_CON_DWN") + "\r\n\r\n" + Translations.Translate("PRR_CON_ONE");
                 return false;
             }
             else if (IsModInstalled(1372431101ul))
@@ -56,7 +64,7 @@ namespace PloppableRICO
             }
 
             // No conflicts - now check for realistic population mods.
-            realPopEnabled = (IsModEnabled("RealPopRevisited") || IsModEnabled("WG_BalancedPopMod"));
+            realPopEnabled = (IsModInstalled("RealPopRevisited", true) || IsModInstalled("WG_BalancedPopMod", true));
 
             // Check for Workshop RICO settings mod.
             if (IsModEnabled(629850626uL))
@@ -118,11 +126,12 @@ namespace PloppableRICO
 
 
         /// <summary>
-        /// Checks to see if another mod is installed and enabled, based on a provided assembly name.
+        /// Checks to see if another mod is installed, based on a provided assembly name.
         /// </summary>
         /// <param name="assemblyName">Name of the mod assembly</param>
-        /// <returns>True if the mod is installed and enabled, false otherwise</returns>
-        internal static bool IsModEnabled(string assemblyName)
+        /// <param name="enabledOnly">True if the mod needs to be enabled for the purposes of this check; false if it doesn't matter</param>
+        /// <returns>True if the mod is installed (and, if enabledOnly is true, is also enabled), false otherwise</returns>
+        internal static bool IsModInstalled(string assemblyName, bool enabledOnly = false)
         {
             // Convert assembly name to lower case.
             string assemblyNameLower = assemblyName.ToLower();
@@ -134,8 +143,15 @@ namespace PloppableRICO
                 {
                     if (assembly.GetName().Name.ToLower().Equals(assemblyNameLower))
                     {
-                        Debugging.Message("found mod assembly " + assemblyName + " with status " + (plugin.isEnabled ? "enabled" : "disabled"));
-                        return plugin.isEnabled;
+                        Debugging.Message("found mod assembly " + assemblyName);
+                        if (enabledOnly)
+                        {
+                            return plugin.isEnabled;
+                        }
+                        else
+                        {
+                            return true;
+                        }
                     }
                 }
             }

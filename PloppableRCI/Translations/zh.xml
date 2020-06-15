@@ -94,6 +94,7 @@
     <Translation ID="PRR_CON_ONE" String="这些模组中只有一个可以同时启用-请选择一个模组，然后取消订阅另一个模组" />
     <Translation ID="PRR_CON_OPR" String="请取消原先版本的Ploppable RICO" />
     <Translation ID="PRR_CON_EBC" String="检测到Enhanced Building Capacity mod" />
+    <Translation ID="PRR_CON_GBC" String="检测到Garbage Bin Controller mod" />
     <Translation ID="PRR_CON_PTR" String="检测到Painter mod" />
     <Translation ID="PRR_CON_PTR1" String="旧的Painter Mod导致此Mod使用的Harmony库出现问题，从而导致随机错误。请从Painter取消订阅（仅禁用是不够的）； Repaint mod可以替代" />
     <Translation ID="PRR_UPD_21_0" String="Plopplable RICO Revisited 2.1更新" />

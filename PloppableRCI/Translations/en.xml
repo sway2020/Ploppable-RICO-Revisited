@@ -95,6 +95,7 @@
     <Translation ID="PRR_CON_ONE" String="Only ONE of these mods can be enabled at the same time - please choose one and unsubscribe from the other!" />
     <Translation ID="PRR_CON_OPR" String="Original Ploppable RICO mod detected" />
     <Translation ID="PRR_CON_EBC" String="Enhanced Building Capacity mod detected" />
+    <Translation ID="PRR_CON_GBC" String="Garbage Bin Controller mod detected" />
     <Translation ID="PRR_CON_PTR" String="Old Painter mod detected" />
     <Translation ID="PRR_CON_PTR1" String="The old Painter mod causes problems with the Harmony libraries used by this mod, resulting in random errors.  Please UNSUBSCRIBE from Painter (merely disabling is NOT sufficient); the Repaint mod can be used as a replacement." />
     <Translation ID="PRR_UPD_21_0" String="Plopplable RICO Revisited 2.1 update" />

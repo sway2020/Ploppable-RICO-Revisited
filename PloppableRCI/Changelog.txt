@@ -4,7 +4,9 @@
 - Add Traditional Chinese translation by M.S.Referee
 - Mod now responds to in-game language changes
 - Add active detection of prefabs that failed game init
+- Workplace counts (totals or breakdowns) in settings panel now automatically update as valid values are entered
 - Settings category filter buttons now toggle on shift- or control-click
+- Add mod compatibility check for Garbage Bin Controller mod
 - Performance improvement: deactivate ploppable panel when not visible
 - Performance improvement: destroy settings panel when not visible
 - Standardise all logging

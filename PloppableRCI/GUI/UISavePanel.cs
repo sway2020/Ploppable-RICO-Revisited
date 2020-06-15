@@ -286,8 +286,8 @@ namespace PloppableRICO
         /// </summary>
         private void RemoveLocal()
         {
-            // Don't do anything if there's no local settings.
-            if (!currentSelection.hasLocal)
+            // Don't do anything if there's no selection or selection has no local settings.
+            if (currentSelection == null || !currentSelection.hasLocal)
             {
                 return;
             }

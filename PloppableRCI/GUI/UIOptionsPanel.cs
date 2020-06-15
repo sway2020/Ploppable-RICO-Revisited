@@ -212,17 +212,17 @@ namespace PloppableRICO
             level.items = Level;
 
             // Update workplace allocations on level, service, and subservice change.
-            level.eventSelectedIndexChanged += (c, value) =>
+            level.eventSelectedIndexChanged += (control, value) =>
             {
-                UpdateWorkplaces();
+                UpdateWorkplaceBreakdowns();
             };
-            service.eventSelectedIndexChanged += (c, value) =>
+            service.eventSelectedIndexChanged += (control, value) =>
             {
-                UpdateWorkplaces();
+                UpdateWorkplaceBreakdowns();
             };
-            subService.eventSelectedIndexChanged += (c, value) =>
+            subService.eventSelectedIndexChanged += (control, value) =>
             {
-                UpdateWorkplaces();
+                UpdateWorkplaceBreakdowns();
             };
 
             // Base text fields.
@@ -239,6 +239,13 @@ namespace PloppableRICO
             educated = UIUtils.CreateTextField(enableRICOPanel, 330, Translations.Translate("PRR_OPT_JB1"));
             welleducated = UIUtils.CreateTextField(enableRICOPanel, 360, Translations.Translate("PRR_OPT_JB2"));
             highlyeducated = UIUtils.CreateTextField(enableRICOPanel, 390, Translations.Translate("PRR_OPT_JB3"));
+
+            // Event handlers to update employment totals on change.
+            manual.eventTextChanged += (control, value) => UpdateWorkplaceBreakdowns();
+            uneducated.eventTextChanged += (control, value) => UpdateTotalJobs();
+            educated.eventTextChanged += (control, value) => UpdateTotalJobs();
+            welleducated.eventTextChanged += (control, value) => UpdateTotalJobs();
+            highlyeducated.eventTextChanged += (control, value) => UpdateTotalJobs();
         }
 
 
@@ -297,6 +304,35 @@ namespace PloppableRICO
 
 
         /// <summary>
+        /// Updates the total workplaces textfield with the sum of the workplace breakdown boxes.
+        /// Does nothing if any workplace textfield cannot be parsed directly to int.
+        /// </summary>
+        public void UpdateTotalJobs()
+        {
+            // Ignore event if disabled flag is set.
+            if (!disableEvents)
+            {
+                // Disable events while we update, to avoid an infinite loop.
+                disableEvents = true;
+
+                // Try to add up all workplace breakdown fields and update the total.  If an exception is thrown (most likely parsing error) then just do nothing.
+                try
+                {
+                    manual.text = (int.Parse(uneducated.text) + int.Parse(educated.text) + int.Parse(welleducated.text) + int.Parse(highlyeducated.text)).ToString();
+                }
+                catch
+                {
+                    // Don't care.
+                }
+
+                // Resume event handling.
+                disableEvents = false;
+            }
+        }
+
+
+
+        /// <summary>
         /// Reads current settings from UI elements, and saves them to XML.
         /// </summary>
         internal void SaveRICO()
@@ -309,23 +345,28 @@ namespace PloppableRICO
             // Set level.
             currentSelection.level = level.selectedIndex + 1;
 
-            // Save workplaces.
-            var a = new int[]
-            {
-                int.Parse(uneducated.text),
-                int.Parse(educated.text),
-                int.Parse(welleducated.text),
-                int.Parse(highlyeducated.text)
-            };
+            // Get home/total worker count, with default of zero.
+            int manualCount = 0;
+            int.TryParse(manual.text, out manualCount);
+            currentSelection.homeCount = manualCount;
+
+            // Get workplace breakdown.
+            int[] a = new int[4] { 0, 0, 0, 0 };
+            int.TryParse(uneducated.text, out a[0]);
+            int.TryParse(educated.text, out a[1]);
+            int.TryParse(welleducated.text, out a[2]);
+            int.TryParse(highlyeducated.text, out a[3]);
+
+            // If no breakdown has been provided, then we try the total jobs instead.
             // Yeah, it's a bit clunky to add the elements individually like this, but saves bringing in System.Linq for just this one case.
             if (a[0] + a[1] + a[2] + a[3] == 0)
             {
-                // No workplace breakdown provided (all fields zero); use total workplaces ('manual') and allocate.
-                var d = Util.WorkplaceDistributionOf(currentSelection.service, currentSelection.subService, "Level" + currentSelection.level);
-                a = WorkplaceAIHelper.distributeWorkplaceLevels(int.Parse(manual.text), d, new int[] { 0, 0, 0, 0 });
+                // No workplace breakdown provided (all fields zero); use total workplaces ('manual', previously parsed as manualCount) and allocate.
+                int[] d = Util.WorkplaceDistributionOf(currentSelection.service, currentSelection.subService, "Level" + currentSelection.level);
+                a = WorkplaceAIHelper.distributeWorkplaceLevels(manualCount, d, new int[] { 0, 0, 0, 0 });
 
                 // Check and adjust for any rounding errors, assigning 'leftover' jobs to the lowest education level.
-                a[0] += (int.Parse(manual.text) - a[0] - a[1] - a[2] - a[3]);
+                a[0] += (manualCount - a[0] - a[1] - a[2] - a[3]);
             }
 
             currentSelection.workplaces = a;
@@ -339,11 +380,8 @@ namespace PloppableRICO
                 construction.text = currentSelection.constructionCost.ToString();
             }
 
-            // Get home/total worker count.
-            currentSelection.homeCount = int.Parse(manual.text);
-
             // UI categories from menu.
-            switch(uiCategory.selectedIndex)
+            switch (uiCategory.selectedIndex)
             {
                 case 0:
                     currentSelection.uiCategory = "reslow";
@@ -945,11 +983,17 @@ namespace PloppableRICO
         /// <summary>
         /// Updates workplace breakdowns to ratios applicable to current settings.
         /// </summary>
-        private void UpdateWorkplaces()
+        private void UpdateWorkplaceBreakdowns()
         {
             int[] allocation = new int[4];
             int totalJobs;
 
+
+            // Ignore event if disabled flag is set.
+            if (disableEvents)
+            {
+                return;
+            }
 
             // If we catch an exception while parsing the manual textfield, it's probably because it's not ready yet (initial asset selection).
             // Simply return without doing anything.
@@ -975,11 +1019,17 @@ namespace PloppableRICO
                 allocation[0] += (int.Parse(manual.text) - allocation[0] - allocation[1] - allocation[2] - allocation[3]);
             }
 
+            // Disable event handling while we update textfields.
+            disableEvents = true;
+
             // Update workplace textfields.
             uneducated.text = allocation[0].ToString();
             educated.text = allocation[1].ToString();
             welleducated.text = allocation[2].ToString();
             highlyeducated.text = allocation[3].ToString();
+
+            // Resume event handling.
+            disableEvents = false;
         }
     }
 }

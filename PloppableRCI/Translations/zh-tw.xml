@@ -94,6 +94,7 @@
     <Translation ID="PRR_CON_ONE" String="在這些模組(Mods)中只能同時啟用一個-請選擇一個，然後取消訂閱其他模組(Mods)！" />
     <Translation ID="PRR_CON_OPR" String="發現原版“Ploppable RICO” 模組(Mod)！" />
     <Translation ID="PRR_CON_EBC" String="發現“Enhanced Building Capacity”模組(Mod)！" />
+    <Translation ID="PRR_CON_GBC" String="發現“Garbage Bin Controller”模組(Mod)！" />
     <Translation ID="PRR_CON_PTR" String="發現“Painter”模組(Mod)！" />
     <Translation ID="PRR_CON_PTR1" String="原版“Painter”模組(Mod)導致“Ploppable RICO Revisited”模組(Mod)使用的“Harmony 2” 數據庫出現問題，從而導致隨機錯誤。 請：取消訂閱，原版“Painter”模組(Mod)而不是在遊戲內‘禁用’。訂閱“Repaint”模組(Mod)可以替代原版。" />
     <Translation ID="PRR_UPD_21_0" String="“Ploppable RICO Revisited” 模組(Mod)已更新至2.1版本。 更新帶來的一些主要功能包括：" />

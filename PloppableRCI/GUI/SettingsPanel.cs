@@ -17,7 +17,7 @@ namespace PloppableRICO
         private static BuildingInfo lastSelection;
         private static bool[] lastFilter;
         private static float lastPostion;
-        private static int lastIndex;
+        private static int lastIndex = -1;
 
         // Instance references.
         private static GameObject uiGameObject;
@@ -378,7 +378,6 @@ namespace PloppableRICO
                 buildingSelection.autoHideScrollbar = true;
                 buildingSelection.relativePosition = Vector3.zero;
                 buildingSelection.rowsData = new FastList<object>();
-                buildingSelection.selectedIndex = -1;
 
                 // Set up filterBar to make sure selection filters are properly initialised before calling GenerateFastList.
                 filterBar.Setup();
