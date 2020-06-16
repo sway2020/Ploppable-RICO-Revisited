@@ -23,9 +23,6 @@ namespace PloppableRICO
             // Apply Harmony patches via Cities Harmony.
             // Called here instead of OnCreated to allow the auto-downloader to do its work prior to launch.
             HarmonyHelper.DoOnHarmonyReady(() => Patcher.PatchAll());
-
-            // Setup translation framework.
-            Translations.Setup();
         }
 
 

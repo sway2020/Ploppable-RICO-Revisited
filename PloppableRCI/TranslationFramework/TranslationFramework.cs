@@ -20,20 +20,20 @@ namespace PloppableRICO
 
 
         /// <summary>
-        /// Initialise the translations framework.
-        /// </summary>
-        public static void Setup()
-        {
-            _instance = new Translator();
-        }
-
-
-        /// <summary>
-        /// Static interface to instance's translate method
+        /// Static interface to instance's translate method.
         /// </summary>
         /// <param name="text">Key to translate</param>
         /// <returns>Translation (or key if translation failed)</returns>
-        public static string Translate(string key) => _instance.Translate(key);
+        public static string Translate(string key)
+        {
+            // Initialise translator if we haven't already.
+            if (_instance == null)
+            {
+                _instance = new Translator();
+            }
+
+            return _instance.Translate(key);
+        }
     }
 
 
@@ -108,8 +108,8 @@ namespace PloppableRICO
                 // Try to set current language, falling back to default if null.
                 currentLanguage = languages.Find(language => language.uniqueName == LocaleManager.instance.language) ?? FallbackLanguage();
 
-                // Update ploppable tool.
-                PloppableTool.Instance.SetText();
+                // Update ploppable tool, if it's been created.
+                PloppableTool.Instance?.SetText();
             }
         }
 
