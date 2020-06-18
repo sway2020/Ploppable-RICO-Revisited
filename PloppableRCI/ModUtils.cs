@@ -48,7 +48,7 @@ namespace PloppableRICO
             }
             else if (IsModInstalled("VanillaGarbageBinBlocker"))
             {
-                // Enhanced Building Capacity mod detected.
+                // Garbage bin controller mod detected.
                 conflictingMod = true;
                 Debugging.Message("Garbage Bin Controller mod detected - RICO Revisited exiting");
                 conflictMessage = Translations.Translate("PRR_CON_GBC") + " - " + Translations.Translate("PRR_CON_DWN") + "\r\n\r\n" + Translations.Translate("PRR_CON_ONE");
