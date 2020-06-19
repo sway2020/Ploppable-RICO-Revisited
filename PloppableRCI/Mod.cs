@@ -47,16 +47,11 @@ namespace PloppableRICO
             // Read configuration file.
             SettingsFile settingsFile = Configuration<SettingsFile>.Load();
 
-            // Add speed boost checkbox.
-            helper.AddCheckbox(Translations.Translate("PRR_OPTION_SPEED"), settingsFile.SpeedBoost, isChecked =>
-            {
-                Settings.speedBoost = isChecked;
-                settingsFile.SpeedBoost = isChecked;
-                Configuration<SettingsFile>.Save();
-            });
+            // General options.
+            UIHelperBase otherGroup = helper.AddGroup(" ");
 
             // Add logging checkbox.
-            helper.AddCheckbox(Translations.Translate("PRR_OPTION_MOREDEBUG"), settingsFile.DebugLogging, isChecked =>
+            otherGroup.AddCheckbox(Translations.Translate("PRR_OPTION_MOREDEBUG"), settingsFile.DebugLogging, isChecked =>
             {
                 Settings.debugLogging = isChecked;
                 settingsFile.DebugLogging = isChecked;
@@ -64,14 +59,14 @@ namespace PloppableRICO
             });
 
             // Add reset on load checkbox.
-            helper.AddCheckbox(Translations.Translate("PRR_OPTION_FORCERESET"), settingsFile.ResetOnLoad, isChecked =>
+            otherGroup.AddCheckbox(Translations.Translate("PRR_OPTION_FORCERESET"), settingsFile.ResetOnLoad, isChecked =>
             {
                 settingsFile.ResetOnLoad = isChecked;
                 Configuration<SettingsFile>.Save();
             });
 
             // Add thumbnail background checkbox.
-            helper.AddCheckbox(Translations.Translate("PRR_OPTION_PLAINTHUMBS"), settingsFile.PlainThumbs, isChecked =>
+            otherGroup.AddCheckbox(Translations.Translate("PRR_OPTION_PLAINTHUMBS"), settingsFile.PlainThumbs, isChecked =>
             {
                 Settings.plainThumbs = isChecked;
                 settingsFile.PlainThumbs = isChecked;
@@ -79,7 +74,18 @@ namespace PloppableRICO
             });
 
             // Add regenerate thumbnails button.
-            helper.AddButton(Translations.Translate("PRR_OPTION_REGENTHUMBS"), () => PloppableTool.Instance.RebuildButtons());
+            otherGroup.AddButton(Translations.Translate("PRR_OPTION_REGENTHUMBS"), () => PloppableTool.Instance.RebuildButtons());
+
+            // Add speed boost checkbox.
+            UIHelperBase speedGroup = helper.AddGroup(Translations.Translate("PRR_OPTION_SPDHDR"));
+            speedGroup.AddCheckbox(Translations.Translate("PRR_OPTION_SPEED"), settingsFile.SpeedBoost, isChecked =>
+            {
+                Settings.speedBoost = isChecked;
+                settingsFile.SpeedBoost = isChecked;
+                Configuration<SettingsFile>.Save();
+            });
+
+
         }
     }
 }

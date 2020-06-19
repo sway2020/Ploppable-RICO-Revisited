@@ -86,6 +86,8 @@
     <Translation ID="PRR_OPTION_FORCERESET" String="在游戏加载时强制重置现有建筑统计数据" />
     <Translation ID="PRR_OPTION_PLAINTHUMBS" String="将纯背景用作缩略图" />
     <Translation ID="PRR_OPTION_REGENTHUMBS" String="重新生成缩略图" />
+    <Translation ID="PRR_OPTION_SPDHDR" String= "提高游戏速度，但会导致打开面板的延迟:" />
+    <Translation ID="PRR_OPTION_SPEED" String= "不使用时禁用面板" />
     <Translation ID="PRR_ERR_HAR0" String="HARMONY修补错误" />
     <Translation ID="PRR_ERR_HAR1" String="可重新访问的RICO无法完成其所需的Harmony补丁。这意味着它无法运行，并且已经关闭以保护您的保存文件不受损坏" />
     <Translation ID="PRR_ERR_HAR2" String="此问题的可能原因包括:" />
@@ -106,4 +108,3 @@
     <Translation ID="PRR_UPD_21_5" String="如果您的城市接近内部游戏限制，则额外的故障保护功能可减少住宅建筑的家庭人数减少游戏负担的风险" />
   </Translations>
 </Language>
-不使用时禁用面板（提高游戏速度，但会导致打开面板的延迟）
