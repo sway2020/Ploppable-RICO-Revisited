@@ -9,7 +9,7 @@ namespace PloppableRICO
     /// </summary>
     public class PloppableRICOMod : IUserMod
     {
-        public static string Version => "2.2";
+        public static string Version => "2.2.1";
 
         public string Name => "RICO Revisited " + Version;
         public string Description => Translations.Translate("PRR_DESCRIPTION");

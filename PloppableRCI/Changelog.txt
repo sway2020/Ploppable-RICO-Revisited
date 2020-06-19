@@ -1,5 +1,8 @@
-﻿- 2.2 UI speed bost function is now optional (trading off UI performance for game speed)
+﻿Version 2.2.1
+
+- 2.2 UI speed bost function is now optional (trading off UI performance for game speed)
 - Add external interface for other mods to determine whether or not this mod is managing a given prefab
+- Correct error in zh-tw PRR_UIC_OIL translation 
 
 
 Version 2.2
