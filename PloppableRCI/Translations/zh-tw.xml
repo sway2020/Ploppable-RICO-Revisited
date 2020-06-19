@@ -60,7 +60,7 @@
     <Translation ID="PRR_UIC_IND" String="工業區" />
     <Translation ID="PRR_UIC_FAR" String="農牧業行政專區" />
     <Translation ID="PRR_UIC_FOR" String="林業行政專區" />
-    <Translation ID="PRR_UIC_OIL" String="礦業行政專區" />
+    <Translation ID="PRR_UIC_OIL" String="石化工業行政專區" />
     <Translation ID="PRR_UIC_ORE" String="礦業行政專區" />
     <Translation ID="PRR_UIC_LEI" String="休閒娛樂行政專區" />
     <Translation ID="PRR_UIC_TOU" String="觀光旅遊行政專區" />
