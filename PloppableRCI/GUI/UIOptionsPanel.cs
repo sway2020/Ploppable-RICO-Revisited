@@ -195,7 +195,6 @@ namespace PloppableRICO
             service.selectedIndex = 0;
             service.eventSelectedIndexChanged += UpdateService;
 
-
             // Dropdown menu - sub-service.
             subService = UIUtils.CreateDropDown(enableRICOPanel, 60, Translations.Translate("PRR_OPT_SUB"));
             subService.selectedIndex = 0;
@@ -230,9 +229,9 @@ namespace PloppableRICO
             manual = UIUtils.CreateTextField(enableRICOPanel, 180, Translations.Translate("PRR_OPT_CNT"));
 
             // Base checkboxes.
-            realityIgnored = UIUtils.CreateCheckBox(enableRICOPanel, 210, Translations.Translate("PRR_OPT_POP"));
-            pollutionEnabled = UIUtils.CreateCheckBox(enableRICOPanel, 240, Translations.Translate("PRR_OPT_POL"));
             growable = UIUtils.CreateCheckBox(enableRICOPanel, 0, Translations.Translate("PRR_OPT_GRO"));
+            pollutionEnabled = UIUtils.CreateCheckBox(enableRICOPanel, 210, Translations.Translate("PRR_OPT_POL"));
+            realityIgnored = UIUtils.CreateCheckBox(enableRICOPanel, 240, Translations.Translate("PRR_OPT_POP"));
 
             // Workplace breakdown by education level.
             uneducated = UIUtils.CreateTextField(enableRICOPanel, 300, Translations.Translate("PRR_OPT_JB0"));

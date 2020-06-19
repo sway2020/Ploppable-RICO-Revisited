@@ -48,19 +48,19 @@ namespace PloppableRICO
 
             // Save button.
             saveButton = UIUtils.CreateButton(this);
-            saveButton.width = 140;
+            applyButton.width = this.width - autoLayoutPadding.left - autoLayoutPadding.right;
             saveButton.text = Translations.Translate("PRR_SAV_SAV");
             saveButton.eventClick += (control, clickEvent) => Save();
 
             // Add local settings button.
             addLocalButton = UIUtils.CreateButton(this);
-            addLocalButton.width = 140;
+            applyButton.width = this.width - autoLayoutPadding.left - autoLayoutPadding.right;
             addLocalButton.text = Translations.Translate("PRR_SAV_ADD");
             addLocalButton.eventClick += (control, clickEvent) => AddLocal();
 
             // 'Remove local settings' button.
             removeLocalButton = UIUtils.CreateButton(this);
-            removeLocalButton.width = 140;
+            applyButton.width = this.width - autoLayoutPadding.left - autoLayoutPadding.right;
             removeLocalButton.text = Translations.Translate("PRR_SAV_REM");
             removeLocalButton.eventClick += (control, clickEvent) => RemoveLocal();
 
@@ -69,6 +69,7 @@ namespace PloppableRICO
             warningLabel.textAlignment = UIHorizontalAlignment.Center;
             warningLabel.autoSize = false;
             warningLabel.autoHeight = true;
+            warningLabel.wordWrap = true;
             warningLabel.width = this.width - autoLayoutPadding.left - autoLayoutPadding.right;
             warningLabel.text = "\r\n" + Translations.Translate("PRR_EXP");
 
@@ -77,6 +78,7 @@ namespace PloppableRICO
             applyButton.width = this.width - autoLayoutPadding.left - autoLayoutPadding.right;
             applyButton.text = Translations.Translate("PRR_SAV_APP");
             applyButton.eventClick += (control, clickEvent) => SaveAndApply();
+            applyButton.textScale = 0.8f;
         }
 
 

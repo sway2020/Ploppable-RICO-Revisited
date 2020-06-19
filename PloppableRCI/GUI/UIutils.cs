@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using ColossalFramework.UI;
-
+using ICities;
 
 namespace PloppableRICO
 {
@@ -189,6 +189,12 @@ namespace PloppableRICO
             serviceLabel.textScale = 0.8f;
             serviceLabel.text = label;
             serviceLabel.relativePosition = new Vector3(15, 6, 0);
+
+            // algernon
+            serviceLabel.autoSize = false;
+            serviceLabel.width = 180f;
+            serviceLabel.autoHeight = true;
+            serviceLabel.wordWrap = true;
 
             return checkBox;
         }
