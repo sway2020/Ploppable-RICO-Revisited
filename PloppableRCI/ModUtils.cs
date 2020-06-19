@@ -11,7 +11,7 @@ namespace PloppableRICO
     /// <summary>
     /// Class that manages interactions with other mods, including compatibility and functionality checks.
     /// </summary>
-    internal class ModUtils
+    public class ModUtils
     {
         /// <summary>
         ///  Flag to determine whether or not a realistic population mod is installed and enabled.
@@ -21,6 +21,62 @@ namespace PloppableRICO
         // Flags for handling mod conflicts.
         private static bool conflictingMod = false;
         internal static string conflictMessage;
+
+
+        /// <summary>
+        /// Called by other mods to determine whether or not Ploppable RICO Revisited is managing this prefab.
+        /// </summary>
+        /// <param name="prefab">Prefab reference</param>
+        /// <returns>True if Ploppable RICO is managing this prefab, false otherwise.</returns>
+        public static bool IsRICOManaged(BuildingInfo prefab)
+        {
+            if (Loading.xmlManager.prefabHash.ContainsKey(prefab))
+            {
+                if (Loading.xmlManager.prefabHash[prefab].hasLocal && Loading.xmlManager.prefabHash[prefab].local.ricoEnabled)
+                {
+                    return true;
+                }
+
+                if (Loading.xmlManager.prefabHash[prefab].hasAuthor && Loading.xmlManager.prefabHash[prefab].author.ricoEnabled)
+                {
+                    return true;
+                }
+
+                if (Loading.xmlManager.prefabHash[prefab].hasMod && Loading.xmlManager.prefabHash[prefab].mod.ricoEnabled)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+        /// <summary>
+        /// Called by other mods to determine whether or not Ploppable RICO Revisited is controlling the population of this prefab.
+        /// </summary>
+        /// <param name="prefab">Prefab reference</param>
+        /// <returns>True if Ploppable RICO is controlling the population of this prefab, false otherwise.</returns>
+        public static bool IsRICOPopManaged(BuildingInfo prefab)
+        {
+            if (Loading.xmlManager.prefabHash.ContainsKey(prefab))
+            {
+                if (Loading.xmlManager.prefabHash[prefab].hasLocal && Loading.xmlManager.prefabHash[prefab].local.ricoEnabled && !Loading.xmlManager.prefabHash[prefab].local.useReality)
+                {
+                    return true;
+                }
+
+                if (Loading.xmlManager.prefabHash[prefab].hasAuthor && Loading.xmlManager.prefabHash[prefab].author.ricoEnabled && !Loading.xmlManager.prefabHash[prefab].author.useReality)
+                {
+                    return true;
+                }
+
+                if (Loading.xmlManager.prefabHash[prefab].hasMod && Loading.xmlManager.prefabHash[prefab].mod.ricoEnabled && !Loading.xmlManager.prefabHash[prefab].mod.useReality)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
 
         /// <summary>

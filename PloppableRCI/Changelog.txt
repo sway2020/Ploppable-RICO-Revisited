@@ -1,4 +1,7 @@
-﻿Version 2.2
+﻿- Added external interface for other mods to determine whether or not this mod is managing a given prefab
+
+
+Version 2.2
 
 - Add configurable XML translation framework (based on BloodyPenguin's translation framework)
 - Add Traditional Chinese translation by M.S.Referee

@@ -123,7 +123,7 @@ namespace PloppableRICO
                     }
                 }
 
-                // If current selection has local settings, add them to the reokacenent file. 
+                // If current selection has local settings, add them to the replacement file. 
                 if (currentSelection.hasLocal)
                 {
                     newLocalSettings.Buildings.Add(currentSelection.local);
