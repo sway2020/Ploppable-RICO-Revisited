@@ -48,19 +48,19 @@ namespace PloppableRICO
 
             // Save button.
             saveButton = UIUtils.CreateButton(this);
-            applyButton.width = this.width - autoLayoutPadding.left - autoLayoutPadding.right;
+            saveButton.width = this.width - autoLayoutPadding.left - autoLayoutPadding.right;
             saveButton.text = Translations.Translate("PRR_SAV_SAV");
             saveButton.eventClick += (control, clickEvent) => Save();
 
             // Add local settings button.
             addLocalButton = UIUtils.CreateButton(this);
-            applyButton.width = this.width - autoLayoutPadding.left - autoLayoutPadding.right;
+            addLocalButton.width = this.width - autoLayoutPadding.left - autoLayoutPadding.right;
             addLocalButton.text = Translations.Translate("PRR_SAV_ADD");
             addLocalButton.eventClick += (control, clickEvent) => AddLocal();
 
             // 'Remove local settings' button.
             removeLocalButton = UIUtils.CreateButton(this);
-            applyButton.width = this.width - autoLayoutPadding.left - autoLayoutPadding.right;
+            removeLocalButton.width = this.width - autoLayoutPadding.left - autoLayoutPadding.right;
             removeLocalButton.text = Translations.Translate("PRR_SAV_REM");
             removeLocalButton.eventClick += (control, clickEvent) => RemoveLocal();
 

@@ -174,18 +174,20 @@ namespace PloppableRICO
             enableRICOPanel.height = 0;
             enableRICOPanel.isVisible = false;
             enableRICOPanel.name = "OptionsPanel";
+            ricoEnabled.Disable();
 
-            ricoEnabled.eventCheckChanged += (c, state) =>
+            ricoEnabled.eventCheckChanged += (control, isEnabled) =>
             {
-                if (!state)
+                // Show RICO options panel if enabled and there's a valid current selection.
+                if (isEnabled)
+                {
+                    enableRICOPanel.height = 240;
+                    enableRICOPanel.isVisible = true;
+                }
+                else
                 {
                     enableRICOPanel.height = 0;
                     enableRICOPanel.isVisible = false;
-                }
-
-                else {
-                    enableRICOPanel.height = 240;
-                    enableRICOPanel.isVisible = true;
                 }
             };
 
@@ -464,7 +466,6 @@ namespace PloppableRICO
             educated.Disable();
             welleducated.Disable();
             highlyeducated.Disable();
-
 
             // Update option UI elements, in priority order (local, author, mod).
             if (buildingData.hasLocal)
