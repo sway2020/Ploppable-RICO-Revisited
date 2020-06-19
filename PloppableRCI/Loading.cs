@@ -88,6 +88,7 @@ namespace PloppableRICO
 
             // Read mod settings.
             SettingsFile settingsFile = Configuration<SettingsFile>.Load();
+            Settings.speedBoost = settingsFile.SpeedBoost;
             Settings.plainThumbs = settingsFile.PlainThumbs;
             Settings.debugLogging = settingsFile.DebugLogging;
             Settings.resetOnLoad = settingsFile.ResetOnLoad;
@@ -164,9 +165,6 @@ namespace PloppableRICO
 
             // Add buttons to access building details from zoned building info panels.
             SettingsPanel.AddInfoPanelButtons();
-
-            // Deactivate the ploppable panel as it starts hidden.  Don't need to deactivate the settings panel as it's not instantiated until first shown.
-            PloppableTool.Instance.gameObject.SetActive(false);
 
             // Report any loading errors.
             Debugging.ReportErrors();

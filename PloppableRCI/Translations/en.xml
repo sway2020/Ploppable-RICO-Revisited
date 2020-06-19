@@ -82,6 +82,7 @@
     <Translation ID="PRR_SAV_APP" String="Save and apply changes" />
     <Translation ID="PRR_EXP" String="CAUTION: EXPERIMENTAL" />
     <Translation ID="PRR_DESCRIPTION" String="Allows RICO buildings greater than 4x4 in size and RICO building customisation" />
+    <Translation ID="PRR_OPTION_SPEED" String= "Disable panel when not in use (increases game speed but causes a delay in opening the panel)" />
     <Translation ID="PRR_OPTION_MOREDEBUG" String="Enable additional debugging logging" />
     <Translation ID="PRR_OPTION_FORCERESET" String="Force reset of existing building stats on game load" />
     <Translation ID="PRR_OPTION_PLAINTHUMBS" String="Use plain backgrounds for thumbnails" />

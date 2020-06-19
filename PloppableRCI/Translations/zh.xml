@@ -81,6 +81,7 @@
     <Translation ID="PRR_SAV_APP" String="保存并应用更改" />
     <Translation ID="PRR_EXP" String="小心：实验性" />
     <Translation ID="PRR_DESCRIPTION" String="允许大小大于4x4的RICO建筑物和RICO建筑物定制" />
+    <Translation ID="PRR_OPTION_SPEED" String= "不使用时禁用面板（提高游戏速度，但会导致打开面板的延迟）" />
     <Translation ID="PRR_OPTION_MOREDEBUG" String="启用其他调试日志记录" />
     <Translation ID="PRR_OPTION_FORCERESET" String="在游戏加载时强制重置现有建筑统计数据" />
     <Translation ID="PRR_OPTION_PLAINTHUMBS" String="将纯背景用作缩略图" />
@@ -105,3 +106,4 @@
     <Translation ID="PRR_UPD_21_5" String="如果您的城市接近内部游戏限制，则额外的故障保护功能可减少住宅建筑的家庭人数减少游戏负担的风险" />
   </Translations>
 </Language>
+不使用时禁用面板（提高游戏速度，但会导致打开面板的延迟）

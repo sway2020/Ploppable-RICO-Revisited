@@ -1,4 +1,5 @@
-﻿- Added external interface for other mods to determine whether or not this mod is managing a given prefab
+﻿- 2.2 UI speed bost function is now optional (trading off UI performance for game speed)
+- Add external interface for other mods to determine whether or not this mod is managing a given prefab
 
 
 Version 2.2

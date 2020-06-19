@@ -79,6 +79,12 @@ namespace PloppableRICO
                     _instance = _gameObject.AddComponent<PloppableTool>();
                     _instance.DrawPloppablePanel();
                     _instance.PopulateButtons();
+
+                    // Deactivate to start with.
+                    if (Settings.speedBoost)
+                    {
+                        _gameObject.SetActive(false);
+                    }
                 }
                 catch (Exception e)
                 {
@@ -295,10 +301,14 @@ namespace PloppableRICO
                 // Add UI text.
                 SetText();
 
-                // Toggle active state on visibility changed (deactivating when hidden to minimise UI workload and impact on performance).
+                // Toggle active state on visibility changed if we're using the UI speed boost (deactivating when hidden to minimise UI workload and impact on performance).
                 BuildingPanel.eventVisibilityChanged += (component, isVisible) =>
                 {
-                    BuildingPanel.gameObject.SetActive(isVisible);
+                    // Additional check to allow for the case where speedboost has been deactivated mid-game while the panel was deactivated.
+                    if ((Settings.speedBoost) || (isVisible && !BuildingPanel.gameObject.activeSelf))
+                    {
+                        BuildingPanel.gameObject.SetActive(isVisible);
+                    }
                 };
             }
         }

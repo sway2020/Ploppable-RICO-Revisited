@@ -47,6 +47,14 @@ namespace PloppableRICO
             // Read configuration file.
             SettingsFile settingsFile = Configuration<SettingsFile>.Load();
 
+            // Add speed boost checkbox.
+            helper.AddCheckbox(Translations.Translate("PRR_OPTION_SPEED"), settingsFile.SpeedBoost, isChecked =>
+            {
+                Settings.speedBoost = isChecked;
+                settingsFile.SpeedBoost = isChecked;
+                Configuration<SettingsFile>.Save();
+            });
+
             // Add logging checkbox.
             helper.AddCheckbox(Translations.Translate("PRR_OPTION_MOREDEBUG"), settingsFile.DebugLogging, isChecked =>
             {
