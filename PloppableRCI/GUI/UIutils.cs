@@ -158,6 +158,10 @@ namespace PloppableRICO
                 button.size = t; dropDown.listWidth = (int)t.x;
             });
 
+
+            // Allow for long translation strings with this one.
+            dropDown.autoListWidth = true;
+
             return dropDown;
         }
 

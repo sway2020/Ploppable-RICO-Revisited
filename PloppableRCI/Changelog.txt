@@ -1,4 +1,5 @@
 ﻿- Update translation framework to latest version with improved fallback language detection
+- Allow for longer translation strings in dropdown menu widths
 
 
 Version 2.2.1
