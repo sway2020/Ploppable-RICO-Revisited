@@ -340,7 +340,7 @@ namespace PloppableRICO
         /// <summary>
         /// Adds/updates text components of the Ploppable Tool Panel (tooltips, settings button) according to the current language.
         /// </summary>
-        public void SetText()
+        internal void SetText()
         {
             // Set settings button text.
             showSettings.text = Translations.Translate("PRR_SET");

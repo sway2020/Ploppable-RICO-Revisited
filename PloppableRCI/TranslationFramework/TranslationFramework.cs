@@ -44,7 +44,7 @@ namespace PloppableRICO
     {
         private Language currentLanguage;
         private List<Language> languages;
-        private string fallbackLanguage = "en";
+        private string defaultLanguage = "en";
 
         /// <summary>
         /// Constructor.
@@ -105,12 +105,12 @@ namespace PloppableRICO
             // Don't do anything if no languages have been loaded, or the LocaleManager isn't available.
             if (languages != null && languages.Count > 0 && LocaleManager.exists)
             {
-                // Try to set current language, falling back to default if null.
+                // Try to set current language, using fallback if null.
                 currentLanguage = languages.Find(language => language.uniqueName == LocaleManager.instance.language) ?? FallbackLanguage();
-
-                // Update ploppable tool, if it's been created.
-                PloppableTool.Instance?.SetText();
             }
+
+            // Update ploppable tool, if it's been created.
+            PloppableTool.Instance?.SetText();
         }
 
 
@@ -120,7 +120,19 @@ namespace PloppableRICO
         /// <returns>Fallback language reference</returns>
         private Language FallbackLanguage()
         {
-            return languages.Find(language => language.uniqueName == fallbackLanguage);
+            Language fallbackLanguage = null;
+
+            // First, check to see if there is a shortened version of this language id (e.g. zh-tw -> zh).
+            if (LocaleManager.instance.language.Length > 2)
+            {
+                string newName = LocaleManager.instance.language.Substring(0, 2);
+                Debugging.Message("language " + LocaleManager.instance.language + " failed; trying " + newName);
+
+                fallbackLanguage = languages.Find(language => language.uniqueName == newName);
+            }
+
+            // If we picked up a fallback language, return that; otherwise, return the default language.
+            return fallbackLanguage ?? languages.Find(language => language.uniqueName == defaultLanguage);
         }
 
 
@@ -143,7 +155,7 @@ namespace PloppableRICO
                 {
                     // Load each file in directory and attempt to deserialise as a translation file.
                     string[] translationFiles = Directory.GetFiles(localePath);
-                    foreach(string translationFile in translationFiles)
+                    foreach (string translationFile in translationFiles)
                     {
                         using (StreamReader reader = new StreamReader(translationFile))
                         {
@@ -173,9 +185,9 @@ namespace PloppableRICO
 
 
         /// <summary>
-        /// Returns the filepath of the Ploppable RICO Revisited assembly.
+        /// Returns the filepath of the mod assembly.
         /// </summary>
-        /// <returns>Ploppable RICO revisited assembly filepath</returns>
+        /// <returns>Mod assembly filepath</returns>
         private string GetAssemblyPath()
         {
             // Get list of currently active plugins.
