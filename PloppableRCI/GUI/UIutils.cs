@@ -159,7 +159,7 @@ namespace PloppableRICO
             });
 
 
-            // Allow for long translation strings with this one.
+            // Allow for long translation strings.
             dropDown.autoListWidth = true;
 
             return dropDown;

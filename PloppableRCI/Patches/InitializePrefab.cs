@@ -72,7 +72,7 @@ namespace PloppableRICO
 								// Match!  Add these author settings to our prefab dictionary.
 								if (Settings.debugLogging)
 								{
-									Debugging.Message("found author settings for '" + buildingDef.name);
+									Debugging.Message("found author settings for " + buildingDef.name);
 								}
 								Loading.xmlManager.prefabHash[__instance].author = buildingDef;
 								Loading.xmlManager.prefabHash[__instance].hasAuthor = true;
