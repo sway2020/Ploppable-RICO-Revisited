@@ -36,7 +36,7 @@
     <Translation ID="PRR_OPT_CST" String="建造花費" />
     <Translation ID="PRR_OPT_CNT" String="勞工(工人)/居民" />
     <Translation ID="PRR_OPT_POP" String="使用“真實人口(Realistic Population)”模組(Mod)" />
-    <Translation ID="PRR_OPT_POL" String="啟用建築污染擴散" />
+    <Translation ID="PRR_OPT_POL" String="啟用建築汙染擴散" />
     <Translation ID="PRR_OPT_GRO" String="建築可成長(Growable)功能" />
     <Translation ID="PRR_OPT_JB0" String="未受教育之職缺" />
     <Translation ID="PRR_OPT_JB1" String="受普通教育之職缺" />
@@ -46,7 +46,7 @@
     <Translation ID="PRR_CAT_BEA" String="城市美化" />
     <Translation ID="PRR_CAT_EDU" String="教育系統" />
     <Translation ID="PRR_CAT_POW" String="供電系統" />
-    <Translation ID="PRR_CAT_WAT" String="供水污水供暖系統" />
+    <Translation ID="PRR_CAT_WAT" String="供水汙水供暖系統" />
     <Translation ID="PRR_CAT_HEA" String="醫療保健系統" />
     <Translation ID="PRR_CAT_RES" String="住宅區" />
     <Translation ID="PRR_CAT_COM" String="商業區" />
@@ -80,6 +80,8 @@
     <Translation ID="PRR_SAV_REM" String="從全局文檔中刪除此建築設訂" />
     <Translation ID="PRR_SAV_APP" String="保存並即刻添加此建築設訂到對應界面" />
     <Translation ID="PRR_EXP" String="注意：本“Real-Time”功能仍為測試版" />
+    <Translation ID="TRN_CHOICE" String="語言設置" />
+    <Translation ID="TRN_SYS" String="使用遊戲默認語言" />
     <Translation ID="PRR_DESCRIPTION" String="允許可放置型(RICO)建築大於4x4區域尺吋和可客制化" />
     <Translation ID="PRR_OPTION_MOREDEBUG" String="啟用額外的除錯日誌記錄" />
     <Translation ID="PRR_OPTION_FORCERESET" String="在遊戲加載時強制重置現有建築統計數值" />
