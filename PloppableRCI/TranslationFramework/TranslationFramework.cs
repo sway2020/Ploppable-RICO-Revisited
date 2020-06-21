@@ -6,7 +6,7 @@ using ICities;
 using ColossalFramework;
 using ColossalFramework.Plugins;
 using ColossalFramework.Globalization;
-using UnityEngine.Experimental.Rendering;
+
 
 namespace PloppableRICO
 {
@@ -95,7 +95,9 @@ namespace PloppableRICO
         private string defaultLanguage = "en";
         private int currentIndex = 0;
         public int Index => currentIndex;
-        public string Language => currentLanguage.uniqueName;
+
+        // Returns the current language code if one has specifically been set; otherwise, return "default".
+        public string Language => currentIndex <= 0 ? "default" : currentLanguage.uniqueName;
 
         /// <summary>
         /// Returns an alphabetically-sorted (by code) array of language display names, with an additional "system settings" item as the first item.
