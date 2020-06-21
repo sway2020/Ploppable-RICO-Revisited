@@ -54,7 +54,7 @@ namespace PloppableRICO
             }
             catch (Exception e)
             {
-                UnityEngine.Debug.LogException(e);
+                Debugging.LogException(e);
             }
         }
     }

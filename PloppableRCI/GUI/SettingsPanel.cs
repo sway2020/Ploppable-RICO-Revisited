@@ -68,7 +68,7 @@ namespace PloppableRICO
             }
             catch (Exception e)
             {
-                Debug.LogException(e);
+                Debugging.LogException(e);
                 return;
             }
         }
@@ -387,7 +387,7 @@ namespace PloppableRICO
             }
             catch (Exception e)
             {
-                Debug.LogException(e);
+                Debugging.LogException(e);
             }
         }
 

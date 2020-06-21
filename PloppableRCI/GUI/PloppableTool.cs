@@ -88,7 +88,7 @@ namespace PloppableRICO
                 }
                 catch (Exception e)
                 {
-                    Debug.LogException(e);
+                    Debugging.LogException(e);
                 }
             }
         }
@@ -115,7 +115,7 @@ namespace PloppableRICO
             }
             catch (Exception e)
             {
-                Debug.LogException(e);
+                Debugging.LogException(e);
             }
         }
 
@@ -535,7 +535,7 @@ namespace PloppableRICO
             catch (Exception e)
             {
                 Debugging.Message("BuildingButton creation exception with UI category '" + uiCategory);
-                Debug.LogException(e);
+                Debugging.LogException(e);
             }
         }
 

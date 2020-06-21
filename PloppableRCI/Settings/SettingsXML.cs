@@ -29,7 +29,7 @@ namespace PloppableRICO
                 }
                 catch (Exception e)
                 {
-                    Debug.LogException(e);
+                    Debugging.LogException(e);
                 }
             }
             return instance ?? (instance = new C());
@@ -53,7 +53,7 @@ namespace PloppableRICO
             }
             catch (Exception e)
             {
-                Debug.LogException(e);
+                Debugging.LogException(e);
             }
         }
 
