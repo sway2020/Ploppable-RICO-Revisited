@@ -96,8 +96,12 @@ namespace PloppableRICO
         private int currentIndex = 0;
         public int Index => currentIndex;
 
-        // Returns the current language code if one has specifically been set; otherwise, return "default".
+
+        /// <summary>
+        /// Returns the current language code if one has specifically been set; otherwise, return "default".
+        /// </summary>
         public string Language => currentIndex <= 0 ? "default" : currentLanguage.uniqueName;
+
 
         /// <summary>
         /// Returns an alphabetically-sorted (by code) array of language display names, with an additional "system settings" item as the first item.
@@ -185,7 +189,7 @@ namespace PloppableRICO
         /// If the key isn't in the list of loaded translations, then the system default is attempted instead.
         /// </summary>
         /// <param name="uniqueName">Language unique name (code)</param>
-        public void SetLanguage(string uniqueName) => SetLanguage(languages.IndexOfKey(uniqueName));
+        public void SetLanguage(string uniqueName) => SetLanguage(languages.IndexOfKey(uniqueName) + 1);
 
 
         /// <summary>
