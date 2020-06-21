@@ -6,7 +6,7 @@ using ICities;
 using ColossalFramework;
 using ColossalFramework.Plugins;
 using ColossalFramework.Globalization;
-
+using UnityEngine.Experimental.Rendering;
 
 namespace PloppableRICO
 {
@@ -209,8 +209,23 @@ namespace PloppableRICO
                 }
                 else
                 {
-                    // Try to set current language, using fallback if null.
-                    currentLanguage = languages[LocaleManager.instance.language] ?? FallbackLanguage();
+                    // Try to set current language.
+                    try
+                    {
+                        currentLanguage = languages[LocaleManager.instance.language];
+                    }
+                    catch
+                    {
+                        // Don't care.
+                        Debugging.Message("couldn't set current system language");
+                    }
+
+                    // If we didn't get a valid language, try to fall back.
+                    if (currentLanguage == null)
+                    {
+                        currentLanguage = FallbackLanguage();
+                    }
+
 
                     // We weren't given a valid index, so remove any stored index.
                     currentIndex = 0;
@@ -238,7 +253,14 @@ namespace PloppableRICO
                 string newName = LocaleManager.instance.language.Substring(0, 2);
                 Debugging.Message("language " + LocaleManager.instance.language + " failed; trying " + newName);
 
-                fallbackLanguage = languages[newName];
+                try
+                {
+                    fallbackLanguage = languages[newName];
+                }
+                catch
+                {
+                    // Don't care.
+                }
             }
 
             // If we picked up a fallback language, return that; otherwise, return the default language.
