@@ -81,6 +81,8 @@
     <Translation ID="PRR_SAV_REM" String="Remove local" />
     <Translation ID="PRR_SAV_APP" String="Save and apply changes" />
     <Translation ID="PRR_EXP" String="CAUTION: EXPERIMENTAL" />
+    <Translation ID="TRN_CHOICE" String="Set language" />
+    <Translation ID="TRN_SYS" String="Use system language" />
     <Translation ID="PRR_DESCRIPTION" String="Allows RICO buildings greater than 4x4 in size and RICO building customisation" />
     <Translation ID="PRR_OPTION_MOREDEBUG" String="Enable additional debugging logging" />
     <Translation ID="PRR_OPTION_FORCERESET" String="Force reset of existing building stats on game load" />

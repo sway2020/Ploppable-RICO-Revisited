@@ -19,8 +19,8 @@ namespace PloppableRICO
         {
             if (ErrorBuffer.Length > 0)
             {
-                Debug.Log("RICO Revisited: errors encountered:\r\n" + ErrorBuffer.ToString());
-                UIView.library.ShowModal<ExceptionPanel>("ExceptionPanel").SetMessage("RICO Revisited",  ErrorBuffer.ToString(), false);
+                Debug.Log(PloppableRICOMod.ModName+ ": errors encountered:\r\n" + ErrorBuffer.ToString());
+                UIView.library.ShowModal<ExceptionPanel>("ExceptionPanel").SetMessage(PloppableRICOMod.ModName,  ErrorBuffer.ToString(), false);
 
                 // Clear buffer.
                 ErrorBuffer.Remove(0, ErrorBuffer.Length);
@@ -34,7 +34,7 @@ namespace PloppableRICO
         /// <param name="message">Message to log</param>
         internal static void Message(string message)
         {
-            Debug.Log("RICO Revisited: " + message + ".");
+            Debug.Log(PloppableRICOMod.ModName + ": " + message + ".");
         }
     }
 }

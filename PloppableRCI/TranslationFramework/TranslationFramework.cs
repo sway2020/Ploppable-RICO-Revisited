@@ -16,7 +16,7 @@ namespace PloppableRICO
     public static class Translations
     {
         // Instance reference.
-        private static Translator _instance;
+        private static Translator _translator;
 
 
         /// <summary>
@@ -24,15 +24,63 @@ namespace PloppableRICO
         /// </summary>
         /// <param name="text">Key to translate</param>
         /// <returns>Translation (or key if translation failed)</returns>
-        public static string Translate(string key)
-        {
-            // Initialise translator if we haven't already.
-            if (_instance == null)
-            {
-                _instance = new Translator();
-            }
+        public static string Translate(string key) => Instance.Translate(key);
 
-            return _instance.Translate(key);
+        public static string Language
+        {
+            get
+            {
+                return Instance.Language;
+            }
+            set
+            {
+                Instance.SetLanguage(value);
+            }
+        }
+
+
+        /// <summary>
+        /// Static interface to instance's language list property.
+        /// Returns an alphabetically-sorted (by unique name) string array of language display names, with an additional "system settings" item as the first item.
+        /// Useful for automatically populating drop-down language selection menus; works in conjunction with Index.
+        /// </summary>
+        public static string[] LanguageList => Instance.LanguageList;
+
+
+        /// <summary>
+        /// The current language index number (equals the index number of the language names list provied bye LanguageList).
+        /// Useful for easy automatic drop-down language selection menus, working in conjunction with LanguageList:
+        /// Set to set the language to the equivalent LanguageList index.
+        /// Get to return the LanguageList index of the current languge.
+        /// </summary>
+        public static int Index
+        {
+            get
+            {
+                return Instance.Index;
+            }
+            set
+            {
+                Instance.SetLanguage(value);
+            }
+        }
+
+
+        /// <summary>
+        /// On-demand initialisation of translator.
+        /// </summary>
+        /// <returns>Translator instance</returns>
+        private static Translator Instance
+        {
+            get
+            {
+                if (_translator == null)
+                {
+                    _translator = new Translator();
+                }
+
+                return _translator;
+            }
         }
     }
 
@@ -43,8 +91,31 @@ namespace PloppableRICO
     public class Translator
     {
         private Language currentLanguage;
-        private List<Language> languages;
+        private SortedList<string, Language> languages;
         private string defaultLanguage = "en";
+        private int currentIndex = 0;
+        public int Index => currentIndex;
+        public string Language => currentLanguage.uniqueName;
+
+        /// <summary>
+        /// Returns an alphabetically-sorted (by code) array of language display names, with an additional "system settings" item as the first item.
+        /// </summary>
+        /// <returns>Readable language names in alphabetical order by unique name (language code) as string array</returns>
+        public string[] LanguageList
+        {
+            get
+            {
+                // Get list of readable language names.
+                List<string> readableNames = languages.Values.Select((language) => language.readableName).ToList();
+
+                // Insert system settings item at the start.
+                readableNames.Insert(0, Translate("TRN_SYS"));
+
+                // Return out list as a string array.
+                return readableNames.ToArray();
+            }
+        }
+
 
         /// <summary>
         /// Constructor.
@@ -52,7 +123,7 @@ namespace PloppableRICO
         public Translator()
         {
             // Initialise languages list.
-            languages = new List<Language>();
+            languages = new SortedList<string, Language>();
 
             // Load translation files and set the current language.
             LoadLanguages();
@@ -98,15 +169,54 @@ namespace PloppableRICO
 
 
         /// <summary>
-        /// Sets the current language based on system settings.
+        /// Sets the current language; if there's a previously set valid index number, it'll use that.
+        /// Otherwise, it will fall back to system settings, falling back further to the default language if unsucessful.
         /// </summary>
-        private void SetLanguage()
+        public void SetLanguage()
+        {
+            SetLanguage(currentIndex);
+        }
+
+
+        /// <summary>
+        /// Sets the current language to the provided language code.
+        /// If the key isn't in the list of loaded translations, then the system default is attempted instead.
+        /// </summary>
+        /// <param name="uniqueName">Language unique name (code)</param>
+        public void SetLanguage(string uniqueName) => SetLanguage(languages.IndexOfKey(uniqueName));
+
+
+        /// <summary>
+        /// Sets the current language based on the supplied index number.
+        /// If index number is invalid (negative or out-of-bounds) then the system language setting is tried instead.
+        /// If even that fails, the default language is used.
+        /// </summary>
+        /// <param name="index">1-based language index number (zero or negative values will use system language settings instead)</param>
+        public void SetLanguage(int index)
         {
             // Don't do anything if no languages have been loaded, or the LocaleManager isn't available.
             if (languages != null && languages.Count > 0 && LocaleManager.exists)
             {
-                // Try to set current language, using fallback if null.
-                currentLanguage = languages.Find(language => language.uniqueName == LocaleManager.instance.language) ?? FallbackLanguage();
+                // If we have a valid index number (greater than zero but within bounds), use that to get the language.
+                // Remember that we've effectively added an additional 'system' index at 0, so less-than-or-equals is needed.
+                if (index > 0 && index <= languages.Count)
+                {
+                    // The index is one greater than the 'real' index in our languages list, as index 0 is for the 'system settings' option.
+                    currentLanguage = languages.Values[index - 1];
+
+                    // Since we've been given a valid index number, we'll store it for future reference (prevent override of settings by system locale changes).
+                    currentIndex = index;
+                }
+                else
+                {
+                    // Try to set current language, using fallback if null.
+                    currentLanguage = languages[LocaleManager.instance.language] ?? FallbackLanguage();
+
+                    // We weren't given a valid index, so remove any stored index.
+                    currentIndex = 0;
+                }
+
+                Debugging.Message("setting language to " + currentLanguage?.uniqueName ?? "none");
             }
 
             // Update ploppable tool, if it's been created.
@@ -128,11 +238,11 @@ namespace PloppableRICO
                 string newName = LocaleManager.instance.language.Substring(0, 2);
                 Debugging.Message("language " + LocaleManager.instance.language + " failed; trying " + newName);
 
-                fallbackLanguage = languages.Find(language => language.uniqueName == newName);
+                fallbackLanguage = languages[newName];
             }
 
             // If we picked up a fallback language, return that; otherwise, return the default language.
-            return fallbackLanguage ?? languages.Find(language => language.uniqueName == defaultLanguage);
+            return fallbackLanguage ?? languages[defaultLanguage];
         }
 
 
@@ -163,7 +273,7 @@ namespace PloppableRICO
                             if (xmlSerializer.Deserialize(reader) is Language translation)
                             {
                                 // Got one!  add it to the list.
-                                languages.Add(translation);
+                                languages.Add(translation.uniqueName, translation);
                             }
                             else
                             {
@@ -171,6 +281,9 @@ namespace PloppableRICO
                             }
                         }
                     }
+
+                    // Sort language list by language key alphabetical order.
+                    //languages.OrderBy(language => language.uniqueName);
                 }
                 else
                 {
@@ -216,7 +329,7 @@ namespace PloppableRICO
 
             // If we got here, then we didn't find the assembly.
             Debugging.Message("assembly path not found");
-            throw new FileNotFoundException("RICO Revisited: assembly path not found!");
+            throw new FileNotFoundException(PloppableRICOMod.ModName + ": assembly path not found!");
         }
     }
 }

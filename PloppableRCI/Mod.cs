@@ -1,4 +1,5 @@
 using ICities;
+using ColossalFramework.UI;
 using CitiesHarmony.API;
 
 
@@ -9,9 +10,10 @@ namespace PloppableRICO
     /// </summary>
     public class PloppableRICOMod : IUserMod
     {
+        public static string ModName => "RICO Revisited";
         public static string Version => "2.2.1";
 
-        public string Name => "RICO Revisited " + Version;
+        public string Name => ModName + " " + Version;
         public string Description => Translations.Translate("PRR_DESCRIPTION");
 
 
@@ -50,6 +52,10 @@ namespace PloppableRICO
             // General options.
             UIHelperBase otherGroup = helper.AddGroup(" ");
 
+            UIDropDown translationDropDown = (UIDropDown)otherGroup.AddDropdown(Translations.Translate("TRN_CHOICE"), Translations.LanguageList, Translations.Index, (value) => { Translations.Index = value; Configuration<SettingsFile>.Save(); });
+            translationDropDown.autoSize = false;
+            translationDropDown.width = 270f;
+
             // Add logging checkbox.
             otherGroup.AddCheckbox(Translations.Translate("PRR_OPTION_MOREDEBUG"), settingsFile.DebugLogging, isChecked =>
             {
@@ -84,8 +90,6 @@ namespace PloppableRICO
                 settingsFile.SpeedBoost = isChecked;
                 Configuration<SettingsFile>.Save();
             });
-
-
         }
     }
 }

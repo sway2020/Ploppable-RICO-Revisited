@@ -80,6 +80,8 @@
     <Translation ID="PRR_SAV_REM" String="从本地删除" />
     <Translation ID="PRR_SAV_APP" String="保存并应用更改" />
     <Translation ID="PRR_EXP" String="小心：实验性" />
+    <Translation ID="TRN_CHOICE" String="选择语言" />
+    <Translation ID="TRN_SYS" String="使用系统语言" />
     <Translation ID="PRR_DESCRIPTION" String="允许大小大于4x4的RICO建筑物和RICO建筑物定制" />
     <Translation ID="PRR_OPTION_SPEED" String= "不使用时禁用面板（提高游戏速度，但会导致打开面板的延迟）" />
     <Translation ID="PRR_OPTION_MOREDEBUG" String="启用其他调试日志记录" />

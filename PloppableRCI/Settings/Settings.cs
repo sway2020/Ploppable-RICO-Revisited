@@ -26,5 +26,16 @@
         public bool PlainThumbs { get; set; } = false;
         public bool DebugLogging { get; set; } = false;
         public bool ResetOnLoad { get; set; } = true;
+        public string Language
+        {
+            get
+            {
+                return Translations.Language;
+            }
+            set
+            {
+                Translations.Language = value;
+            }
+        }
     }
 }
