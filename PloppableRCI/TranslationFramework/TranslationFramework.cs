@@ -200,8 +200,8 @@ namespace PloppableRICO
         /// <param name="index">1-based language index number (zero or negative values will use system language settings instead)</param>
         public void SetLanguage(int index)
         {
-            // Don't do anything if no languages have been loaded, or the LocaleManager isn't available.
-            if (languages != null && languages.Count > 0 && LocaleManager.exists)
+            // Don't do anything if no languages have been loaded.
+            if (languages != null && languages.Count > 0)
             {
                 // If we have a valid index number (greater than zero but within bounds), use that to get the language.
                 // Remember that we've effectively added an additional 'system' index at 0, so less-than-or-equals is needed.
@@ -218,7 +218,7 @@ namespace PloppableRICO
                     // Try to set current language.
                     try
                     {
-                        currentLanguage = languages[LocaleManager.instance.language];
+                        currentLanguage = languages[LocaleManager.instance?.language];
                     }
                     catch
                     {
