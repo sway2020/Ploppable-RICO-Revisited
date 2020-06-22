@@ -748,28 +748,26 @@ namespace PloppableRICO
 
 
         /// <summary>
-        /// Destroys all existing building buttons and generates a new set.
+        /// Regenerates all thumbnails.
         /// Useful for e.g. regenerating thumbnails.
         /// </summary>
-        internal void RebuildButtons()
+        internal void RegenerateThumbnails()
         {
             // Only do this if the ploppable tool has been created.
             if (Instance != null)
             {
-                Debugging.Message("destroying all building buttons");
+                Debugging.Message("regenerating all thumbnails");
 
                 // Step through each loaded and active RICO prefab.
                 foreach (BuildingData buildingData in Loading.xmlManager.prefabHash.Values)
                 {
-                    // Destroy all existing building buttons.
+                    // See if it has a building button.
                     if (buildingData.buildingButton != null)
                     {
-                        GameObject.Destroy(buildingData.buildingButton);
+                        // If so, add its thumbnail to the rendering queue.
+                        ThumbnailManager.QueueThumbnail(buildingData);
                     }
                 }
-
-                // Repopulate building buttons.
-                Instance.PopulateButtons();
             }
         }
     }

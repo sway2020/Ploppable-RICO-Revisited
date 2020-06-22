@@ -3,6 +3,7 @@
 - Allow for longer translation strings in dropdown menu widths
 - Memory management: delay generating thumbnails until actually in-game
 - Memory management: don't generate disabled thumbnails
+- Regenerating thumbnails now does only that (leaves the rest of the button alone)
 - Standardise exception logging
 
 

@@ -80,7 +80,7 @@ namespace PloppableRICO
             });
 
             // Add regenerate thumbnails button.
-            otherGroup.AddButton(Translations.Translate("PRR_OPTION_REGENTHUMBS"), () => PloppableTool.Instance.RebuildButtons());
+            otherGroup.AddButton(Translations.Translate("PRR_OPTION_REGENTHUMBS"), () => PloppableTool.Instance.RegenerateThumbnails());
 
             // Add speed boost checkbox.
             UIHelperBase speedGroup = helper.AddGroup(Translations.Translate("PRR_OPTION_SPDHDR"));
