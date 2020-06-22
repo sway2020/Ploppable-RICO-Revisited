@@ -46,7 +46,7 @@ namespace PloppableRICO
 			// Search for PloppableRICODefinition.xml files with this asset.
 			// Need to use FindAssetByName(string, AssetType) because FindAssetByName(string) doesn't catch all assets at this stage of initialisation
 			// (those two methods are more different than you might think - discovered that the hard way).
-			var asset = PackageManager.FindAssetByName(__instance.name, Package.AssetType.Object);
+			Package.Asset asset = PackageManager.FindAssetByName(__instance.name, Package.AssetType.Object);
 
 			if (asset?.package?.packagePath != null)
 			{
@@ -59,7 +59,6 @@ namespace PloppableRICO
 				if (File.Exists(ricoDefPath))
 				{
 					// Parse the file.
-					// TODO - ParseRICODefinition - check need for args
 					var tempRicoDef = RICOReader.ParseRICODefinition(asset.package.packageName, ricoDefPath);
 
 					if (tempRicoDef != null)

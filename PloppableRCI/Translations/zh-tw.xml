@@ -42,7 +42,7 @@
     <Translation ID="PRR_OPT_JB1" String="受普通教育之職缺" />
     <Translation ID="PRR_OPT_JB2" String="受良好教育之職缺" />
     <Translation ID="PRR_OPT_JB3" String="受高等教育之職缺" />
-    <Translation ID="PRR_CAT_MON" String="宏偉巨作建築" />
+    <Translation ID="PRR_CAT_MON" String="獨特建築" />
     <Translation ID="PRR_CAT_BEA" String="城市美化" />
     <Translation ID="PRR_CAT_EDU" String="教育系統" />
     <Translation ID="PRR_CAT_POW" String="供電系統" />

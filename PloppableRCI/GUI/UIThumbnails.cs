@@ -120,11 +120,10 @@ namespace PloppableRICO
             building.buildingButton.atlas = thumbnailAtlas;
             building.buildingButton.normalFgSprite = thumbnailTexture.name;
 
-            // Variants.
+            // Variants - don't bother with 'disabled' variant since we don't use it.
             building.buildingButton.focusedFgSprite = thumbnailTexture.name + "Focused";
             building.buildingButton.hoveredFgSprite = thumbnailTexture.name + "Hovered";
             building.buildingButton.pressedFgSprite = thumbnailTexture.name + "Pressed";
-            building.buildingButton.disabledFgSprite = thumbnailTexture.name + "Disabled";
         }
 
 
@@ -160,20 +159,14 @@ namespace PloppableRICO
             pressedTexture.Apply(false);
             pressedTexture.name = baseTexture.name + "Pressed";
 
-            // Disabled.
-            ColorFilter(basePixels, variantPixels, 0, 0, 0, 4);
-            Texture2D disabledTexture = new Texture2D(baseTexture.width, baseTexture.height, TextureFormat.ARGB32, false, false);
-            disabledTexture.SetPixels32(variantPixels);
-            disabledTexture.Apply(false);
-            disabledTexture.name = baseTexture.name + "Disabled";
+            // Don't bother with 'disabled' texture since we don't use it, and we save memory by not adding it.
 
             return new Texture2D[]
             {
                 baseTexture,
                 focusedTexture,
                 hoveredTexture,
-                pressedTexture,
-                disabledTexture
+                pressedTexture
             };
         }
 
