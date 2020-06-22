@@ -73,7 +73,7 @@
     <Compile Include="AI\WorkplaceAI.cs" />
     <Compile Include="Debugging.cs" />
     <Compile Include="GUI\UIPreviewRenderer.cs" />
-    <Compile Include="GUI\UIThumbnails.cs" />
+    <Compile Include="GUI\Thumbnails.cs" />
     <Compile Include="ModUtils.cs" />
     <Compile Include="Notifications\ConflictNotification.cs" />
     <Compile Include="Notifications\ErrorNotification.cs" />

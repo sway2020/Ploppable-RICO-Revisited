@@ -4,7 +4,7 @@ using System.Text;
 using UnityEngine;
 using ColossalFramework.UI;
 using ColossalFramework.Math;
-
+using System.Net.NetworkInformation;
 
 namespace PloppableRICO
 {
@@ -362,12 +362,12 @@ namespace PloppableRICO
             Debugging.Message("populating building buttons");
 
             // Step through each loaded and active RICO prefab.
-            foreach (var buildingData in Loading.xmlManager.prefabHash.Values)
+            foreach (BuildingData buildingData in Loading.xmlManager.prefabHash.Values)
             {
                 if (buildingData != null)
                 {
                     // Get the prefab.
-                    var prefab = PrefabCollection<BuildingInfo>.FindLoaded(buildingData.name);
+                    BuildingInfo prefab = PrefabCollection<BuildingInfo>.FindLoaded(buildingData.name);
 
                     // Local settings first.
                     if (buildingData.hasLocal)
@@ -468,7 +468,7 @@ namespace PloppableRICO
                 buildingData.buildingButton = new UIButton();
                 buildingData.buildingButton = BuildingPanels[buildingData.uiCategory].AddUIComponent<UIButton>();
 
-                // Appearance.
+                // Size and position.
                 buildingData.buildingButton.size = new Vector2(109, 100);
                 buildingData.buildingButton.horizontalAlignment = UIHorizontalAlignment.Center;
                 buildingData.buildingButton.verticalAlignment = UIVerticalAlignment.Middle;
@@ -477,12 +477,11 @@ namespace PloppableRICO
                 // Assign prefab.
                 buildingData.buildingButton.objectUserData = buildingData.prefab;
 
-                // Thumbnail.
-                Thumbnails.CreateThumbnail(buildingData);
+                // Add thumbnail rendering to queue.
+                ThumbnailManager.QueueThumbnail(buildingData);
 
                 // Information label - building name.
-                UILabel nameLabel = new UILabel();
-                nameLabel = buildingData.buildingButton.AddUIComponent<UILabel>();
+                UILabel nameLabel = buildingData.buildingButton.AddUIComponent<UILabel>();
                 nameLabel.textScale = 0.6f;
                 nameLabel.useDropShadow = true;
                 nameLabel.dropShadowColor = new Color32(80, 80, 80, 255);
@@ -496,8 +495,7 @@ namespace PloppableRICO
                 nameLabel.relativePosition = new Vector3(5, 5);
 
                 // Information label - building level.
-                UILabel levelLabel = new UILabel();
-                levelLabel = buildingData.buildingButton.AddUIComponent<UILabel>();
+                UILabel levelLabel = buildingData.buildingButton.AddUIComponent<UILabel>();
                 levelLabel.textScale = 0.6f;
                 levelLabel.useDropShadow = true;
                 levelLabel.dropShadowColor = new Color32(80, 80, 80, 255);
@@ -508,8 +506,7 @@ namespace PloppableRICO
                 levelLabel.relativePosition = new Vector3(5, buildingData.buildingButton.height - levelLabel.height - 5);
 
                 // Information label - building size.
-                UILabel sizeLabel = new UILabel();
-                sizeLabel = buildingData.buildingButton.AddUIComponent<UILabel>();
+                UILabel sizeLabel = buildingData.buildingButton.AddUIComponent<UILabel>();
                 sizeLabel.textScale = 0.6f;
                 sizeLabel.useDropShadow = true;
                 sizeLabel.dropShadowColor = new Color32(80, 80, 80, 255);
@@ -601,7 +598,7 @@ namespace PloppableRICO
         /// <param name="prefab">Selected building prefab</param>
         public void BuildingBClicked(BuildingInfo prefab)
         {
-            var buildingTool = ToolsModifierControl.SetTool<BuildingTool>();
+            BuildingTool buildingTool = ToolsModifierControl.SetTool<BuildingTool>();
             {
                 buildingTool.m_prefab = prefab;
                 buildingTool.m_relocate = 0;
@@ -751,7 +748,7 @@ namespace PloppableRICO
 
 
         /// <summary>
-        /// Destroys all building buttons and generates a new set.
+        /// Destroys all existing building buttons and generates a new set.
         /// Useful for e.g. regenerating thumbnails.
         /// </summary>
         internal void RebuildButtons()
@@ -762,7 +759,7 @@ namespace PloppableRICO
                 Debugging.Message("destroying all building buttons");
 
                 // Step through each loaded and active RICO prefab.
-                foreach (var buildingData in Loading.xmlManager.prefabHash.Values)
+                foreach (BuildingData buildingData in Loading.xmlManager.prefabHash.Values)
                 {
                     // Destroy all existing building buttons.
                     if (buildingData.buildingButton != null)

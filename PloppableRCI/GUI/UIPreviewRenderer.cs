@@ -9,13 +9,18 @@ namespace PloppableRICO
     /// </summary>
     public class UIPreviewRenderer : MonoBehaviour
     {
-        public Material material;
-
         private Camera renderCamera;
         private Mesh currentMesh;
         private Bounds currentBounds;
         private float currentRotation = 120f;
         private float currentZoom = 4f;
+        private Material _material;
+
+
+        /// <summary>
+        /// Sets material to render.
+        /// </summary>
+        public Material Material { set => _material = value; }
 
 
         /// <summary>
@@ -68,13 +73,13 @@ namespace PloppableRICO
             if (prefab.m_subMeshes != null && prefab.m_subMeshes.Length > 0 && prefab.m_subMeshes[0].m_subInfo.m_mesh.triangles.Length > prefab.m_mesh.triangles.Length)
             {
                 Mesh = prefab.m_subMeshes[0].m_subInfo.m_mesh;
-                material = prefab.m_subMeshes[0].m_subInfo.m_material;
+                _material = prefab.m_subMeshes[0].m_subInfo.m_material;
             }
             else
             {
                 // Otherwise, just use the main mesh and material for render.
                 Mesh = prefab.m_mesh;
-                material = prefab.m_material;
+                _material = prefab.m_material;
             }
         }
 
@@ -156,12 +161,20 @@ namespace PloppableRICO
             }
 
             // Set background.
-            if (isThumb && Settings.plainThumbs)
+            if (isThumb)
             {
+                // Is a thumbnail - user plain-colour background.
                 renderCamera.clearFlags = CameraClearFlags.Color;
+
+                // Set dark sky-blue background colour if the 'plain thumbnail background' setting isn't set.
+                if (!Settings.plainThumbs)
+                {
+                    renderCamera.backgroundColor = new Color32(33, 151, 199, 255);
+                }
             }
             else
             {
+                // Not a thumbnail - use skybox background.
                 renderCamera.clearFlags = CameraClearFlags.Skybox;
             }
 
@@ -220,8 +233,8 @@ namespace PloppableRICO
             Matrix4x4 matrix = Matrix4x4.TRS(pos, quaternion, Vector3.one);
 
             // Render!
-            Graphics.DrawMesh(currentMesh, matrix, material, 0, renderCamera, 0, null, true, true);
-            renderCamera.RenderWithShader(material.shader, "");
+            Graphics.DrawMesh(currentMesh, matrix, _material, 0, renderCamera, 0, null, true, true);
+            renderCamera.RenderWithShader(_material.shader, "");
 
             // Restore game lighting.
             RenderManager.instance.MainLight = gameMainLight;

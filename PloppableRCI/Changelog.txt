@@ -1,7 +1,8 @@
 ﻿- Add manual translation selection option
 - Update translation framework to latest version with improved fallback language detection
 - Allow for longer translation strings in dropdown menu widths
-- Reduce memory use: don't generate disabled thumbnails
+- Memory management: delay generating thumbnails until actually in-game
+- Memory management: don't generate disabled thumbnails
 - Standardise exception logging
 
 
