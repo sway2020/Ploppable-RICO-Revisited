@@ -125,6 +125,7 @@
   <ItemGroup>
     <Content Include="Changelog.txt" />
     <Content Include="Images\PreviewImage.png" />
+    <Content Include="License.txt" />
     <Content Include="Translations\zh-tw.xml" />
     <Content Include="Translations\en.xml" />
     <Content Include="Translations\zh.xml" />

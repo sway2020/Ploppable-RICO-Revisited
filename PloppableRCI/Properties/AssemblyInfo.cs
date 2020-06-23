@@ -5,12 +5,12 @@ using System.Runtime.CompilerServices;
 // Information about this assembly is defined by the following attributes.
 // Change them to the values specific to your project.
 
-[assembly: AssemblyTitle("PloppableRICORevisited")]
-[assembly: AssemblyDescription ("")]
+[assembly: AssemblyTitle("Ploppable RICO Revisited")]
+[assembly: AssemblyDescription("A Cities: Skylines mod")]
 [assembly: AssemblyConfiguration ("")]
 [assembly: AssemblyCompany ("")]
-[assembly: AssemblyProduct ("")]
-[assembly: AssemblyCopyright("algernon (fork of work by AJ3D and others)")]
+[assembly: AssemblyProduct("Ploppable RICO Revisited")]
+[assembly: AssemblyCopyright("2020 algernon (fork of work 2015-2018 by AJ3D and others)")]
 [assembly: AssemblyTrademark ("")]
 [assembly: AssemblyCulture ("")]
 
