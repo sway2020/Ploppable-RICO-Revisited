@@ -1,6 +1,9 @@
-﻿- Add manual translation selection option
+﻿Version 2.2.2
+
+- Add manual translation selection option
 - Update translation framework to latest version with improved fallback language detection
 - Allow for longer translation strings in dropdown menu widths
+- Standardise thumbnail backgrounds
 - Memory management: delay generating thumbnails until actually in-game
 - Memory management: don't generate disabled thumbnails
 - Regenerating thumbnails now does only that (leaves the rest of the button alone)
