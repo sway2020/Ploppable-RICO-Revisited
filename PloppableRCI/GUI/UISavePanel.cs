@@ -172,7 +172,7 @@ namespace PloppableRICO
             }
 
             // Get the currently applied RICO settings (local, author, mod).
-            RICOBuilding currentData = CurrentRICOSetting();
+            RICOBuilding currentData = RICOUtils.CurrentRICOSetting(currentSelection);
 
             if (currentData != null)
             {
@@ -486,29 +486,6 @@ namespace PloppableRICO
             }
 
             return "none";
-        }
-
-
-        /// <summary>
-        /// Returns the currently applied RICO settings for the selected building.
-        /// </summary>
-        /// <returns></returns>
-        private RICOBuilding CurrentRICOSetting()
-        {
-            if (currentSelection.hasLocal)
-            {
-                return currentSelection.local;
-            }
-            else if (currentSelection.hasAuthor)
-            {
-                return currentSelection.author;
-            }
-            else if (currentSelection.hasMod)
-            {
-                return currentSelection.mod;
-            }
-
-            return null;
         }
     }
 }

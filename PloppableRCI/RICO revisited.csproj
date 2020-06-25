@@ -84,6 +84,7 @@
     <Compile Include="Patches\Patcher.cs" />
     <Compile Include="Patches\InitializePrefab.cs" />
     <Compile Include="Patches\InitPrefabTranspiler.cs" />
+    <Compile Include="RICO\RICOUtils.cs" />
     <Compile Include="Settings\Settings.cs" />
     <Compile Include="Settings\SettingsXML.cs" />
     <Compile Include="Notifications\UpdateNotification.cs" />

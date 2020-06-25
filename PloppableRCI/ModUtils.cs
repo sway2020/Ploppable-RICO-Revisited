@@ -11,7 +11,7 @@ namespace PloppableRICO
     /// <summary>
     /// Class that manages interactions with other mods, including compatibility and functionality checks.
     /// </summary>
-    public class ModUtils
+    public static class ModUtils
     {
         /// <summary>
         ///  Flag to determine whether or not a realistic population mod is installed and enabled.
@@ -30,23 +30,45 @@ namespace PloppableRICO
         /// <returns>True if Ploppable RICO is managing this prefab, false otherwise.</returns>
         public static bool IsRICOManaged(BuildingInfo prefab)
         {
+            // First, do we have a setting at all?
             if (Loading.xmlManager.prefabHash.ContainsKey(prefab))
             {
-                if (Loading.xmlManager.prefabHash[prefab].hasLocal && Loading.xmlManager.prefabHash[prefab].local.ricoEnabled)
-                {
-                    return true;
-                }
+                // Get active RICO settings.
+                RICOBuilding building = RICOUtils.CurrentRICOSetting(Loading.xmlManager.prefabHash[prefab]);
 
-                if (Loading.xmlManager.prefabHash[prefab].hasAuthor && Loading.xmlManager.prefabHash[prefab].author.ricoEnabled)
-                {
-                    return true;
-                }
-
-                if (Loading.xmlManager.prefabHash[prefab].hasMod && Loading.xmlManager.prefabHash[prefab].mod.ricoEnabled)
+                // Check that it's enabled.
+                if (building != null && building.ricoEnabled)
                 {
                     return true;
                 }
             }
+
+            // If we got here, we don't have an active setting.
+            return false;
+        }
+
+
+        /// <summary>
+        /// Called by other mods to determine whether or not this is a Ploppable RICO Revisited 'non-growable'.
+        /// </summary>
+        /// <param name="prefab">Prefab reference</param>
+        /// <returns>True if this is a Ploppable RICO non-growable, false otherwise.</returns>
+        public static bool IsRICOPloppable(BuildingInfo prefab)
+        {
+            // First, do we have a setting at all?
+            if (Loading.xmlManager.prefabHash.ContainsKey(prefab))
+            {
+                // Get active RICO settings.
+                RICOBuilding building = RICOUtils.CurrentRICOSetting(Loading.xmlManager.prefabHash[prefab]);
+
+                // Check that it's enabled and isn't growable.
+                if (building != null && building.ricoEnabled && !building.growable)
+                {
+                    return true;
+                }
+            }
+
+            // If we got here, we don't have an active setting.
             return false;
         }
 
@@ -58,23 +80,20 @@ namespace PloppableRICO
         /// <returns>True if Ploppable RICO is controlling the population of this prefab, false otherwise.</returns>
         public static bool IsRICOPopManaged(BuildingInfo prefab)
         {
+            // First, do we have a setting at all?
             if (Loading.xmlManager.prefabHash.ContainsKey(prefab))
             {
-                if (Loading.xmlManager.prefabHash[prefab].hasLocal && Loading.xmlManager.prefabHash[prefab].local.ricoEnabled && !Loading.xmlManager.prefabHash[prefab].local.useReality)
-                {
-                    return true;
-                }
+                // Get active RICO settings.
+                RICOBuilding building = RICOUtils.CurrentRICOSetting(Loading.xmlManager.prefabHash[prefab]);
 
-                if (Loading.xmlManager.prefabHash[prefab].hasAuthor && Loading.xmlManager.prefabHash[prefab].author.ricoEnabled && !Loading.xmlManager.prefabHash[prefab].author.useReality)
-                {
-                    return true;
-                }
-
-                if (Loading.xmlManager.prefabHash[prefab].hasMod && Loading.xmlManager.prefabHash[prefab].mod.ricoEnabled && !Loading.xmlManager.prefabHash[prefab].mod.useReality)
+                // Check that it's enabled and isn't using reality.
+                if (building != null && building.ricoEnabled && !building.useReality)
                 {
                     return true;
                 }
             }
+
+            // If we got here, we don't have an active setting.
             return false;
         }
 

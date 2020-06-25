@@ -1,9 +1,11 @@
-﻿Version 2.2.2
+﻿- Add additional public method calls for interfacing with other mods
+
+
+Version 2.2.2
 
 - Add manual translation selection option
 - Update translation framework to latest version with improved fallback language detection
 - Allow for longer translation strings in dropdown menu widths
-- Standardise default thumbnail backgrounds to dark sky-blue
 - Overhaul thumbnail background option choices; now a dropdown (color, plain, skybox)
 - Memory management: delay generating thumbnails until actually in-game
 - Memory management: don't generate disabled thumbnails
