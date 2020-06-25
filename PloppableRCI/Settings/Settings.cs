@@ -13,7 +13,7 @@ namespace PloppableRICO
         internal static bool debugLogging = false;
         internal static bool resetOnLoad = true;
         internal static bool fastThumbs = false;
-        internal static int thumbBacks = (byte)ThumbBackCats.color;
+        internal static int thumbBacks = (byte)ThumbBackCats.skybox;
 
 
         // Thumbnail background category enum.
@@ -50,7 +50,7 @@ namespace PloppableRICO
         public bool DebugLogging { get; set; } = false;
         public bool ResetOnLoad { get; set; } = true;
         public bool FastThumbs { get; set; } = false;
-        public int ThumbBacks { get; set; } = (int)Settings.ThumbBackCats.color;
+        public int ThumbBacks { get; set; } = (int)Settings.ThumbBackCats.skybox;
         public string Language
         {
             get
