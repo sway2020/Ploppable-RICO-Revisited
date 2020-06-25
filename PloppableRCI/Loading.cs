@@ -89,9 +89,19 @@ namespace PloppableRICO
             // Read mod settings.
             SettingsFile settingsFile = Configuration<SettingsFile>.Load();
             Settings.speedBoost = settingsFile.SpeedBoost;
-            Settings.plainThumbs = settingsFile.PlainThumbs;
             Settings.debugLogging = settingsFile.DebugLogging;
             Settings.resetOnLoad = settingsFile.ResetOnLoad;
+
+            // Legacy 'plain thumbnail background' conversion to new thumbnail background enum.
+            if (settingsFile.PlainThumbs)
+            {
+                Settings.thumbBacks = (byte)Settings.ThumbBackCats.plain;
+            }
+            else
+            {
+                // New thumbnail backround enum format.
+                Settings.thumbBacks = settingsFile.ThumbBacks;
+            }
             
             // Read any local RICO settings.
             string ricoDefPath = "LocalRICOSettings.xml";

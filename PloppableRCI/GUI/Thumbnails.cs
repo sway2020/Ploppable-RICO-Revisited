@@ -95,27 +95,34 @@ namespace PloppableRICO
         {
             base.Update();
 
-            // Check to see if there's anything in the queue.
-            if (renderQueue != null && renderQueue.Count > 0)
+            // Do 1 or 10 thumbnails per update, depending on the 'fast thumbnail rendering' setting.
+            for (int i = 0; i < (Settings.fastThumbs ? 10 : 1); ++i)
             {
-                // The queue is not empty - get the next (first in list) building.
-                BuildingData thisBuilding = renderQueue.First<BuildingData>();
-
-                if (Settings.debugLogging)
+                // Check to see if there's anything in the queue.
+                if (renderQueue != null && renderQueue.Count > 0)
                 {
-                    Debugging.Message("creating thumbnails for " + thisBuilding.displayName);
+                    // The queue is not empty - get the next (first in list) building.
+                    BuildingData thisBuilding = renderQueue.First<BuildingData>();
+
+                    if (Settings.debugLogging)
+                    {
+                        Debugging.Message("creating thumbnails for " + thisBuilding.displayName);
+                    }
+
+                    // Create the thumbnail.
+                    CreateThumbnail(thisBuilding);
+
+                    // Thumbnail rendered - remove from queue.
+                    renderQueue.Remove(thisBuilding);
                 }
+                else
+                {
+                    // The queue is empty; close everything down and destroy objects.
+                    ThumbnailManager.Close();
 
-                // Create the thumbnail.
-                CreateThumbnail(thisBuilding);
-
-                // Thumbnail rendered - remove from queue.
-                renderQueue.Remove(thisBuilding);
-            }
-            else
-            {
-                // The queue is empty; close everything down and destroy objects.
-               ThumbnailManager.Close();
+                    // And we're done looping.
+                    break;
+                }
             }
         }
 

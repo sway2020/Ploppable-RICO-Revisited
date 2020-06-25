@@ -86,10 +86,15 @@
     <Translation ID="PRR_DESCRIPTION" String="Allows RICO buildings greater than 4x4 in size and RICO building customisation" />
     <Translation ID="PRR_OPTION_MOREDEBUG" String="Enable additional debugging logging" />
     <Translation ID="PRR_OPTION_FORCERESET" String="Force reset of existing building stats on game load" />
-    <Translation ID="PRR_OPTION_PLAINTHUMBS" String="Use plain backgrounds for thumbnails" />
     <Translation ID="PRR_OPTION_REGENTHUMBS" String="Regenerate thumbnails" />
     <Translation ID="PRR_OPTION_SPDHDR" String= "Increases game speed slightly but causes a delay in opening the panel:" />
     <Translation ID="PRR_OPTION_SPEED" String= "Disable panel when not in use" />
+    <Translation ID="PRR_OPTION_FASTHDR" String= "Renders thumbnails more quickly, but uses more memory:" />
+    <Translation ID="PRR_OPTION_FASTHUMB" String= "Render thumbnails at accelerated speed" />
+    <Translation ID="PRR_OPTION_THUMBACK" String="Thumbnail backgrounds" />
+    <Translation ID="PRR_THUMB_COLOR" String="Color" />
+    <Translation ID="PRR_THUMB_PLAIN" String="Plain" />
+    <Translation ID="PRR_THUMB_SKY" String="Skybox" />
     <Translation ID="PRR_ERR_HAR0" String="Harmony patching error" />
     <Translation ID="PRR_ERR_HAR1" String="Ploppable RICO Revisited was unable to complete its required Harmony patches.  This means that the mod is not able to operate, and has shut down to protect your save file from damage." />
     <Translation ID="PRR_ERR_HAR2" String="Possible causes of this problem include:" />

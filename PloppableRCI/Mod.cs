@@ -52,7 +52,11 @@ namespace PloppableRICO
             // General options.
             UIHelperBase otherGroup = helper.AddGroup(" ");
 
-            UIDropDown translationDropDown = (UIDropDown)otherGroup.AddDropdown(Translations.Translate("TRN_CHOICE"), Translations.LanguageList, Translations.Index, (value) => { Translations.Index = value; Configuration<SettingsFile>.Save(); });
+            UIDropDown translationDropDown = (UIDropDown)otherGroup.AddDropdown(Translations.Translate("TRN_CHOICE"), Translations.LanguageList, Translations.Index, (value) =>
+            {
+                Translations.Index = value;
+                Configuration<SettingsFile>.Save();
+            });
             translationDropDown.autoSize = false;
             translationDropDown.width = 270f;
 
@@ -71,11 +75,11 @@ namespace PloppableRICO
                 Configuration<SettingsFile>.Save();
             });
 
-            // Add thumbnail background checkbox.
-            otherGroup.AddCheckbox(Translations.Translate("PRR_OPTION_PLAINTHUMBS"), settingsFile.PlainThumbs, isChecked =>
+            // Add thumbnail background dropdown.
+            otherGroup.AddDropdown(Translations.Translate("PRR_OPTION_THUMBACK"), Settings.ThumbBackNames, settingsFile.ThumbBacks, (value) =>
             {
-                Settings.plainThumbs = isChecked;
-                settingsFile.PlainThumbs = isChecked;
+                Settings.thumbBacks = value;
+                settingsFile.ThumbBacks = value;
                 Configuration<SettingsFile>.Save();
             });
 
@@ -88,6 +92,15 @@ namespace PloppableRICO
             {
                 Settings.speedBoost = isChecked;
                 settingsFile.SpeedBoost = isChecked;
+                Configuration<SettingsFile>.Save();
+            });
+
+            // Add fast thumbnails checkbox.
+            UIHelperBase fastGroup = helper.AddGroup(Translations.Translate("PRR_OPTION_FASTHDR"));
+            fastGroup.AddCheckbox(Translations.Translate("PRR_OPTION_FASTHUMB"), settingsFile.FastThumbs, isChecked =>
+            {
+                Settings.fastThumbs = isChecked;
+                settingsFile.FastThumbs = isChecked;
                 Configuration<SettingsFile>.Save();
             });
         }

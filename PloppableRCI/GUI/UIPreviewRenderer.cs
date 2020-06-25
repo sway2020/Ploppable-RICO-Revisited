@@ -160,14 +160,14 @@ namespace PloppableRICO
                 return;
             }
 
-            // Set background.
-            if (isThumb)
+            // Set background - plain if this is a thumbnail and the 'skybox' option isn't selected.
+            if (isThumb && Settings.thumbBacks != (byte)Settings.ThumbBackCats.skybox)
             {
                 // Is a thumbnail - user plain-colour background.
                 renderCamera.clearFlags = CameraClearFlags.Color;
 
-                // Set dark sky-blue background colour if the 'plain thumbnail background' setting isn't set.
-                if (!Settings.plainThumbs)
+                // Set dark sky-blue background colour if the default 'color' background is set
+                if (Settings.thumbBacks == (byte)Settings.ThumbBackCats.color)
                 {
                     renderCamera.backgroundColor = new Color32(33, 151, 199, 255);
                 }
