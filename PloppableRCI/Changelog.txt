@@ -2,6 +2,7 @@
 - Memory management: overwrite original thumbnail atlas when generating new thumbnails
 - Add additional public method calls for interfacing with other mods
 - Update translation framework
+- Overhaul XML settings file handling
 
 
 Version 2.2.2

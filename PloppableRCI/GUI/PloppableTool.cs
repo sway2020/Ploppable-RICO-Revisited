@@ -81,7 +81,7 @@ namespace PloppableRICO
                     _instance.PopulateButtons();
 
                     // Deactivate to start with.
-                    if (Settings.speedBoost)
+                    if (ModSettings.speedBoost)
                     {
                         _gameObject.SetActive(false);
                     }
@@ -305,7 +305,7 @@ namespace PloppableRICO
                 BuildingPanel.eventVisibilityChanged += (component, isVisible) =>
                 {
                     // Additional check to allow for the case where speedboost has been deactivated mid-game while the panel was deactivated.
-                    if ((Settings.speedBoost) || (isVisible && !BuildingPanel.gameObject.activeSelf))
+                    if ((ModSettings.speedBoost) || (isVisible && !BuildingPanel.gameObject.activeSelf))
                     {
                         BuildingPanel.gameObject.SetActive(isVisible);
                     }

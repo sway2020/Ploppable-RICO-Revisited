@@ -1,4 +1,5 @@
-﻿using ColossalFramework.UI;
+﻿using System.Xml.Serialization;
+using ColossalFramework.UI;
 using UnityEngine;
 
 namespace PloppableRICO
@@ -7,7 +8,7 @@ namespace PloppableRICO
     /// <summary>
     /// Class to hold global mod settings.
     /// </summary>
-    internal static class Settings
+    internal static class ModSettings
     {
         internal static bool speedBoost = false;
         internal static bool debugLogging = false;
@@ -41,16 +42,35 @@ namespace PloppableRICO
     /// <summary>
     /// Defines the XML settings file.
     /// </summary>
-    [ConfigurationPath("RICORevisited.xml")]
-    public class SettingsFile
+    [XmlRoot("SettingsFile")]
+    public class XMLSettingsFile
     {
-        public int NotificationVersion { get; set; } = 0;
-        public bool SpeedBoost { get; set; } = false;
-        public bool PlainThumbs { get; } = false;
-        public bool DebugLogging { get; set; } = false;
-        public bool ResetOnLoad { get; set; } = true;
-        public bool FastThumbs { get; set; } = false;
-        public int ThumbBacks { get; set; } = (int)Settings.ThumbBackCats.skybox;
+        [XmlElement("NotificationVersion")]
+        public int NotificationVersion { get => UpdateNotification.notificationVersion; set => UpdateNotification.notificationVersion = value; }
+        [XmlElement("SpeedBoost")]
+        public bool SpeedBoost { get => ModSettings.speedBoost; set => ModSettings.speedBoost = value; }
+        [XmlElement("DebugLogging")]
+        public bool DebugLogging { get => ModSettings.debugLogging; set => ModSettings.debugLogging = value; }
+        [XmlElement("ResetOnLoad")]
+        public bool ResetOnLoad { get => ModSettings.resetOnLoad; set => ModSettings.resetOnLoad = value; }
+        [XmlElement("FastThumbs")]
+        public bool FastThumbs { get => ModSettings.fastThumbs; set => ModSettings.fastThumbs = value; }
+        [XmlElement("ThumbBacks")]
+        public int ThumbBacks
+        {
+            get => ModSettings.thumbBacks;
+            set
+            {
+                ModSettings.thumbBacks = value;
+
+                // Bounds check.
+                if ((int)ModSettings.thumbBacks > (int)ModSettings.ThumbBackCats.numCats - 1 || ModSettings.thumbBacks < 0)
+                {
+                    ModSettings.thumbBacks = (int)ModSettings.ThumbBackCats.skybox;
+                }
+            }
+        }
+        [XmlElement("Language")]
         public string Language
         {
             get
@@ -60,6 +80,20 @@ namespace PloppableRICO
             set
             {
                 Translations.Language = value;
+            }
+        }
+
+
+        // Legacy 'use plain thumbnails' conversion.
+        [XmlElement("PlainThumbs")]
+        public bool PlainThumbs
+        {
+            set
+            {
+                if (value)
+                {
+                    ModSettings.thumbBacks = (int)ModSettings.ThumbBackCats.plain;
+                }
             }
         }
     }

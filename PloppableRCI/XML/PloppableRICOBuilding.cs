@@ -400,7 +400,7 @@ namespace PloppableRICO
                     // Check and adjust for any rounding errors, assigning 'leftover' jobs to the lowest education level.
                     _workplaces[0] += (originalWorkplaces - _workplaces.Sum());
 
-                    if (Settings.debugLogging)
+                    if (ModSettings.debugLogging)
                     {
                         Debugging.Message(originalWorkplaces + " old-format workplaces for building '" + name + "'; replacing with workplaces " + _workplaces[0] + " " + _workplaces[1] + " " + _workplaces[2] + " " + _workplaces[3]);
                     }

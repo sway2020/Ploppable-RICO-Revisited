@@ -69,7 +69,7 @@ namespace PloppableRICO
 							if (MatchRICOName(buildingDef.name, __instance.name, asset.package.packageName))
 							{
 								// Match!  Add these author settings to our prefab dictionary.
-								if (Settings.debugLogging)
+								if (ModSettings.debugLogging)
 								{
 									Debugging.Message("found author settings for " + buildingDef.name);
 								}

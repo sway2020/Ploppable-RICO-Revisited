@@ -81,7 +81,7 @@ namespace PloppableRICO
                                     Debugging.ErrorBuffer.Append(errorList.ToString());
                                     Debugging.Message("non-fatal errors for building '" + building.name + "' in local settings");
                                 }
-                                else if (Settings.debugLogging)
+                                else if (ModSettings.debugLogging)
                                 {
                                     // Errors in other settings should be logged if verbose logging is enabled, but otherwise continue.
                                     errorList.Insert(0, "found the following non-fatal errors for building '" + building.name + "' in author settings:\r\n");

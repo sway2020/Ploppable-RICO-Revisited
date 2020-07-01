@@ -96,7 +96,7 @@ namespace PloppableRICO
             base.Update();
 
             // Do 1 or 10 thumbnails per update, depending on the 'fast thumbnail rendering' setting.
-            for (int i = 0; i < (Settings.fastThumbs ? 10 : 1); ++i)
+            for (int i = 0; i < (ModSettings.fastThumbs ? 10 : 1); ++i)
             {
                 // Check to see if there's anything in the queue.
                 if (renderQueue != null && renderQueue.Count > 0)
@@ -104,7 +104,7 @@ namespace PloppableRICO
                     // The queue is not empty - get the next (first in list) building.
                     BuildingData thisBuilding = renderQueue.First<BuildingData>();
 
-                    if (Settings.debugLogging)
+                    if (ModSettings.debugLogging)
                     {
                         Debugging.Message("creating thumbnails for " + thisBuilding.displayName);
                     }
@@ -132,7 +132,7 @@ namespace PloppableRICO
         /// </summary>
         public ThumbnailQueue()
         {
-            if (Settings.debugLogging)
+            if (ModSettings.debugLogging)
             {
                 Debugging.Message("creating thumbnail queue");
             }

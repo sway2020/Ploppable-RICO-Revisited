@@ -10,6 +10,10 @@ namespace PloppableRICO
     /// </summary>
     public class UpdateNotification : ErrorNotification
     {
+        // Loaded from configuration file.
+        internal static int notificationVersion;
+
+
         /// <summary>
         /// Creates the panel object in-game.
         /// </summary>
@@ -44,8 +48,8 @@ namespace PloppableRICO
                 noShowButton.eventClick += (control, clickEvent) =>
                 {
                     // Update and save settings file.
-                    Loading.settingsFile.NotificationVersion = 2;
-                    Configuration<SettingsFile>.Save();
+                    notificationVersion = 2;
+                    SettingsUtils.SaveSettings();
 
                     // Just hide this panel and destroy the game object - nothing more to do.
                     this.Hide();

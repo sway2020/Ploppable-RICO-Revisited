@@ -26,9 +26,6 @@ namespace PloppableRICO
         private static bool isModEnabled;
         internal static bool patchOperating;
 
-        // XML settings file.
-        internal static SettingsFile settingsFile;
-
 
         /// <summary>
         /// Called by the game when the mod is initialised at the start of the loading process.
@@ -86,23 +83,6 @@ namespace PloppableRICO
             // Reset broken prefabs list.
             brokenPrefabs = new List<BuildingInfo>();
 
-            // Read mod settings.
-            SettingsFile settingsFile = Configuration<SettingsFile>.Load();
-            Settings.speedBoost = settingsFile.SpeedBoost;
-            Settings.debugLogging = settingsFile.DebugLogging;
-            Settings.resetOnLoad = settingsFile.ResetOnLoad;
-
-            // Legacy 'plain thumbnail background' conversion to new thumbnail background enum.
-            if (settingsFile.PlainThumbs)
-            {
-                Settings.thumbBacks = (byte)Settings.ThumbBackCats.plain;
-            }
-            else
-            {
-                // New thumbnail backround enum format.
-                Settings.thumbBacks = settingsFile.ThumbBacks;
-            }
-            
             // Read any local RICO settings.
             string ricoDefPath = "LocalRICOSettings.xml";
             localRicoDef = null;
@@ -182,8 +162,7 @@ namespace PloppableRICO
             Debugging.Message("loading complete");
 
             // Load settings file and check if we need to display update notification.
-            settingsFile = Configuration<SettingsFile>.Load();
-            if (settingsFile.NotificationVersion != 2)
+            if (UpdateNotification.notificationVersion != 2)
             {
                 // No update notification "Don't show again" flag found; show the notification.
                 UpdateNotification notification = new UpdateNotification();

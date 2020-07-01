@@ -25,6 +25,9 @@ namespace PloppableRICO
             // Apply Harmony patches via Cities Harmony.
             // Called here instead of OnCreated to allow the auto-downloader to do its work prior to launch.
             HarmonyHelper.DoOnHarmonyReady(() => Patcher.PatchAll());
+
+            // Load settings file.
+            SettingsUtils.LoadSettings();
         }
 
 
@@ -46,41 +49,36 @@ namespace PloppableRICO
         /// </summary>
         public void OnSettingsUI(UIHelperBase helper)
         {
-            // Read configuration file.
-            SettingsFile settingsFile = Configuration<SettingsFile>.Load();
-
             // General options.
             UIHelperBase otherGroup = helper.AddGroup(" ");
 
             UIDropDown translationDropDown = (UIDropDown)otherGroup.AddDropdown(Translations.Translate("TRN_CHOICE"), Translations.LanguageList, Translations.Index, (value) =>
             {
                 Translations.Index = value;
-                Configuration<SettingsFile>.Save();
+                SettingsUtils.SaveSettings();
             });
             translationDropDown.autoSize = false;
             translationDropDown.width = 270f;
 
             // Add logging checkbox.
-            otherGroup.AddCheckbox(Translations.Translate("PRR_OPTION_MOREDEBUG"), settingsFile.DebugLogging, isChecked =>
+            otherGroup.AddCheckbox(Translations.Translate("PRR_OPTION_MOREDEBUG"), ModSettings.debugLogging, isChecked =>
             {
-                Settings.debugLogging = isChecked;
-                settingsFile.DebugLogging = isChecked;
-                Configuration<SettingsFile>.Save();
+                ModSettings.debugLogging = isChecked;
+                SettingsUtils.SaveSettings();
             });
 
             // Add reset on load checkbox.
-            otherGroup.AddCheckbox(Translations.Translate("PRR_OPTION_FORCERESET"), settingsFile.ResetOnLoad, isChecked =>
+            otherGroup.AddCheckbox(Translations.Translate("PRR_OPTION_FORCERESET"), ModSettings.resetOnLoad, isChecked =>
             {
-                settingsFile.ResetOnLoad = isChecked;
-                Configuration<SettingsFile>.Save();
+                ModSettings.resetOnLoad = isChecked;
+                SettingsUtils.SaveSettings();
             });
 
             // Add thumbnail background dropdown.
-            otherGroup.AddDropdown(Translations.Translate("PRR_OPTION_THUMBACK"), Settings.ThumbBackNames, settingsFile.ThumbBacks, (value) =>
+            otherGroup.AddDropdown(Translations.Translate("PRR_OPTION_THUMBACK"), ModSettings.ThumbBackNames, ModSettings.thumbBacks, (value) =>
             {
-                Settings.thumbBacks = value;
-                settingsFile.ThumbBacks = value;
-                Configuration<SettingsFile>.Save();
+                ModSettings.thumbBacks = value;
+                SettingsUtils.SaveSettings();
             });
 
             // Add regenerate thumbnails button.
@@ -88,20 +86,18 @@ namespace PloppableRICO
 
             // Add speed boost checkbox.
             UIHelperBase speedGroup = helper.AddGroup(Translations.Translate("PRR_OPTION_SPDHDR"));
-            speedGroup.AddCheckbox(Translations.Translate("PRR_OPTION_SPEED"), settingsFile.SpeedBoost, isChecked =>
+            speedGroup.AddCheckbox(Translations.Translate("PRR_OPTION_SPEED"), ModSettings.speedBoost, isChecked =>
             {
-                Settings.speedBoost = isChecked;
-                settingsFile.SpeedBoost = isChecked;
-                Configuration<SettingsFile>.Save();
+                ModSettings.speedBoost = isChecked;
+                SettingsUtils.SaveSettings();
             });
 
             // Add fast thumbnails checkbox.
             UIHelperBase fastGroup = helper.AddGroup(Translations.Translate("PRR_OPTION_FASTHDR"));
-            fastGroup.AddCheckbox(Translations.Translate("PRR_OPTION_FASTHUMB"), settingsFile.FastThumbs, isChecked =>
+            fastGroup.AddCheckbox(Translations.Translate("PRR_OPTION_FASTHUMB"), ModSettings.fastThumbs, isChecked =>
             {
-                Settings.fastThumbs = isChecked;
-                settingsFile.FastThumbs = isChecked;
-                Configuration<SettingsFile>.Save();
+                ModSettings.fastThumbs = isChecked;
+                SettingsUtils.SaveSettings();
             });
         }
     }
