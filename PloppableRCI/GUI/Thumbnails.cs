@@ -244,15 +244,15 @@ namespace PloppableRICO
             // Thumbnail texture name is the same as the building's displayed name.
             thumbnailTexture.name = building.displayName;
 
-            // Create new texture atlas with thumnails.
-            UITextureAtlas thumbnailAtlas = ScriptableObject.CreateInstance<UITextureAtlas>();
-            thumbnailAtlas.name = "RICOThumbnails_" + building.displayName;
-            thumbnailAtlas.material = UnityEngine.Object.Instantiate<Material>(UIView.GetAView().defaultAtlas.material);
-            thumbnailAtlas.material.mainTexture = new Texture2D(1, 1, TextureFormat.ARGB32, false);
-            AddTexturesToAtlas(thumbnailAtlas, GenerateThumbnailVariants(thumbnailTexture));
+            // Create new texture atlas with thumnails, replacing prefab's existing texture atlas to save memory.
+            building.prefab.m_Atlas = ScriptableObject.CreateInstance<UITextureAtlas>();
+            building.prefab.m_Atlas.name = "RICOThumbnails_" + building.displayName;
+            building.prefab.m_Atlas.material = UnityEngine.Object.Instantiate<Material>(UIView.GetAView().defaultAtlas.material);
+            building.prefab.m_Atlas.material.mainTexture = new Texture2D(1, 1, TextureFormat.ARGB32, false);
+            AddTexturesToAtlas(building.prefab.m_Atlas, GenerateThumbnailVariants(thumbnailTexture));
 
             // Add atlas to building button.
-            building.buildingButton.atlas = thumbnailAtlas;
+            building.buildingButton.atlas = building.prefab.m_Atlas;
             building.buildingButton.normalFgSprite = thumbnailTexture.name;
 
             // Variants - don't bother with 'disabled' variant since we don't use it.
