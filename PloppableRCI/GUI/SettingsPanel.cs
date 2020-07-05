@@ -405,7 +405,7 @@ namespace PloppableRICO
             foreach (BuildingData item in Loading.xmlManager.prefabHash.Values)
             {
                 // Skip any null or invalid prefabs.
-                if ((item == null) || (item.prefab == null))
+                if (item?.prefab == null)
                 {
                     continue;
                 }

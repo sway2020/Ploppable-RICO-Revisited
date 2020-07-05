@@ -22,7 +22,7 @@ namespace PloppableRICO
 
 
         // Background for each list item.
-        public UIPanel background
+        public UIPanel Background
         {
             get
             {
@@ -50,7 +50,7 @@ namespace PloppableRICO
 
             if (buildingName != null)
             {
-                background.width = width;
+                Background.width = width;
                 buildingName.relativePosition = new Vector3(10f, 5f);
 
                 // Settings checkboxes.
@@ -160,8 +160,8 @@ namespace PloppableRICO
         /// <param name="isRowOdd">If the row is an odd-numbered row (for background banding)</param>
         public void Select(bool isRowOdd)
         {
-            background.backgroundSprite = "ListItemHighlight";
-            background.color = new Color32(255, 255, 255, 255);
+            Background.backgroundSprite = "ListItemHighlight";
+            Background.color = new Color32(255, 255, 255, 255);
         }
 
 
@@ -174,13 +174,13 @@ namespace PloppableRICO
             if (isRowOdd)
             {
                 // Lighter background for odd rows.
-                background.backgroundSprite = "UnlockingItemBackground";
-                background.color = new Color32(0, 0, 0, 128);
+                Background.backgroundSprite = "UnlockingItemBackground";
+                Background.color = new Color32(0, 0, 0, 128);
             }
             else
             {
                 // Darker background for even rows.
-                background.backgroundSprite = null;
+                Background.backgroundSprite = null;
             }
         }
     }
