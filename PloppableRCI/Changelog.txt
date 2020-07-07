@@ -1,4 +1,8 @@
-﻿Version 2.2.3
+﻿- Add submesh rendering to thumbnails
+- Tweak thumbnail lighting and angles slightly
+
+
+Version 2.2.3
 
 - Add additional public method calls for interfacing with other mods
 - Move all inter-mod public methods to new Interfaces class

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using ColossalFramework;
 
 
@@ -12,9 +13,11 @@ namespace PloppableRICO
         private Camera renderCamera;
         private Mesh currentMesh;
         private Bounds currentBounds;
-        private float currentRotation = 120f;
-        private float currentZoom = 4f;
+        private float currentRotation;
+        private float currentZoom;
         private Material _material;
+
+        private List<BuildingInfo.MeshInfo> subMeshes;
 
 
         /// <summary>
@@ -62,24 +65,30 @@ namespace PloppableRICO
             }
         }
 
-
         /// <summary>
         /// Sets mesh and material from a BuildingInfo prefab.
         /// </summary>
         /// <param name="prefab">Prefab to render</param>
         public void SetTarget(BuildingInfo prefab)
         {
-            // If the prefab has submeshes and the first submesh has more tris than the main mesh (e.g. SoCal Laguna Homes), then use that submesh as our render mesh.
-            if (prefab.m_subMeshes != null && prefab.m_subMeshes.Length > 0 && prefab.m_subMeshes[0].m_subInfo.m_mesh.triangles.Length > prefab.m_mesh.triangles.Length)
+            Mesh = prefab.m_mesh;
+            _material = prefab.m_material;
+
+            if (subMeshes == null)
             {
-                Mesh = prefab.m_subMeshes[0].m_subInfo.m_mesh;
-                _material = prefab.m_subMeshes[0].m_subInfo.m_material;
+                subMeshes = new List<BuildingInfo.MeshInfo>();
             }
             else
             {
-                // Otherwise, just use the main mesh and material for render.
-                Mesh = prefab.m_mesh;
-                _material = prefab.m_material;
+                subMeshes.Clear();
+            }
+
+            if (prefab.m_subMeshes != null && prefab.m_subMeshes.Length > 0)
+            {
+                for (int i = 0; i < prefab.m_subMeshes.Length; i++)
+                {
+                    subMeshes.Add(prefab.m_subMeshes[i]);
+                }
             }
         }
 
@@ -91,29 +100,7 @@ namespace PloppableRICO
         {
             get => currentMesh;
 
-            set
-            {
-                if (currentMesh != value)
-                {
-                    // Update currently rendered mesh if changed.
-                    currentMesh = value;
-
-                    if (value != null)
-                    {
-                        // Reset the bounding box to be the smallest that can encapsulate all verticies of the new mesh.
-                        // That way the preview image is the largest size that fits cleanly inside the preview size.
-                        currentBounds = new Bounds(Vector3.zero, Vector3.zero);
-
-                        // Use separate verticies instance instead of accessing Mesh.vertices each time (which is slow).
-                        // >10x measured performance improvement by doing things this way instead.
-                        Vector3[] vertices = Mesh.vertices;
-                        for (int i = 0; i < vertices.Length; i++)
-                        {
-                            currentBounds.Encapsulate(vertices[i]);
-                        }
-                    }
-                }
-            }
+            set => currentMesh = value;
         }
 
 
@@ -199,21 +186,76 @@ namespace PloppableRICO
             DayNightProperties.instance.m_SkyTint = new Color(0, 0, 0);
             DayNightProperties.instance.Refresh();
 
-            // Set zoom to encapsulate entire model.
-            float magnitude = currentBounds.extents.magnitude;
-            float num = magnitude + 16f;
-            float num2 = magnitude * currentZoom;
-
-            // Transforms and clip.
-            renderCamera.transform.position = -Vector3.forward * num2;
-            renderCamera.transform.rotation = Quaternion.identity;
-            renderCamera.nearClipPlane = Mathf.Max(num2 - num * 1.5f, 0.01f);
-            renderCamera.farClipPlane = num2 + num * 1.5f;
-
             // Set up our render lighting settings.
             Light renderLight = DayNightProperties.instance.sunLightSource;
 
             RenderManager.instance.MainLight = renderLight;
+
+            // Set model position and calculate our rendering matrix.
+            // We render at +100 Y to avoid garbage left at 0,0 by certain shaders and renderers (and we only rotate around the Y axis so will never see the origin).
+            Vector3 modelPosition = new Vector3(0f, 100f, 0f);
+            Matrix4x4 matrix = Matrix4x4.TRS(modelPosition, Quaternion.identity, Vector3.one);
+
+            // Add our main mesh.
+            Graphics.DrawMesh(currentMesh, matrix, _material, 0, renderCamera, 0, null, true, true);
+
+            // Reset the bounding box to be the smallest that can encapsulate all verticies of the new mesh.
+            // That way the preview image is the largest size that fits cleanly inside the preview size.
+            currentBounds = new Bounds(Vector3.zero, Vector3.zero);
+
+            // Use separate verticies instance instead of accessing Mesh.vertices each time (which is slow).
+            // >10x measured performance improvement by doing things this way instead.
+            Vector3[] vertices = currentMesh.vertices;
+            for (int i = 0; i < vertices.Length; i++)
+            {
+                // Exclude vertices with large negative Y values (underground) from our bounds (e.g. SoCal Laguna houses), otherwise the result doesn't look very good.
+                if (vertices[i].y > -2)
+                {
+                    currentBounds.Encapsulate(vertices[i]);
+                }
+            }
+
+            // Render submeshes, if any.
+            if (subMeshes != null && subMeshes.Count > 0)
+            {
+                foreach (BuildingInfo.MeshInfo subMesh in subMeshes)
+                {
+                    // Just in case.
+                    if (subMesh?.m_subInfo?.m_mesh != null && subMesh?.m_subInfo?.m_material != null)
+                    {
+                        // Recalculate our matrix based on our submesh position and add the mesh to the render.
+                        matrix = Matrix4x4.TRS(subMesh.m_position + modelPosition, Quaternion.identity, Vector3.one);
+                        Graphics.DrawMesh(subMesh.m_subInfo.m_mesh, matrix, subMesh.m_subInfo.m_material, 0, renderCamera, 0, null, true, true);
+
+                        // Expand our bounds to encapsulate the submesh.
+                        vertices = subMesh.m_subInfo.m_mesh.vertices;
+                        for (int i = 0; i < vertices.Length; i++)
+                        {
+                            // Exclude vertices with large negative Y values (underground) from our bounds (e.g. SoCal Laguna houses), otherwise the result doesn't look very good.
+                            if (vertices[i].y + subMesh.m_position.y > -2)
+                            {
+                                currentBounds.Encapsulate(vertices[i] + subMesh.m_position);
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Set zoom to encapsulate entire model.
+            float magnitude = currentBounds.extents.magnitude;
+            float clipExtent = (magnitude + 16f) * 1.5f;
+            float clipCenter = magnitude * currentZoom;
+
+            // Clip planes.
+            renderCamera.nearClipPlane = Mathf.Max(clipCenter - clipExtent, 0.01f);
+            renderCamera.farClipPlane = clipCenter + clipExtent;
+
+            // Rotate our camera around the model according to our current rotation.
+            renderCamera.transform.position = modelPosition + (new Vector3(0f, 0.5f, 1f) * clipCenter);
+            renderCamera.transform.RotateAround(modelPosition, Vector3.up, currentRotation);
+
+            // Aim camera at middle of bounds.
+            renderCamera.transform.LookAt(currentBounds.center + modelPosition);
 
             // If game is currently in nighttime, enable sun and disable moon lighting.
             if (gameMainLight == DayNightProperties.instance.moonLightSource)
@@ -223,17 +265,11 @@ namespace PloppableRICO
             }
 
             // Light settings.
+            renderLight.transform.eulerAngles = new Vector3(55f, currentRotation - 180f, 0);
             renderLight.intensity = 2f;
             renderLight.color = Color.white;
-            renderLight.transform.eulerAngles = new Vector3(55, 0, 0);
-
-            // Yay!  Matrix math, my favourite!
-            Quaternion quaternion = Quaternion.Euler(-20f, 0f, 0f) * Quaternion.Euler(0f, currentRotation, 0f);
-            Vector3 pos = quaternion * -currentBounds.center;
-            Matrix4x4 matrix = Matrix4x4.TRS(pos, quaternion, Vector3.one);
 
             // Render!
-            Graphics.DrawMesh(currentMesh, matrix, _material, 0, renderCamera, 0, null, true, true);
             renderCamera.RenderWithShader(_material.shader, "");
 
             // Restore game lighting.
