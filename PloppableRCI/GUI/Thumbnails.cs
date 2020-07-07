@@ -173,28 +173,15 @@ namespace PloppableRICO
             renderer.Zoom = 4f;
 
             // Don't do anything with null prefabs or prefabs without buttons.
-            if (building == null || building.buildingButton == null)
+            if (building?.buildingButton == null || building.prefab == null)
             {
                 return;
             }
 
             // Set mesh and material for render.
-            renderer.SetTarget(building.prefab);
-
-            if (renderer.Mesh == null)
+            if(!renderer.SetTarget(building.prefab))
             {
-                // If the prefab itself has no mesh, see if there's any sub-buildings to render instead (e.g. Boston Residence Garage).
-                if (building.prefab.m_subBuildings.Count() > 0)
-                {
-                    // Use first sub-building as render target; set mesh and material.
-                    renderer.Mesh = building.prefab.m_subBuildings[0].m_buildingInfo.m_mesh;
-                    renderer.Material = building.prefab.m_subBuildings[0].m_buildingInfo.m_material;
-                }
-            }
-
-            // If we still haven't gotten a mesh after the above, then something's not right; exit.
-            if (renderer.Mesh == null)
-            {
+                // Something went wrong - this isn't a valid rendering target; exit.
                 Debugging.Message("no thumbnail generated for null mesh " + building.prefab.name);
                 return;
             }

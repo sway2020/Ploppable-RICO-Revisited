@@ -1,4 +1,4 @@
-﻿- Add submesh rendering to thumbnails
+﻿- Add submesh and sub-building rendering to preview images
 - Tweak thumbnail lighting and angles slightly
 
 
