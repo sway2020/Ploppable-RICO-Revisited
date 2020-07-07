@@ -375,9 +375,8 @@ namespace PloppableRICO
                         // Only if enabled.
                         if (buildingData.local.ricoEnabled)
                         {
-                            // Add button to panel and remove any existing UI button (in other base game ploppable panels).
+                            // Add button to panel.
                             AddBuildingButton(buildingData, buildingData.local.uiCategory);
-                            RemoveUIButton(prefab);
                             continue;
                         }
                     }
@@ -387,9 +386,8 @@ namespace PloppableRICO
                         // Only if enabled.
                         if (buildingData.author.ricoEnabled)
                         {
-                            // Add button to panel and remove any existing UI button (in other base game ploppable panels).
+                            // Add button to panel.
                             AddBuildingButton(buildingData, buildingData.author.uiCategory);
-                            RemoveUIButton(prefab);
                             continue;
                         }
                     }
@@ -397,37 +395,12 @@ namespace PloppableRICO
                     else if (buildingData.hasMod)
                     {
                         AddBuildingButton(buildingData, buildingData.mod.uiCategory);
-                        RemoveUIButton(prefab);
                     }
                 }
             }
 
             // Set active tab as default.
             TabClicked(BuildingPanels[0], TabSprites[0]);
-        }
-
-
-        /// <summary>
-        /// Removes a given prefab's existing UI button, if any (e.g. from the game's Park menu if the prefab was originally a park, etc.)
-        /// Shouldn't really be needed in most cases since we're now converting prior to InitPrefab, but still useful in cases of live conversion of assets (and also just to make sure).
-        /// </summary>
-        /// <param name="prefab">Building prefab</param>
-        private void RemoveUIButton(BuildingInfo prefab)
-        {
-            UIButton refButton = new UIButton();
-
-            if (prefab != null)
-            {
-                // Find any existing UI component linked to this prefab.
-                refButton = UIView.GetAView().FindUIComponent<UIButton>(prefab.name);
-            }
-
-            if (refButton != null)
-            {
-                // We found one - destry it.
-                refButton.isVisible = false;
-                GameObject.Destroy(refButton.gameObject);
-            }
         }
 
 

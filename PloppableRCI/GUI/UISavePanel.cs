@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
+using UnityEngine;
 using ColossalFramework;
 using ColossalFramework.UI;
 using ColossalFramework.Math;
@@ -182,6 +183,9 @@ namespace PloppableRICO
 
                 // Create new building button.
                 PloppableTool.Instance.AddBuildingButton(currentBuildingData, CurrentUICategory());
+
+                // Remove existing prefab button, if any.
+                RemoveUIButton(currentBuildingData.prefab);
             }
             else
             {
@@ -486,6 +490,31 @@ namespace PloppableRICO
             }
 
             return "none";
+        }
+
+
+        /// <summary>
+        /// Removes a given prefab's existing UI button, if any (e.g. from the game's Park menu if the prefab was originally a park, etc.)
+        /// </summary>
+        /// <param name="prefab">Building prefab</param>
+        private void RemoveUIButton(BuildingInfo prefab)
+        {
+            UIButton refButton = new UIButton();
+
+            if (prefab?.name != null)
+            {
+                Debugging.Message("attempting to find button");
+                // Find any existing UI component linked to this prefab.
+                refButton = UIView.GetAView()?.FindUIComponent<UIButton>(prefab.name);
+            }
+
+            if (refButton != null)
+            {
+                // We found one - destry it.
+                Debugging.Message("destroying button");
+                refButton.isVisible = false;
+                GameObject.Destroy(refButton.gameObject);
+            }
         }
     }
 }

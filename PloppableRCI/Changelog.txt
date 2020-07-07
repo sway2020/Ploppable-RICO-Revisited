@@ -1,5 +1,7 @@
 ﻿- Add submesh and sub-building rendering to preview images
 - Tweak thumbnail lighting and angles slightly
+- Stop attempting to remove existing (non-RICO) building UI buttons on game load
+- Remove existing (non-RICO) building UI buttons (if any) when settings are applied live
 
 
 Version 2.2.3
