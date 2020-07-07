@@ -15,8 +15,15 @@ namespace PloppableRICO
     [HarmonyPatch("BuildingLoaded")]
     [HarmonyPriority(Priority.VeryHigh)]
     internal static class RICOBuildingLoaded
-    {
-		private static bool Prefix(ref PrivateBuildingAI __instance, ushort buildingID, ref Building data, uint version)
+	{
+		/// <summary>
+		/// Prefix to force settings reset on load (if enabled) for RICO buildings (resetting to current settings).
+		/// </summary>
+		/// <param name="__instance">Original object instance reference</param>
+		/// <param name="buildingID">Building instance ID</param>
+		/// <param name="data">Building data</param>
+		/// <param name="version">Version</param>
+		private static bool Prefix(PrivateBuildingAI __instance, ushort buildingID, ref Building data, uint version)
 		{
 			// Don't do anything if the flag isn't set.
 			if (!ModSettings.resetOnLoad)
@@ -103,6 +110,38 @@ namespace PloppableRICO
 
 
 		/// <summary>
+		/// Postfix to attempt to catch issues where homecounts seem to be reset to zero for specific buildings.
+		/// </summary>
+		/// <param name="__instance">Original object instance reference</param>
+		/// <param name="buildingID">Building instance ID</param>
+		/// <param name="data">Building data</param>
+		/// <param name="version">Version</param>
+		private static void PostFix(PrivateBuildingAI __instance, ushort buildingID, ref Building data, uint version)
+        {
+			// Check to see if this is one of ours.
+			if (__instance is GrowableResidentialAI)
+            {
+				// Check to see if no citizen units are set.
+				if (data.m_citizenUnits == 0)
+                {
+					// Uh oh...
+					Debugging.Message("no citizenUnits for building " + buildingID + " : " + data.Info.name + "; attempting reset");
+					
+					// Backup resetOnLoad setting and force to true for reset attempt.
+					bool oldReset = ModSettings.resetOnLoad;
+					ModSettings.resetOnLoad = true;
+
+					// Attempt reset for this building.
+					Prefix(__instance, buildingID, ref data, version);
+
+					// Restore original resetOnLoad seeting.
+					ModSettings.resetOnLoad = oldReset;
+                }
+            }
+        }
+
+
+		/// <summary>
 		/// Reverse patch for BuildinAI.EnsureCitizenUnits to access private method of original instance.
 		/// </summary>
 		/// <param name="instance">Object instance</param>
@@ -119,6 +158,19 @@ namespace PloppableRICO
 		{
 			Debugging.Message("EnsureCitizenUnits reverse Harmony patch wasn't applied");
 			throw new NotImplementedException("Harmony reverse patch not applied");
+		}
+	}
+
+
+
+	[HarmonyPatch(typeof(MonumentAI))]
+	[HarmonyPatch("BuildingLoaded")]
+	[HarmonyPriority(Priority.VeryHigh)]
+	internal static class MonumentLoaded
+	{
+		private static void Postfix(ref MonumentAI __instance, ushort buildingID, ref Building data, uint version)
+		{
+			Debugging.Message("monument loaded: " + data.Info.name);
 		}
 	}
 }

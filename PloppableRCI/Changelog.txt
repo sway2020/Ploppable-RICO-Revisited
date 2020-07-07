@@ -1,5 +1,6 @@
 ﻿- Add submesh and sub-building rendering to preview images
 - Tweak thumbnail lighting and angles slightly
+- Add BuildingLoaded Harmony Postfix patch to attempt to catch and reset and RICO residentials with zero CitizenUnits
 - Stop attempting to remove existing (non-RICO) building UI buttons on game load
 - Remove existing (non-RICO) building UI buttons (if any) when settings are applied live
 

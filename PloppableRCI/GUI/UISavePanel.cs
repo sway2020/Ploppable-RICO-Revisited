@@ -503,7 +503,7 @@ namespace PloppableRICO
 
             if (prefab?.name != null)
             {
-                Debugging.Message("attempting to find button");
+                Debugging.Message("attempting to find UI button for " + prefab.name);
                 // Find any existing UI component linked to this prefab.
                 refButton = UIView.GetAView()?.FindUIComponent<UIButton>(prefab.name);
             }
@@ -511,7 +511,7 @@ namespace PloppableRICO
             if (refButton != null)
             {
                 // We found one - destry it.
-                Debugging.Message("destroying button");
+                Debugging.Message("destroying UI button for " + prefab.name);
                 refButton.isVisible = false;
                 GameObject.Destroy(refButton.gameObject);
             }

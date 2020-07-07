@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Language UniqueName="ru" ReadableName="Русский">
+  <Translations>
+    <Translation ID="PRR_NAME" String="РИКО" />
+    <Translation ID="PRR_LEVEL" String="Уровень" />
+    <Translation ID="PRR_LVL" String="Ур" />
+    <Translation ID="PRR_HOU" String="Семьи" />
+    <Translation ID="PRR_WOR" String="Рабочие" />
+    <Translation ID="PRR_SRV_NON" String="Неопределено" />
+    <Translation ID="PRR_SRV_RES" String="Жильё" />
+    <Translation ID="PRR_SRV_IND" String="Промышленность" />
+    <Translation ID="PRR_SRV_OFF" String="Офис" />
+    <Translation ID="PRR_SRV_COM" String="Коммерция" />
+    <Translation ID="PRR_SRV_EXT" String="Добыча" />
+    <Translation ID="PRR_SRV_DUM" String="Пустышка" />
+    <Translation ID="PRR_SUB_HIG" String="Высокая плотность" />
+    <Translation ID="PRR_SUB_LOW" String="Низкая плотность" />
+    <Translation ID="PRR_SUB_HEC" String="Эко выс плотность" />
+    <Translation ID="PRR_SUB_LEC" String="Эко низ плотность" />
+    <Translation ID="PRR_SUB_LEI" String="Развлечения" />
+    <Translation ID="PRR_SUB_TOU" String="Туризм" />
+    <Translation ID="PRR_SUB_ORG" String="Эко органика" />
+    <Translation ID="PRR_SUB_GEN" String="Стандарт" />
+    <Translation ID="PRR_SUB_ITC" String="IT" />
+    <Translation ID="PRR_SUB_FAR" String="Фермерство" />
+    <Translation ID="PRR_SUB_FOR" String="Лесопроизводство" />
+    <Translation ID="PRR_SUB_OIL" String="Нефтепроизводство" />
+    <Translation ID="PRR_SUB_ORE" String="Минералопроизводство" />
+    <Translation ID="PRR_FTR_ALL" String="Всё" />
+    <Translation ID="PRR_FTR_NON" String="Ничего" />
+    <Translation ID="PRR_FTR_NAM" String="Имя" />
+    <Translation ID="PRR_FTR_SET" String="Настройки фильтра: Мод/Автор/Локально/Всё" />
+    <Translation ID="PRR_OPT_ENA" String="Включить РИКО" />
+    <Translation ID="PRR_OPT_SER" String="Категория" />
+    <Translation ID="PRR_OPT_SUB" String="Подкатегория" />
+    <Translation ID="PRR_OPT_UIC" String="Категория интерфейса" />
+    <Translation ID="PRR_OPT_CST" String="Стоимость постройки" />
+    <Translation ID="PRR_OPT_CNT" String="Рабочие/Семьи" />
+    <Translation ID="PRR_OPT_POP" String="Использовать мод Realistic Pop" />
+    <Translation ID="PRR_OPT_POL" String="Включить загрязнение" />
+    <Translation ID="PRR_OPT_GRO" String="Зонируемое" />
+    <Translation ID="PRR_OPT_JB0" String="Необразованные рабочие" />
+    <Translation ID="PRR_OPT_JB1" String="Образованные рабочие" />
+    <Translation ID="PRR_OPT_JB2" String="Хорошо образованные" />
+    <Translation ID="PRR_OPT_JB3" String="С высшим образованием" />
+    <Translation ID="PRR_CAT_MON" String="Монументы" />
+    <Translation ID="PRR_CAT_BEA" String="Украшения" />
+    <Translation ID="PRR_CAT_EDU" String="Образование" />
+    <Translation ID="PRR_CAT_POW" String="Электроэнергия" />
+    <Translation ID="PRR_CAT_WAT" String="Водоснабжение" />
+    <Translation ID="PRR_CAT_HEA" String="Здравоохранение" />
+    <Translation ID="PRR_CAT_RES" String="Жильё" />
+    <Translation ID="PRR_CAT_COM" String="Коммерция" />
+    <Translation ID="PRR_CAT_OFF" String="Оффис" />
+    <Translation ID="PRR_CAT_IND" String="Промышленность" />
+    <Translation ID="PRR_UIC_REL" String="Жильё низ плотность" />
+    <Translation ID="PRR_UIC_REH" String="Жильё выс плотность" />
+    <Translation ID="PRR_UIC_COL" String="Коммерция низ плотность" />
+    <Translation ID="PRR_UIC_COH" String="Коммерция выс плотность" />
+    <Translation ID="PRR_UIC_OFF" String="Офис" />
+    <Translation ID="PRR_UIC_IND" String="Промышленность" />
+    <Translation ID="PRR_UIC_FAR" String="Фермерство" />
+    <Translation ID="PRR_UIC_FOR" String="Лесопроизводство" />
+    <Translation ID="PRR_UIC_OIL" String="Нефтепроизводство" />
+    <Translation ID="PRR_UIC_ORE" String="Минералопроизводство" />
+    <Translation ID="PRR_UIC_LEI" String="Развлечения" />
+    <Translation ID="PRR_UIC_TOU" String="Туризм" />
+    <Translation ID="PRR_UIC_ORG" String="Органик коммерция" />
+    <Translation ID="PRR_UIC_ITC" String="IT" />
+    <Translation ID="PRR_UIC_ECO" String="Экодома" />
+    <Translation ID="PRR_UIC_NON" String="Неопределено" />
+    <Translation ID="PRR_SET" String="Настройки" />
+    <Translation ID="PRR_SET_RICO" String="РИКО настройки" />
+    <Translation ID="PRR_SET_HASMOD" String="Настройки мода" />
+    <Translation ID="PRR_SET_HASAUT" String="Авторские настройки" />
+    <Translation ID="PRR_SET_HASLOC" String="Пользовательские настройки" />
+    <Translation ID="PRR_SET_HASANY" String="Любое" />
+    <Translation ID="PRR_SET_HASNON" String="Без настроек" />
+    <Translation ID="PRR_SAV_SAV" String="Сохранить" />
+    <Translation ID="PRR_SAV_ADD" String="Редактировать" />
+    <Translation ID="PRR_SAV_REM" String="Удалить" />
+    <Translation ID="PRR_SAV_APP" String="Сохранить и применить изменения" />
+    <Translation ID="PRR_EXP" String="ЭКСПЕРИМЕНТАЛЬНАЯ ФУНКЦИЯ" />
+    <Translation ID="TRN_CHOICE" String="Язык" />
+    <Translation ID="TRN_SYS" String="Использовать язык системы" />
+    <Translation ID="PRR_DESCRIPTION" String="Разрешить здания РИКО больше 4х4 в размере и кастомизацию их" />
+    <Translation ID="PRR_OPTION_MOREDEBUG" String="Включить дополнительные сообщения в вызодном журнале" />
+    <Translation ID="PRR_OPTION_FORCERESET" String="Включить сбрасывание существующих настроек зданий при загрузке игры" />
+    <Translation ID="PRR_OPTION_REGENTHUMBS" String="Пересоздать превью" />
+    <Translation ID="PRR_OPTION_SPDHDR" String= "Слегка ускорет скорость игры, но панель мода открывается дольше" />
+    <Translation ID="PRR_OPTION_SPEED" String= "Отключить панель при неиспользовании" />
+    <Translation ID="PRR_OPTION_FASTHDR" String= "Рендер превью быстрее, нужно больше памяти" />
+    <Translation ID="PRR_OPTION_FASTHUMB" String= "Рендерит превью быстрее" />
+    <Translation ID="PRR_OPTION_THUMBACK" String="Бэкграунд превью" />
+    <Translation ID="PRR_THUMB_COLOR" String="Цвет" />
+    <Translation ID="PRR_THUMB_PLAIN" String="Пусто" />
+    <Translation ID="PRR_THUMB_SKY" String="Небо" />
+    <Translation ID="PRR_ERR_HAR0" String="Ошибка пропатчивания мода Harmony" />
+    <Translation ID="PRR_ERR_HAR1" String="РИКО не смог пропатчить Harmony. Это значит, что мод не может запуститься и отключился в целях предотвращения повреждения файла сохранения." />
+    <Translation ID="PRR_ERR_HAR2" String="Возможные причины ошибки:" />
+    <Translation ID="PRR_ERR_HAR3" String="Вы не установили необходимый мод Harmony 2" />
+    <Translation ID="PRR_ERR_HAR4" String="Старый и/или сломанный мод конфликтует с Harmony 2 (Painter и Garbage Bin Controller несовместимы с этим модом)" />
+    <Translation ID="PRR_CON_DWN" String="РИКО был отключён в целях защиты Вашей игры." />
+    <Translation ID="PRR_CON_ONE" String="Только ОДИН из этих модов может быть активирован в игре, пожалуйста, используйте только один и отпишитесь от других!" />
+    <Translation ID="PRR_CON_OPR" String="Оригинальный РИКО обнаружен" />
+    <Translation ID="PRR_CON_EBC" String="Enhanced Building Capacity mod обнаружен" />
+    <Translation ID="PRR_CON_GBC" String="Garbage Bin Controller mod обнаружен" />
+    <Translation ID="PRR_CON_PTR" String="Old Painter mod обнаружен" />
+    <Translation ID="PRR_CON_PTR1" String="Мод Painter полностью несовместим с Harmony. Отпишитесь от него, в качестве замены можете использовать Repaint mod." />
+    <Translation ID="PRR_UPD_21_0" String="РИКО обновление 2.1" />
+    <Translation ID="PRR_UPD_21_1" String="РИКО обновился до 2.1. Некоторые нововведения:" />
+    <Translation ID="PRR_UPD_21_2" String="Новые опции панели мода (доступно в игровых настройках), можете изменить бэкграунд превью зданий." />
+    <Translation ID="PRR_UPD_21_3" String="Улучшенное освещение превью для пользователей с вырвиглазной темой карты." />
+    <Translation ID="PRR_UPD_21_4" String="Пользовательски настроенные здания будут зонируемыми по умолчанию со станартными характеристиками." />
+    <Translation ID="PRR_UPD_21_5" String="Защита от сбрасывания до нуля количества проживающих в здании симов при достижении общего лимита населения города." />
+  </Translations>
+</Language>
