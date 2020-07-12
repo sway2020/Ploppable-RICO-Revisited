@@ -116,7 +116,7 @@ namespace PloppableRICO
 		/// <param name="buildingID">Building instance ID</param>
 		/// <param name="data">Building data</param>
 		/// <param name="version">Version</param>
-		private static void PostFix(PrivateBuildingAI __instance, ushort buildingID, ref Building data, uint version)
+		private static void Postfix(PrivateBuildingAI __instance, ushort buildingID, ref Building data, uint version)
         {
 			// Check to see if this is one of ours.
 			if (__instance is GrowableResidentialAI)
@@ -136,6 +136,10 @@ namespace PloppableRICO
 
 					// Restore original resetOnLoad seeting.
 					ModSettings.resetOnLoad = oldReset;
+                }
+				else
+                {
+					Debugging.Message("building " + buildingID + " : " + data.Info.name + " passed CitizenUnits check");
                 }
             }
         }
