@@ -1,6 +1,5 @@
 ﻿using System.Xml.Serialization;
-using ColossalFramework.UI;
-using UnityEngine;
+
 
 namespace PloppableRICO
 {
@@ -13,7 +12,6 @@ namespace PloppableRICO
         internal static bool speedBoost = false;
         internal static bool debugLogging = false;
         internal static bool resetOnLoad = true;
-        internal static bool fastThumbs = false;
         internal static int thumbBacks = (byte)ThumbBackCats.skybox;
 
 
@@ -53,8 +51,6 @@ namespace PloppableRICO
         public bool DebugLogging { get => ModSettings.debugLogging; set => ModSettings.debugLogging = value; }
         [XmlElement("ResetOnLoad")]
         public bool ResetOnLoad { get => ModSettings.resetOnLoad; set => ModSettings.resetOnLoad = value; }
-        [XmlElement("FastThumbs")]
-        public bool FastThumbs { get => ModSettings.fastThumbs; set => ModSettings.fastThumbs = value; }
         [XmlElement("ThumbBacks")]
         public int ThumbBacks
         {

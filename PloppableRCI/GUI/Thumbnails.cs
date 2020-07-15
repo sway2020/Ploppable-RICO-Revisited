@@ -1,34 +1,34 @@
 ﻿using System;
-using System.Linq;
 using UnityEngine;
 using ColossalFramework.UI;
-using System.Collections.Generic;
 
 
 namespace PloppableRICO
 {
+    /// <summary>
+    /// Static class to coordinate thumbnail generation.
+    /// </summary>
     public static class ThumbnailManager
     {
         // Instances.
         private static GameObject gameObject;
-        private static ThumbnailQueue _queue;
+        private static ThumbnailGenerator _generator;
         private static UIPreviewRenderer _renderer;
         internal static UIPreviewRenderer Renderer => _renderer;
 
-
+        
         /// <summary>
-        /// Queues a BuildingData instance for rendering.
+        /// Forces immediate rendering of a thumbnail.
         /// </summary>
-        /// <param name="buildingData">RICO BuildingData instance</param>
-        public static void QueueThumbnail(BuildingData buildingData)
+        /// <param name="buildingData"></param>
+        public static void CreateThumbnail(BuildingData buildingData)
         {
-            // Create the render if there isn't one already.
             if (gameObject == null)
             {
                 Create();
             }
 
-            _queue.QueueThumbnail(buildingData);
+            _generator.CreateThumbnail(buildingData);
         }
 
 
@@ -48,7 +48,7 @@ namespace PloppableRICO
 
                     // Add our queue manager and renderer directly to the gameobject.
                     _renderer = gameObject.AddComponent<UIPreviewRenderer>();
-                    _queue = gameObject.AddComponent<ThumbnailQueue>();
+                    _generator = new ThumbnailGenerator();
 
                     Debugging.Message("thumbnail renderer created");
                 }
@@ -65,9 +65,17 @@ namespace PloppableRICO
         /// </summary>
         internal static void Close()
         {
-            GameObject.Destroy(_queue);
-            GameObject.Destroy(_renderer);
-            GameObject.Destroy(gameObject);
+            if (gameObject != null)
+            {
+                // Destroy gameobject components.
+                GameObject.Destroy(_renderer);
+                GameObject.Destroy(gameObject);
+
+                // Let the garbage collector cleanup.
+                _generator = null;
+                _renderer = null;
+                gameObject = null;
+            }
 
             Debugging.Message("thumbnail renderer destroyed");
         }
@@ -75,62 +83,19 @@ namespace PloppableRICO
     
 
     /// <summary>
-    /// Manages a queue for rendering thumbnail images.
+    /// Creates thumbnail images.
     /// Inspired by Boogieman Sam's FindIt! UI.
     /// </summary>
-    public class ThumbnailQueue : UIComponent
+    public class ThumbnailGenerator
     {
         // Renderer for thumbnail images.
         private UIPreviewRenderer renderer;
-
-        // Render queue.
-        private List<BuildingData> renderQueue;
-
-
-        /// <summary>
-        /// Update method - we render a new thumbnail every time this is called.
-        /// Called by Unity every frame.
-        /// </summary>
-        public override void Update()
-        {
-            base.Update();
-
-            // Do 1 or 10 thumbnails per update, depending on the 'fast thumbnail rendering' setting.
-            for (int i = 0; i < (ModSettings.fastThumbs ? 10 : 1); ++i)
-            {
-                // Check to see if there's anything in the queue.
-                if (renderQueue != null && renderQueue.Count > 0)
-                {
-                    // The queue is not empty - get the next (first in list) building.
-                    BuildingData thisBuilding = renderQueue.First<BuildingData>();
-
-                    if (ModSettings.debugLogging)
-                    {
-                        Debugging.Message("creating thumbnails for " + thisBuilding.displayName);
-                    }
-
-                    // Create the thumbnail.
-                    CreateThumbnail(thisBuilding);
-
-                    // Thumbnail rendered - remove from queue.
-                    renderQueue.Remove(thisBuilding);
-                }
-                else
-                {
-                    // The queue is empty; close everything down and destroy objects.
-                    ThumbnailManager.Close();
-
-                    // And we're done looping.
-                    break;
-                }
-            }
-        }
 
 
         /// <summary>
         /// Constructor.
         /// </summary>
-        public ThumbnailQueue()
+        public ThumbnailGenerator()
         {
             if (ModSettings.debugLogging)
             {
@@ -147,21 +112,6 @@ namespace PloppableRICO
 
 
         /// <summary>
-        /// Adds a building to the render queue; assumes building button already created.
-        /// </summary>
-        /// <param name="building">RICO BuildingData</param>
-        internal void QueueThumbnail(BuildingData building)
-        {
-            if (renderQueue == null)
-            {
-                // Initialise queue.
-                renderQueue = new List<BuildingData>();
-            }
-            renderQueue.Add(building);
-        }
-
-
-        /// <summary>
         /// Generates building thumbnail images (normal, focused, hovered, pressed and disabled) for the given building prefab.
         /// Thumbnails are no longer applied to the m_Thumbnail and m_Atlas fields of the prefab, but to the BuildingData record.
         /// </summary>
@@ -172,14 +122,14 @@ namespace PloppableRICO
             // Reset zoom.
             renderer.Zoom = 4f;
 
-            // Don't do anything with null prefabs or prefabs without buttons.
-            if (building?.buildingButton == null || building.prefab == null)
+            // Don't do anything with null prefabs.
+            if (building?.prefab == null)
             {
                 return;
             }
 
             // Set mesh and material for render.
-            if(!renderer.SetTarget(building.prefab))
+            if (!renderer.SetTarget(building.prefab))
             {
                 // Something went wrong - this isn't a valid rendering target; exit.
                 Debugging.Message("no thumbnail generated for null mesh " + building.prefab.name);
@@ -229,23 +179,17 @@ namespace PloppableRICO
             RenderTexture.active = gameActiveTexture;
 
             // Thumbnail texture name is the same as the building's displayed name.
-            thumbnailTexture.name = building.displayName;
+            thumbnailTexture.name = building.DisplayName;
 
-            // Create new texture atlas with thumnails, replacing prefab's existing texture atlas to save memory.
+            // Create new texture atlas with thumnails.
             UITextureAtlas thumbnailAtlas = ScriptableObject.CreateInstance<UITextureAtlas>();
-            thumbnailAtlas.name = "RICOThumbnails_" + building.displayName;
+            thumbnailAtlas.name = "RICOThumbnails_" + building.DisplayName;
             thumbnailAtlas.material = UnityEngine.Object.Instantiate<Material>(UIView.GetAView().defaultAtlas.material);
             thumbnailAtlas.material.mainTexture = new Texture2D(1, 1, TextureFormat.ARGB32, false);
             AddTexturesToAtlas(thumbnailAtlas, GenerateThumbnailVariants(thumbnailTexture));
 
-            // Add atlas to building button.
-            building.buildingButton.atlas = thumbnailAtlas;
-            building.buildingButton.normalFgSprite = thumbnailTexture.name;
-
-            // Variants - don't bother with 'disabled' variant since we don't use it.
-            building.buildingButton.focusedFgSprite = thumbnailTexture.name + "Focused";
-            building.buildingButton.hoveredFgSprite = thumbnailTexture.name + "Hovered";
-            building.buildingButton.pressedFgSprite = thumbnailTexture.name + "Pressed";
+            // Add atlas to our building data record.
+            building.thumbnailAtlas = thumbnailAtlas;
         }
 
 

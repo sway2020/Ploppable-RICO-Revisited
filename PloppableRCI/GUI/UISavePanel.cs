@@ -156,12 +156,6 @@ namespace PloppableRICO
             // Find current prefab instance.
             BuildingData currentBuildingData = Loading.xmlManager.prefabHash[currentSelection.prefab];
 
-            // Delete existing building button, if any.
-            if (currentBuildingData.buildingButton != null)
-            {
-                Destroy(currentBuildingData.buildingButton);
-            }
-
             // Save first.
             Save();
 
@@ -180,12 +174,6 @@ namespace PloppableRICO
                 // Convert the 'live' prefab (instance in PrefabCollection) and update household count and builidng level for all current instances.
                 Loading.convertPrefabs.ConvertPrefab(currentData, PrefabCollection<BuildingInfo>.FindLoaded(currentBuildingData.prefab.name));
                 UpdateHouseholds(currentBuildingData.prefab.name, currentData.level);
-
-                // Create new building button.
-                PloppableTool.Instance.AddBuildingButton(currentBuildingData, CurrentUICategory());
-
-                // Remove existing prefab button, if any.
-                RemoveUIButton(currentBuildingData.prefab);
             }
             else
             {
@@ -296,13 +284,6 @@ namespace PloppableRICO
             if (currentSelection == null || !currentSelection.hasLocal)
             {
                 return;
-            }
-
-
-            // If there are no other settings, destroy any existing building button.
-            if (!(currentSelection.hasAuthor || currentSelection.hasMod) && currentSelection.buildingButton != null)
-            {
-                Destroy(currentSelection.buildingButton);
             }
 
             // Destroy local settings.

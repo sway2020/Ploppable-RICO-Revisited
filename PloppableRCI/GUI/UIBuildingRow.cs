@@ -110,7 +110,7 @@ namespace PloppableRICO
 
             // Set selected building.
             buildingData = data as BuildingData;
-            buildingName.text = buildingData.displayName;
+            buildingName.text = buildingData.DisplayName;
 
             // Update custom settings checkboxes to correct state.
             if (buildingData.hasMod)

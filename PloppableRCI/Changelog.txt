@@ -1,4 +1,7 @@
-﻿Version 2.2.4 BETA
+﻿- Transition to on-demand thumbnail generation
+
+
+Version 2.2.4 BETA
 
 - Add submesh and sub-building rendering to preview images
 - Tweak thumbnail lighting and angles slightly

@@ -136,7 +136,7 @@ namespace PloppableRICO
             {
                 // Set and show building name.
                 buildingName.isVisible = true;
-                buildingName.text = currentSelection.displayName;
+                buildingName.text = currentSelection.DisplayName;
                 UIUtils.TruncateLabel(buildingName, width - 45);
                 buildingName.autoHeight = true;
 

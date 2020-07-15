@@ -123,7 +123,6 @@ namespace PloppableRICO
 
         // Ploppable RICO Revisited additional data.
         public BuildingInfo originalPrefab;
-        public int uiCategory;
 
         // Currently non-functional - see note to 'SetPrefabDensity' above.
         public int density;
@@ -136,22 +135,27 @@ namespace PloppableRICO
         public bool hasLocal;
         public bool hasMod;
 
-        // Building button.
-        public UIButton buildingButton;
+        // Building thumbnails.
+        public UITextureAtlas thumbnailAtlas;
 
 
+        /// <summary>
         /// Sanitises the raw prefab name for display.
         /// Called by the settings panel fastlist.
         /// </summary>
-        public string displayName
+        public string DisplayName
         {
             get
             {
-                // Trim leading package name and trailing '_Data'.
-                m_displayName = name.Substring(name.IndexOf('.') + 1).Replace("_Data", "");
+                // Generate name if it hasn't already been.
+                if (m_displayName == null)
+                {
+                    // Trim leading package name and trailing '_Data'.
+                    m_displayName = name.Substring(name.IndexOf('.') + 1).Replace("_Data", "");
 
-                // Replace any remaining underscores with spaces.
-                m_displayName = m_displayName.Replace('_', ' ');
+                    // Replace any remaining underscores with spaces.
+                    m_displayName = m_displayName.Replace('_', ' ');
+                }
 
                 return m_displayName;
             }

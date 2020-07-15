@@ -91,14 +91,6 @@ namespace PloppableRICO
                 ModSettings.speedBoost = isChecked;
                 SettingsUtils.SaveSettings();
             });
-
-            // Add fast thumbnails checkbox.
-            UIHelperBase fastGroup = helper.AddGroup(Translations.Translate("PRR_OPTION_FASTHDR"));
-            fastGroup.AddCheckbox(Translations.Translate("PRR_OPTION_FASTHUMB"), ModSettings.fastThumbs, isChecked =>
-            {
-                ModSettings.fastThumbs = isChecked;
-                SettingsUtils.SaveSettings();
-            });
         }
     }
 }
