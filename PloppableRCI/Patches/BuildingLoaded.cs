@@ -164,17 +164,4 @@ namespace PloppableRICO
 			throw new NotImplementedException("Harmony reverse patch not applied");
 		}
 	}
-
-
-
-	[HarmonyPatch(typeof(MonumentAI))]
-	[HarmonyPatch("BuildingLoaded")]
-	[HarmonyPriority(Priority.VeryHigh)]
-	internal static class MonumentLoaded
-	{
-		private static void Postfix(ref MonumentAI __instance, ushort buildingID, ref Building data, uint version)
-		{
-			Debugging.Message("monument loaded: " + data.Info.name);
-		}
-	}
 }
