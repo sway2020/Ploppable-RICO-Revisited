@@ -1,4 +1,7 @@
-﻿Version 2.3 BETA
+﻿- Fix building selection not updating when info panel button pressed
+
+
+Version 2.3 BETA
 
 - Transition to on-demand thumbnail generation
 - Add submesh and sub-building rendering to preview images

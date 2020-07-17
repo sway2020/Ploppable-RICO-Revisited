@@ -48,21 +48,22 @@ namespace PloppableRICO
                 // Select appropriate building if there's a preselection.
                 if (selected != null)
                 {
+                    Debugging.Message("selecting preselected building " + selected.name);
                     Panel.SelectBuilding(selected);
                 }
                 else if (lastSelection != null)
                 {
                     Panel.SelectBuilding(lastSelection);
-                }
 
-                // Restore previous filter state.
-                if (lastFilter != null)
-                {
-                    Panel.SetFilter(lastFilter);
-                }
+                    // Restore previous filter state.
+                    if (lastFilter != null)
+                    {
+                        Panel.SetFilter(lastFilter);
+                    }
 
-                // Restore previous building selection list postion and selected item.
-                Panel.SetListPosition(lastIndex, lastPostion);
+                    // Restore previous building selection list postion and selected item.
+                    Panel.SetListPosition(lastIndex, lastPostion);
+                }
 
                 Panel.Show();
             }
