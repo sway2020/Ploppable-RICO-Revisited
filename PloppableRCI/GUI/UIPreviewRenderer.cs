@@ -267,8 +267,9 @@ namespace PloppableRICO
                     if (subInfo?.m_mesh != null && subInfo?.m_material != null)
                     {
                         // Recalculate our matrix based on our submesh position and add the mesh to the render.
+                        // Note submesh angle needs to be inverted to rotate correctly around the Y axis in our space.
                         Vector3 relativePosition = subMesh.m_position;
-                        matrix = Matrix4x4.TRS(relativePosition + modelPosition, Quaternion.identity, Vector3.one);
+                        matrix = Matrix4x4.TRS(relativePosition + modelPosition, Quaternion.Euler(0f, subMesh.m_angle * -1, 0f), Vector3.one);
                         Graphics.DrawMesh(subInfo.m_mesh, matrix, subInfo.m_material, 0, renderCamera, 0, null, true, true);
 
                         // Expand our bounds to encapsulate the submesh.
