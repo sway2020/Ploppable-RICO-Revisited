@@ -106,7 +106,7 @@ namespace PloppableRICO
             if (renderPrefab != null && renderPrefab.m_mesh != null)
             {
                 // Set default values.
-                previewRender.CameraRotation = 325f;
+                previewRender.CameraRotation = 30f;
                 previewRender.Zoom = 4f;
 
                 // Set mesh and material for render.

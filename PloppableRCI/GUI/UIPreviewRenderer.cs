@@ -224,7 +224,6 @@ namespace PloppableRICO
 
             // Set up our render lighting settings.
             Light renderLight = DayNightProperties.instance.sunLightSource;
-
             RenderManager.instance.MainLight = renderLight;
 
             // Set model position.
@@ -236,11 +235,17 @@ namespace PloppableRICO
             currentBounds = new Bounds(Vector3.zero, Vector3.zero);
             Vector3[] vertices;
 
+            // Set our model rotation parameters, so we look at it obliquely.
+            const float xRotation = 20f;
+            
+            // Apply model rotation with our camnera rotation into a quaternion.
+            Quaternion modelRotation = Quaternion.Euler(xRotation, 0f, 0f) * Quaternion.Euler(0f, currentRotation, 0f);
+
             // Add our main mesh, if any (some are null, because they only 'appear' through subbuildings - e.g. Boston Residence Garage).
             if (currentMesh != null && _material != null)
             {
                 // Calculate rendering matrix and add mesh to scene.
-                Matrix4x4 matrix = Matrix4x4.TRS(modelPosition, Quaternion.identity, Vector3.one);
+                Matrix4x4 matrix = Matrix4x4.TRS(modelPosition, modelRotation, Vector3.one);
                 Graphics.DrawMesh(currentMesh, matrix, _material, 0, renderCamera, 0, null, true, true);
 
                 // Use separate verticies instance instead of accessing Mesh.vertices each time (which is slow).
@@ -268,9 +273,18 @@ namespace PloppableRICO
                     if (subInfo?.m_mesh != null && subInfo?.m_material != null)
                     {
                         // Recalculate our matrix based on our submesh position and rotation.
-                        // Note submesh angle needs to be inverted to rotate correctly around the Y axis in our space.
-                        Vector3 relativePosition = subMesh.m_position;
-                        Matrix4x4 matrix = Matrix4x4.TRS(relativePosition + modelPosition, Quaternion.Euler(0f, subMesh.m_angle * -1, 0f), Vector3.one);
+
+                        // Calculate the relative rotation.
+                        // We need to rotate the submesh before we apply the model rotation.
+                        // Note that the order of multiplication (relative to the angle of operation) is reversed in the code, because of the way Unity overloads the multiplication operator.
+                        // Note also that the submesh angle needs to be inverted to rotate correctly around the Y axis in our space.
+                        Quaternion relativeRotation = modelRotation * Quaternion.AngleAxis((subMesh.m_angle * -1) , Vector3.up);
+
+                        // Calculate relative position of mesh given its starting position and our model rotation.
+                        Vector3 relativePosition = modelRotation * subMesh.m_position;
+
+                        // Put it all together into our rendering matrix.
+                        Matrix4x4 matrix = Matrix4x4.TRS(relativePosition + modelPosition, relativeRotation, Vector3.one);
 
                         // Add submesh to scene.
                         Graphics.DrawMesh(subInfo.m_mesh, matrix, subInfo.m_material, 0, renderCamera, 0, null, true, true);
@@ -282,7 +296,8 @@ namespace PloppableRICO
                             // Exclude vertices with large negative Y values (underground) from our bounds (e.g. SoCal Laguna houses), otherwise the result doesn't look very good.
                             if (vertices[i].y + relativePosition.y > -2)
                             {
-                                currentBounds.Encapsulate(vertices[i] + relativePosition);
+                                // Transform coordinates to our model rotation before encapsulating, otherwise we tend to cut off corners.
+                                currentBounds.Encapsulate(relativeRotation * (vertices[i] + subMesh.m_position));
                             }
                         }
                     }
@@ -300,9 +315,14 @@ namespace PloppableRICO
                     // Just in case.
                     if (subInfo?.m_mesh != null && subInfo?.m_material != null)
                     {
+                        // Calculate the relative rotation.
+                        // We need to rotate the subbuilding before we apply the model rotation.
+                        // Note that the order of multiplication (relative to the angle of operation) is reversed in the code, because of the way Unity overloads the multiplication operator.
+                        Quaternion relativeRotation = modelRotation * Quaternion.AngleAxis(subBuilding.m_angle, Vector3.up);
+
                         // Recalculate our matrix based on our submesh position.
-                        Vector3 relativePosition = subBuilding.m_position;
-                        Matrix4x4 matrix = Matrix4x4.TRS(relativePosition + modelPosition, Quaternion.Euler(0f, subBuilding.m_angle, 0f), Vector3.one);
+                        Vector3 relativePosition = modelRotation * subBuilding.m_position;
+                        Matrix4x4 matrix = Matrix4x4.TRS(relativePosition + modelPosition, relativeRotation, Vector3.one);
 
                         // Add subbuilding to scene.
                         Graphics.DrawMesh(subInfo.m_mesh, matrix, subInfo.m_material, 0, renderCamera, 0, null, true, true);
@@ -331,8 +351,7 @@ namespace PloppableRICO
             renderCamera.farClipPlane = clipCenter + clipExtent;
 
             // Rotate our camera around the model according to our current rotation.
-            renderCamera.transform.position = modelPosition + (new Vector3(0f, 0.5f, 1f) * clipCenter);
-            renderCamera.transform.RotateAround(modelPosition, Vector3.up, currentRotation);
+            renderCamera.transform.position = modelPosition + (Vector3.forward * clipCenter);
 
             // Aim camera at middle of bounds.
             renderCamera.transform.LookAt(currentBounds.center + modelPosition);
@@ -345,7 +364,7 @@ namespace PloppableRICO
             }
 
             // Light settings.
-            renderLight.transform.eulerAngles = new Vector3(55f, currentRotation - 180f, 0);
+            renderLight.transform.eulerAngles = new Vector3(55f - xRotation, 180f, 0f);
             renderLight.intensity = 2f;
             renderLight.color = Color.white;
 
