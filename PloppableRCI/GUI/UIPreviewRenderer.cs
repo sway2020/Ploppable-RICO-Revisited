@@ -227,10 +227,9 @@ namespace PloppableRICO
 
             RenderManager.instance.MainLight = renderLight;
 
-            // Set model position and calculate our rendering matrix.
+            // Set model position.
             // We render at +100 Y to avoid garbage left at 0,0 by certain shaders and renderers (and we only rotate around the Y axis so will never see the origin).
             Vector3 modelPosition = new Vector3(0f, 100f, 0f);
-            Matrix4x4 matrix = Matrix4x4.TRS(modelPosition, Quaternion.identity, Vector3.one);
 
             // Reset the bounding box to be the smallest that can encapsulate all verticies of the new mesh.
             // That way the preview image is the largest size that fits cleanly inside the preview size.
@@ -240,6 +239,8 @@ namespace PloppableRICO
             // Add our main mesh, if any (some are null, because they only 'appear' through subbuildings - e.g. Boston Residence Garage).
             if (currentMesh != null && _material != null)
             {
+                // Calculate rendering matrix and add mesh to scene.
+                Matrix4x4 matrix = Matrix4x4.TRS(modelPosition, Quaternion.identity, Vector3.one);
                 Graphics.DrawMesh(currentMesh, matrix, _material, 0, renderCamera, 0, null, true, true);
 
                 // Use separate verticies instance instead of accessing Mesh.vertices each time (which is slow).
@@ -266,10 +267,12 @@ namespace PloppableRICO
                     // Just in case.
                     if (subInfo?.m_mesh != null && subInfo?.m_material != null)
                     {
-                        // Recalculate our matrix based on our submesh position and add the mesh to the render.
+                        // Recalculate our matrix based on our submesh position and rotation.
                         // Note submesh angle needs to be inverted to rotate correctly around the Y axis in our space.
                         Vector3 relativePosition = subMesh.m_position;
-                        matrix = Matrix4x4.TRS(relativePosition + modelPosition, Quaternion.Euler(0f, subMesh.m_angle * -1, 0f), Vector3.one);
+                        Matrix4x4 matrix = Matrix4x4.TRS(relativePosition + modelPosition, Quaternion.Euler(0f, subMesh.m_angle * -1, 0f), Vector3.one);
+
+                        // Add submesh to scene.
                         Graphics.DrawMesh(subInfo.m_mesh, matrix, subInfo.m_material, 0, renderCamera, 0, null, true, true);
 
                         // Expand our bounds to encapsulate the submesh.
@@ -297,10 +300,11 @@ namespace PloppableRICO
                     // Just in case.
                     if (subInfo?.m_mesh != null && subInfo?.m_material != null)
                     {
-                        // Recalculate our matrix based on our submesh position and add the mesh to the render.
+                        // Recalculate our matrix based on our submesh position.
                         Vector3 relativePosition = subBuilding.m_position;
-                        Quaternion rotation = Quaternion.Euler(new Vector3(0f, subBuilding.m_angle, 0f));
-                        matrix = Matrix4x4.TRS(relativePosition + modelPosition, rotation, Vector3.one);
+                        Matrix4x4 matrix = Matrix4x4.TRS(relativePosition + modelPosition, Quaternion.Euler(0f, subBuilding.m_angle, 0f), Vector3.one);
+
+                        // Add subbuilding to scene.
                         Graphics.DrawMesh(subInfo.m_mesh, matrix, subInfo.m_material, 0, renderCamera, 0, null, true, true);
 
                         // Expand our bounds to encapsulate the submesh.
