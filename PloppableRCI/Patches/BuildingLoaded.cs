@@ -11,8 +11,7 @@ using HarmonyLib;
 /// </summary>
 namespace PloppableRICO
 {
-    [HarmonyPatch(typeof(PrivateBuildingAI))]
-    [HarmonyPatch("BuildingLoaded")]
+    [HarmonyPatch(typeof(PrivateBuildingAI), "BuildingLoaded")]
     [HarmonyPriority(Priority.VeryHigh)]
     internal static class RICOBuildingLoaded
 	{

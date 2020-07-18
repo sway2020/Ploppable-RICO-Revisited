@@ -7,8 +7,7 @@ namespace PloppableRICO
     /// <summary>
     /// Harmony patch and reverse patch to catch exceptions when no valid monuments are avaliable (presumably because they've all been converted to Ploppable RICO buildings and/or skipped by LSM prefab skipping).
     /// </summary>
-    [HarmonyPatch(typeof(UnlockingPanel))]
-    [HarmonyPatch("RefreshMonumentsPanel")]
+    [HarmonyPatch(typeof(UnlockingPanel), "RefreshMonumentsPanel")]
     internal static class RefreshMonumentsPanelPatch
     {
         /// <summary>

@@ -60,6 +60,14 @@ namespace PloppableRICO
             translationDropDown.autoSize = false;
             translationDropDown.width = 270f;
 
+
+            // Add plop growables checkbox.
+            otherGroup.AddCheckbox(Translations.Translate("PRR_OPTION_PLOPGROW"), ModSettings.plopGrowables, isChecked =>
+            {
+                ModSettings.plopGrowables = isChecked;
+                SettingsUtils.SaveSettings();
+            });
+
             // Add logging checkbox.
             otherGroup.AddCheckbox(Translations.Translate("PRR_OPTION_MOREDEBUG"), ModSettings.debugLogging, isChecked =>
             {

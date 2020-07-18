@@ -5,6 +5,7 @@ using UnityEngine;
 using ColossalFramework.UI;
 using ColossalFramework.Math;
 using System.Net.NetworkInformation;
+using System.Collections.Generic;
 
 namespace PloppableRICO
 {
@@ -25,6 +26,9 @@ namespace PloppableRICO
         private static PloppableTool _instance;
 
         public static PloppableTool Instance => _instance;
+
+        // For tracking growables with accelerated construction.
+        internal Dictionary<BuildingInfo, int> constructionTimes;
 
         // UI components.
         private UIButton PloppableButton;
@@ -71,6 +75,7 @@ namespace PloppableRICO
             {
                 try
                 {
+
                     // Creating our own gameObect helps finding the UI in ModTools.
                     _gameObject = new GameObject("PloppableTool");
                     _gameObject.transform.parent = UIView.GetAView().transform;
@@ -84,6 +89,9 @@ namespace PloppableRICO
                     {
                         _gameObject.SetActive(false);
                     }
+
+                    // Initialise construction time dictionary.
+                    _instance.constructionTimes = new Dictionary<BuildingInfo, int>();
                 }
                 catch (Exception e)
                 {

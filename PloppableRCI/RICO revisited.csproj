@@ -120,7 +120,7 @@
     <Compile Include="XML\SteamDataProvider.cs" />
     <Compile Include="XML\XMLManager.cs" />
     <Compile Include="Loading.cs" />
-    <Compile Include="Patches\ToolDetour.cs" />
+    <Compile Include="Patches\BuildingTool.cs" />
     <Compile Include="Util.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

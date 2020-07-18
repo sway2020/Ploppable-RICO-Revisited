@@ -11,8 +11,7 @@ namespace PloppableRICO
     /// Removing these checks enables Ploppable RICO buildings to be initialised as RICO assets on load (instead of doing funky things to prefabs already initialised in their 'native' state).
     /// This approach fixes a whole bunch of issues, enables code simplifications, and is required to properly enable 'Growable RICO'.
     /// </summary>
-    [HarmonyPatch(typeof(BuildingInfo))]
-    [HarmonyPatch("InitializePrefab")]
+    [HarmonyPatch(typeof(BuildingInfo), "InitializePrefab")]
     internal static class InitPrefabTranspiler
     {
         /// <summary>

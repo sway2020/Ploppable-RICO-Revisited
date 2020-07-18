@@ -12,6 +12,7 @@ namespace PloppableRICO
         internal static bool speedBoost = false;
         internal static bool debugLogging = false;
         internal static bool resetOnLoad = true;
+        internal static bool plopGrowables = true;
         internal static int thumbBacks = (byte)ThumbBackCats.skybox;
 
 
@@ -51,6 +52,8 @@ namespace PloppableRICO
         public bool DebugLogging { get => ModSettings.debugLogging; set => ModSettings.debugLogging = value; }
         [XmlElement("ResetOnLoad")]
         public bool ResetOnLoad { get => ModSettings.resetOnLoad; set => ModSettings.resetOnLoad = value; }
+        [XmlElement("PlopGrowables")]
+        public bool PlopGrowables { get => ModSettings.plopGrowables; set => ModSettings.plopGrowables = value; }
         [XmlElement("ThumbBacks")]
         public int ThumbBacks
         {

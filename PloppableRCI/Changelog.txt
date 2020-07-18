@@ -1,4 +1,5 @@
-﻿- Fix building selection not updating when info panel button pressed
+﻿- Add 'Instant Plopping' option for growables
+- Fix building selection not updating when info panel button pressed
 
 
 Version 2.3 BETA
