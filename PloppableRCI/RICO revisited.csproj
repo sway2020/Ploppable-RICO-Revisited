@@ -81,7 +81,7 @@
     <Compile Include="Notifications\ConflictNotification.cs" />
     <Compile Include="Notifications\ErrorNotification.cs" />
     <Compile Include="Notifications\HarmonyNotification.cs" />
-    <Compile Include="Patches\Building.cs" />
+    <Compile Include="Patches\PrivateBuildingAI.cs" />
     <Compile Include="Patches\BuildingLoaded.cs" />
     <Compile Include="Patches\MonumentsPatch.cs" />
     <Compile Include="Patches\RealisticCitizenUnits.cs" />
