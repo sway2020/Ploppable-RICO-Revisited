@@ -1,4 +1,5 @@
 ﻿- Add 'Instant Plopping' option for growables
+- Add 'Disable Zone Check' option for growables
 - Fix building selection not updating when info panel button pressed
 
 

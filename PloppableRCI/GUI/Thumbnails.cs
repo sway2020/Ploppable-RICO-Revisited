@@ -49,8 +49,6 @@ namespace PloppableRICO
                     // Add our queue manager and renderer directly to the gameobject.
                     _renderer = gameObject.AddComponent<UIPreviewRenderer>();
                     _generator = new ThumbnailGenerator();
-
-                    Debugging.Message("thumbnail renderer created");
                 }
             }
             catch (Exception e)
@@ -76,8 +74,6 @@ namespace PloppableRICO
                 _renderer = null;
                 gameObject = null;
             }
-
-            Debugging.Message("thumbnail renderer destroyed");
         }
     }
     
@@ -99,7 +95,7 @@ namespace PloppableRICO
         {
             if (ModSettings.debugLogging)
             {
-                Debugging.Message("creating thumbnail queue");
+                Debugging.Message("creating thumbnail generator");
             }
 
             // Get local reference from parent.

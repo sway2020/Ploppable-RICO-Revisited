@@ -68,6 +68,13 @@ namespace PloppableRICO
                 SettingsUtils.SaveSettings();
             });
 
+            // Add no zone checks checkbox.
+            otherGroup.AddCheckbox(Translations.Translate("PRR_OPTION_NOZONES"), ModSettings.noZoneChecks, isChecked =>
+            {
+                ModSettings.noZoneChecks = isChecked;
+                SettingsUtils.SaveSettings();
+            });
+
             // Add logging checkbox.
             otherGroup.AddCheckbox(Translations.Translate("PRR_OPTION_MOREDEBUG"), ModSettings.debugLogging, isChecked =>
             {

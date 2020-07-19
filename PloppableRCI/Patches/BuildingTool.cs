@@ -79,8 +79,6 @@ namespace PloppableRICO
 						{
 							Building data = Singleton<BuildingManager>.instance.m_buildings.m_buffer[__result];
 
-							Debugging.Message("plopped");
-
 							Singleton<BuildingManager>.instance.m_buildings.m_buffer[__result].m_frame0.m_constructState = byte.MaxValue;
 							BuildingCompletedRev(buildingAI, __result, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[__result]);
 
