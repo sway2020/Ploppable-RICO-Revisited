@@ -94,6 +94,8 @@
     <Translation ID="PRR_OPTION_LOA" String="Loading options" />
     <Translation ID="PRR_OPTION_LOG" String="Logging options" />
     <Translation ID="PRR_OPTION_TMB" String="Thumbnail options" />
+    <Translation ID="PRR_OPTION_GRO" String="Growable options" />
+    <Translation ID="PRR_OPTION_MOD" String="Mod options" />
     <Translation ID="PRR_OPTION_MOREDEBUG" String="Enable additional debugging logging" />
     <Translation ID="PRR_OPTION_FORCERESET" String="Force reset of existing building stats on game load" />
     <Translation ID="PRR_OPTION_REGENTHUMBS" String="Regenerate thumbnails" />
@@ -105,8 +107,6 @@
     <Translation ID="PRR_THUMB_COLOR" String="Color" />
     <Translation ID="PRR_THUMB_PLAIN" String="Plain" />
     <Translation ID="PRR_THUMB_SKY" String="Skybox" />
-    <Translation ID="PRR_OPTION_GRO" String="Growable options" />
-    <Translation ID="PRR_OPTION_MOD" String="Mod options" />
     <Translation ID="PRR_ERR_HAR0" String="Harmony patching error" />
     <Translation ID="PRR_ERR_HAR1" String="Ploppable RICO Revisited was unable to complete its required Harmony patches.  This means that the mod is not able to operate, and has shut down to protect your save file from damage." />
     <Translation ID="PRR_ERR_HAR2" String="Possible causes of this problem include:" />
@@ -124,6 +124,6 @@
     <Translation ID="PRR_UPD_23_2" String="Ploppable RICO now includes 'Plop the Growables'-style functionality for both RICO and non-RICO buildings - see the options panel for details." />
     <Translation ID="PRR_UPD_23_3" String="RICO growable buildings can now be placed outside of zones (configurable)." />
     <Translation ID="PRR_UPD_23_4" String="Complaints about 'low land value' and 'not enough services' can now be disabled." />
-    <Translation ID="PRR_UPD_23_5" String="Building thumbnail images are now only generated as needed, reducing memory and improving loading times." />
+    <Translation ID="PRR_UPD_23_5" String="Improved building thumbnail renderer that now only generates images as needed, reducing memory and improving loading times." />
   </Translations>
 </Language>
