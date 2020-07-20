@@ -83,10 +83,17 @@ namespace PloppableRICO
                 SettingsUtils.SaveSettings();
             });
 
-            // Add 'ignoretoo few services complaint' checkbox.
+            // Add 'ignore too few services complaint' checkbox.
             otherGroup.AddCheckbox(Translations.Translate("PRR_OPTION_IGSVS"), ModSettings.ignoreServices, isChecked =>
             {
                 ModSettings.ignoreServices = isChecked;
+                SettingsUtils.SaveSettings();
+            });
+
+            // Add 'make plopped growables historical' checkbox.
+            otherGroup.AddCheckbox(Translations.Translate("PRR_OPTION_HIST"), ModSettings.makeHistorical, isChecked =>
+            {
+                ModSettings.makeHistorical = isChecked;
                 SettingsUtils.SaveSettings();
             });
 

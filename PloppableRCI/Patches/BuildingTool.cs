@@ -43,7 +43,7 @@ namespace PloppableRICO
 
 
 	/// <summary>
-	/// Harmony Postfix patch for BuildingTool.Createbuilding, to enable instant construction for plopped RICO growables. 
+	/// Harmony Postfix patch for BuildingTool.Createbuilding, to enable instant construction for plopped RICO growables and to apply the 'Make Historical' setting as required. 
 	/// </summary>
 	[HarmonyPatch(typeof(BuildingTool), "CreateBuilding")]
 	[HarmonyPatch(new Type[] { typeof(BuildingInfo), typeof(Vector3), typeof(float), typeof(int), typeof(bool), typeof(bool) },
@@ -51,7 +51,7 @@ namespace PloppableRICO
 	internal class CreateBuildingPatch
 	{
 		/// <summary>
-		/// Harmony Postfix patch to skip 'gradual construction' for plopped RICO growables if that setting is set.
+		/// Harmony Postfix patch to skip 'gradual construction' for plopped RICO growables, and/or to apply the 'Make Historical' setting on building creation, accoriding to settings.
 		/// </summary>
 		/// <param name="__result">Original method result (unchanged)</param>
 		/// <param name="info">BuildingInfo prefab for this building (unchanged)</param>
@@ -62,30 +62,40 @@ namespace PloppableRICO
 		/// <param name="fixedHeight">Fixed height (ignored)</param>
 		private static void Postfix(ref ushort __result, ref BuildingInfo info, Vector3 position, float angle, int relocating, bool needMoney, bool fixedHeight)
 		{
-			// Only do this if setting is enabled and we have a valid building ID.
-			if (ModSettings.plopGrowables && __result != 0)
+			// Check that we have a valid building ID.
+			if (__result == 0)
+            {
+				return;
+			}
+
+			// Get building AI.
+			PrivateBuildingAI buildingAI = info.GetAI() as PrivateBuildingAI;
+
+			// Check if it's a RICO custom AI type.
+			if (buildingAI != null && (buildingAI is GrowableResidentialAI || buildingAI is GrowableCommercialAI || buildingAI is GrowableIndustrialAI || buildingAI is GrowableOfficeAI || buildingAI is GrowableExtractorAI))
 			{
-				// Get building AI.
-				PrivateBuildingAI buildingAI = info.GetAI() as PrivateBuildingAI;
+				// It's one of ours - apply options.
 
-				// If a building is not a PrivateBuildingAI, then we've got nothing to do here.
-				if (buildingAI != null)
+				// Enable 'ploppable growables' if option is set.
+				if (ModSettings.plopGrowables)
 				{
-					// PrivateBuildingAI - check if it's a RICO custom AI type.
-					if (buildingAI is GrowableResidentialAI || buildingAI is GrowableCommercialAI || buildingAI is GrowableIndustrialAI || buildingAI is GrowableOfficeAI || buildingAI is GrowableExtractorAI)
+					// Check to see if construction time is greater than zero.
+					if (buildingAI.m_constructionTime > 0)
 					{
-						// It's one of ours - check to see if construction time is greater than zero.
-						if (buildingAI.m_constructionTime > 0)
-						{
-							Building data = Singleton<BuildingManager>.instance.m_buildings.m_buffer[__result];
+						Building data = Singleton<BuildingManager>.instance.m_buildings.m_buffer[__result];
 
-							Singleton<BuildingManager>.instance.m_buildings.m_buffer[__result].m_frame0.m_constructState = byte.MaxValue;
-							BuildingCompletedRev(buildingAI, __result, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[__result]);
+						Singleton<BuildingManager>.instance.m_buildings.m_buffer[__result].m_frame0.m_constructState = byte.MaxValue;
+						BuildingCompletedRev(buildingAI, __result, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[__result]);
 
-							// Have to do this manually as CommonBuildingAI.BuildingCompleted won't if construction time isn't zero.
-							Singleton<BuildingManager>.instance.UpdateBuildingRenderer(__result, updateGroup: true);
-						}
+						// Have to do this manually as CommonBuildingAI.BuildingCompleted won't if construction time isn't zero.
+						Singleton<BuildingManager>.instance.UpdateBuildingRenderer(__result, updateGroup: true);
 					}
+				}
+
+				// Enable 'Make Historical' if option is set.
+				if (ModSettings.makeHistorical)
+				{
+					info.m_buildingAI.SetHistorical(__result, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[__result], historical: true);
 				}
 			}
 		}

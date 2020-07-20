@@ -13,6 +13,7 @@ namespace PloppableRICO
         internal static bool noZoneChecks = true;
         internal static bool ignoreValue = true;
         internal static bool ignoreServices = true;
+        internal static bool makeHistorical = false;
         internal static bool speedBoost = false;
         internal static bool debugLogging = false;
         internal static bool resetOnLoad = true;
@@ -49,20 +50,31 @@ namespace PloppableRICO
     {
         [XmlElement("NotificationVersion")]
         public int NotificationVersion { get => UpdateNotification.notificationVersion; set => UpdateNotification.notificationVersion = value; }
+
         [XmlElement("PlopGrowables")]
         public bool PlopGrowables { get => ModSettings.plopGrowables; set => ModSettings.plopGrowables = value; }
+
         [XmlElement("IgnoreValue")]
         public bool IgnoreValue { get => ModSettings.ignoreValue; set => ModSettings.plopGrowables = value; }
+
         [XmlElement("IgnoreServices")]
         public bool IgnoreServices { get => ModSettings.ignoreServices; set => ModSettings.plopGrowables = value; }
+
         [XmlElement("NoZoneChecks")]
         public bool NoZoneChecks { get => ModSettings.noZoneChecks; set => ModSettings.noZoneChecks = value; }
+
+        [XmlElement("MakeHistorical")]
+        public bool MakeHistorical { get => ModSettings.makeHistorical; set => ModSettings.makeHistorical = value; }
+
         [XmlElement("SpeedBoost")]
         public bool SpeedBoost { get => ModSettings.speedBoost; set => ModSettings.speedBoost = value; }
+
         [XmlElement("DebugLogging")]
         public bool DebugLogging { get => ModSettings.debugLogging; set => ModSettings.debugLogging = value; }
+
         [XmlElement("ResetOnLoad")]
         public bool ResetOnLoad { get => ModSettings.resetOnLoad; set => ModSettings.resetOnLoad = value; }
+
         [XmlElement("ThumbBacks")]
         public int ThumbBacks
         {

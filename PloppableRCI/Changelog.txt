@@ -2,6 +2,7 @@
 - Add 'Disable Zone Check' option for growables
 - Add 'Ignore low land value complaint' option
 - Add 'Ignore too few services complaint' option
+- Add 'Make plopped buildings historical' option
 - Building icons in ploppable panel now sorted by display name
 - Fix building selection not updating when info panel button pressed
 
