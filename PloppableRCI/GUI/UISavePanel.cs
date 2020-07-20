@@ -80,6 +80,7 @@ namespace PloppableRICO
             applyButton.text = Translations.Translate("PRR_SAV_APP");
             applyButton.eventClick += (control, clickEvent) => SaveAndApply();
             applyButton.textScale = 0.8f;
+            applyButton.wordWrap = true;
         }
 
 

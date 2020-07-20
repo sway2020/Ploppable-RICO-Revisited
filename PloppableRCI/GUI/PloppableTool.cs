@@ -247,7 +247,7 @@ namespace PloppableRICO
 
                 // Settings tab.
                 showSettings = UIUtils.CreateButton(Tabs);
-                showSettings.size = new Vector2(80, 25);
+                showSettings.size = new Vector2(100, 25);
                 showSettings.normalBgSprite = "SubBarButtonBase";
                 showSettings.eventClick += (component, clickEvent) => SettingsPanel.Open();
 

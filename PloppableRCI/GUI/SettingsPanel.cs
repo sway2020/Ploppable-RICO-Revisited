@@ -176,7 +176,7 @@ namespace PloppableRICO
         // Constants.
         private const float leftWidth = 400;
         private const float middleWidth = 250;
-        private const float rightWidth = 280;
+        private const float rightWidth = 300;
         private const float filterHeight = 40;
         private const float panelHeight = 550;
         private const float bottomMargin = 10;

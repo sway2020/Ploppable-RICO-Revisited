@@ -208,7 +208,12 @@ namespace PloppableRICO
             UILabel filterLabel = this.AddUIComponent<UILabel>();
             filterLabel.textScale = 0.8f;
             filterLabel.text = Translations.Translate("PRR_FTR_SET");
-            filterLabel.relativePosition = new Vector3(10, 50, 0);
+            filterLabel.relativePosition = new Vector3(10, 40, 0);
+            filterLabel.autoSize = false;
+            filterLabel.height = 30f;
+            filterLabel.width = 280f;
+            filterLabel.wordWrap = true;
+            filterLabel.verticalAlignment = UIVerticalAlignment.Middle;
 
             // Setting filter checkboxes.
             settingsFilter = new UICheckBox[NumOfSettings];

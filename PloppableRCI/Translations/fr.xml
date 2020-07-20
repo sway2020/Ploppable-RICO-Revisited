@@ -29,7 +29,7 @@
     "<Translation ID="PRR_FTR_ALL" String="Tout" />
     "<Translation ID="PRR_FTR_NON" String="Aucun" />
     "<Translation ID="PRR_FTR_NAM" String="Nom" />
-    "<Translation ID="PRR_FTR_SET" String="Filtre des paramètres: Mod / Auteur / Local / Tout" />
+    "<Translation ID="PRR_FTR_SET" String="Filtre des paramètres: &#10;Mod/Auteur/Local/Tout" />
     "<Translation ID="PRR_OPT_ENA" String="Activer RICO" />
     "<Translation ID="PRR_OPT_SER" String="Un service" />
     "<Translation ID="PRR_OPT_SUB" String="Sous-service" />

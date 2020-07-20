@@ -110,7 +110,7 @@ namespace PloppableRICO
 
 
             UIDropDown dropDown = container.AddUIComponent<UIDropDown>();
-            dropDown.size = new Vector2(170f, 25f);
+            dropDown.size = new Vector2(180f, 25f);
             dropDown.listBackground = "GenericPanelLight";
             dropDown.itemHeight = 20;
             dropDown.itemHover = "ListItemHover";
@@ -119,7 +119,7 @@ namespace PloppableRICO
             dropDown.disabledBgSprite = "ButtonMenuDisabled";
             dropDown.hoveredBgSprite = "ButtonMenuHovered";
             dropDown.focusedBgSprite = "ButtonMenu";
-            dropDown.listWidth = 170;
+            dropDown.listWidth = 180;
             dropDown.listHeight = 500;
             dropDown.foregroundSpriteMode = UIForegroundSpriteMode.Stretch;
             dropDown.popupColor = new Color32(45, 52, 61, 255);
@@ -132,12 +132,12 @@ namespace PloppableRICO
             dropDown.textFieldPadding = new RectOffset(8, 0, 8, 0);
             dropDown.itemPadding = new RectOffset(14, 0, 8, 0);
 
-            dropDown.relativePosition = new Vector3(102, 0, 0);
+            dropDown.relativePosition = new Vector3(112, 0, 0);
 
             UIButton button = dropDown.AddUIComponent<UIButton>();
             dropDown.triggerButton = button;
             button.text = "";
-            button.size = new Vector2(170f, 25f);
+            button.size = new Vector2(180f, 25f);
             button.relativePosition = new Vector3(0f, 0f);
             button.textVerticalAlignment = UIVerticalAlignment.Middle;
             button.textHorizontalAlignment = UIHorizontalAlignment.Left;
@@ -302,6 +302,12 @@ namespace PloppableRICO
             Label.text = label;
             Label.relativePosition = new Vector3(15, 6, 0);
 
+            Label.verticalAlignment = UIVerticalAlignment.Middle;
+            Label.autoSize = false;
+            Label.autoHeight = true;
+            Label.width = 170f;
+            Label.wordWrap = true;
+
             UITextField textField = container.AddUIComponent<UITextField>();
 
             textField.size = new Vector2(100f, 20f);
@@ -309,6 +315,7 @@ namespace PloppableRICO
             textField.builtinKeyNavigation = true;
             textField.isInteractive = true;
             textField.readOnly = false;
+
             //textField.horizontalAlignment = UIHorizontalAlignment.Center;
             textField.selectionSprite = "EmptySprite";
             textField.selectionBackgroundColor = new Color32(0, 172, 234, 255);
@@ -318,7 +325,7 @@ namespace PloppableRICO
             textField.disabledTextColor = new Color32(0, 0, 0, 128);
             textField.color = new Color32(255, 255, 255, 255);
 
-            textField.relativePosition = new Vector3(170, 0, 0);
+            textField.relativePosition = new Vector3(190, 0, 0);
 
             return textField;
         }
