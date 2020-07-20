@@ -30,9 +30,9 @@ namespace PloppableRICO
         public override void Start()
         {
             // Add text.
-            headerText = Translations.Translate("PRR_UPD_21_0");
-            messageText = Translations.Translate("PRR_UPD_21_1");
-            listText = Translations.Translate("PRR_UPD_21_2") + "\r\n\r\n" + Translations.Translate("PRR_UPD_21_3") + "\r\n\r\n" + Translations.Translate("PRR_UPD_21_4") + "\r\n\r\n" + Translations.Translate("PRR_UPD_21_5");
+            headerText = Translations.Translate("PRR_UPD_23_0");
+            messageText = Translations.Translate("PRR_UPD_23_1");
+            listText = Translations.Translate("PRR_UPD_23_2") + "\r\n\r\n" + Translations.Translate("PRR_UPD_23_3") + "\r\n\r\n" + Translations.Translate("PRR_UPD_23_4") + "\r\n\r\n" + Translations.Translate("PRR_UPD_23_5");
 
             base.Start();
 
@@ -48,7 +48,7 @@ namespace PloppableRICO
                 noShowButton.eventClick += (control, clickEvent) =>
                 {
                     // Update and save settings file.
-                    notificationVersion = 2;
+                    notificationVersion = 3;
                     SettingsUtils.SaveSettings();
 
                     // Just hide this panel and destroy the game object - nothing more to do.

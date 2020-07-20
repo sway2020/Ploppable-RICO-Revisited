@@ -28,6 +28,18 @@ namespace PloppableRICO
 
             // Load settings file.
             SettingsUtils.LoadSettings();
+
+            // Check to see if UIView is ready.
+            if (UIView.GetAView() != null)
+            {
+                // It's ready - attach the hook now.
+                OptionsPanel.OptionsEventHook();
+            }
+            else
+            {
+                // Otherwise, queue the hook for when the intro's finished loading.
+                LoadingManager.instance.m_introLoaded += OptionsPanel.OptionsEventHook;
+            }
         }
 
 
@@ -49,85 +61,9 @@ namespace PloppableRICO
         /// </summary>
         public void OnSettingsUI(UIHelperBase helper)
         {
-            // General options.
-            UIHelperBase otherGroup = helper.AddGroup(" ");
-
-            UIDropDown translationDropDown = (UIDropDown)otherGroup.AddDropdown(Translations.Translate("TRN_CHOICE"), Translations.LanguageList, Translations.Index, (value) =>
-            {
-                Translations.Index = value;
-                SettingsUtils.SaveSettings();
-            });
-            translationDropDown.autoSize = false;
-            translationDropDown.width = 270f;
-
-
-            // Add plop growables checkbox.
-            otherGroup.AddCheckbox(Translations.Translate("PRR_OPTION_PLOPGROW"), ModSettings.plopGrowables, isChecked =>
-            {
-                ModSettings.plopGrowables = isChecked;
-                SettingsUtils.SaveSettings();
-            });
-
-            // Add no zone checks checkbox.
-            otherGroup.AddCheckbox(Translations.Translate("PRR_OPTION_NOZONES"), ModSettings.noZoneChecks, isChecked =>
-            {
-                ModSettings.noZoneChecks = isChecked;
-                SettingsUtils.SaveSettings();
-            });
-
-
-            // Add 'ignore low value complaint' checkbox.
-            otherGroup.AddCheckbox(Translations.Translate("PRR_OPTION_IGVAL"), ModSettings.ignoreValue, isChecked =>
-            {
-                ModSettings.ignoreValue = isChecked;
-                SettingsUtils.SaveSettings();
-            });
-
-            // Add 'ignore too few services complaint' checkbox.
-            otherGroup.AddCheckbox(Translations.Translate("PRR_OPTION_IGSVS"), ModSettings.ignoreServices, isChecked =>
-            {
-                ModSettings.ignoreServices = isChecked;
-                SettingsUtils.SaveSettings();
-            });
-
-            // Add 'make plopped growables historical' checkbox.
-            otherGroup.AddCheckbox(Translations.Translate("PRR_OPTION_HIST"), ModSettings.makeHistorical, isChecked =>
-            {
-                ModSettings.makeHistorical = isChecked;
-                SettingsUtils.SaveSettings();
-            });
-
-            // Add logging checkbox.
-            otherGroup.AddCheckbox(Translations.Translate("PRR_OPTION_MOREDEBUG"), ModSettings.debugLogging, isChecked =>
-            {
-                ModSettings.debugLogging = isChecked;
-                SettingsUtils.SaveSettings();
-            });
-
-            // Add reset on load checkbox.
-            otherGroup.AddCheckbox(Translations.Translate("PRR_OPTION_FORCERESET"), ModSettings.resetOnLoad, isChecked =>
-            {
-                ModSettings.resetOnLoad = isChecked;
-                SettingsUtils.SaveSettings();
-            });
-
-            // Add thumbnail background dropdown.
-            otherGroup.AddDropdown(Translations.Translate("PRR_OPTION_THUMBACK"), ModSettings.ThumbBackNames, ModSettings.thumbBacks, (value) =>
-            {
-                ModSettings.thumbBacks = value;
-                SettingsUtils.SaveSettings();
-            });
-
-            // Add regenerate thumbnails button.
-            otherGroup.AddButton(Translations.Translate("PRR_OPTION_REGENTHUMBS"), () => PloppableTool.Instance.RegenerateThumbnails());
-
-            // Add speed boost checkbox.
-            UIHelperBase speedGroup = helper.AddGroup(Translations.Translate("PRR_OPTION_SPDHDR"));
-            speedGroup.AddCheckbox(Translations.Translate("PRR_OPTION_SPEED"), ModSettings.speedBoost, isChecked =>
-            {
-                ModSettings.speedBoost = isChecked;
-                SettingsUtils.SaveSettings();
-            });
+            // Setup options panel reference.
+            OptionsPanel.optionsPanel = ((UIHelper)helper).self as UIScrollablePanel;
+            OptionsPanel.optionsPanel.autoLayout = false;
         }
     }
 }

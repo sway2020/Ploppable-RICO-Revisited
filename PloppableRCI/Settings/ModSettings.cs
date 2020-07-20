@@ -9,11 +9,16 @@ namespace PloppableRICO
     /// </summary>
     internal static class ModSettings
     {
-        internal static bool plopGrowables = true;
-        internal static bool noZoneChecks = true;
-        internal static bool ignoreValue = true;
-        internal static bool ignoreServices = true;
-        internal static bool makeHistorical = false;
+        internal static bool plopRico = true;
+        internal static bool plopOther = true;
+        internal static bool noZonesRico = true;
+        internal static bool noZonesOther = true;
+        internal static bool noValueRico = true;
+        internal static bool noValueOther = true;
+        internal static bool noServicesRico = true;
+        internal static bool noServicesOther = true;
+        internal static bool historicalRico = false;
+        internal static bool historicalOther = false;
         internal static bool speedBoost = false;
         internal static bool debugLogging = false;
         internal static bool resetOnLoad = true;
@@ -51,20 +56,35 @@ namespace PloppableRICO
         [XmlElement("NotificationVersion")]
         public int NotificationVersion { get => UpdateNotification.notificationVersion; set => UpdateNotification.notificationVersion = value; }
 
-        [XmlElement("PlopGrowables")]
-        public bool PlopGrowables { get => ModSettings.plopGrowables; set => ModSettings.plopGrowables = value; }
+        [XmlElement("PlopRico")]
+        public bool PlopRico { get => ModSettings.plopRico; set => ModSettings.plopRico = value; }
 
-        [XmlElement("IgnoreValue")]
-        public bool IgnoreValue { get => ModSettings.ignoreValue; set => ModSettings.plopGrowables = value; }
+        [XmlElement("PlopOther")]
+        public bool PlopOther { get => ModSettings.plopOther; set => ModSettings.plopOther = value; }
 
-        [XmlElement("IgnoreServices")]
-        public bool IgnoreServices { get => ModSettings.ignoreServices; set => ModSettings.plopGrowables = value; }
+        [XmlElement("NoZonesRico")]
+        public bool NoZonesRico { get => ModSettings.noZonesRico; set => ModSettings.noZonesRico = value; }
 
-        [XmlElement("NoZoneChecks")]
-        public bool NoZoneChecks { get => ModSettings.noZoneChecks; set => ModSettings.noZoneChecks = value; }
+        [XmlElement("NoZonesOther")]
+        public bool NoZonesOther { get => ModSettings.noZonesOther; set => ModSettings.noZonesOther = value; }
 
-        [XmlElement("MakeHistorical")]
-        public bool MakeHistorical { get => ModSettings.makeHistorical; set => ModSettings.makeHistorical = value; }
+        [XmlElement("NoValueRico")]
+        public bool NoValueRico { get => ModSettings.noValueRico; set => ModSettings.noValueRico = value; }
+
+        [XmlElement("NoValueOther")]
+        public bool NoValueOther { get => ModSettings.noValueOther; set => ModSettings.noValueOther = value; }
+
+        [XmlElement("NoServicesRico")]
+        public bool NoServicesRico { get => ModSettings.noServicesRico; set => ModSettings.noServicesRico = value; }
+
+        [XmlElement("NoServicesOther")]
+        public bool NoServicesOther { get => ModSettings.noServicesOther; set => ModSettings.noServicesOther = value; }
+
+        [XmlElement("MakeRicoHistorical")]
+        public bool MakeRicoHistorical { get => ModSettings.historicalRico; set => ModSettings.historicalRico = value; }
+
+        [XmlElement("MakeOtherHistorical")]
+        public bool MakeOtherHistorical { get => ModSettings.historicalOther; set => ModSettings.historicalOther = value; }
 
         [XmlElement("SpeedBoost")]
         public bool SpeedBoost { get => ModSettings.speedBoost; set => ModSettings.speedBoost = value; }

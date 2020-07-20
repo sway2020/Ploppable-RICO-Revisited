@@ -78,6 +78,10 @@
     <Compile Include="GUI\Thumbnails.cs" />
     <Compile Include="Interfaces.cs" />
     <Compile Include="LevelUpExtension.cs" />
+    <Compile Include="Settings\OptionsPanel.cs" />
+    <Compile Include="Settings\OptionsPanelTabs\ModOptions.cs" />
+    <Compile Include="Settings\OptionsPanelTabs\GrowableOptions.cs" />
+    <Compile Include="Settings\PanelUtils.cs" />
     <Compile Include="Utils\ModUtils.cs" />
     <Compile Include="Notifications\ConflictNotification.cs" />
     <Compile Include="Notifications\ErrorNotification.cs" />
@@ -90,7 +94,7 @@
     <Compile Include="Patches\InitializePrefab.cs" />
     <Compile Include="Patches\InitPrefabTranspiler.cs" />
     <Compile Include="Utils\RICOUtils.cs" />
-    <Compile Include="Settings\Settings.cs" />
+    <Compile Include="Settings\ModSettings.cs" />
     <Compile Include="Settings\SettingsUtils.cs" />
     <Compile Include="Settings\SettingsXML.cs" />
     <Compile Include="Notifications\UpdateNotification.cs" />

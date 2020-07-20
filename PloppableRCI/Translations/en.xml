@@ -84,10 +84,20 @@
     <Translation ID="TRN_CHOICE" String="Set language" />
     <Translation ID="TRN_SYS" String="Use system language" />
     <Translation ID="PRR_DESCRIPTION" String="Allows RICO buildings greater than 4x4 in size and RICO building customisation" />
+    <Translation ID="PRR_OPTION_PLP" String="Instantly plop growable buildings (no construction)" />
+    <Translation ID="PRR_OPTION_ZON" String="Growable buildings can survive outside of the correct zone" />
+    <Translation ID="PRR_OPTION_VAL" String="Ignore 'low land value' complaint" />
+    <Translation ID="PRR_OPTION_SVC" String="Ignore 'too few services' complaint" />
+    <Translation ID="PRR_OPTION_HST" String="Make all plopped growables historical" />
+    <Translation ID="PRR_OPTION_RCO" String="RICO growable buildings" />
+    <Translation ID="PRR_OPTION_OTH" String="Non-RICO growable buildings" />
+    <Translation ID="PRR_OPTION_LOA" String="Loading options" />
+    <Translation ID="PRR_OPTION_LOG" String="Logging options" />
+    <Translation ID="PRR_OPTION_TMB" String="Thumbnail options" />
     <Translation ID="PRR_OPTION_MOREDEBUG" String="Enable additional debugging logging" />
     <Translation ID="PRR_OPTION_FORCERESET" String="Force reset of existing building stats on game load" />
     <Translation ID="PRR_OPTION_REGENTHUMBS" String="Regenerate thumbnails" />
-    <Translation ID="PRR_OPTION_SPDHDR" String= "Increases game speed slightly but causes a delay in opening the panel:" />
+    <Translation ID="PRR_OPTION_SPDHDR" String= "Increases game speed slightly but causes a delay in opening the panel" />
     <Translation ID="PRR_OPTION_SPEED" String= "Disable panel when not in use" />
     <Translation ID="PRR_OPTION_FASTHDR" String= "Renders thumbnails more quickly, but uses more memory:" />
     <Translation ID="PRR_OPTION_FASTHUMB" String= "Render thumbnails at accelerated speed" />
@@ -95,6 +105,8 @@
     <Translation ID="PRR_THUMB_COLOR" String="Color" />
     <Translation ID="PRR_THUMB_PLAIN" String="Plain" />
     <Translation ID="PRR_THUMB_SKY" String="Skybox" />
+    <Translation ID="PRR_OPTION_GRO" String="Growable options" />
+    <Translation ID="PRR_OPTION_MOD" String="Mod options" />
     <Translation ID="PRR_ERR_HAR0" String="Harmony patching error" />
     <Translation ID="PRR_ERR_HAR1" String="Ploppable RICO Revisited was unable to complete its required Harmony patches.  This means that the mod is not able to operate, and has shut down to protect your save file from damage." />
     <Translation ID="PRR_ERR_HAR2" String="Possible causes of this problem include:" />
@@ -107,11 +119,11 @@
     <Translation ID="PRR_CON_GBC" String="Garbage Bin Controller mod detected" />
     <Translation ID="PRR_CON_PTR" String="Old Painter mod detected" />
     <Translation ID="PRR_CON_PTR1" String="The old Painter mod causes problems with the Harmony libraries used by this mod, resulting in random errors.  Please UNSUBSCRIBE from Painter (merely disabling is NOT sufficient); the Repaint mod can be used as a replacement." />
-    <Translation ID="PRR_UPD_21_0" String="Plopplable RICO Revisited 2.1 update" />
-    <Translation ID="PRR_UPD_21_1" String="Ploppable RICO Revisited has been updated to version 2.1.  Some key features of this update are:" />
-    <Translation ID="PRR_UPD_21_2" String="New mod options panel (accessed via game options), including option for plain thumbnail backgrounds." />
-    <Translation ID="PRR_UPD_21_3" String="Adjusted lighting of thumnail image renders to help users with over-saturated map themes." />
-    <Translation ID="PRR_UPD_21_4" String="Local RICO settings created from existing growable buildings will be growable by default and inherit the default household/workplace counts of the original." />
-    <Translation ID="PRR_UPD_21_5" String="Additional failsafes to reduce risk of residential building household counts being reduced on game load if your city is close to hitting internal game limits." />
+    <Translation ID="PRR_UPD_23_0" String="Plopplable RICO Revisited 2.3 update" />
+    <Translation ID="PRR_UPD_23_1" String="Ploppable RICO Revisited has been updated to version 2.3.  Some key features of this update are:" />
+    <Translation ID="PRR_UPD_23_2" String="Ploppable RICO now includes 'Plop the Growables'-style functionality for both RICO and non-RICO buildings - see the options panel for details." />
+    <Translation ID="PRR_UPD_23_3" String="RICO growable buildings can now be placed outside of zones (configurable)." />
+    <Translation ID="PRR_UPD_23_4" String="Complaints about 'low land value' and 'not enough services' can now be disabled." />
+    <Translation ID="PRR_UPD_23_5" String="Building thumbnail images are now only generated as needed, reducing memory and improving loading times." />
   </Translations>
 </Language>

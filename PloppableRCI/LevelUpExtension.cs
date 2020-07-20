@@ -26,15 +26,14 @@ namespace PloppableRICO
         public override ResidentialLevelUp OnCalculateResidentialLevelUp(ResidentialLevelUp levelUp, int averageEducation, int landValue,
             ushort buildingID, Service service, SubService subService, Level currentLevel)
         {
-            // Check if the 'ignore low land value complaint' setting is set.
-            if (ModSettings.ignoreValue)
+            // Check if this building is RICO or not.
+            bool isRICO = IsRICOBuilding(buildingID);
+
+            // Check if the relevant 'ignore low land value complaint' setting is set.
+            if ((ModSettings.noValueOther && !isRICO) || (ModSettings.noValueRico && isRICO))
             {
-                // Check if this building is one of ours.
-                if (IsRICOBuilding(buildingID))
-                {
-                    // It is - force land value complaint off.
-                    levelUp.landValueTooLow = false;
-                }
+                // It is - force land value complaint off.
+                levelUp.landValueTooLow = false;
             }
 
             return levelUp;
@@ -57,15 +56,14 @@ namespace PloppableRICO
         public override CommercialLevelUp OnCalculateCommercialLevelUp(CommercialLevelUp levelUp, int averageWealth, int landValue,
             ushort buildingID, Service service, SubService subService, Level currentLevel)
         {
-            // Check if the 'ignore low land value complaint' setting is set.
-            if (ModSettings.ignoreValue)
+            // Check if this building is RICO or not.
+            bool isRICO = IsRICOBuilding(buildingID);
+
+            // Check if the relevant 'ignore low land value complaint' setting is set.
+            if ((ModSettings.noValueOther && !isRICO) || (ModSettings.noValueRico && isRICO))
             {
-                // Check if this building is one of ours.
-                if (IsRICOBuilding(buildingID))
-                {
-                    // It is - force land value complaint off.
-                    levelUp.landValueTooLow = false;
-                }
+                // It is - force land value complaint off.
+                levelUp.landValueTooLow = false;
             }
 
             return levelUp;
@@ -88,15 +86,14 @@ namespace PloppableRICO
         public override IndustrialLevelUp OnCalculateIndustrialLevelUp(IndustrialLevelUp levelUp, int averageEducation, int serviceScore,
             ushort buildingID, Service service, SubService subService, Level currentLevel)
         {
-            // Check if the 'ignore too few services complaint' setting is set.
-            if (ModSettings.ignoreServices)
+            // Check if this building is RICO or not.
+            bool isRICO = IsRICOBuilding(buildingID);
+
+            // Check if the relevant 'ignore too few services complaint' setting is set.
+            if ((ModSettings.noServicesOther && !isRICO) || (ModSettings.noServicesRico && isRICO))
             {
-                // Check if this building is one of ours.
-                if (IsRICOBuilding(buildingID))
-                {
-                    // It is - force too few services complaint off.
-                    levelUp.tooFewServices = false;
-                }
+                // It is - force too few services complaint off.
+                levelUp.tooFewServices = false;
             }
 
             return levelUp;
@@ -119,15 +116,14 @@ namespace PloppableRICO
         public override OfficeLevelUp OnCalculateOfficeLevelUp(OfficeLevelUp levelUp, int averageEducation, int serviceScore, ushort buildingID,
             Service service, SubService subService, Level currentLevel)
         {
-            // Check if the 'ignore too few services complaint' setting is set.
-            if (ModSettings.ignoreServices)
+            // Check if this building is RICO or not.
+            bool isRICO = IsRICOBuilding(buildingID);
+
+            // Check if the relevant 'ignore too few services complaint' setting is set.
+            if ((ModSettings.noServicesOther && !isRICO) || (ModSettings.noServicesRico && isRICO))
             {
-                // Check if this building is one of ours.
-                if (IsRICOBuilding(buildingID))
-                {
-                    // It is - force too few services complaint off.
-                    levelUp.tooFewServices = false;
-                }
+                // It is - force too few services complaint off.
+                levelUp.tooFewServices = false;
             }
 
             return levelUp;
@@ -139,13 +135,6 @@ namespace PloppableRICO
         /// </summary>
         /// <param name="buildingID">Building instance ID</param>
         /// <returns>True if this is a Ploppable RICO building, false otherwise</returns>
-        private bool IsRICOBuilding(ushort buildingID)
-        {
-            // Get AI instance.
-            PrivateBuildingAI thisAI = Singleton<BuildingManager>.instance.m_buildings.m_buffer[buildingID].Info.GetAI() as PrivateBuildingAI;
-
-            // Check AI against our AI types to determine result.
-            return thisAI != null && (thisAI is GrowableResidentialAI || thisAI is GrowableCommercialAI || thisAI is GrowableOfficeAI || thisAI is GrowableIndustrialAI || thisAI is GrowableExtractorAI);
-        }
+        private bool IsRICOBuilding(ushort buildingID) => RICOUtils.IsRICOAI(Singleton<BuildingManager>.instance.m_buildings.m_buffer[buildingID].Info.GetAI() as PrivateBuildingAI);
     }
 }

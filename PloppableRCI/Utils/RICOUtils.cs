@@ -1,7 +1,21 @@
-﻿namespace PloppableRICO
+﻿using ColossalFramework;
+
+
+namespace PloppableRICO
 {
+    /// <summary>
+    /// Internal static RICO utilities class.
+    /// </summary>
     internal static class RICOUtils
     {
+        /// <summary>
+        /// Checks if a builing instance has a Ploppable RICO custom AI.
+        /// </summary>
+        /// <param name="buildingID">Building instance ID</param>
+        /// <returns>True if this building has a Ploppable RICO custom AI, false otherwise</returns>
+        internal static bool IsRICOAI(PrivateBuildingAI prefabAI) => prefabAI != null && (prefabAI is GrowableResidentialAI || prefabAI is GrowableCommercialAI || prefabAI is GrowableIndustrialAI || prefabAI is GrowableOfficeAI || prefabAI is GrowableExtractorAI);
+
+
         /// <summary>
         /// Returns the currently applied RICO settings (RICO building) for the provided BuilingData instance.
         /// </summary>

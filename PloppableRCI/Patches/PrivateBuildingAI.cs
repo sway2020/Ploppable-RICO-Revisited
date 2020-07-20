@@ -96,18 +96,14 @@ namespace PloppableRICO
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static bool NewZoneCheck(ref Building buildingData, ItemClass.Zone zone1, ItemClass.Zone zone2, bool allowCollapse)
         {
-            // Do we have no zone checks selected?
-            if (ModSettings.noZoneChecks)
-            {
-                // Get AI reference.
-                PrivateBuildingAI _instance = buildingData.Info.GetAI() as PrivateBuildingAI;
+            // Check if this building is RICO or not.
+            bool isRICO = RICOUtils.IsRICOAI(buildingData.Info.GetAI() as PrivateBuildingAI);
 
-                // Test to see if this AI is one of ours.
-                if (_instance != null && (_instance is GrowableResidentialAI || _instance is GrowableCommercialAI || _instance is GrowableOfficeAI || _instance is GrowableIndustrialAI || _instance is GrowableExtractorAI))
-                {
-                    // It's one of ours; always return true (tell the game we're in a valid zone).
-                    return true;
-                }
+            // Check if the relevant 'ignore zoning' setting is set.
+            if ((ModSettings.noZonesOther && !isRICO) || (ModSettings.noZonesRico && isRICO))
+            {
+                // It is - return true (tell the game we're in a valid zone).
+                return true;
             }
 
             // If we got here, this isn't a building covered by our settings: call original method and return its result.

@@ -64,39 +64,37 @@ namespace PloppableRICO
 		{
 			// Check that we have a valid building ID.
 			if (__result == 0)
-            {
+			{
 				return;
 			}
 
 			// Get building AI.
 			PrivateBuildingAI buildingAI = info.GetAI() as PrivateBuildingAI;
 
+			// Check if AI is a RICO custom AI type.
+			bool isRICO = RICOUtils.IsRICOAI(buildingAI);
+
 			// Check if it's a RICO custom AI type.
-			if (buildingAI != null && (buildingAI is GrowableResidentialAI || buildingAI is GrowableCommercialAI || buildingAI is GrowableIndustrialAI || buildingAI is GrowableOfficeAI || buildingAI is GrowableExtractorAI))
+			// Enable 'ploppable growables' if option is set.
+			if ((ModSettings.plopOther && !isRICO) || (ModSettings.plopRico && isRICO))
 			{
-				// It's one of ours - apply options.
-
-				// Enable 'ploppable growables' if option is set.
-				if (ModSettings.plopGrowables)
+				// Check to see if construction time is greater than zero.
+				if (buildingAI.m_constructionTime > 0)
 				{
-					// Check to see if construction time is greater than zero.
-					if (buildingAI.m_constructionTime > 0)
-					{
-						Building data = Singleton<BuildingManager>.instance.m_buildings.m_buffer[__result];
+					Building data = Singleton<BuildingManager>.instance.m_buildings.m_buffer[__result];
 
-						Singleton<BuildingManager>.instance.m_buildings.m_buffer[__result].m_frame0.m_constructState = byte.MaxValue;
-						BuildingCompletedRev(buildingAI, __result, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[__result]);
+					Singleton<BuildingManager>.instance.m_buildings.m_buffer[__result].m_frame0.m_constructState = byte.MaxValue;
+					BuildingCompletedRev(buildingAI, __result, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[__result]);
 
-						// Have to do this manually as CommonBuildingAI.BuildingCompleted won't if construction time isn't zero.
-						Singleton<BuildingManager>.instance.UpdateBuildingRenderer(__result, updateGroup: true);
-					}
+					// Have to do this manually as CommonBuildingAI.BuildingCompleted won't if construction time isn't zero.
+					Singleton<BuildingManager>.instance.UpdateBuildingRenderer(__result, updateGroup: true);
 				}
+			}
 
-				// Enable 'Make Historical' if option is set.
-				if (ModSettings.makeHistorical)
-				{
-					info.m_buildingAI.SetHistorical(__result, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[__result], historical: true);
-				}
+			// Enable 'Make Historical' if option is set.
+			if ((ModSettings.historicalOther && !isRICO) || (ModSettings.historicalRico && isRICO))
+			{
+				info.m_buildingAI.SetHistorical(__result, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[__result], historical: true);
 			}
 		}
 

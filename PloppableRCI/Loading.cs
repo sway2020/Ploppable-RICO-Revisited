@@ -162,13 +162,16 @@ namespace PloppableRICO
             Debugging.Message("loading complete");
 
             // Load settings file and check if we need to display update notification.
-            if (UpdateNotification.notificationVersion != 2)
+            if (UpdateNotification.notificationVersion != 3)
             {
                 // No update notification "Don't show again" flag found; show the notification.
                 UpdateNotification notification = new UpdateNotification();
                 notification.Create();
                 notification.Show();
             }
+
+            // Set up options panel event handler.
+            OptionsPanel.OptionsEventHook();
         }
     }
 }
