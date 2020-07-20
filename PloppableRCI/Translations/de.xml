@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Language UniqueName="de" ReadableName="Deutsch">
+  <Translations>
+    "<Translation ID="PRR_LEVEL" String="Level" />
+    "<Translation ID="PRR_LVL" String="Lvl" />
+    "<Translation ID="PRR_HOU" String="Haushalte" />
+    "<Translation ID="PRR_WOR" String="Arbeitsplätze" />
+    "<Translation ID="PRR_SRV_NON" String="Ohne Spezialisierung" />
+    "<Translation ID="PRR_SRV_RES" String="Wohnung" />
+    "<Translation ID="PRR_SRV_IND" String="Industrie" />
+    "<Translation ID="PRR_SRV_OFF" String="Büro" />
+    "<Translation ID="PRR_SRV_COM" String="Geschäft" />
+    "<Translation ID="PRR_SUB_HIG" String="Dicht bebaut" />
+    "<Translation ID="PRR_SUB_LOW" String="Schwach bebaut" />
+    "<Translation ID="PRR_SUB_LEI" String="Freizeit" />
+    "<Translation ID="PRR_SUB_TOU" String="Tourismus" />
+    "<Translation ID="PRR_SUB_ORG" String="Ökologisch" />
+    "<Translation ID="PRR_SUB_GEN" String="Standard" />
+    "<Translation ID="PRR_SUB_ITC" String="IT-Unternehmen" />
+    "<Translation ID="PRR_SUB_FAR" String="Landwirtschaft" />
+    "<Translation ID="PRR_SUB_FOR" String="Forstwirtschaft" />
+    "<Translation ID="PRR_SUB_OIL" String="Öl" />
+    "<Translation ID="PRR_SUB_ORE" String="Erz" />
+    "<Translation ID="PRR_FTR_ALL" String="Alles" />
+    "<Translation ID="PRR_FTR_NON" String="Nichts" />
+    "<Translation ID="PRR_FTR_NAM" String="Name/Bezeichnung" />
+    "<Translation ID="PRR_FTR_SET" String="Filtern nach: Mod/Ersteller/Lokal/Alle" />
+    "<Translation ID="PRR_OPT_ENA" String="RICO aktivieren" />
+    "<Translation ID="PRR_OPT_SER" String="Gebäudeart" />
+    "<Translation ID="PRR_OPT_SUB" String="Unterart" />
+    "<Translation ID="PRR_OPT_UIC" String="UI Kategorie" />
+    "<Translation ID="PRR_OPT_CST" String="Baukosten" />
+    "<Translation ID="PRR_OPT_CNT" String="Arbeiter-/Hauhaltsanzahl" />
+    "<Translation ID="PRR_OPT_POP" String="&quot;Realistic Pop&quot; Mod nutzen" />
+    "<Translation ID="PRR_OPT_POL" String="Verschmutzung aktivieren" />
+    "<Translation ID="PRR_OPT_JB0" String="Hilfskräfte" />
+    "<Translation ID="PRR_OPT_JB1" String="Gebildete Arbeiter" />
+    "<Translation ID="PRR_OPT_JB2" String="Gut gebildete Arbeiter" />
+    "<Translation ID="PRR_OPT_JB3" String="Führungskräfte" />
+    "<Translation ID="PRR_SET" String="Einstellungen" />
+    "<Translation ID="PRR_SET_RICO" String="RICO Einstellungen" />
+    "<Translation ID="PRR_SET_HASMOD" String="Mod-Einstellungen" />
+    "<Translation ID="PRR_SET_HASAUT" String="Ersteller-Einstellungen" />
+    "<Translation ID="PRR_SET_HASLOC" String="Lokale Einstellungen" />
+    "<Translation ID="PRR_SET_HASANY" String="Alle Einstellungen" />
+    "<Translation ID="PRR_SET_HASNON" String="Keine Einstellungen" />
+    "<Translation ID="PRR_SAV_SAV" String="Speichern" />
+    "<Translation ID="PRR_SAV_ADD" String="Lokale Einstellungen hinzufügen" />
+    "<Translation ID="PRR_SAV_REM" String="Lokale Einstellungen entfernen" />
+    "<Translation ID="PRR_SAV_APP" String="Speichern und anwenden" />
+    "<Translation ID="PRR_EXP" String="ACHTUNG: EXPERIMENTELL" />
+    "<Translation ID="TRN_CHOICE" String="Sprache ändern" />
+    "<Translation ID="TRN_SYS" String="Systemsprache nutzen" />
+  </Translations>
+</Language>

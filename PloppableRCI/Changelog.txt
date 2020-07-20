@@ -5,6 +5,7 @@
 - Add 'Make plopped buildings historical' option
 - Building icons in ploppable panel now sorted by display name
 - Fix building selection not updating when info panel button pressed
+- Add de, es, fr translations
 
 
 Version 2.3 BETA
