@@ -1,5 +1,6 @@
 ﻿- Add 'Instant Plopping' option for growables
 - Add 'Disable Zone Check' option for growables
+- Building icons in ploppable panel now sorted by display name
 - Fix building selection not updating when info panel button pressed
 
 

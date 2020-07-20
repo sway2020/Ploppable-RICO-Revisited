@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Linq;
-using System.Text;
 using UnityEngine;
 using ColossalFramework.UI;
-using ColossalFramework.Math;
-using System.Net.NetworkInformation;
 using System.Collections.Generic;
+
 
 namespace PloppableRICO
 {
@@ -331,6 +329,9 @@ namespace PloppableRICO
             // Clear the scroll panel.
             scrollPanel.Clear();
 
+            // List of buildings in this category.
+            List<BuildingData> buildingList = new List<BuildingData>();
+
             // Iterate through each prefab in our collection and see if it has RICO settings with a matching UI category.
             foreach (BuildingData buildingData in Loading.xmlManager.prefabHash.Values)
             {
@@ -340,13 +341,17 @@ namespace PloppableRICO
                 // See if there's a valid RICO setting.
                 if (ricoSetting != null)
                 {
-                    // Valid setting - if the UI category matches this one, add it to the scroll panel.
+                    // Valid setting - if the UI category matches this one, add it to the list.
                     if (UICategoryIndex(ricoSetting.uiCategory) == uiCategory)
                     {
-                        scrollPanel.itemsData.Add(buildingData);
+                        buildingList.Add(buildingData);
                     }
                 }
             }
+
+            // Set display FastList using our list of selected buildings, sorted alphabetically.
+            scrollPanel.itemsData.m_buffer = buildingList.OrderBy(x => x.DisplayName).ToArray();
+            scrollPanel.itemsData.m_size = buildingList.Count;
 
             // Display the scroll panel.
             scrollPanel.DisplayAt(0);
