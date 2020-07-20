@@ -11,6 +11,8 @@ namespace PloppableRICO
     {
         internal static bool plopGrowables = true;
         internal static bool noZoneChecks = true;
+        internal static bool ignoreValue = true;
+        internal static bool ignoreServices = true;
         internal static bool speedBoost = false;
         internal static bool debugLogging = false;
         internal static bool resetOnLoad = true;
@@ -49,6 +51,10 @@ namespace PloppableRICO
         public int NotificationVersion { get => UpdateNotification.notificationVersion; set => UpdateNotification.notificationVersion = value; }
         [XmlElement("PlopGrowables")]
         public bool PlopGrowables { get => ModSettings.plopGrowables; set => ModSettings.plopGrowables = value; }
+        [XmlElement("IgnoreValue")]
+        public bool IgnoreValue { get => ModSettings.ignoreValue; set => ModSettings.plopGrowables = value; }
+        [XmlElement("IgnoreServices")]
+        public bool IgnoreServices { get => ModSettings.ignoreServices; set => ModSettings.plopGrowables = value; }
         [XmlElement("NoZoneChecks")]
         public bool NoZoneChecks { get => ModSettings.noZoneChecks; set => ModSettings.noZoneChecks = value; }
         [XmlElement("SpeedBoost")]

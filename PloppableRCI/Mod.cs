@@ -75,6 +75,21 @@ namespace PloppableRICO
                 SettingsUtils.SaveSettings();
             });
 
+
+            // Add 'ignore low value complaint' checkbox.
+            otherGroup.AddCheckbox(Translations.Translate("PRR_OPTION_IGVAL"), ModSettings.ignoreValue, isChecked =>
+            {
+                ModSettings.ignoreValue = isChecked;
+                SettingsUtils.SaveSettings();
+            });
+
+            // Add 'ignoretoo few services complaint' checkbox.
+            otherGroup.AddCheckbox(Translations.Translate("PRR_OPTION_IGSVS"), ModSettings.ignoreServices, isChecked =>
+            {
+                ModSettings.ignoreServices = isChecked;
+                SettingsUtils.SaveSettings();
+            });
+
             // Add logging checkbox.
             otherGroup.AddCheckbox(Translations.Translate("PRR_OPTION_MOREDEBUG"), ModSettings.debugLogging, isChecked =>
             {
