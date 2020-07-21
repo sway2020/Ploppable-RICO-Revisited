@@ -1,4 +1,6 @@
-﻿- Add 'Instant Plopping' option for growables
+﻿Version 2.3 BETA2
+
+- Add 'Instant Plopping' option for growables
 - Add 'Disable Zone Check' option for growables
 - Add 'Ignore low land value complaint' option
 - Add 'Ignore too few services complaint' option

@@ -276,6 +276,12 @@ namespace PloppableRICO
                             // Done!
                             hasShown = true;
                         }
+                        else
+                        {
+                            // Clear previous selection and refresh panel.
+                            scrollPanel.selectedItem = null;
+                            scrollPanel.Refresh();
+                        }
                     }
                     else
                     {
