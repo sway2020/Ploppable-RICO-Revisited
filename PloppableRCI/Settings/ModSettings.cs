@@ -3,7 +3,6 @@
 
 namespace PloppableRICO
 {
-
     /// <summary>
     /// Class to hold global mod settings.
     /// </summary>
