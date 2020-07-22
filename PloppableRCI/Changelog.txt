@@ -1,4 +1,4 @@
-﻿Version 2.3 BETA2
+﻿Version 2.3
 
 - Add 'Instant Plopping' option for growables
 - Add 'Disable Zone Check' option for growables
@@ -6,19 +6,14 @@
 - Add 'Ignore too few services complaint' option
 - Add 'Make plopped buildings historical' option
 - Building icons in ploppable panel now sorted by display name
-- Fix building selection not updating when info panel button pressed
-- Add de, es, fr translations
-
-
-Version 2.3 BETA
-
 - Transition to on-demand thumbnail generation
 - Add submesh and sub-building rendering to preview images
 - Tweak thumbnail lighting and angles slightly
+- Fix building selection not updating when info panel button pressed
 - Add BuildingLoaded Harmony Postfix patch to attempt to catch and reset and RICO residentials with zero CitizenUnits
 - Stop attempting to remove existing (non-RICO) building UI buttons on game load
 - Remove existing (non-RICO) building UI buttons (if any) when settings are applied live
-- Add jp,  ru, tr translations
+- Add de, es, fr, jp, ru, tr translations
 
 
 Version 2.2.3

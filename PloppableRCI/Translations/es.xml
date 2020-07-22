@@ -98,13 +98,13 @@
     "<Translation ID="PRR_ERR_HAR1" String="Ploppable RICO Revisited no pudo parchear el mod Harmony. Esto significa que el mod no esta listo para operar, y se ha desactivado para evitar daños a su partida" />
     "<Translation ID="PRR_ERR_HAR2" String="Las posibles causas de este problema son:" />
     "<Translation ID="PRR_ERR_HAR3" String="El mod Harmony 2 no fue instalado" />
-    "<Translation ID="PRR_ERR_HAR4" String="Un mod desactualizado y/o roto no deja que Harmony 2 funcione adecuadamente (Se sabe que los mods &quot;Painter&quot; y &quot;Garbage Bin Controller&quot; causan esto)" />
+    "<Translation ID="PRR_ERR_HAR4" String="Un mod desactualizado y/o roto no deja que Harmony 2 funcione adecuadamente (Se sabe que los mods «Painter» y «Garbage Bin Controller» causan esto)" />
     "<Translation ID="PRR_CON_DWN" String="RICO Revisited se desactivará para proteger tu partida" />
     "<Translation ID="PRR_CON_ONE" String="Solamente uno de estos mods puede estar activado - por favor escoja uno y anule la suscripción del otro." />
-    "<Translation ID="PRR_CON_OPR" String="Mod &quot;Original Ploppable RICO&quot; detectado" />
-    "<Translation ID="PRR_CON_EBC" String="Mod &quot;Enhanced Building Capacity&quot; detectado" />
-    "<Translation ID="PRR_CON_GBC" String="Mod &quot;Garbage Bin Controller&quot; detectado" />
-    "<Translation ID="PRR_CON_PTR" String="Mod &quot;Old Painter&quot; detectado" />
+    "<Translation ID="PRR_CON_OPR" String="Mod «Original Ploppable RICO» detectado" />
+    "<Translation ID="PRR_CON_EBC" String="Mod «Enhanced Building Capacity» detectado" />
+    "<Translation ID="PRR_CON_GBC" String="Mod «Garbage Bin Controller» detectado" />
+    "<Translation ID="PRR_CON_PTR" String="Mod «Painter» detectado" />
     "<Translation ID="PRR_CON_PTR1" String="El mod ''old painter'' esta causando problemas con las librerias Harmony (Harmony libraries) que usa este mod; lo que genera varios errores. Por favor anular la suscripción a este mod (No bastará con desactivarlo); el mod Repaint puede ser utilizado en su reemplazo." />
   </Translations>
 </Language>
