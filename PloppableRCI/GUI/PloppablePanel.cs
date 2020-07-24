@@ -98,6 +98,12 @@ namespace PloppableRICO
                 // Reset the tooltip before showing each time, as sometimes it gets clobbered either by the game or another mod.
                 component.tooltip = BuildingTooltip(currentData);
             };
+
+            // Double-click to open building's settings.
+            component.eventDoubleClick += (component, mouseEvent) =>
+            {
+                SettingsPanel.Open(currentData.prefab);
+            };
         }
 
 
