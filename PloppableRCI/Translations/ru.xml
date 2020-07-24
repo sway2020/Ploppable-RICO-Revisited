@@ -24,8 +24,8 @@
     <Translation ID="PRR_SUB_ITC" String="IT" />
     <Translation ID="PRR_SUB_FAR" String="Фермерство" />
     <Translation ID="PRR_SUB_FOR" String="Лесопроизводство" />
-    <Translation ID="PRR_SUB_OIL" String="Нефтепроизводство" />
-    <Translation ID="PRR_SUB_ORE" String="Минералопроизводство" />
+    <Translation ID="PRR_SUB_OIL" String="Нефтедобыча" />
+    <Translation ID="PRR_SUB_ORE" String="Горная промышленность" />
     <Translation ID="PRR_FTR_ALL" String="Всё" />
     <Translation ID="PRR_FTR_NON" String="Ничего" />
     <Translation ID="PRR_FTR_NAM" String="Имя" />

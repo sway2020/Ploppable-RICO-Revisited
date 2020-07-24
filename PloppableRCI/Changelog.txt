@@ -1,7 +1,8 @@
 ﻿Version 2.3
 
-- Add 'Instant Plopping' option for growables
-- Add 'Disable Zone Check' option for growables
+- Add 'Instant plopping' option for growables
+- Add 'Disable zone check' option for growables
+- Add 'Disable district specialization check' option for growables
 - Add 'Ignore low land value complaint' option
 - Add 'Ignore too few services complaint' option
 - Add 'Make plopped buildings historical' option

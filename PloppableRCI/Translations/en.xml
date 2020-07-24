@@ -86,6 +86,7 @@
     <Translation ID="PRR_DESCRIPTION" String="Allows RICO buildings greater than 4x4 in size and RICO building customisation" />
     <Translation ID="PRR_OPTION_PLP" String="Instantly plop growable buildings (no construction)" />
     <Translation ID="PRR_OPTION_ZON" String="Growable buildings can survive outside of the correct zone" />
+    <Translation ID="PRR_OPTION_SPC" String="Growable buildings can survive without required district specializations" />
     <Translation ID="PRR_OPTION_VAL" String="Ignore 'low land value' complaint" />
     <Translation ID="PRR_OPTION_SVC" String="Ignore 'too few services' complaint" />
     <Translation ID="PRR_OPTION_HST" String="Make all plopped growables historical" />

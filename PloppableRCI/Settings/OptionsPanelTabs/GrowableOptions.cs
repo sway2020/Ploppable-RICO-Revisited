@@ -47,6 +47,18 @@ namespace PloppableRICO
                 SettingsUtils.SaveSettings();
             });
 
+            // Add no specialisation checks checkboxes.
+            UIHelperBase specGroup = helper.AddGroup(Translations.Translate("PRR_OPTION_SPC"));
+            specGroup.AddCheckbox(Translations.Translate("PRR_OPTION_RCO"), ModSettings.noSpecRico, isChecked =>
+            {
+                ModSettings.noSpecRico = isChecked;
+                SettingsUtils.SaveSettings();
+            });
+            specGroup.AddCheckbox(Translations.Translate("PRR_OPTION_OTH"), ModSettings.noSpecOther, isChecked =>
+            {
+                ModSettings.noSpecOther = isChecked;
+                SettingsUtils.SaveSettings();
+            });
 
             // Add 'ignore low value complaint' checkboxes.
             UIHelperBase valueGroup = helper.AddGroup(Translations.Translate("PRR_OPTION_VAL"));

@@ -12,6 +12,8 @@ namespace PloppableRICO
         internal static bool plopOther = false;
         internal static bool noZonesRico = true;
         internal static bool noZonesOther = false;
+        internal static bool noSpecRico = true;
+        internal static bool noSpecOther = false;
         internal static bool noValueRico = true;
         internal static bool noValueOther = false;
         internal static bool noServicesRico = true;
@@ -66,6 +68,12 @@ namespace PloppableRICO
 
         [XmlElement("NoZonesOther")]
         public bool NoZonesOther { get => ModSettings.noZonesOther; set => ModSettings.noZonesOther = value; }
+
+        [XmlElement("NoSpecRico")]
+        public bool NoSpecRico { get => ModSettings.noSpecRico; set => ModSettings.noSpecRico = value; }
+
+        [XmlElement("NoSpecOther")]
+        public bool NoSpecOther { get => ModSettings.noSpecOther; set => ModSettings.noSpecOther = value; }
 
         [XmlElement("NoValueRico")]
         public bool NoValueRico { get => ModSettings.noValueRico; set => ModSettings.noValueRico = value; }
