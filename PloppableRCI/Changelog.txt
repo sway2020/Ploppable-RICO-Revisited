@@ -6,6 +6,7 @@
 - Add 'Ignore low land value complaint' option
 - Add 'Ignore too few services complaint' option
 - Add 'Make plopped buildings historical' option
+- Current building selection (if any) is now pre-selected when opening settings panel
 - Building icons in ploppable panel now sorted by display name
 - Transition to on-demand thumbnail generation
 - Add submesh and sub-building rendering to preview images
