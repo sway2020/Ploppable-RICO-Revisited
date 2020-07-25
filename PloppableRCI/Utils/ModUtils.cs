@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using ColossalFramework.Plugins;
 using ColossalFramework.Packaging;
-using System.Diagnostics;
+
 
 namespace PloppableRICO
 {
