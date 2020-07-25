@@ -213,13 +213,13 @@ namespace PloppableRICO
         public override void SimulationStep(ushort buildingID, ref Building buildingData, ref Building.Frame frameData)
         {
             // Apply flags.
-            Util.buildingFlags(ref buildingData);
+            AIUtils.SetBuildingFlags(ref buildingData);
 
             // Execute base method.
             base.SimulationStep(buildingID, ref buildingData, ref frameData);
 
             // Ensure flags are still applied.
-            Util.buildingFlags(ref buildingData);
+            AIUtils.SetBuildingFlags(ref buildingData);
         }
 
 
@@ -233,13 +233,13 @@ namespace PloppableRICO
         protected override void SimulationStepActive(ushort buildingID, ref Building buildingData, ref Building.Frame frameData)
         {
             // Apply flags.
-            Util.buildingFlags(ref buildingData);
+            AIUtils.SetBuildingFlags(ref buildingData);
 
             // Execute base method.
             base.SimulationStepActive(buildingID, ref buildingData, ref frameData);
 
             // Ensure flags are still applied.
-            Util.buildingFlags(ref buildingData);
+            AIUtils.SetBuildingFlags(ref buildingData);
         }
     }
 }

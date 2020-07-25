@@ -15,6 +15,10 @@ namespace PloppableRICO
         /// <param name="prefab">The building prefab to be changed</param>
         internal void ConvertPrefab(RICOBuilding buildingData, BuildingInfo prefab)
         {
+            // AI class  for prefab init.
+            string aiClass;
+
+
             if (prefab != null)
             {
                 // Check eligibility for any growable assets.
@@ -35,185 +39,269 @@ namespace PloppableRICO
                     }
                 }
 
-                if (buildingData.service == "dummy")
+                // Apply AI based on service.
+                switch (buildingData.service)
                 {
-                    var ai = prefab.gameObject.AddComponent<DummyBuildingAI>();
+                    // Dummy AI.
+                    case "dummy":
 
-                    // Use beautification ItemClass to avoid issues, and never make growable.
-                    InitializePrefab(prefab, ai, "Beautification Item", false);
+                        // Get AI.
+                        DummyBuildingAI dummyAI = prefab.gameObject.AddComponent<DummyBuildingAI>();
 
-                    // Final circular reference.
-                    prefab.m_buildingAI.m_info = prefab;
-                }
-                else if (buildingData.service == "residential")
-                {
-                    var ai = buildingData.growable ? prefab.gameObject.AddComponent<GrowableResidentialAI>() : prefab.gameObject.AddComponent<PloppableResidentialAI>();
-                    if (ai == null) throw (new Exception("Residential-AI not found."));
+                        // Use beautification ItemClass to avoid issues, and never make growable.
+                        InitializePrefab(prefab, dummyAI, "Beautification Item", false);
 
-                    ai.m_ricoData = buildingData;
-                    ai.m_constructionCost = buildingData.constructionCost;
-                    ai.m_homeCount = buildingData.homeCount;
+                        // Final circular reference.
+                        prefab.m_buildingAI.m_info = prefab;
 
-                    if (buildingData.subService == "low eco")
-                    {
-                        // Apply eco service if GC installed, otherwise use normal low residential.
-                        if (Util.isGCinstalled())
+                        // Dummy is a special case, and we're done here.
+                        return;
+
+                    // Residential AI.
+                    case "residential":
+
+                        // Get AI.
+                        GrowableResidentialAI residentialAI = buildingData.growable ? prefab.gameObject.AddComponent<GrowableResidentialAI>() : prefab.gameObject.AddComponent<PloppableResidentialAI>();
+                        if (residentialAI == null)
                         {
-                            InitializePrefab(prefab, ai, "Low Residential Eco - Level" + buildingData.level, buildingData.growable);
+                            throw new Exception("Ploppable RICO residential AI not found.");
+                        }
+
+                        // Assign basic parameters.
+                        residentialAI.m_ricoData = buildingData;
+                        residentialAI.m_constructionCost = buildingData.constructionCost;
+                        residentialAI.m_homeCount = buildingData.homeCount;
+
+                        // Determine AI class string according to subservice.
+                        switch (buildingData.subService)
+                        {
+                            case "low eco":
+                                // Apply eco service if GC installed, otherwise use normal low residential.
+                                if (Util.isGCinstalled())
+                                {
+                                    aiClass = "Low Residential Eco - Level";
+                                }
+                                else
+                                {
+                                    aiClass = "Low Residential - Level";
+                                }
+                                break;
+
+                            case "high eco":
+                                // Apply eco service if GC installed, otherwise use normal high residential.
+                                if (Util.isGCinstalled())
+                                {
+                                    aiClass = "High Residential Eco - Level";
+                                }
+                                else
+                                {
+                                    aiClass = "High Residential - Level";
+                                }
+                                break;
+
+                            case "high":
+                                // Stock standard high commercial.
+                                aiClass = "High Residential - Level";
+                                break;
+
+                            default:
+                                // Fall back to low residential as default.
+                                aiClass = "Low Residential - Level";
+
+                                // If invalid subservice, report.
+                                if (buildingData.subService != "low")
+                                {
+                                    Debugging.ErrorBuffer.AppendLine("Residential building " + buildingData.name + " has invalid subservice " + buildingData.subService + "; reverting to low residential.");
+                                }
+                                break;
+                        }
+
+                        // Initialize the prefab.
+                        InitializePrefab(prefab, residentialAI, aiClass + buildingData.level, buildingData.growable);
+
+                        break;
+
+                    // Office AI.
+                    case "office":
+
+                        // Get AI.
+                        GrowableOfficeAI officeAI = buildingData.growable ? prefab.gameObject.AddComponent<GrowableOfficeAI>() : prefab.gameObject.AddComponent<PloppableOfficeAI>();
+                        if (officeAI == null)
+                        {
+                            throw new Exception("Ploppable RICO Office AI not found.");
+                        }
+
+                        // Assign basic parameters.
+                        officeAI.m_ricoData = buildingData;
+                        officeAI.m_workplaceCount = buildingData.workplaceCount;
+                        officeAI.m_constructionCost = buildingData.constructionCost;
+
+                        // Check if this is an IT Cluster specialisation.
+
+                        // Determine AI class string according to subservice.
+                        if (buildingData.subService == "high tech")
+                        {
+                            // Apply IT cluster if GC installed, otherwise use Level 3 office.
+                            if (Util.isGCinstalled())
+                            {
+                                aiClass = "Office - Hightech";
+                            }
+                            else
+                            {
+                                aiClass = "Office - Level3";
+                            }
                         }
                         else
                         {
-                            InitializePrefab(prefab, ai, "Low Residential - Level" + buildingData.level, buildingData.growable);
+                            // Not IT cluster - boring old ordinary office.
+                            aiClass = "Office - Level" + buildingData.level;
                         }
-                    }
-                    else if (buildingData.subService == "high eco")
-                    {
-                        // Apply eco service if GC installed, otherwise use normal high residential.
-                        if (Util.isGCinstalled())
+
+                        // Initialize the prefab.
+                        InitializePrefab(prefab, officeAI, aiClass, buildingData.growable);
+
+                        break;
+
+                    // Industrial AI.
+                    case "industrial":
+                        // Get AI.
+                        GrowableIndustrialAI industrialAI = buildingData.growable ? prefab.gameObject.AddComponent<GrowableIndustrialAI>() : prefab.gameObject.AddComponent<PloppableIndustrialAI>();
+                        if (industrialAI == null)
                         {
-                            InitializePrefab(prefab, ai, "High Residential Eco - Level" + buildingData.level, buildingData.growable);
+                            throw new Exception("Ploppable RICO Industrial AI not found.");
+                        }
+
+                        // Assign basic parameters.
+                        industrialAI.m_ricoData = buildingData;
+                        industrialAI.m_workplaceCount = buildingData.workplaceCount;
+                        industrialAI.m_constructionCost = buildingData.constructionCost;
+                        industrialAI.m_pollutionEnabled = buildingData.pollutionEnabled;
+
+                        // Determine AI class string according to subservice.
+                        // Check for valid subservice.
+                        if (IsValidIndSubServ(buildingData.subService))
+                        {
+                            // Specialised industry.
+                            aiClass = ServiceName(buildingData.subService) + " - Processing";
                         }
                         else
                         {
-                            InitializePrefab(prefab, ai, "High Residential - Level" + buildingData.level, buildingData.growable);
+                            // Generic industry.
+                            aiClass = "Industrial - Level" + buildingData.level;
                         }
-                    }
-                    else if (buildingData.subService == "high")
-                    {
-                        // Stock standard high commercial.
-                        InitializePrefab(prefab, ai, "High Residential - Level" + buildingData.level, buildingData.growable);
-                    }
-                    else
-                    {
-                        // Fall back to low residential as default.
-                        InitializePrefab(prefab, ai, "Low Residential - Level" + buildingData.level, buildingData.growable);
 
-                        // If invalid subservice, report.
-                        if (buildingData.subService != "low")
+                        // Initialize the prefab.
+                        InitializePrefab(prefab, industrialAI, aiClass, buildingData.growable);
+
+                        break;
+
+                    // Extractor AI.
+                    case "extractor":
+                        // Get AI.
+                        GrowableExtractorAI extractorAI = buildingData.growable ? prefab.gameObject.AddComponent<GrowableExtractorAI>() : prefab.gameObject.AddComponent<PloppableExtractorAI>();
+                        if (extractorAI == null)
                         {
-                            Debugging.ErrorBuffer.AppendLine("Residential building " + buildingData.name + " has invalid subservice " + buildingData.subService + "; reverting to low residential.");
+                            throw new Exception("Ploppable RICO Extractor AI not found.");
                         }
-                    }
-                }
-                else if (buildingData.service == "office")
-                {
-                    var ai = buildingData.growable ? prefab.gameObject.AddComponent<GrowableOfficeAI>() : prefab.gameObject.AddComponent<PloppableOfficeAI>();
-                    if (ai == null) throw (new Exception("Office-AI not found."));
 
-                    ai.m_ricoData = buildingData;
-                    ai.m_workplaceCount = buildingData.workplaceCount;
-                    ai.m_constructionCost = buildingData.constructionCost;
+                        // Assign basic parameters.
+                        extractorAI.m_ricoData = buildingData;
+                        extractorAI.m_workplaceCount = buildingData.workplaceCount;
+                        extractorAI.m_constructionCost = buildingData.constructionCost;
+                        extractorAI.m_pollutionEnabled = buildingData.pollutionEnabled;
 
-                    if (buildingData.subService == "high tech")
-                    {
-                        // Apply IT cluster if GC installed, otherwise use Level 3 office.
-                        if (Util.isGCinstalled())
+                        // Check that we have a valid industry subservice.
+                        if (IsValidIndSubServ(buildingData.subService))
                         {
-                            InitializePrefab(prefab, ai, "Office - Hightech", buildingData.growable);
+                            // Initialise the prefab.
+                            InitializePrefab(prefab, extractorAI, ServiceName(buildingData.subService) + " - Extractor", buildingData.growable);
                         }
                         else
                         {
-                            InitializePrefab(prefab, ai, "Office - Level3", buildingData.growable);
+                            Debugging.Message("invalid industry subservice " + buildingData.subService + " for extractor " + buildingData.name);
                         }
-                    }
-                    else
-                    {
-                        // Not IT cluster - boring old ordinary office.
-                        InitializePrefab(prefab, ai, "Office - Level" + buildingData.level, buildingData.growable);
-                    }
-                }
-                else if (buildingData.service == "industrial")
-                {
-                    var ai = buildingData.growable ? prefab.gameObject.AddComponent<GrowableIndustrialAI>() : prefab.gameObject.AddComponent<PloppableIndustrialAI>();
-                    if (ai == null) throw (new Exception("Industrial-AI not found."));
 
-                    ai.m_ricoData = buildingData;
-                    ai.m_workplaceCount = buildingData.workplaceCount;
-                    ai.m_constructionCost = buildingData.constructionCost;
-                    ai.m_pollutionEnabled = buildingData.pollutionEnabled;
+                        break;
 
-                    if (Util.industryServices.Contains(buildingData.subService))
-                        InitializePrefab(prefab, ai, Util.ucFirst(buildingData.subService) + " - Processing", buildingData.growable);
-                    else
-                        InitializePrefab(prefab, ai, "Industrial - Level" + buildingData.level, buildingData.growable);
-                }
-                else if (buildingData.service == "extractor")
-                {
-                    var ai = buildingData.growable ? prefab.gameObject.AddComponent<GrowableExtractorAI>() : prefab.gameObject.AddComponent<PloppableExtractorAI>();
-                    if (ai == null) throw (new Exception("Extractor-AI not found."));
-
-                    ai.m_ricoData = buildingData;
-                    ai.m_workplaceCount = buildingData.workplaceCount;
-                    ai.m_constructionCost = buildingData.constructionCost;
-                    ai.m_pollutionEnabled = buildingData.pollutionEnabled;
-
-                    if (Util.industryServices.Contains(buildingData.subService))
-                        InitializePrefab(prefab, ai, Util.ucFirst(buildingData.subService) + " - Extractor", buildingData.growable);
-                }
-
-                else if (buildingData.service == "commercial")
-                {
-                    var ai = buildingData.growable ? prefab.gameObject.AddComponent<GrowableCommercialAI>() : prefab.gameObject.AddComponent<PloppableCommercialAI>();
-                    if (ai == null) throw (new Exception("Commercial-AI not found."));
-
-                    ai.m_ricoData = buildingData;
-                    ai.m_workplaceCount = buildingData.workplaceCount;
-                    ai.m_constructionCost = buildingData.constructionCost;
-
-                    if (buildingData.subService == "eco")
-                    {
-                        // Apply eco specialisation if GC installed, otherwise use Level 1 low commercial.
-                        if (Util.isGCinstalled())
+                    // Commercial AI.
+                    case "commercial":
+                        // Get AI.
+                        GrowableCommercialAI commercialAI = buildingData.growable ? prefab.gameObject.AddComponent<GrowableCommercialAI>() : prefab.gameObject.AddComponent<PloppableCommercialAI>();
+                        if (commercialAI == null)
                         {
-                            // Eco commercial buildings only import food goods.
-                            ai.m_incomingResource = TransferManager.TransferReason.Food;
-                            InitializePrefab(prefab, ai, "Eco Commercial", buildingData.growable);
+                            throw new Exception("Ploppable RICO Commercial AI not found.");
                         }
-                        else
-                        {
-                            InitializePrefab(prefab, ai, "Low Commercial - Level1", buildingData.growable);
-                        }
-                    }
-                    else if (buildingData.subService == "tourist")
-                    {
-                        // Apply tourist specialisation if AD installed, otherwise use Level 1 low commercial.
-                        if (Util.isADinstalled())
-                        {
-                            InitializePrefab(prefab, ai, "Tourist Commercial - Land", buildingData.growable);
-                        }
-                        else
-                        {
-                            InitializePrefab(prefab, ai, "Low Commercial - Level1", buildingData.growable);
-                        }
-                    }
-                    else if (buildingData.subService == "leisure")
-                    {
-                        // Apply leisure specialisation if AD installed, otherwise use Level 1 low commercial.
-                        if (Util.isADinstalled())
-                        {
-                            InitializePrefab(prefab, ai, "Leisure Commercial", buildingData.growable);
-                        }
-                        else
-                        {
-                            InitializePrefab(prefab, ai, "Low Commercial - Level1", buildingData.growable);
-                        }
-                    }
-                    else if (buildingData.subService == "high")
-                    {
-                        // Bog standard high commercial.
-                        InitializePrefab(prefab, ai, "High Commercial - Level" + buildingData.level, buildingData.growable);
-                    }
-                    else
-                    {
-                        // Fall back to low commercial as default.
-                        InitializePrefab(prefab, ai, "Low Commercial - Level" + buildingData.level, buildingData.growable);
 
-                        // If invalid subservice, report.
-                        if (buildingData.subService != "low")
+                        // Assign basic parameters.
+                        commercialAI.m_ricoData = buildingData;
+                        commercialAI.m_workplaceCount = buildingData.workplaceCount;
+                        commercialAI.m_constructionCost = buildingData.constructionCost;
+
+                        // Determine AI class string according to subservice.
+                        switch (buildingData.subService)
                         {
-                            Debugging.ErrorBuffer.AppendLine("Commercial building " + buildingData.name + " has invalid subService " + buildingData.subService + "; reverting to low commercial.");
+                            // Organic and Local Produce.
+                            case "eco":
+                                // Apply eco specialisation if GC installed, otherwise use Level 1 low commercial.
+                                if (Util.isGCinstalled())
+                                {
+                                    // Eco commercial buildings only import food goods.
+                                    commercialAI.m_incomingResource = TransferManager.TransferReason.Food;
+                                    aiClass = "Eco Commercial";
+                                }
+                                else
+                                {
+                                    aiClass = "Low Commercial - Level1";
+                                }
+                                break;
+
+                            // Tourism.
+                            case "tourist":
+                                // Apply tourist specialisation if AD installed, otherwise use Level 1 low commercial.
+                                if (Util.isADinstalled())
+                                {
+                                    aiClass = "Tourist Commercial - Land";
+                                }
+                                else
+                                {
+                                    aiClass = "Low Commercial - Level1";
+                                }
+                                break;
+
+                            // Leisure.
+                            case "leisure":
+                                // Apply leisure specialisation if AD installed, otherwise use Level 1 low commercial.
+                                if (Util.isADinstalled())
+                                {
+                                    aiClass = "Leisure Commercial";
+                                }
+                                else
+                                {
+                                    aiClass = "Low Commercial - Level1";
+                                }
+                                break;
+
+                            // Bog standard high commercial.
+                            case "high":
+                                aiClass = "High Commercial - Level" + buildingData.level;
+                                break;
+
+                            // Fall back to low commercial as default.
+                            default:
+                                aiClass = "Low Commercial - Level" + buildingData.level;
+
+                                // If invalid subservice, report.
+                                if (buildingData.subService != "low")
+                                {
+                                    Debugging.ErrorBuffer.AppendLine("Commercial building " + buildingData.name + " has invalid subService " + buildingData.subService + "; reverting to low commercial.");
+                                }
+                                break;
                         }
-                    }
+
+                        // Initialize the prefab.
+                        InitializePrefab(prefab, commercialAI, aiClass, buildingData.growable);
+
+                        break;
                 }
             }
         }
@@ -234,12 +322,45 @@ namespace PloppableRICO
                 ((PrivateBuildingAI)ai).m_constructionTime = 30;
             }
 
+            // Assign required fields.
             prefab.m_buildingAI = ai;
             prefab.m_buildingAI.m_info = prefab;
             prefab.m_class = ItemClassCollection.FindClass(aiClass);
             prefab.m_placementStyle = growable ? ItemClass.Placement.Automatic : ItemClass.Placement.Manual;
             prefab.m_autoRemove = false;
+        }
 
+
+        /// <summary>
+        /// Returns and industrial service name given a category.
+        /// Service name is 'Forestry' if category is 'forest', otherwise the service name is just the capitalised first letter of the category.
+        /// </summary>
+        /// <param name="category">Category</param>
+        /// <returns>Service name</returns>
+        private string ServiceName(String category)
+        {
+            //  "forest" = "Forestry" 
+            if (category == "forest")
+            {
+                return "Forestry";
+            }
+            else
+            {
+                // Everything else is just capitalised first letter.
+                return category.Substring(0, 1).ToUpper() + category.Substring(1);
+            }
+        }
+
+
+        /// <summary>
+        /// Checks to see if the given subservice is a valid industrial subservice.
+        /// </summary>
+        /// <param name="subservice">Subservice to check</param>
+        /// <returns>True if the subservice is a valid industry subservice, false otherwise</returns>
+        private bool IsValidIndSubServ(string subservice)
+        {
+            // Check against each valid subservice.
+            return (subservice == "farming" || subservice == "forest" || subservice == "oil" || subservice == "ore");
         }
     }
 }

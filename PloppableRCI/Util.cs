@@ -182,54 +182,6 @@ namespace PloppableRICO
         }
 
 
-        public static List<String> industryServices = new List<String>()
-        {
-            "farming",
-            "forest",
-            "oil",
-            "ore"
-        };
-        public static List<String> vanillaCommercialServices = new List<String>()
-        {
-            "low",
-            "high" 
-        };
-        public static List<String> afterDarkCommercialServices = new List<String>()
-        {
-            "low",
-            "high",
-            "tourist",
-            "leisure"
-        };
-
-
-        // Service name from category - forest = "Forestry", everything else is just capitalised first letter. 
-        public static string ucFirst(String s)
-        {
-            if (s == "forest")
-            {
-                return "Forestry";
-            }
-            else
-                return s.Substring(0, 1).ToUpper() + s.Substring(1);
-        }
-
-
-        // This is run in the SimulationStep of all the ploppable AIs. 
-        public static void buildingFlags(ref Building buildingData)
-        {
-            // A set of flags to apply to RICO buildings before/after each sim step. Sloppy, but it avoids having to mess with simstep code. 
-            buildingData.m_garbageBuffer = 100;
-            buildingData.m_majorProblemTimer = 0;
-            buildingData.m_levelUpProgress = 0;
-            buildingData.m_flags &= ~Building.Flags.ZonesUpdated;
-            buildingData.m_flags &= ~Building.Flags.Abandoned;
-            buildingData.m_flags &= ~Building.Flags.Demolishing;
-            // This will solve the "Turned Off" error. 
-            buildingData.m_problems &= ~Notification.Problem.TurnedOff;
-        }
-
-
         // Path for mod settings.
         public static string SettingsModPath(string name)
         {
