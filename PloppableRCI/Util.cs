@@ -215,22 +215,6 @@ namespace PloppableRICO
         }
 
 
-        // Try to find the building prefab.
-        public static BuildingInfo FindPrefab(string prefabName, string packageName)
-        {
-            var prefab = PrefabCollection<BuildingInfo>.FindLoaded(prefabName);
-            if (prefab == null)
-                prefab = PrefabCollection<BuildingInfo>.FindLoaded(prefabName + "_Data");
-            if (prefab == null)
-                prefab = PrefabCollection<BuildingInfo>.FindLoaded(ColossalFramework.IO.PathEscaper.Escape(prefabName) + "_Data");
-            if (prefab == null)
-                prefab = PrefabCollection<BuildingInfo>.FindLoaded(packageName + "." + prefabName + "_Data");
-            if (prefab == null)
-                prefab = PrefabCollection<BuildingInfo>.FindLoaded(packageName + "." + ColossalFramework.IO.PathEscaper.Escape(prefabName) + "_Data");
-            return prefab;
-        }
-
-
         // This is run in the SimulationStep of all the ploppable AIs. 
         public static void buildingFlags(ref Building buildingData)
         {
