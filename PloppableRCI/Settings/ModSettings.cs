@@ -14,9 +14,11 @@ namespace PloppableRICO
         internal static bool noZonesOther = false;
         internal static bool noSpecRico = true;
         internal static bool noSpecOther = false;
-        internal static bool noValueRico = true;
+        internal static bool noValueRicoPlop = true;
+        internal static bool noValueRicoGrow = true;
         internal static bool noValueOther = false;
-        internal static bool noServicesRico = true;
+        internal static bool noServicesRicoPlop = true;
+        internal static bool noServicesRicoGrow = true;
         internal static bool noServicesOther = false;
         internal static bool historicalRico = true;
         internal static bool historicalOther = false;
@@ -75,14 +77,20 @@ namespace PloppableRICO
         [XmlElement("NoSpecOther")]
         public bool NoSpecOther { get => ModSettings.noSpecOther; set => ModSettings.noSpecOther = value; }
 
-        [XmlElement("NoValueRico")]
-        public bool NoValueRico { get => ModSettings.noValueRico; set => ModSettings.noValueRico = value; }
+        [XmlElement("NoValueRicoPlop")]
+        public bool NoValueRicoPlop { get => ModSettings.noValueRicoPlop; set => ModSettings.noValueRicoPlop = value; }
+
+        [XmlElement("NoValueRicoGrow")]
+        public bool NoValueRicoGrow { get => ModSettings.noValueRicoGrow; set => ModSettings.noValueRicoGrow = value; }
 
         [XmlElement("NoValueOther")]
         public bool NoValueOther { get => ModSettings.noValueOther; set => ModSettings.noValueOther = value; }
 
-        [XmlElement("NoServicesRico")]
-        public bool NoServicesRico { get => ModSettings.noServicesRico; set => ModSettings.noServicesRico = value; }
+        [XmlElement("NoServicesRicoPlop")]
+        public bool NoServicesRicoPlop { get => ModSettings.noServicesRicoPlop; set => ModSettings.noServicesRicoPlop = value; }
+
+        [XmlElement("NoServicesRicoGrow")]
+        public bool NoServicesRicoGrow { get => ModSettings.noServicesRicoGrow; set => ModSettings.noServicesRicoGrow = value; }
 
         [XmlElement("NoServicesOther")]
         public bool NoServicesOther { get => ModSettings.noServicesOther; set => ModSettings.noServicesOther = value; }

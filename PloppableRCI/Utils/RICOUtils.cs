@@ -17,6 +17,14 @@ namespace PloppableRICO
 
 
         /// <summary>
+        /// Checks if a builing instance has a Ploppable RICO custom non-growable AI.
+        /// </summary>
+        /// <param name="buildingID">Building instance ID</param>
+        /// <returns>True if this building has a Ploppable RICO non-growable custom AI, false otherwise</returns>
+        internal static bool IsRICOPloppableAI(PrivateBuildingAI prefabAI) => prefabAI != null && (prefabAI is PloppableResidentialAI || prefabAI is PloppableCommercialAI || prefabAI is PloppableIndustrialAI || prefabAI is PloppableOfficeAI || prefabAI is PloppableExtractorAI);
+
+
+        /// <summary>
         /// Returns the currently applied RICO settings (RICO building) for the provided BuilingData instance.
         /// </summary>
         /// <param name="buildingData">BuildingData record</param>

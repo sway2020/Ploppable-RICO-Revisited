@@ -60,32 +60,6 @@ namespace PloppableRICO
                 SettingsUtils.SaveSettings();
             });
 
-            // Add 'ignore low value complaint' checkboxes.
-            UIHelperBase valueGroup = helper.AddGroup(Translations.Translate("PRR_OPTION_VAL"));
-            valueGroup.AddCheckbox(Translations.Translate("PRR_OPTION_RCO"), ModSettings.noValueRico, isChecked =>
-            {
-                ModSettings.noValueRico = isChecked;
-                SettingsUtils.SaveSettings();
-            });
-            valueGroup.AddCheckbox(Translations.Translate("PRR_OPTION_OTH"), ModSettings.noValueOther, isChecked =>
-            {
-                ModSettings.noValueOther = isChecked;
-                SettingsUtils.SaveSettings();
-            });
-
-            // Add 'ignore too few services complaint' checkboxes.
-            UIHelperBase servicesGroup = helper.AddGroup(Translations.Translate("PRR_OPTION_SVC"));
-            servicesGroup.AddCheckbox(Translations.Translate("PRR_OPTION_RCO"), ModSettings.noServicesRico, isChecked =>
-            {
-                ModSettings.noServicesRico = isChecked;
-                SettingsUtils.SaveSettings();
-            });
-            servicesGroup.AddCheckbox(Translations.Translate("PRR_OPTION_OTH"), ModSettings.noServicesOther, isChecked =>
-            {
-                ModSettings.noServicesOther = isChecked;
-                SettingsUtils.SaveSettings();
-            });
-
             // Add 'make plopped growables historical' checkboxes.
             UIHelperBase histGroup = helper.AddGroup(Translations.Translate("PRR_OPTION_HST"));
             histGroup.AddCheckbox(Translations.Translate("PRR_OPTION_RCO"), ModSettings.historicalRico, isChecked =>

@@ -99,7 +99,8 @@ namespace PloppableRICO
 
                 // Add tabs and panels.
                 new GrowableOptions(tabStrip, 0);
-                new ModOptions(tabStrip, 1);
+                new ComplaintOptions(tabStrip, 1);
+                new ModOptions(tabStrip, 2);
             }
             catch (Exception e)
             {

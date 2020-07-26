@@ -30,7 +30,7 @@ namespace PloppableRICO
             bool isRICO = IsRICOBuilding(buildingID);
 
             // Check if the relevant 'ignore low land value complaint' setting is set.
-            if ((ModSettings.noValueOther && !isRICO) || (ModSettings.noValueRico && isRICO))
+            if ((ModSettings.noValueOther && !isRICO) || (ModSettings.noValueRicoGrow && isRICO) || (ModSettings.noValueRicoPlop && IsRICOPloppable(buildingID)))
             {
                 // It is - force land value complaint off.
                 levelUp.landValueTooLow = false;
@@ -60,8 +60,8 @@ namespace PloppableRICO
             bool isRICO = IsRICOBuilding(buildingID);
 
             // Check if the relevant 'ignore low land value complaint' setting is set.
-            if ((ModSettings.noValueOther && !isRICO) || (ModSettings.noValueRico && isRICO))
-            {
+            if ((ModSettings.noValueOther && !isRICO) || (ModSettings.noValueRicoGrow && isRICO) || (ModSettings.noValueRicoPlop && IsRICOPloppable(buildingID)))
+                {
                 // It is - force land value complaint off.
                 levelUp.landValueTooLow = false;
             }
@@ -90,13 +90,14 @@ namespace PloppableRICO
             bool isRICO = IsRICOBuilding(buildingID);
 
             // Check if the relevant 'ignore too few services complaint' setting is set.
-            if ((ModSettings.noServicesOther && !isRICO) || (ModSettings.noServicesRico && isRICO))
+            if ((ModSettings.noServicesOther && !isRICO) || (ModSettings.noServicesRicoGrow && isRICO) || (ModSettings.noServicesRicoPlop && IsRICOPloppable(buildingID)))
             {
                 // It is - force too few services complaint off.
                 levelUp.tooFewServices = false;
             }
 
             return levelUp;
+
         }
 
 
@@ -120,7 +121,7 @@ namespace PloppableRICO
             bool isRICO = IsRICOBuilding(buildingID);
 
             // Check if the relevant 'ignore too few services complaint' setting is set.
-            if ((ModSettings.noServicesOther && !isRICO) || (ModSettings.noServicesRico && isRICO))
+            if ((ModSettings.noServicesOther && !isRICO) || (ModSettings.noServicesRicoGrow && isRICO) || (ModSettings.noServicesRicoPlop && IsRICOPloppable(buildingID)))
             {
                 // It is - force too few services complaint off.
                 levelUp.tooFewServices = false;
@@ -136,5 +137,13 @@ namespace PloppableRICO
         /// <param name="buildingID">Building instance ID</param>
         /// <returns>True if this is a Ploppable RICO building, false otherwise</returns>
         private bool IsRICOBuilding(ushort buildingID) => RICOUtils.IsRICOAI(Singleton<BuildingManager>.instance.m_buildings.m_buffer[buildingID].Info.GetAI() as PrivateBuildingAI);
+
+
+        /// <summary>
+        /// Checks to see whether or not the specified building is a Ploppable RICO non-growable building.
+        /// </summary>
+        /// <param name="buildingID">Building instance ID</param>
+        /// <returns>True if this is a Ploppable RICO non-growable building, false otherwise</returns>
+        private bool IsRICOPloppable(ushort buildingID) => RICOUtils.IsRICOPloppableAI(Singleton<BuildingManager>.instance.m_buildings.m_buffer[buildingID].Info.GetAI() as PrivateBuildingAI);
     }
 }

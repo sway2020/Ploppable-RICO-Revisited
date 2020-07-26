@@ -81,6 +81,7 @@
     <Compile Include="LevelUpExtension.cs" />
     <Compile Include="Patches\SpecializationPatches.cs" />
     <Compile Include="Settings\OptionsPanel.cs" />
+    <Compile Include="Settings\OptionsPanelTabs\ComplaintOptions.cs" />
     <Compile Include="Settings\OptionsPanelTabs\ModOptions.cs" />
     <Compile Include="Settings\OptionsPanelTabs\GrowableOptions.cs" />
     <Compile Include="Settings\PanelUtils.cs" />
