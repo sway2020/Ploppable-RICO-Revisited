@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Language UniqueName="pl" ReadableName="Polski">
+  <Translations>
+    "<Translation ID="PRR_LEVEL" String="Poziom" />
+    "<Translation ID="PRR_LVL" String="Poz." />
+    "<Translation ID="PRR_HOU" String="Gospodarstwa domowe" />
+    "<Translation ID="PRR_WOR" String="Miejsca pracy" />
+    "<Translation ID="PRR_SRV_NON" String="Brak specjalizacji" />
+    "<Translation ID="PRR_SRV_RES" String="Mieszkalne" />
+    "<Translation ID="PRR_SRV_IND" String="Przemysłowe" />
+    "<Translation ID="PRR_SRV_OFF" String="Biurowe" />
+    "<Translation ID="PRR_SRV_COM" String="Komercyjne" />
+    "<Translation ID="PRR_SRV_EXT" String="Wydobycie" />
+    "<Translation ID="PRR_SRV_DUM" String="Wyłączony" />
+    "<Translation ID="PRR_SUB_HIG" String="Wysoka" />
+    "<Translation ID="PRR_SUB_LOW" String="Niska" />
+    "<Translation ID="PRR_SUB_HEC" String="Wysoka eko" />
+    "<Translation ID="PRR_SUB_LEC" String="Niska eko" />
+    "<Translation ID="PRR_SUB_LEI" String="Wypoczynek" />
+    "<Translation ID="PRR_SUB_TOU" String="Turystyka" />
+    "<Translation ID="PRR_SUB_ORG" String="Ekologiczna" />
+    "<Translation ID="PRR_SUB_GEN" String="Zwykła" />
+    "<Translation ID="PRR_SUB_ITC" String="Klaster IT" />
+    "<Translation ID="PRR_SUB_FAR" String="Rolnictwo" />
+    "<Translation ID="PRR_SUB_FOR" String="Leśnictwo" />
+    "<Translation ID="PRR_SUB_OIL" String="Przemysł naftowy" />
+    "<Translation ID="PRR_SUB_ORE" String="Przemysł górniczy" />
+    "<Translation ID="PRR_FTR_ALL" String="Wszystkie" />
+    "<Translation ID="PRR_FTR_NON" String="Żadne" />
+    "<Translation ID="PRR_FTR_NAM" String="Nazwa" />
+    "<Translation ID="PRR_FTR_SET" String="Filtr ustawień: Mod/Autor/Local/Dowolne" />
+    "<Translation ID="PRR_OPT_ENA" String="Włącz RICO" />
+    "<Translation ID="PRR_OPT_SER" String="Typ" />
+    "<Translation ID="PRR_OPT_SUB" String="Podtyp" />
+    "<Translation ID="PRR_OPT_UIC" String="Kategoria UI" />
+    "<Translation ID="PRR_OPT_CST" String="Koszt konstrukcji" />
+    "<Translation ID="PRR_OPT_CNT" String="Liczba mieszkańców/pracowników" />
+    "<Translation ID="PRR_OPT_POP" String="Użyj moda Realistic Pop" />
+    "<Translation ID="PRR_OPT_POL" String="Włącz zanieczyszczenie" />
+    "<Translation ID="PRR_OPT_JB0" String="Niewyedukowani" />
+    "<Translation ID="PRR_OPT_JB1" String="Wyedukowani" />
+    "<Translation ID="PRR_OPT_JB2" String="Dobrze wyedukowani" />
+    "<Translation ID="PRR_OPT_JB3" String="Bardzo dobrze wyedukowani" />
+    "<Translation ID="PRR_CAT_MON" String="Monumenty" />
+    "<Translation ID="PRR_CAT_BEA" String="Upiększanie" />
+    "<Translation ID="PRR_CAT_EDU" String="Edukacja" />
+    "<Translation ID="PRR_CAT_POW" String="Zasilanie" />
+    "<Translation ID="PRR_CAT_WAT" String="Woda" />
+    "<Translation ID="PRR_CAT_HEA" String="Zdrowie" />
+    "<Translation ID="PRR_CAT_RES" String="Mieszkalne" />
+    "<Translation ID="PRR_CAT_COM" String="Komercyjne" />
+    "<Translation ID="PRR_CAT_OFF" String="Biurowe" />
+    "<Translation ID="PRR_CAT_IND" String="Przemysłowe" />
+    "<Translation ID="PRR_UIC_REL" String="Mieszkalne małe" />
+    "<Translation ID="PRR_UIC_REH" String="Mieszkalne duże" />
+    "<Translation ID="PRR_UIC_COL" String="Komercyjne małe" />
+    "<Translation ID="PRR_UIC_COH" String="Komercyjne duże" />
+    "<Translation ID="PRR_UIC_OFF" String="Biura" />
+    "<Translation ID="PRR_UIC_IND" String="Przemysł" />
+    "<Translation ID="PRR_UIC_FAR" String="Rolnictwo" />
+    "<Translation ID="PRR_UIC_FOR" String="Leśnictwo" />
+    "<Translation ID="PRR_UIC_OIL" String="Przemysł naftowy" />
+    "<Translation ID="PRR_UIC_ORE" String="Przemysł górniczy" />
+    "<Translation ID="PRR_UIC_LEI" String="Wypoczynek" />
+    "<Translation ID="PRR_UIC_TOU" String="Turystyka" />
+    "<Translation ID="PRR_UIC_ORG" String="Ekologiczna" />
+    "<Translation ID="PRR_UIC_ITC" String="Klaster IT" />
+    "<Translation ID="PRR_UIC_ECO" String="Domy samowystarczalne" />
+    "<Translation ID="PRR_UIC_NON" String="Brak" />
+    "<Translation ID="PRR_SET" String="Ustawienia" />
+    "<Translation ID="PRR_SET_RICO" String="Ustawienia RICO" />
+    "<Translation ID="PRR_SET_HASMOD" String="Ustawienia moda" />
+    "<Translation ID="PRR_SET_HASAUT" String="Ustawienia autora" />
+    "<Translation ID="PRR_SET_HASLOC" String="Ustawienia lokalne" />
+    "<Translation ID="PRR_SET_HASANY" String="Dowolne ustawienia" />
+    "<Translation ID="PRR_SET_HASNON" String="Brak ustawień" />
+    "<Translation ID="PRR_SAV_SAV" String="Zapisz" />
+    "<Translation ID="PRR_SAV_ADD" String="Dodaj lokalne" />
+    "<Translation ID="PRR_SAV_REM" String="Usuń lokalne" />
+    "<Translation ID="PRR_SAV_APP" String="Zapisz i zatwierdź zmiany" />
+    "<Translation ID="PRR_EXP" String="UWAGA: EKSPERYMENTALNE" />
+    "<Translation ID="TRN_CHOICE" String="Ustaw język" />
+    "<Translation ID="TRN_SYS" String="Użyj języka systemu" />
+    "<Translation ID="PRR_DESCRIPTION" String="Pozwana RICO na budunki większe niż 4x4 i na personalizację budynków" />
+    "<Translation ID="PRR_OPTION_PLP" String="Natychmiast umieść budynki growable (brak konstrukcji)" />
+    "<Translation ID="PRR_OPTION_ZON" String="Budynki growable mogą istnieć poza dozwoloną strefą" />
+    "<Translation ID="PRR_OPTION_SPC" String="Budynki growable mogą istnieć poza wymaganą specjalizacją" />
+    "<Translation ID="PRR_OPTION_VAL" String="Ignoruj problem 'niskiej wartości ziemi'" />
+    "<Translation ID="PRR_OPTION_SVC" String="Ignoruj problem 'zbyt małej liczby pracowników'" />
+    "<Translation ID="PRR_OPTION_HST" String="Wszystkie umieszczone growable są zabytkami" />
+  </Translations>
+</Language>

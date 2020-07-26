@@ -16,7 +16,7 @@
 - Add BuildingLoaded Harmony Postfix patch to attempt to catch and reset and RICO residentials with zero CitizenUnits
 - Stop attempting to remove existing (non-RICO) building UI buttons on game load
 - Remove existing (non-RICO) building UI buttons (if any) when settings are applied live
-- Add de, es, fr, jp, ru, tr translations
+- Add de, es, fr, jp, ru, tr, pl translations
 
 
 Version 2.2.3

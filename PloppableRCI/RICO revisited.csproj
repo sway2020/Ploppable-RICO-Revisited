@@ -144,6 +144,7 @@
     <Content Include="Translations\es.xml" />
     <Content Include="Translations\fr.xml" />
     <Content Include="Translations\jp.xml" />
+    <Content Include="Translations\pl.xml" />
     <Content Include="Translations\ru.xml" />
     <Content Include="Translations\tr.xml" />
     <Content Include="Translations\zh-tw.xml" />
