@@ -23,7 +23,7 @@ namespace PloppableRICO
 
             // Add plop growables checkboxes.
             UIHelperBase plopGroup = helper.AddGroup(Translations.Translate("PRR_OPTION_PLP"));
-            plopGroup.AddCheckbox(Translations.Translate("PRR_OPTION_RCO"), ModSettings.plopRico, isChecked =>
+            plopGroup.AddCheckbox(Translations.Translate("PRR_OPTION_RGR"), ModSettings.plopRico, isChecked =>
             {
                 ModSettings.plopRico = isChecked;
                 SettingsUtils.SaveSettings();
@@ -36,7 +36,7 @@ namespace PloppableRICO
 
             // Add no zone checks checkboxes.
             UIHelperBase zoneGroup = helper.AddGroup(Translations.Translate("PRR_OPTION_ZON"));
-            zoneGroup.AddCheckbox(Translations.Translate("PRR_OPTION_RCO"), ModSettings.noZonesRico, isChecked =>
+            zoneGroup.AddCheckbox(Translations.Translate("PRR_OPTION_RGR"), ModSettings.noZonesRico, isChecked =>
             {
                 ModSettings.noZonesRico = isChecked;
                 SettingsUtils.SaveSettings();
@@ -49,7 +49,7 @@ namespace PloppableRICO
 
             // Add no specialisation checks checkboxes.
             UIHelperBase specGroup = helper.AddGroup(Translations.Translate("PRR_OPTION_SPC"));
-            specGroup.AddCheckbox(Translations.Translate("PRR_OPTION_RCO"), ModSettings.noSpecRico, isChecked =>
+            specGroup.AddCheckbox(Translations.Translate("PRR_OPTION_RGR"), ModSettings.noSpecRico, isChecked =>
             {
                 ModSettings.noSpecRico = isChecked;
                 SettingsUtils.SaveSettings();
@@ -62,7 +62,7 @@ namespace PloppableRICO
 
             // Add 'make plopped growables historical' checkboxes.
             UIHelperBase histGroup = helper.AddGroup(Translations.Translate("PRR_OPTION_HST"));
-            histGroup.AddCheckbox(Translations.Translate("PRR_OPTION_RCO"), ModSettings.historicalRico, isChecked =>
+            histGroup.AddCheckbox(Translations.Translate("PRR_OPTION_RGR"), ModSettings.historicalRico, isChecked =>
             {
                 ModSettings.historicalRico = isChecked;
                 SettingsUtils.SaveSettings();
