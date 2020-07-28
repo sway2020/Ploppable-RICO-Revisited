@@ -199,7 +199,7 @@ namespace PloppableRICO
 		{
 			bool isRICO = RICOUtils.IsRICOAI(buildingData.Info.GetAI() as PrivateBuildingAI);
 
-			// Check if the relevant 'ignore zoning' setting is set.
+			// Check if the relevant 'ignore specialisation' setting is set.
 			// If it is, we just don't do anything.  Otherwise, we mimic the base game's code for this ocurrence.
 			if (!(ModSettings.noSpecOther && !isRICO) && !(ModSettings.noSpecRico && isRICO))
 			{

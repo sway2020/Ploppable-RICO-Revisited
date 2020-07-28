@@ -91,6 +91,7 @@
     <Translation ID="PRR_OPTION_SVC" String="Ignore 'too few services' complaint" />
     <Translation ID="PRR_OPTION_HST" String="Make all plopped growables historical" />
     <Translation ID="PRR_OPTION_RPL" String="RICO ploppable buildings" />
+    <Translation ID="PRR_OPTION_RGR" String="RICO growable buildings" />
     <Translation ID="PRR_OPTION_RCO" String="All RICO buildings (including growables)" />
     <Translation ID="PRR_OPTION_OTH" String="Non-RICO growable buildings" />
     <Translation ID="PRR_OPTION_LOA" String="Loading options" />

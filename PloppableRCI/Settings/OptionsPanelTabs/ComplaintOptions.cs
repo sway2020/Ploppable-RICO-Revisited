@@ -23,7 +23,7 @@ namespace PloppableRICO
 
             // Add 'ignore low value complaint' checkboxes.
             UIHelperBase valueGroup = helper.AddGroup(Translations.Translate("PRR_OPTION_VAL"));
-            valueGroup.AddCheckbox(Translations.Translate("PRR_OPTION_RPL"), ModSettings.noValueRicoPlop, isChecked =>
+            UICheckBox noValueRicoPlop = (UICheckBox)valueGroup.AddCheckbox(Translations.Translate("PRR_OPTION_RPL"), ModSettings.noValueRicoPlop, isChecked =>
             {
                 ModSettings.noValueRicoPlop = isChecked;
                 SettingsUtils.SaveSettings();
@@ -32,6 +32,12 @@ namespace PloppableRICO
             {
                 ModSettings.noValueRicoGrow = isChecked;
                 SettingsUtils.SaveSettings();
+
+                // If this is active, then the checkbox above also needs to be checked if it isn't already.
+                if (isChecked && !noValueRicoPlop.isChecked)
+                {
+                    noValueRicoPlop.isChecked = true;
+                }
             });
             valueGroup.AddCheckbox(Translations.Translate("PRR_OPTION_OTH"), ModSettings.noValueOther, isChecked =>
             {
@@ -41,7 +47,7 @@ namespace PloppableRICO
 
             // Add 'ignore too few services complaint' checkboxes.
             UIHelperBase servicesGroup = helper.AddGroup(Translations.Translate("PRR_OPTION_SVC"));
-            servicesGroup.AddCheckbox(Translations.Translate("PRR_OPTION_RPL"), ModSettings.noServicesRicoPlop, isChecked =>
+            UICheckBox noServicesRicoPlop = (UICheckBox)servicesGroup.AddCheckbox(Translations.Translate("PRR_OPTION_RPL"), ModSettings.noServicesRicoPlop, isChecked =>
             {
                 ModSettings.noServicesRicoPlop = isChecked;
                 SettingsUtils.SaveSettings();
@@ -50,6 +56,12 @@ namespace PloppableRICO
             {
                 ModSettings.noServicesRicoGrow = isChecked;
                 SettingsUtils.SaveSettings();
+
+                // If this is active, then the checkbox above also needs to be checked if it isn't already.
+                if (isChecked && !noServicesRicoPlop.isChecked)
+                {
+                    noServicesRicoPlop.isChecked = true;
+                }
             });
             servicesGroup.AddCheckbox(Translations.Translate("PRR_OPTION_OTH"), ModSettings.noServicesOther, isChecked =>
             {

@@ -1,4 +1,7 @@
-﻿Version 2.3
+﻿- RICO ploppable complaints checkboxes now set when 'All RICO' checkboxes are set
+
+
+Version 2.3
 
 - Add 'Instant plopping' option for growables
 - Add 'Disable zone check' option for growables
