@@ -118,16 +118,6 @@ namespace PloppableRICO
         }
 
 
-        // Return maximum level permitted for each service.
-        public static int MaxLevelOf(string service, string subservice)
-        {
-            return service == "residential" ? 5 :
-                   service == "office" && subservice != "high tech" ? 3 :
-                   service == "commercial" && subservice != "tourist" && subservice != "leisure" ? 3 :
-                   service == "industrial" && subservice == "generic" ? 3 :
-                   1;
-        }
-
         // Return maximum level permitted for each subservice.
         public static int MaxLevelOf(ItemClass.SubService subService)
         {

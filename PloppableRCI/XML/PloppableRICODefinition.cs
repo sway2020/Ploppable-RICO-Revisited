@@ -19,28 +19,6 @@ namespace PloppableRICO
             Buildings = new List<RICOBuilding>();
         }
 
-        public RICOBuilding addBuilding(RICOBuilding buildingDef = null)
-        {
-            if (buildingDef == null)
-            {
-                buildingDef = new RICOBuilding();
-                buildingDef.name = "* unnamed";
-                buildingDef.parent = this;
-            }
-
-            Buildings.Add(buildingDef);
-
-            return buildingDef;
-        }
-
-        public RICOBuilding removeBuilding(int index)
-        {
-            if (index < 0 && index >= this.Buildings.Count)
-                return null;
-
-            return removeBuilding(Buildings[index]);
-        }
-
         public RICOBuilding removeBuilding(RICOBuilding buildingDef)
         {
             Buildings.Remove(buildingDef);

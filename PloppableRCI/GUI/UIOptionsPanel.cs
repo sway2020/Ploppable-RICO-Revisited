@@ -364,7 +364,7 @@ namespace PloppableRICO
             {
                 // No workplace breakdown provided (all fields zero); use total workplaces ('manual', previously parsed as manualCount) and allocate.
                 int[] d = Util.WorkplaceDistributionOf(currentSelection.service, currentSelection.subService, "Level" + currentSelection.level);
-                a = WorkplaceAIHelper.distributeWorkplaceLevels(manualCount, d, new int[] { 0, 0, 0, 0 });
+                a = WorkplaceAIHelper.distributeWorkplaceLevels(manualCount, d);
 
                 // Check and adjust for any rounding errors, assigning 'leftover' jobs to the lowest education level.
                 a[0] += (manualCount - a[0] - a[1] - a[2] - a[3]);
@@ -1013,7 +1013,7 @@ namespace PloppableRICO
 
                 // Allocate out total workplaces ('manual').
                 int[] distribution = Util.WorkplaceDistributionOf(serviceString, subServiceString, "Level" + (level.selectedIndex + 1));
-                allocation = WorkplaceAIHelper.distributeWorkplaceLevels(int.Parse(manual.text), distribution, new int[] { 0, 0, 0, 0 });
+                allocation = WorkplaceAIHelper.distributeWorkplaceLevels(int.Parse(manual.text), distribution);
 
                 // Check and adjust for any rounding errors, assigning 'leftover' jobs to the lowest education level.
                 allocation[0] += (int.Parse(manual.text) - allocation[0] - allocation[1] - allocation[2] - allocation[3]);

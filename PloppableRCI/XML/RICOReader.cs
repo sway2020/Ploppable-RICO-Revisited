@@ -18,19 +18,8 @@ namespace PloppableRICO
             if ( r != null )
                 r.sourceFile = new FileInfo( ricoDefPath );
             s.Close();
-            if ( r != null && crpDataProvider != null )
-                addCrpShit( r );
             return r;
         }
-
-
-        private static void addCrpShit(PloppableRICODefinition ricoDef)
-        {
-            var crpPath = Util.crpFileIn( ricoDef.sourceFile.Directory );
-            if ( crpPath != null )
-                foreach ( var building in ricoDef.Buildings )
-                    building.crpData = crpDataProvider.getCrpData( crpPath.FullName );
-        } 
 
 
         public static PloppableRICODefinition DeserializeRICODefinition( string packageName, Stream ricoDefStream, bool insanityOK)
@@ -88,9 +77,6 @@ namespace PloppableRICO
                                     Debugging.Message(errorList.ToString());
                                 }
                             }
-
-                            // No fatal errors; building is good (enough).
-                            building.parent = result;
                         }
                         else
                         {

@@ -33,95 +33,58 @@ namespace PloppableRICO
         public RICOBuilding()
         {
             // Populate with null settings.
-            dbKey = 0;
             _workplaces = new int[] { 0, 0, 0, 0 };
-            _lastSetWorkplaces = new int[] { 0, 0, 0, 0 };
-            workplaceDeviationString = "";
-            workplaceDeviation = new int[] { 0, 0, 0, 0 };
-            _lastSetDeviations = new int[] { 0, 0, 0, 0 };
             name = "";
-            author = "";
-            story = "";
-            steamId = "";
             service = "";
             subService = "";
             constructionCost = 10;
             uiCategory = "";
             homeCount = 0;
             level = 0;
-            pollutionRadius = 0;
-
             density = 0;
 
-            fireHazard = 0;
-            fireTolerance = 0;
-            fireSize = 255;
-
             // Default options.
-            popbalanceEnabled = true;
             ricoEnabled = true;
-            educationRatioEnabled = false;
             pollutionEnabled = true;
-            manualWorkerEnabled = true;
-            manualHomeEnabled = true;
-            constructionCostEnabled = true;
             RealityIgnored = false;
         }
 
-
+        // Regex expression for integer values.
         private Regex RegexXmlIntegerValue = new System.Text.RegularExpressions.Regex("^ *(\\d+) *$");
         private Regex RegexXML4IntegerValues = new System.Text.RegularExpressions.Regex("^ *(\\d+) *, *(\\d+) *, *(\\d+) *, *(\\d+) *");
 
+
+        /// <summary>
+        /// Building name.
+        /// </summary>
         [XmlAttribute( "name" )]
-        public string name
-        {
-            get { return _name; }
-            set { var v = _name; _name = value; }
-        }
-        string _name;
+        public string name { get; set; }
 
-        [DefaultValue( 0 )]
-        [XmlAttribute( "usages" )]
-        public int usages { get { return _usages; } set { var v = _usages; _usages = value; } }
-        int _usages;
 
-        [XmlAttribute( "author" )]
-        [DefaultValue( "" )]
-        public string author { get { return _author; } set { var v = _author; _author = value; } }
-        string _author;
-
-        [XmlElement( "story" )]
-        [DefaultValue( "" )]
-        public string story { get { return _story; } set { var v = _story; _story = value; } }
-        string _story;
-
+        /// <summary>
+        /// Building service.
+        /// </summary>
         [XmlAttribute( "service" )]
-        public string service
-        {
-            get { return _service; }
-            set { var v = _service; _service = value; }
-        }
-        string _service;
+        public string service { get; set; }
 
+
+        /// <summary>
+        /// Density - currently unused, but retained for possible future use.
+        /// </summary>
         [XmlAttribute("density")]
-        public int density
-        {
-            get { return _density; }
-            set { var v = _density; _density = value; }
-        }
-        int _density;
+        public int density { get; set; }
 
+
+        /// <summary>
+        /// Building subservice (specialisation).
+        /// </summary>
         [XmlAttribute( "sub-service" )]
-        public string subService
-        {
-            get { return _subService; }
-            set
-            {
-                var v = _subService; _subService = value;
-            }
-        }
-        string _subService;
+        public string subService { get; set; }
 
+
+        /// <summary>
+        /// Building ploppable construction cost.
+        /// </summary>
         [XmlAttribute( "construction-cost" )]
         public int constructionCost
         {
@@ -133,196 +96,129 @@ namespace PloppableRICO
             }
             set
             {
-                var v = _constructionCost;
                 _constructionCost = value;
             }
         }
-        int _constructionCost;
+        private int _constructionCost;
+        
 
-        private string _UICategory;
-
+        /// <summary>
+        /// Building UI category (for ploppable tool panel).
+        /// </summary>
         [XmlAttribute( "ui-category" )]
         public string uiCategory
         {
-            get { return _UICategory != "" ? _UICategory : Util.UICategoryOf( service, subService ); }
-            set { _UICategory = value; }
-        }
-
-        [XmlAttribute( "homes" )]
-        [DefaultValue( 0 )]
-        public int homeCount
-        {
-            get { return _homeCount; }
-            set
-            {
-                var v = _homeCount; _homeCount = value;
-            }
-        }
-        int _homeCount;
-
-        [XmlAttribute( "steam-id" )]
-        public string steamId { get { return _steamId; } set { var v = _steamId; _steamId = value; } }
-        string _steamId;
-
-        private int _level;
-        [XmlAttribute( "level" )]
-        public int level
-        {
             get
             {
-                return _level;
+                return _UICategory != "" ? _UICategory : Util.UICategoryOf(service, subService);
             }
             set
             {
-                var v = _level; _level = value;
+                _UICategory = value;
             }
         }
+        private string _UICategory;
 
-        //Pollution
-        [DefaultValue(0)]
-        [XmlAttribute("pollution-radius")]
-        public int pollutionRadius { get { return _pollutionRadius; } set { var v = _pollutionRadius; _pollutionRadius = value; } }
-        int _pollutionRadius;
 
-        [DefaultValue(0)]
-        [XmlAttribute("db-key")]
-        public int dbKey { get { return _dbKey; } set { var v = _dbKey; _dbKey = value; } }
-        int _dbKey;
-
+        /// <summary>
+        /// Building household count.
+        /// </summary>
+        [XmlAttribute( "homes" )]
         [DefaultValue( 0 )]
-        [XmlAttribute( "fire-hazard" )]
-        public int fireHazard { get { return _fireHazard; } set { var v = _fireHazard; _fireHazard = value; } }
-        int _fireHazard;
+        public int homeCount { get; set; }
 
-        [DefaultValue( 255 )]
-        [XmlAttribute( "fire-size" )]
-        public int fireSize
-        {
-            get { return _fireSize; }
-            set
-            {
-                var v = _fireSize; _fireSize = value;
-            }
-        }
-        int _fireSize;
 
-        [DefaultValue( 0 )]
-        [XmlAttribute( "fire-tolerance" )]
-        public int fireTolerance { get { return _fireTolerance; } set { var v = _fireTolerance; _fireTolerance = value; } }
-        int _fireTolerance;
+        /// <summary>
+        /// Building level.
+        /// </summary>
+        [XmlAttribute( "level" )]
+        public int level { get; set; }
 
-        //Toggles
-        [DefaultValue( true )]
-        [XmlAttribute( "enable-popbalance" )]
-        public bool popbalanceEnabled { get { return _popbalanceEnabled; } set { var v = _popbalanceEnabled; _popbalanceEnabled = value; } }
-        bool _popbalanceEnabled;
 
-        [DefaultValue( true )]
-        [XmlAttribute( "enable-rico" )]
-        public bool ricoEnabled { get { return _ricoEnabled; } set { var v = _ricoEnabled; _ricoEnabled = value; } }
-        bool _ricoEnabled;
+        /// <summary>
+        /// Whether or not RICO settings are enabled for this asset.
+        /// </summary>
+        [XmlAttribute("enable-rico")]
+        [DefaultValue(true)]
+        public bool ricoEnabled { get; set; }
 
-        [DefaultValue(false)]
+
+        /// <summary>
+        /// Whether or not this asset is growable.
+        /// </summary>
         [XmlAttribute("growable")]
-        public bool growable { get { return _growable; } set { var v = _growable; _growable = value; } }
-        bool _growable;
+        [DefaultValue(false)]
+        public bool growable { get; set; }
 
-        [DefaultValue( false )]
-        [XmlAttribute( "enable-educationratio" )]
-        public bool educationRatioEnabled { get { return _educationRatioEnabled; } set { var v = _educationRatioEnabled; _educationRatioEnabled = value; } }
-        bool _educationRatioEnabled;
 
-        [DefaultValue( true )]
-        [XmlAttribute( "enable-pollution" )]
-        public bool pollutionEnabled { get { return _pollutionEnabled; } set { var v = _pollutionEnabled; _pollutionEnabled = value; } }
-        bool _pollutionEnabled;
+        /// <summary>
+        /// Whether or not pollution is enabled for this building.
+        /// </summary>
+        [XmlAttribute("enable-pollution")]
+        [DefaultValue(true)]
+        public bool pollutionEnabled { get; set; }
 
-        [DefaultValue( true )]
-        [XmlAttribute( "enable-workercount" )]
-        public bool manualWorkerEnabled { get { return _manualWorkerEnabled; } set { var v = _manualWorkerEnabled; _manualWorkerEnabled = value; } }
-        bool _manualWorkerEnabled;
 
-        [DefaultValue( true )]
-        [XmlAttribute( "enable-homecount" )]
-        public bool manualHomeEnabled { get { return _manualHomeEnabled; } set { var v = _manualHomeEnabled; _manualHomeEnabled = value; } }
-        bool _manualHomeEnabled;
-
-        [DefaultValue( true )]
-        [XmlAttribute( "enable-constructioncost" )]
-        public bool constructionCostEnabled { get { return _constructionCostEnabled; } set { var v = _constructionCostEnabled; _constructionCostEnabled = value; } }
-        bool _constructionCostEnabled;
-
+        /// <summary>
+        /// Workplaces breakdown.
+        /// </summary>
         [XmlAttribute( "workplaces" )]
         [DefaultValue( "0,0,0,0" )]
         public string workplacesString
         {
             get
             {
-                if ( workplaceCount == 0 )
+                // Return 'zero-string' if no workplaces.
+                if (workplaceCount == 0)
+                {
                     return "0,0,0,0";
+                }
 
-                return String.Join( ",", workplaces.Select( n => n.ToString() ).ToArray() );
+                // Otherwise, return a comma-separated list of our workplace breakdowns.
+                return String.Join( ",", workplaces.Select(n => n.ToString()).ToArray());
             }
             set
             {
-                var old = workplaces;
-                // Split value. and convert to int[] if the string is well formed
+                // See if we have an old-format (single value) or new-format (breakdown).
                 if (RegexXmlIntegerValue.IsMatch(value))
                 {
+                    // We have an old workplace format - return with all workplaces assigned to the lowest level (these will be allocated out later).
                     _oldWorkplacesStyle = true;
                     workplaces = new int[] { Convert.ToInt32(value), 0, 0, 0 };
                 }
                 else
                 {
+                    // We don't have a single integer.
                     _oldWorkplacesStyle = false;
 
+                    // See if we've got a properly formatted comma-separated list of integers.
                     if (RegexXML4IntegerValues.IsMatch(value))
                     {
+                        // Yes - use this list to populate array.
                         workplaces = value.Replace(" ", "").Split(',').Select(n => Convert.ToInt32(n)).ToArray();
                     }
                     else
                     {
+                        // Garbage input - return zero workplace count.
                         workplaces = new int[] { 0, 0, 0, 0 };
                     }
                 }
             }
         }
 
-        private string _workplaceDeviationString;
-        //Workplace job distribution settings
-        [XmlAttribute( "deviations" )]
-        [DefaultValue( "0,0,0,0" )]
-        public string workplaceDeviationString
-        {
-            get
-            {
-                return String.Join( ",", workplaceDeviation.Select( i => i.ToString() ).ToArray() );
-            }
-            set
-            {
-                var v = _workplaceDeviationString;
-                _workplaceDeviationString = value;
 
-                // Split values and convert to int[] if the string is well formed
-                if ( RegexXML4IntegerValues.IsMatch( value ) )
-                    this.workplaceDeviation = value.Replace( " ", "" ).Split( ',' ).Select( n => Convert.ToInt32( n ) ).ToArray();
-                else
-                    this.workplaceDeviation = new int[] { 0, 0, 0, 0 };
-
-
-                _lastSetDeviations = workplaceDeviation.Select( n => n ).ToArray();
-            }
-        }
-
-        private int[] _lastSetDeviations;
-
-        // Flag wether to ignore the realistic population mod is running 
-        // This should probably be "true" by default
+        /// <summary>
+        /// Whether or not to ignore realistic population mods calculations.
+        /// </summary>
         [XmlAttribute("ignore-reality")]
         [DefaultValue(false)]
-        public bool RealityIgnored { get { return _RealityIgnored; } set { var v = _RealityIgnored; _RealityIgnored = value; } }
-        bool _RealityIgnored;
+        public bool RealityIgnored { get; set; }
 
+
+        /// <summary>
+        /// Whether or not realistic population mod settings should be used.
+        /// Considers both the building setting and whether or not such a mod is active.
+        /// </summary>
         [XmlIgnore]
         public bool useReality
         {
@@ -334,48 +230,75 @@ namespace PloppableRICO
         }
 
 
+        /// <summary>
+        /// Returns the maximum building level for this service/subservice combination.
+        /// </summary>
         [XmlIgnore]
-        public int maxLevel { get { return Util.MaxLevelOf( service, subService ); } }
+        public int maxLevel
+        {
+            get
+            {
+                return service == "residential" ? 5 :
+                       service == "office" && subService != "high tech" ? 3 :
+                       service == "commercial" && subService != "tourist" && subService != "leisure" ? 3 :
+                       service == "industrial" && subService == "generic" ? 3 :
+                       1;
+            }
+        }
 
+
+        /// <summary>
+        /// Whether or not the RICO data for this asset used an old-format workplace style.
+        /// </summary>
         [XmlIgnore]
-        public PloppableRICODefinition parent;
+        public bool oldWorkplacesStyle => _oldWorkplacesStyle;
+        private bool _oldWorkplacesStyle;
 
+
+        /// <summary>
+        /// Returns the total number of workplaces for this building.
+        /// </summary>
         [XmlIgnore]
-        public FileInfo parentSourceFile { get { return parent != null ? parent.sourceFile : null; } }
+        public int workplaceCount => workplaces.Sum();
 
-        [XmlIgnore]
-        public bool oldWorkplacesStyle { get { return _oldWorkplacesStyle; } }
-        bool _oldWorkplacesStyle;
 
-        [XmlIgnore]
-        public int workplaceCount { get { return workplaces.Sum(); } }
-
+        /// <summary>
+        /// Workplace breakdown by education level, as an integer array.
+        /// </summary>
         [XmlIgnore]
         public int[] workplaces
         {
             get
             {
-                if ( service == "residential" )
-                    return new int[] { 0, 0, 0, 0 };
-
-                // Quickfix - replace old tag method of setting workplace levels to -1 (which was interfering with total job counts) with just toggling boolean flag.
-                // TODO tidyup
-                if ( oldWorkplacesStyle )//&& _workplaces[1] < 0 )
+                // No workplaces for residential.
+                if (service == "residential")
                 {
-                    var originalWorkplaces = _workplaces[0];
-                    var d = Util.WorkplaceDistributionOf( service, subService, "Level" + level );
-                    if ( d == null )
-                        d = new int[] { 100, 100, 0, 0, 0 };
+                    return new int[] { 0, 0, 0, 0 };
+                }
 
-                    var a = WorkplaceAIHelper.distributeWorkplaceLevels(originalWorkplaces, d, new int [] { 0,0,0,0 });
+                // If we have old-style workplaces, we ned to allocate out the single value to workplace levels.
+                if (oldWorkplacesStyle)
+                {
+                    // Get original workplace count.
+                    int originalWorkplaces = _workplaces[0];
 
-                    for (var i = 0; i < 4; i++)
+                    // Calculate distribution ratio for this service/subservice/level combination.
+                    int[] distribution = Util.WorkplaceDistributionOf( service, subService, "Level" + level );
+                    if (distribution == null)
                     {
-                        _workplaces[i] = a[i];
+                        // Failsafe - allocate all jobs to lowest level.
+                        distribution = new int[] { 100, 100, 0, 0, 0 };
+                    }
+
+                    // Distribute jobs.
+                    int[] allocation = WorkplaceAIHelper.distributeWorkplaceLevels(originalWorkplaces, distribution);
+                    for (int i = 0; i < 4; ++i)
+                    {
+                        _workplaces[i] = allocation[i];
                     }
 
                     // Check and adjust for any rounding errors, assigning 'leftover' jobs to the lowest education level.
-                    _workplaces[0] += (originalWorkplaces - _workplaces.Sum());
+                    _workplaces[0] += originalWorkplaces - _workplaces.Sum();
 
                     if (ModSettings.debugLogging)
                     {
@@ -385,47 +308,21 @@ namespace PloppableRICO
                     // Reset flag; these workplaces are now updated.
                     _oldWorkplacesStyle = false;
                 }
-               return _workplaces;
+                
+                return _workplaces;
             }
+
             set
             {
-                var old = _workplaces.Select( n => n).ToArray();
                 _workplaces = value;
-                _lastSetWorkplaces = _workplaces.Select( n => n ).ToArray();
             }
         }
-
-        private int[] _lastSetWorkplaces;
         private int[] _workplaces;
 
 
-        [XmlIgnore]
-        public int[] workplaceDeviation
-        {
-            get { if ( this.service == "residential" ) return new int[] { 0, 0, 0, 0 }; return _workplaceDeviations; }
-            set
-            {
-                if 
-                (
-                    ( _workplaceDeviations == null && value != null ) ||
-                    ( _workplaceDeviations != null && value == null ) 
-                )
-                {
-                    _workplaceDeviations = value;
-                }
-                else if ( _workplaceDeviations == null && value == null )
-                {
-                    _workplaceDeviations = value;
-                }
-                else
-                {
-                    var old = _workplaceDeviations.Select( n => n ).ToArray();
-                    _workplaceDeviations = value;
-                }
-            }
-        }
-        private int[] _workplaceDeviations;
-
+        /// <summary>
+        /// Checks the parsed XML data for any fatal errors.
+        /// </summary>
         [XmlIgnore]
         public StringBuilder fatalErrors
         {
@@ -469,16 +366,14 @@ namespace PloppableRICO
                     errors.AppendLine("Building '" + name + "' has an invalid value for 'workplaces'. Must be either a positive integer number or a comma separated list of 4 positive integer numbers.");
                 }
 
-                // Deviations.  Also need something.
-                if (!RegexXML4IntegerValues.IsMatch(workplaceDeviationString))
-                {
-                    errors.AppendLine("Building '" + name + "' has an invalid value for 'deviations'. Must be either a positive integer number or a comma separated list of 4 positive integer numbers.");
-                }
-
                 return errors;
             }
         }
 
+
+        /// <summary>
+        /// Checks the parsed XML data for any non-fatal errors.
+        /// </summary>
         [XmlIgnore]
         public StringBuilder nonFatalErrors
         {
@@ -609,49 +504,5 @@ namespace PloppableRICO
                 return errors;
             }
         }
-
-        // attributes routed trough crp parsing
-
-        private CrpData _crpData;
-        [XmlIgnore]
-        public CrpData crpData
-        {
-            get { return _crpData; }
-            set { _crpData = value; steamId = value.SteamId; }
-        }
-        [XmlIgnore]
-        public object previewImage { get { return crpData != null ? crpData.PreviewImage : null; } }
-        [XmlIgnore]
-        public string tags { get { return crpData != null ? crpData.Tags : ""; } }
-        [XmlIgnore]
-        public string type { get { return crpData != null ? crpData.Type : ""; } }
-        [XmlIgnore]
-        public string authorID { get { return crpData != null ? crpData.AuthorID : ""; } }
-        [XmlIgnore]
-        public string buildingName { get { return crpData != null ? crpData.BuildingName : ""; } }
-
-        // fetching stuff from steam
-        [XmlIgnore]
-        public ISteamDataProvider steamDataProvider;
-
-        [XmlIgnore]
-        public SteamData steamData;
-        private int steamDataTries = 0;
-
-        [XmlIgnore]
-        public string authorName
-        {
-            get
-            {
-                if ( steamDataTries++ < 3 && steamDataProvider != null && steamData == null && steamId != null && steamId != "" )
-                    steamData = steamDataProvider.getSteamData( steamId );
-
-                if ( steamData != null )
-                    return steamData.AuthorName;
-                else
-                    return "n/a";
-            }
-        }
     }
-
 }
