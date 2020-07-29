@@ -9,16 +9,30 @@ using System.Text.RegularExpressions;
 
 namespace PloppableRICO
 {
+    /// <summary>
+    /// Ploppable RICO XML building definition.
+    /// This is the core mod data defintion for handling buildings.
+    /// Cloneable to make it easy to make local copies.
+    /// </summary>
     [XmlType( "Building" )]
     public class RICOBuilding : ICloneable
     {
+        /// <summary>
+        /// Creates an identical clone of the current instance.
+        /// </summary>
+        /// <returns>Instance clone</returns>
         public object Clone()
         {
             return this.MemberwiseClone();
         }
 
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public RICOBuilding()
         {
+            // Populate with null settings.
             dbKey = 0;
             _workplaces = new int[] { 0, 0, 0, 0 };
             _lastSetWorkplaces = new int[] { 0, 0, 0, 0 };
@@ -42,6 +56,8 @@ namespace PloppableRICO
             fireHazard = 0;
             fireTolerance = 0;
             fireSize = 255;
+
+            // Default options.
             popbalanceEnabled = true;
             ricoEnabled = true;
             educationRatioEnabled = false;
@@ -50,19 +66,6 @@ namespace PloppableRICO
             manualHomeEnabled = true;
             constructionCostEnabled = true;
             RealityIgnored = false;
-            _isDirty = false;
-        }
-
-        public void HandleSetterEvents( bool changed )
-        {
-            if ( !changed || parent == null )
-                return;
-
-            parent.RaiseBuildingPropertyChanged( this );
-            var d = _isDirty;
-            _isDirty = true;
-            if ( !d )
-                parent.RaiseBuildingDirtynessChanged( this );
         }
 
 
@@ -73,30 +76,30 @@ namespace PloppableRICO
         public string name
         {
             get { return _name; }
-            set { var v = _name; _name = value; HandleSetterEvents( value != v ); }
+            set { var v = _name; _name = value; }
         }
         string _name;
 
         [DefaultValue( 0 )]
         [XmlAttribute( "usages" )]
-        public int usages { get { return _usages; } set { var v = _usages; _usages = value; HandleSetterEvents( v != value ); } }
+        public int usages { get { return _usages; } set { var v = _usages; _usages = value; } }
         int _usages;
 
         [XmlAttribute( "author" )]
         [DefaultValue( "" )]
-        public string author { get { return _author; } set { var v = _author; _author = value; HandleSetterEvents( v != value ); } }
+        public string author { get { return _author; } set { var v = _author; _author = value; } }
         string _author;
 
         [XmlElement( "story" )]
         [DefaultValue( "" )]
-        public string story { get { return _story; } set { var v = _story; _story = value; HandleSetterEvents( v != value ); } }
+        public string story { get { return _story; } set { var v = _story; _story = value; } }
         string _story;
 
         [XmlAttribute( "service" )]
         public string service
         {
             get { return _service; }
-            set { var v = _service; _service = value; HandleSetterEvents( value != v ); }
+            set { var v = _service; _service = value; }
         }
         string _service;
 
@@ -104,7 +107,7 @@ namespace PloppableRICO
         public int density
         {
             get { return _density; }
-            set { var v = _density; _density = value; HandleSetterEvents(value != v); }
+            set { var v = _density; _density = value; }
         }
         int _density;
 
@@ -114,7 +117,7 @@ namespace PloppableRICO
             get { return _subService; }
             set
             {
-                var v = _subService; _subService = value; HandleSetterEvents( v != value );
+                var v = _subService; _subService = value;
             }
         }
         string _subService;
@@ -132,7 +135,6 @@ namespace PloppableRICO
             {
                 var v = _constructionCost;
                 _constructionCost = value;
-                HandleSetterEvents( v != value );
             }
         }
         int _constructionCost;
@@ -153,13 +155,13 @@ namespace PloppableRICO
             get { return _homeCount; }
             set
             {
-                var v = _homeCount; _homeCount = value; HandleSetterEvents( v != value );
+                var v = _homeCount; _homeCount = value;
             }
         }
         int _homeCount;
 
         [XmlAttribute( "steam-id" )]
-        public string steamId { get { return _steamId; } set { var v = _steamId; _steamId = value; HandleSetterEvents( v != value ); } }
+        public string steamId { get { return _steamId; } set { var v = _steamId; _steamId = value; } }
         string _steamId;
 
         private int _level;
@@ -172,24 +174,24 @@ namespace PloppableRICO
             }
             set
             {
-                var v = _level; _level = value; HandleSetterEvents( v != value );
+                var v = _level; _level = value;
             }
         }
 
         //Pollution
-        [DefaultValue( 0 )]
-        [XmlAttribute( "pollution-radius" )]
-        public int pollutionRadius { get { return _pollutionRadius; } set { var v = _pollutionRadius; _pollutionRadius = value; HandleSetterEvents( v != value ); } }
+        [DefaultValue(0)]
+        [XmlAttribute("pollution-radius")]
+        public int pollutionRadius { get { return _pollutionRadius; } set { var v = _pollutionRadius; _pollutionRadius = value; } }
         int _pollutionRadius;
 
-        [DefaultValue( 0 )]
-        [XmlAttribute( "db-key" )]
-        public int dbKey { get { return _dbKey; } set { var v = _dbKey; _dbKey = value; HandleSetterEvents( v != value ); } }
+        [DefaultValue(0)]
+        [XmlAttribute("db-key")]
+        public int dbKey { get { return _dbKey; } set { var v = _dbKey; _dbKey = value; } }
         int _dbKey;
 
         [DefaultValue( 0 )]
         [XmlAttribute( "fire-hazard" )]
-        public int fireHazard { get { return _fireHazard; } set { var v = _fireHazard; _fireHazard = value; HandleSetterEvents( v != value ); } }
+        public int fireHazard { get { return _fireHazard; } set { var v = _fireHazard; _fireHazard = value; } }
         int _fireHazard;
 
         [DefaultValue( 255 )]
@@ -199,55 +201,55 @@ namespace PloppableRICO
             get { return _fireSize; }
             set
             {
-                var v = _fireSize; _fireSize = value; HandleSetterEvents( v != value );
+                var v = _fireSize; _fireSize = value;
             }
         }
         int _fireSize;
 
         [DefaultValue( 0 )]
         [XmlAttribute( "fire-tolerance" )]
-        public int fireTolerance { get { return _fireTolerance; } set { var v = _fireTolerance; _fireTolerance = value; HandleSetterEvents( v != value ); } }
+        public int fireTolerance { get { return _fireTolerance; } set { var v = _fireTolerance; _fireTolerance = value; } }
         int _fireTolerance;
 
         //Toggles
         [DefaultValue( true )]
         [XmlAttribute( "enable-popbalance" )]
-        public bool popbalanceEnabled { get { return _popbalanceEnabled; } set { var v = _popbalanceEnabled; _popbalanceEnabled = value; HandleSetterEvents( v != value ); } }
+        public bool popbalanceEnabled { get { return _popbalanceEnabled; } set { var v = _popbalanceEnabled; _popbalanceEnabled = value; } }
         bool _popbalanceEnabled;
 
         [DefaultValue( true )]
         [XmlAttribute( "enable-rico" )]
-        public bool ricoEnabled { get { return _ricoEnabled; } set { var v = _ricoEnabled; _ricoEnabled = value; HandleSetterEvents( v != value ); } }
+        public bool ricoEnabled { get { return _ricoEnabled; } set { var v = _ricoEnabled; _ricoEnabled = value; } }
         bool _ricoEnabled;
 
         [DefaultValue(false)]
         [XmlAttribute("growable")]
-        public bool growable { get { return _growable; } set { var v = _growable; _growable = value; HandleSetterEvents(v != value); } }
+        public bool growable { get { return _growable; } set { var v = _growable; _growable = value; } }
         bool _growable;
 
         [DefaultValue( false )]
         [XmlAttribute( "enable-educationratio" )]
-        public bool educationRatioEnabled { get { return _educationRatioEnabled; } set { var v = _educationRatioEnabled; _educationRatioEnabled = value; HandleSetterEvents( v != value ); } }
+        public bool educationRatioEnabled { get { return _educationRatioEnabled; } set { var v = _educationRatioEnabled; _educationRatioEnabled = value; } }
         bool _educationRatioEnabled;
 
         [DefaultValue( true )]
         [XmlAttribute( "enable-pollution" )]
-        public bool pollutionEnabled { get { return _pollutionEnabled; } set { var v = _pollutionEnabled; _pollutionEnabled = value; HandleSetterEvents( v != value ); } }
+        public bool pollutionEnabled { get { return _pollutionEnabled; } set { var v = _pollutionEnabled; _pollutionEnabled = value; } }
         bool _pollutionEnabled;
 
         [DefaultValue( true )]
         [XmlAttribute( "enable-workercount" )]
-        public bool manualWorkerEnabled { get { return _manualWorkerEnabled; } set { var v = _manualWorkerEnabled; _manualWorkerEnabled = value; HandleSetterEvents( v != value ); } }
+        public bool manualWorkerEnabled { get { return _manualWorkerEnabled; } set { var v = _manualWorkerEnabled; _manualWorkerEnabled = value; } }
         bool _manualWorkerEnabled;
 
         [DefaultValue( true )]
         [XmlAttribute( "enable-homecount" )]
-        public bool manualHomeEnabled { get { return _manualHomeEnabled; } set { var v = _manualHomeEnabled; _manualHomeEnabled = value; HandleSetterEvents( v != value ); } }
+        public bool manualHomeEnabled { get { return _manualHomeEnabled; } set { var v = _manualHomeEnabled; _manualHomeEnabled = value; } }
         bool _manualHomeEnabled;
 
         [DefaultValue( true )]
         [XmlAttribute( "enable-constructioncost" )]
-        public bool constructionCostEnabled { get { return _constructionCostEnabled; } set { var v = _constructionCostEnabled; _constructionCostEnabled = value; HandleSetterEvents( v != value ); } }
+        public bool constructionCostEnabled { get { return _constructionCostEnabled; } set { var v = _constructionCostEnabled; _constructionCostEnabled = value; } }
         bool _constructionCostEnabled;
 
         [XmlAttribute( "workplaces" )]
@@ -283,7 +285,6 @@ namespace PloppableRICO
                         workplaces = new int[] { 0, 0, 0, 0 };
                     }
                 }
-                HandleSetterEvents( !old.SequenceEqual( workplaces ) );
             }
         }
 
@@ -310,8 +311,6 @@ namespace PloppableRICO
 
 
                 _lastSetDeviations = workplaceDeviation.Select( n => n ).ToArray();
-
-                HandleSetterEvents( v != value );
             }
         }
 
@@ -319,9 +318,9 @@ namespace PloppableRICO
 
         // Flag wether to ignore the realistic population mod is running 
         // This should probably be "true" by default
-        [XmlAttribute( "ignore-reality" )]
-        [DefaultValue( false )]
-        public bool RealityIgnored { get { return _RealityIgnored; } set { var v = _RealityIgnored; _RealityIgnored = value; HandleSetterEvents( v != value ); } }
+        [XmlAttribute("ignore-reality")]
+        [DefaultValue(false)]
+        public bool RealityIgnored { get { return _RealityIgnored; } set { var v = _RealityIgnored; _RealityIgnored = value; } }
         bool _RealityIgnored;
 
         [XmlIgnore]
@@ -334,28 +333,6 @@ namespace PloppableRICO
             }
         }
 
-        [XmlIgnore]
-        public bool isDirty
-        {
-            get
-            {
-                return
-                    _isDirty ||
-                    !_workplaces.SequenceEqual( _lastSetWorkplaces ) ||
-                    !_workplaceDeviations.SequenceEqual( _lastSetDeviations );
-            }
-        }
-        bool _isDirty;
-
-        public void clean()
-        {
-            var d = _isDirty;
-            _lastSetWorkplaces = _workplaces.Select( n => n ).ToArray();
-            _lastSetDeviations = _workplaceDeviations.Select( N => N ).ToArray();
-            _isDirty = false;
-            if ( d )
-                parent.RaiseBuildingDirtynessChanged( this );
-        }
 
         [XmlIgnore]
         public int maxLevel { get { return Util.MaxLevelOf( service, subService ); } }
@@ -415,7 +392,6 @@ namespace PloppableRICO
                 var old = _workplaces.Select( n => n).ToArray();
                 _workplaces = value;
                 _lastSetWorkplaces = _workplaces.Select( n => n ).ToArray();
-                HandleSetterEvents( !old.SequenceEqual( _workplaces ) );
             }
         }
 
@@ -436,18 +412,15 @@ namespace PloppableRICO
                 )
                 {
                     _workplaceDeviations = value;
-                    HandleSetterEvents( true );
                 }
                 else if ( _workplaceDeviations == null && value == null )
                 {
                     _workplaceDeviations = value;
-                    HandleSetterEvents( false );
                 }
                 else
                 {
                     var old = _workplaceDeviations.Select( n => n ).ToArray();
                     _workplaceDeviations = value;
-                    HandleSetterEvents( !old.SequenceEqual( value ) );
                 }
             }
         }

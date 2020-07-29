@@ -14,26 +14,6 @@ namespace PloppableRICO
         [XmlIgnore]
         public FileInfo sourceFile;
 
-        [XmlIgnore]
-        public bool isDirty
-        {
-            get
-            {
-                foreach (var building in Buildings)
-                    if (building.isDirty)
-                        return true;
-                return _isDirty;
-            }
-        }
-        private bool _isDirty;
-
-        public void clean()
-        {
-            foreach (var building in Buildings)
-                building.clean();
-            _isDirty = false;
-
-        }
         public PloppableRICODefinition()
         {
             Buildings = new List<RICOBuilding>();
@@ -41,8 +21,6 @@ namespace PloppableRICO
 
         public RICOBuilding addBuilding(RICOBuilding buildingDef = null)
         {
-            _isDirty = true;
-
             if (buildingDef == null)
             {
                 buildingDef = new RICOBuilding();
@@ -66,38 +44,7 @@ namespace PloppableRICO
         public RICOBuilding removeBuilding(RICOBuilding buildingDef)
         {
             Buildings.Remove(buildingDef);
-            _isDirty = true;
             return buildingDef;
         }
-
-
-        public delegate void BuildingChangedEventHandler(object sender, BuildingChangedEventArgs e);
-        public event BuildingChangedEventHandler BuildingDirtynessChanged;
-        public event BuildingChangedEventHandler BuildingPropertyChanged;
-
-        public void RaiseBuildingDirtynessChanged(RICOBuilding building)
-        {
-            if (BuildingDirtynessChanged != null)
-            {
-                var e = new BuildingChangedEventArgs();
-                e.building = building;
-                BuildingDirtynessChanged(this, e);
-            }
-        }
-
-        public void RaiseBuildingPropertyChanged(RICOBuilding building)
-        {
-            if (BuildingPropertyChanged != null)
-            {
-                var e = new BuildingChangedEventArgs();
-                e.building = building;
-                BuildingPropertyChanged(this, e);
-            }
-        }
-    }
-
-    public class BuildingChangedEventArgs : EventArgs
-    {
-        public RICOBuilding building;
     }
 }

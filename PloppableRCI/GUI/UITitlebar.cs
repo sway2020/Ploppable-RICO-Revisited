@@ -54,7 +54,7 @@ namespace PloppableRICO
             closeButton.normalBgSprite = "buttonclose";
             closeButton.hoveredBgSprite = "buttonclosehover";
             closeButton.pressedBgSprite = "buttonclosepressed";
-            closeButton.eventClick += (component, param) =>
+            closeButton.eventClick += (component, clickEvent) =>
             {
                 SettingsPanel.Close();
             };

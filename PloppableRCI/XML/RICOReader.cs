@@ -102,7 +102,7 @@ namespace PloppableRICO
                 }
 
                 streamReader.Close();
-                result.clean();
+                //result.clean();
                 return result;
             }
             catch (Exception e)

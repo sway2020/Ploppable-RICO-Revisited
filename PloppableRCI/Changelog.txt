@@ -1,4 +1,5 @@
 ﻿- RICO ploppable complaints checkboxes now set when 'All RICO' checkboxes are set
+- Clarify text labels for growable options
 
 
 Version 2.3
