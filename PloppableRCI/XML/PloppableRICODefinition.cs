@@ -1,28 +1,29 @@
 
-using System.Collections.Generic;
+
 using System.IO;
+using System.Collections.Generic;
 using System.Xml.Serialization;
-using System;
 
 
 namespace PloppableRICO
 {
+    /// <summary>
+    /// Ploppable RICO XML file definition.
+    /// </summary>
     public class PloppableRICODefinition
     {
+        /// <summary>
+        /// List of RICO building definitions.
+        /// </summary>
         public List<RICOBuilding> Buildings { get; set; }
 
-        [XmlIgnore]
-        public FileInfo sourceFile;
 
+        /// <summary>
+        /// Constructor - initialises building list.
+        /// </summary>
         public PloppableRICODefinition()
         {
             Buildings = new List<RICOBuilding>();
-        }
-
-        public RICOBuilding removeBuilding(RICOBuilding buildingDef)
-        {
-            Buildings.Remove(buildingDef);
-            return buildingDef;
         }
     }
 }
