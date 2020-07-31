@@ -21,9 +21,6 @@ namespace PloppableRICO
         private BuildingData currentSelection;
         private BuildingInfo renderPrefab;
 
-        // Flag to indicate if we need to render the builing with the next Update().
-        private bool queueRender;
-
 
         /// <summary>
         /// Render and show a preview of a building.
@@ -50,7 +47,7 @@ namespace PloppableRICO
                 noPreviewSprite.isVisible = false;
 
                 // Render at next update.
-                queueRender = true;
+                RenderPreview();
 
             }
             else
@@ -91,23 +88,10 @@ namespace PloppableRICO
 
 
         /// <summary>
-        /// (Re-)render the preview image if we need to.
-        /// Doing it in Update avoids the game 'flickering' in the background that can occur if rendering occurs at random times.
-        /// Called by Unity every frame.
+        /// Render the preview image.
         /// </summary>
-        public override void Update()
+        private void RenderPreview()
         {
-            base.Update();
-
-            // Don't do anything if a render hasn't been signalled.
-            if (!queueRender)
-            {
-                return;
-            }
-
-            // Clear flag.
-            queueRender = false;
-
             // Don't do anything if there's no prefab to render.
             if (renderPrefab == null)
             {
@@ -166,8 +150,8 @@ namespace PloppableRICO
             {
                 previewRender.Zoom -= Mathf.Sign(mouseEvent.wheelDelta) * 0.25f;
 
-                // Render at next update.
-                queueRender = true;
+                // Render updated image.
+                RenderPreview();
             };
 
             // Display building name.
@@ -209,10 +193,11 @@ namespace PloppableRICO
         /// <param name="p">Mouse event</param>
         private void RotateCamera(UIComponent c, UIMouseEventParameter p)
         {
+            // Change rotation.
             previewRender.CameraRotation -= p.moveDelta.x / previewSprite.width * 360f;
 
-            // Render at next update.
-            queueRender = true;
+            // Render updated image.
+            RenderPreview();
         }
     }
 }

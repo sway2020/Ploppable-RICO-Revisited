@@ -384,6 +384,7 @@ namespace PloppableRICO
             // Restore game exposure and sky tint.
             DayNightProperties.instance.m_Exposure = gameExposure;
             DayNightProperties.instance.m_SkyTint = gameSkyTint;
+            DayNightProperties.instance.Refresh();
 
             // Restore game InfoManager mode.
             infoManager.SetCurrentMode(currentMode, currentSubMode);
