@@ -365,7 +365,7 @@ namespace PloppableRICO
             }
 
             // Light settings.
-            renderLight.transform.eulerAngles = new Vector3(55f + xRotation, 180f, 0f);
+            renderLight.transform.eulerAngles = new Vector3(55f + xRotation, 0f, 0f);
             renderLight.intensity = 2f;
             renderLight.color = Color.white;
 
