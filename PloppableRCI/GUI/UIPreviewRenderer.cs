@@ -226,28 +226,24 @@ namespace PloppableRICO
             Light renderLight = DayNightProperties.instance.sunLightSource;
             RenderManager.instance.MainLight = renderLight;
 
-            // Set model position.
-            // We render at +100 Y to avoid garbage left at 0,0 by certain shaders and renderers (and we only rotate around the Y axis so will never see the origin).
-            Vector3 modelPosition = new Vector3(0f, 100f, 0f);
-
             // Reset the bounding box to be the smallest that can encapsulate all verticies of the new mesh.
             // That way the preview image is the largest size that fits cleanly inside the preview size.
             currentBounds = new Bounds(Vector3.zero, Vector3.zero);
             Vector3[] vertices;
 
             // Set our model rotation parameters, so we look at it obliquely.
-            const float xRotation = 20f;
+            const float xRotation = -20f;
             
             // Apply model rotation with our camnera rotation into a quaternion.
             Quaternion modelRotation = Quaternion.Euler(xRotation, 0f, 0f) * Quaternion.Euler(0f, currentRotation, 0f);
 
+            // Set default model position.
+            // We render at +100 Y to avoid garbage left at 0,0 by certain shaders and renderers (and we only rotate around the Y axis so will never see the origin).
+            Vector3 modelPosition = new Vector3(0f, 100f, 0f);
+
             // Add our main mesh, if any (some are null, because they only 'appear' through subbuildings - e.g. Boston Residence Garage).
             if (currentMesh != null && _material != null)
             {
-                // Calculate rendering matrix and add mesh to scene.
-                Matrix4x4 matrix = Matrix4x4.TRS(modelPosition, modelRotation, Vector3.one);
-                Graphics.DrawMesh(currentMesh, matrix, _material, 0, renderCamera, 0, null, true, true);
-
                 // Use separate verticies instance instead of accessing Mesh.vertices each time (which is slow).
                 // >10x measured performance improvement by doing things this way instead.
                 vertices = currentMesh.vertices;
@@ -259,6 +255,13 @@ namespace PloppableRICO
                         currentBounds.Encapsulate(vertices[i]);
                     }
                 }
+
+                // Adjust model position so it's dead centre.
+                modelPosition += (modelRotation * -currentBounds.center);
+
+                // Calculate rendering matrix and add mesh to scene.
+                Matrix4x4 matrix = Matrix4x4.TRS(modelPosition, modelRotation, Vector3.one);
+                Graphics.DrawMesh(currentMesh, matrix, _material, 0, renderCamera, 0, null, true, true);
             }
 
             // Render submeshes, if any.
@@ -350,11 +353,9 @@ namespace PloppableRICO
             renderCamera.nearClipPlane = Mathf.Max(clipCenter - clipExtent, 0.01f);
             renderCamera.farClipPlane = clipCenter + clipExtent;
 
-            // Rotate our camera around the model according to our current rotation.
-            renderCamera.transform.position = modelPosition + (Vector3.forward * clipCenter);
-
-            // Aim camera at middle of bounds.
-            renderCamera.transform.LookAt(currentBounds.center + modelPosition);
+            // Camera position and rotation - directly behind the model, facing forward.
+            renderCamera.transform.position = (-Vector3.forward * clipCenter) + new Vector3(0f, 100f, 0f);
+            renderCamera.transform.rotation = Quaternion.identity;
 
             // If game is currently in nighttime, enable sun and disable moon lighting.
             if (gameMainLight == DayNightProperties.instance.moonLightSource)
@@ -364,7 +365,7 @@ namespace PloppableRICO
             }
 
             // Light settings.
-            renderLight.transform.eulerAngles = new Vector3(55f - xRotation, 180f, 0f);
+            renderLight.transform.eulerAngles = new Vector3(55f + xRotation, 180f, 0f);
             renderLight.intensity = 2f;
             renderLight.color = Color.white;
 

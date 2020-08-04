@@ -12,7 +12,7 @@
         internal static void SetBuildingFlags(ref Building buildingData)
         {
             // Force reset timers to zero.
-            // buildingData.m_garbageBuffer = 100;
+            buildingData.m_garbageBuffer = 100;
             buildingData.m_majorProblemTimer = 0;
             buildingData.m_levelUpProgress = 0;
 

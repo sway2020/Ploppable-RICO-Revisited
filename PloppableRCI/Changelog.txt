@@ -1,5 +1,8 @@
-﻿- RICO ploppable complaints checkboxes now set when 'All RICO' checkboxes are set
+﻿Version 2.3.1
+
+- RICO ploppable complaints checkboxes now set when 'All RICO' checkboxes are set
 - Clarify text labels for growable options
+- Adjust thumbnail rendering angle
 
 
 Version 2.3
