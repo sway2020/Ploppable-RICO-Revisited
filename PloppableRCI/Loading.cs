@@ -34,10 +34,10 @@ namespace PloppableRICO
         public override void OnCreated(ILoading loading)
         {
             // Don't do anything if not in game (e.g. if we're going into an editor).
-            if (loading.currentMode != AppMode.Game)
+            if (loading.currentMode == AppMode.AssetEditor || loading.currentMode == AppMode.MapEditor || loading.currentMode == AppMode.ThemeEditor)
             {
                 isModEnabled = false;
-                Debugging.Message("not loading into game, skipping activation");
+                Debugging.Message("not loading into game, skipping activation - AppMode is " + loading.currentMode);
             }
             else
             {

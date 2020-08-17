@@ -1,4 +1,7 @@
-﻿Version 2.3.2
+﻿- Attempt fix for game not correctly reporting ILoading.currentMode as AppMode.game
+
+
+Version 2.3.2
 
 - Fix for author RICO settings files with _Data postfix but no package prefix
 - Add nl translation
