@@ -93,10 +93,7 @@ namespace PloppableRICO
         /// </summary>
         public ThumbnailGenerator()
         {
-            if (ModSettings.debugLogging)
-            {
-                Debugging.Message("creating thumbnail generator");
-            }
+            Debugging.OptionalMessage("creating thumbnail generator");
 
             // Get local reference from parent.
             renderer = ThumbnailManager.Renderer;

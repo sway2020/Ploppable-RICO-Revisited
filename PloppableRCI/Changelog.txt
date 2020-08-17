@@ -1,4 +1,7 @@
-﻿Version 2.3.1
+﻿- Fix for author RICO settings files with _Data postfix but no package prefix
+
+
+Version 2.3.1
 
 - RICO ploppable complaints checkboxes now set when 'All RICO' checkboxes are set
 - Clarify text labels for growable options

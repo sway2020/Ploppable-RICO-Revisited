@@ -30,6 +30,19 @@ namespace PloppableRICO
 
 
         /// <summary>
+        /// Prints a single-line debugging message to the Unity output log if (and only if) the 'additional debugging logging' option is selected.
+        /// </summary>
+        /// <param name="message">Message to log</param>
+        internal static void OptionalMessage(string message)
+        {
+            if (ModSettings.debugLogging)
+            {
+                Message(message);
+            }
+        }
+
+
+        /// <summary>
         /// Prints a single-line debugging message to the Unity output log.
         /// </summary>
         /// <param name="message">Message to log</param>

@@ -69,10 +69,7 @@ namespace PloppableRICO
 							if (MatchRICOName(buildingDef.name, __instance.name, asset.package.packageName))
 							{
 								// Match!  Add these author settings to our prefab dictionary.
-								if (ModSettings.debugLogging)
-								{
-									Debugging.Message("found author settings for " + buildingDef.name);
-								}
+								Debugging.OptionalMessage("found author settings for " + buildingDef.name);
 								Loading.xmlManager.prefabHash[__instance].author = buildingDef;
 								Loading.xmlManager.prefabHash[__instance].hasAuthor = true;
 							}
@@ -211,14 +208,24 @@ namespace PloppableRICO
 		/// <returns>True if a match was found, false otherwise.</returns>
 		private static bool MatchRICOName(string ricoName, string prefabName, string packageName)
 		{
+			// Get common string combinations.
+			string ricoNameData = ricoName + "_Data";
+			string packagePrefix = packageName + ".";
+
 			// Ordered in order of assumed probability.
 			// Standard full workshop asset name - all local settings for workshop assets should match against this, as well as many author settings files.
-			if (prefabName.Equals(packageName + "." + ricoName + "_Data"))
+
+			if (prefabName.Equals(packagePrefix + ricoNameData))
+			{
+				return true;
+			}
+			// Asset creators that append "_Data" after their name.
+			if (prefabName.Equals(packagePrefix + ricoName))
 			{
 				return true;
 			}
 			// The workshop package ID isn't included in the RICO settings file - common amongst workshop assets.
-			if (prefabName.Equals(ricoName + "_Data"))
+			if (prefabName.Equals(ricoNameData))
 			{
 				return true;
 			}
