@@ -1,4 +1,6 @@
 ﻿- Fix for author RICO settings files with _Data postfix but no package prefix
+- Add nl translation
+- Update fr translation
 
 
 Version 2.3.1

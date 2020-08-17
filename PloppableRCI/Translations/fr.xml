@@ -14,12 +14,12 @@
     "<Translation ID="PRR_SRV_EXT" String="Extracteur" />
     "<Translation ID="PRR_SRV_DUM" String="Mannequin" />
     "<Translation ID="PRR_SUB_HIG" String="Haute" />
-    "<Translation ID="PRR_SUB_LOW" String="Faible" />
-    "<Translation ID="PRR_SUB_HEC" String="Haute éco" />
-    "<Translation ID="PRR_SUB_LEC" String="Faible éco" />
+    "<Translation ID="PRR_SUB_LOW" String="Basse" />
+    "<Translation ID="PRR_SUB_HEC" String="Haute écologique" />
+    "<Translation ID="PRR_SUB_LEC" String="Basse écologique" />
     "<Translation ID="PRR_SUB_LEI" String="Loisir" />
     "<Translation ID="PRR_SUB_TOU" String="Tourisme" />
-    "<Translation ID="PRR_SUB_ORG" String="Eco (bio)" />
+    "<Translation ID="PRR_SUB_ORG" String="Ecologique" />
     "<Translation ID="PRR_SUB_GEN" String="Générique" />
     "<Translation ID="PRR_SUB_ITC" String="Cluster informatique" />
     "<Translation ID="PRR_SUB_FAR" String="Agriculture" />
@@ -29,7 +29,7 @@
     "<Translation ID="PRR_FTR_ALL" String="Tout" />
     "<Translation ID="PRR_FTR_NON" String="Aucun" />
     "<Translation ID="PRR_FTR_NAM" String="Nom" />
-    "<Translation ID="PRR_FTR_SET" String="Filtre des paramètres: &#10;Mod/Auteur/Local/Tout" />
+    "<Translation ID="PRR_FTR_SET" String="Filtre des paramètres: Mod / Auteur / Local / Tout" />
     "<Translation ID="PRR_OPT_ENA" String="Activer RICO" />
     "<Translation ID="PRR_OPT_SER" String="Un service" />
     "<Translation ID="PRR_OPT_SUB" String="Sous-service" />
@@ -38,7 +38,7 @@
     "<Translation ID="PRR_OPT_CNT" String="Nombre de travailleurs / domicile" />
     "<Translation ID="PRR_OPT_POP" String="Utiliser un mod Pop réaliste" />
     "<Translation ID="PRR_OPT_POL" String="Activer la pollution" />
-    "<Translation ID="PRR_OPT_GRO" String="Cultivable" />
+    "<Translation ID="PRR_OPT_GRO" String="Growable" />
     "<Translation ID="PRR_OPT_JB0" String="Emplois sans instruction" />
     "<Translation ID="PRR_OPT_JB1" String="Emplois instruits" />
     "<Translation ID="PRR_OPT_JB2" String="Emplois bien éduqués" />
@@ -84,6 +84,22 @@
     "<Translation ID="TRN_CHOICE" String="Définir la langue" />
     "<Translation ID="TRN_SYS" String="Utiliser la langue du système" />
     "<Translation ID="PRR_DESCRIPTION" String="Permet des bâtiments RICO d'une taille supérieure à 4x4 et une personnalisation des bâtiments RICO" />
+    "<Translation ID="PRR_OPTION_PLP" String="Construction instantanée" />
+    "<Translation ID="PRR_OPTION_ZON" String="Les batiments peuvent survivre hors de la zone prévue" />
+    "<Translation ID="PRR_OPTION_SPC" String="Les bâtiments peuvent survivre sans la spécialisation de quartier adéquate" />
+    "<Translation ID="PRR_OPTION_VAL" String="Ignorer la plainte &quot;Valeur foncière basse&quot;" />
+    "<Translation ID="PRR_OPTION_SVC" String="Ignorer la plainte &quot;Pas assez de services&quot;" />
+    "<Translation ID="PRR_OPTION_HST" String="Rendre les bâtiments placés historiques" />
+    "<Translation ID="PRR_OPTION_RPL" String="Bâtiments RICO placés" />
+    "<Translation ID="PRR_OPTION_RGR" String="Bâtiments RICO construits automatiquement" />
+    "<Translation ID="PRR_OPTION_RCO" String="Tous les bâtiments RICO" />
+    "<Translation ID="PRR_OPTION_OTH" String="Bâtiments construits automatiquement hors RICO" />
+    "<Translation ID="PRR_OPTION_LOA" String="Options de chargement" />
+    "<Translation ID="PRR_OPTION_LOG" String="Options de rapport" />
+    "<Translation ID="PRR_OPTION_TMB" String="Options de vignette" />
+
+    "<Translation ID="PRR_OPTION_COM" String="Options des plaintes" />
+    "<Translation ID="PRR_OPTION_MOD" String="Options du mod" />
     "<Translation ID="PRR_OPTION_MOREDEBUG" String="Activer la journalisation de débogage supplémentaire" />
     "<Translation ID="PRR_OPTION_FORCERESET" String="Forcer la réinitialisation des statistiques de construction existantes sur la charge de jeu" />
     "<Translation ID="PRR_OPTION_REGENTHUMBS" String="Régénérer les vignettes" />
@@ -107,5 +123,11 @@
     "<Translation ID="PRR_CON_GBC" String="Mod de contrôleur de poubelle détecté" />
     "<Translation ID="PRR_CON_PTR" String="Ancien mod Painter détecté" />
     "<Translation ID="PRR_CON_PTR1" String="L'ancien mod Painter provoque des problèmes avec les bibliothèques Harmony utilisées par ce mod, entraînant des erreurs aléatoires. Veuillez vous DÉSABONNER de Painter (la simple désactivation n'est PAS suffisante); le mod Repaint peut être utilisé en remplacement." />
+    "<Translation ID="PRR_UPD_23_0" String="Mise à jour 2.3 de Ploppable RICO Revisité" />
+    "<Translation ID="PRR_UPD_23_0" String="Ploppable RICO Revisité a été mis à jour vers la version 2.3. Les points clés de cette mise à jour sont :" />
+    "<Translation ID="PRR_UPD_23_1" String="Ploppable RICO contient désormais la fonctionalité de &quot;placer les bâtiments zonés&quot; pour les bâtiments RICO et non RICO - voir les options pour plus d'informations" />
+    "<Translation ID="PRR_UPD_23_2" String="Les bâtiments zonés RICO peuvent être maintenant placés hors des zones (configurable)" />
+    "<Translation ID="PRR_UPD_23_3" String="Les plaintes &quot;Valeur foncière basse&quot; et &quot;Pas assez de services&quot; peuvent être désactivées" />
+    "<Translation ID="PRR_UPD_23_4" String="Amélioration du moteur de rendu des vignettes pour ne les générer que si besoin, ce qui réduit l'utilisation de mémoire et les temps de chargement " />
   </Translations>
 </Language>
