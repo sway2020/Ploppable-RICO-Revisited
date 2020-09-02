@@ -1,4 +1,6 @@
-﻿- Attempt fix for game not correctly reporting ILoading.currentMode as AppMode.game
+﻿Version 2.3.3
+
+- Attempt fix for game not correctly reporting ILoading.currentMode as AppMode.game
 
 
 Version 2.3.2
