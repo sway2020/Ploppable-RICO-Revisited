@@ -264,7 +264,7 @@ namespace PloppableRICO
                 }
 
                 // Trigger filtering changed event if any checkbox is changed.
-                settingsFilter[i].eventCheckChanged += (c, state) => { eventFilteringChanged(this, 0); };
+                settingsFilter[i].eventCheckChanged += (control, isChecked) => { eventFilteringChanged(this, 0); };
             }
 
             // Add settings filter tooltips.

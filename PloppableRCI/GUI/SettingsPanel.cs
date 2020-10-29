@@ -108,7 +108,6 @@ namespace PloppableRICO
         /// The button will be added to the right of the panel with a small margin from the panel edge, at the relative Y position specified.
         /// </summary>
         /// <param name="infoPanel">Infopanel to apply the button to</param>
-        /// <param name="relativeY">The relative Y position of the button within the panel</param>
         private static void AddInfoPanelButton(BuildingWorldInfoPanel infoPanel)
         {
             UIButton panelButton = infoPanel.component.AddUIComponent<UIButton>();
@@ -174,15 +173,15 @@ namespace PloppableRICO
     public class RICOSettingsPanel : UIPanel
     {
         // Constants.
-        private const float leftWidth = 400;
-        private const float middleWidth = 250;
-        private const float rightWidth = 300;
-        private const float filterHeight = 40;
-        private const float panelHeight = 550;
-        private const float bottomMargin = 10;
-        private const float spacing = 5;
-        private const float checkFilterHeight = 30;
-        internal const float titleHeight = 40;
+        private const float LeftWidth = 400f;
+        private const float MiddleWidth = 250f;
+        private const float RightWidth = 300f;
+        private const float FilterHeight = 40f;
+        private const float PanelHeight = 550f;
+        private const float BottomMargin = 10f;
+        private const float Spacing = 5f;
+        private const float CheckFilterHeight = 30f;
+        internal const float TitleHeight = 40f;
 
         // Panel components.
         private UITitleBar titleBar;
@@ -304,8 +303,8 @@ namespace PloppableRICO
                 // Basic setup.
                 canFocus = true;
                 isInteractive = true;
-                width = leftWidth + middleWidth + rightWidth + (spacing * 4);
-                height = panelHeight + titleHeight + filterHeight + (spacing * 2) + bottomMargin;
+                width = LeftWidth + MiddleWidth + RightWidth + (Spacing * 4);
+                height = PanelHeight + TitleHeight + FilterHeight + (Spacing * 2) + BottomMargin;
                 relativePosition = new Vector3(Mathf.Floor((GetUIView().fixedWidth - width) / 2), Mathf.Floor((GetUIView().fixedHeight - height) / 2));
                 backgroundSprite = "UnlockingPanel2";
 
@@ -315,9 +314,9 @@ namespace PloppableRICO
 
                 // Filter.
                 filterBar = AddUIComponent<UIBuildingFilter>();
-                filterBar.width = width - (spacing * 2);
-                filterBar.height = filterHeight;
-                filterBar.relativePosition = new Vector3(spacing, titleHeight);
+                filterBar.width = width - (Spacing * 2);
+                filterBar.height = FilterHeight;
+                filterBar.relativePosition = new Vector3(Spacing, TitleHeight);
 
                 // Event handler to dealth with changes to filtering.
                 filterBar.eventFilteringChanged += (component, value) =>
@@ -335,37 +334,37 @@ namespace PloppableRICO
                 // Set up panels.
                 // Left panel - list of buildings.
                 UIPanel leftPanel = AddUIComponent<UIPanel>();
-                leftPanel.width = leftWidth;
-                leftPanel.height = panelHeight - checkFilterHeight;
-                leftPanel.relativePosition = new Vector3(spacing, titleHeight + filterHeight + checkFilterHeight + spacing);
+                leftPanel.width = LeftWidth;
+                leftPanel.height = PanelHeight - CheckFilterHeight;
+                leftPanel.relativePosition = new Vector3(Spacing, TitleHeight + FilterHeight + CheckFilterHeight + Spacing);
 
                 // Middle panel - building preview and edit panels.
                 UIPanel middlePanel = AddUIComponent<UIPanel>();
-                middlePanel.width = middleWidth;
-                middlePanel.height = panelHeight;
-                middlePanel.relativePosition = new Vector3(leftWidth + (spacing * 2), titleHeight + filterHeight + spacing);
+                middlePanel.width = MiddleWidth;
+                middlePanel.height = PanelHeight;
+                middlePanel.relativePosition = new Vector3(LeftWidth + (Spacing * 2), TitleHeight + FilterHeight + Spacing);
 
                 previewPanel = middlePanel.AddUIComponent<UIPreviewPanel>();
                 previewPanel.width = middlePanel.width;
-                previewPanel.height = (panelHeight - spacing) / 2;
+                previewPanel.height = (PanelHeight - Spacing) / 2;
                 previewPanel.relativePosition = Vector3.zero;
                 previewPanel.Setup();
 
                 savePanel = middlePanel.AddUIComponent<UISavePanel>();
                 savePanel.width = middlePanel.width;
-                savePanel.height = (panelHeight - spacing) / 2;
-                savePanel.relativePosition = new Vector3(0, previewPanel.height + spacing);
+                savePanel.height = (PanelHeight - Spacing) / 2;
+                savePanel.relativePosition = new Vector3(0, previewPanel.height + Spacing);
                 savePanel.Setup();
 
                 // Right panel - mod calculations.
                 UIPanel rightPanel = AddUIComponent<UIPanel>();
-                rightPanel.width = rightWidth;
-                rightPanel.height = panelHeight;
-                rightPanel.relativePosition = new Vector3(leftWidth + middleWidth + (spacing * 3), titleHeight + filterHeight + spacing);
+                rightPanel.width = RightWidth;
+                rightPanel.height = PanelHeight;
+                rightPanel.relativePosition = new Vector3(LeftWidth + MiddleWidth + (Spacing * 3), TitleHeight + FilterHeight + Spacing);
 
                 buildingOptionsPanel = rightPanel.AddUIComponent<UIBuildingOptions>();
-                buildingOptionsPanel.width = rightWidth;
-                buildingOptionsPanel.height = panelHeight;
+                buildingOptionsPanel.width = RightWidth;
+                buildingOptionsPanel.height = PanelHeight;
                 buildingOptionsPanel.relativePosition = Vector3.zero;
                 buildingOptionsPanel.Setup();
 

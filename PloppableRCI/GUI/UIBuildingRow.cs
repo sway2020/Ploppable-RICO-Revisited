@@ -94,12 +94,12 @@ namespace PloppableRICO
                 // Checkboxes to indicate which items have custom settings.
                 hasModSettings = AddUIComponent<UISprite>();
                 hasModSettings.size = new Vector2(20, 20);
-                hasModSettings.relativePosition = new Vector3(340, 10);
+                hasModSettings.relativePosition = new Vector3(280, 10);
                 hasModSettings.tooltip = Translations.Translate("PRR_SET_HASMOD");
 
                 hasAuthorSettings = AddUIComponent<UISprite>();
                 hasAuthorSettings.size = new Vector2(20, 20);
-                hasAuthorSettings.relativePosition = new Vector3(340, 10);
+                hasAuthorSettings.relativePosition = new Vector3(310, 10);
                 hasAuthorSettings.tooltip = Translations.Translate("PRR_SET_HASAUT");
 
                 hasLocalSettings = AddUIComponent<UISprite>();

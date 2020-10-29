@@ -23,7 +23,7 @@ namespace PloppableRICO
         {
             // Basic setup.
             width = parent.width;
-            height = RICOSettingsPanel.titleHeight;
+            height = RICOSettingsPanel.TitleHeight;
             isVisible = true;
             canFocus = true;
             isInteractive = true;
