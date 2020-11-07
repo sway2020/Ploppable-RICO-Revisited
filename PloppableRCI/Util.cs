@@ -135,7 +135,6 @@ namespace PloppableRICO
                     return 3;
                 default:
                     return 1;
-
             }
         }
 
