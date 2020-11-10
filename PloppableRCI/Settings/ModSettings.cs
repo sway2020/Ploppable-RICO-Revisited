@@ -26,7 +26,8 @@ namespace PloppableRICO
         internal static bool debugLogging = false;
         internal static bool resetOnLoad = true;
         internal static int thumbBacks = (byte)ThumbBackCats.skybox;
-
+        internal static bool warnBulldoze = false;
+        internal static bool autoDemolish = false;
 
         // Thumbnail background category enum.
         public enum ThumbBackCats
@@ -109,6 +110,12 @@ namespace PloppableRICO
 
         [XmlElement("ResetOnLoad")]
         public bool ResetOnLoad { get => ModSettings.resetOnLoad; set => ModSettings.resetOnLoad = value; }
+
+        [XmlElement("WarnBulldoze")]
+        public bool WarnBulldoze { get => ModSettings.warnBulldoze; set => ModSettings.warnBulldoze = value; }
+
+        [XmlElement("AutoDemolish")]
+        public bool AutoDemolish { get => ModSettings.autoDemolish; set => ModSettings.autoDemolish = value; }
 
         [XmlElement("ThumbBacks")]
         public int ThumbBacks

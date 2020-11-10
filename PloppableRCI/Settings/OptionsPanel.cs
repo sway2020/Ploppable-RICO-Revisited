@@ -99,8 +99,16 @@ namespace PloppableRICO
 
                 // Add tabs and panels.
                 new GrowableOptions(tabStrip, 0);
-                new ComplaintOptions(tabStrip, 1);
-                new ModOptions(tabStrip, 2);
+                new PloppableOptions(tabStrip, 1);
+                new ComplaintOptions(tabStrip, 2);
+                new ModOptions(tabStrip, 3);
+
+                // Change tab size and text scale (to fit them all in...).
+                foreach (UIButton button in tabStrip.components)
+                {
+                    button.textScale = 0.8f;
+                    button.width = 175f;
+                }
             }
             catch (Exception e)
             {

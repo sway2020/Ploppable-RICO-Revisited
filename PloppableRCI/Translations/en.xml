@@ -94,9 +94,12 @@
     <Translation ID="PRR_OPTION_RGR" String="RICO growable buildings" />
     <Translation ID="PRR_OPTION_RCO" String="All RICO buildings (including growables)" />
     <Translation ID="PRR_OPTION_OTH" String="Non-RICO growable buildings" />
+    <Translation ID="PRR_OPTION_BDZ" String="Ask before bulldozing plopped RICO buildings" />
+    <Translation ID="PRR_OPTION_IMP" String="Allow plopped RICO buildings to be auto-bulldozed and built over (e.g. when building roads or placing buildings)" />
     <Translation ID="PRR_OPTION_LOA" String="Loading options" />
     <Translation ID="PRR_OPTION_LOG" String="Logging options" />
     <Translation ID="PRR_OPTION_TMB" String="Thumbnail options" />
+    <Translation ID="PRR_OPTION_PLO" String="Ploppable options" />
     <Translation ID="PRR_OPTION_GRO" String="Growable options" />
     <Translation ID="PRR_OPTION_COM" String="Complaint options" />
     <Translation ID="PRR_OPTION_MOD" String="Mod options" />

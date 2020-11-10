@@ -1,4 +1,8 @@
-﻿Version 2.3.3
+﻿- Add option toggle for confirmation of bulldozing RICO ploppables
+- Add option toggle for auto-demolition of RICO ploppables (e.g. by building roads or other buildings)
+
+
+Version 2.3.3
 
 - Attempt fix for game not correctly reporting ILoading.currentMode as AppMode.game
 - Add rs translation

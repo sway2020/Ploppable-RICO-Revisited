@@ -25,17 +25,21 @@ namespace PloppableRICO
 		/// <returns>False (don't continue execution chain) if this is a RICO building (original return value changed to true), true (continue exection chain) otherwise.</returns>
 		private static bool Prefix (ref bool __result, BuildingInfo info, ref Building building)
 		{
-			// All we want to do here is ensure that ploppable RICO buildings are classified as "Important Buildings" (to "spare them from the wrath of the BuildingTool"...)
-			if (info.m_buildingAI is PloppableOfficeAI || info.m_buildingAI is PloppableExtractorAI || info.m_buildingAI is PloppableResidentialAI || info.m_buildingAI is PloppableCommercialAI || info.m_buildingAI is PloppableIndustrialAI)
+			// Only do this if our settings are set to ensure RICO buildings are important.
+			if (!ModSettings.autoDemolish)
 			{
-				// Found a ploppable RICO building - set original method return value.
-				__result = true;
+				// All we want to do here is ensure that ploppable RICO buildings are classified as "Important Buildings" (to "spare them from the wrath of the BuildingTool"...)
+				if (info.m_buildingAI is PloppableOfficeAI || info.m_buildingAI is PloppableExtractorAI || info.m_buildingAI is PloppableResidentialAI || info.m_buildingAI is PloppableCommercialAI || info.m_buildingAI is PloppableIndustrialAI)
+				{
+					// Found a ploppable RICO building - set original method return value.
+					__result = true;
 
-				// Don't execute base method after this.
-				return false;
+					// Don't execute base method after this.
+					return false;
+				}
 			}
 
-			// Didn't find a ploppable RICO building - go onto running the original game method.
+			// Didn't find a ploppable RICO building (or the RICO important setting isn't set) - go onto running the original game method.
             return true;
 		}
 	}

@@ -40,7 +40,6 @@ namespace PloppableRICO
                 SettingsUtils.SaveSettings();
             });
 
-
             // Logging options.
             UIHelperBase logGroup = helper.AddGroup(Translations.Translate("PRR_OPTION_LOG"));
 

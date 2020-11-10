@@ -84,6 +84,7 @@
     <Compile Include="Settings\OptionsPanelTabs\ComplaintOptions.cs" />
     <Compile Include="Settings\OptionsPanelTabs\ModOptions.cs" />
     <Compile Include="Settings\OptionsPanelTabs\GrowableOptions.cs" />
+    <Compile Include="Settings\OptionsPanelTabs\PloppableOptions.cs" />
     <Compile Include="Settings\PanelUtils.cs" />
     <Compile Include="Utils\ModUtils.cs" />
     <Compile Include="Notifications\ConflictNotification.cs" />

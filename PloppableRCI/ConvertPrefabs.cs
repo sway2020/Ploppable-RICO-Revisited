@@ -327,7 +327,7 @@ namespace PloppableRICO
             prefab.m_buildingAI.m_info = prefab;
             prefab.m_class = ItemClassCollection.FindClass(aiClass);
             prefab.m_placementStyle = growable ? ItemClass.Placement.Automatic : ItemClass.Placement.Manual;
-            prefab.m_autoRemove = false;
+            prefab.m_autoRemove = growable ? true : !ModSettings.warnBulldoze;
         }
 
 

@@ -106,9 +106,6 @@ namespace PloppableRICO
     }
 
 
-    //This is the data object definition for the dictionary. It contains one entry for every ploppable building. 
-    //Each entry contains up to 3 PloppableRICODef entries. 
-
     /// <summary>
     /// Ploppable RICO data object definition for the dictionary.
     /// Every Ploppable RICO building has one entry, with (in turn) up to three PloppableRICODef sub-entries (local, author, and/or mod).
