@@ -1,4 +1,6 @@
-﻿- Add option toggle for confirmation of bulldozing RICO ploppables
+﻿Bersion 2.3.4
+
+- Add option toggle for confirmation of bulldozing RICO ploppables
 - Add option toggle for auto-demolition of RICO ploppables (e.g. by building roads or other buildings)
 
 
