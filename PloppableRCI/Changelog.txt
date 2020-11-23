@@ -2,6 +2,7 @@
 
 - Add option toggle for confirmation of bulldozing RICO ploppables
 - Add option toggle for auto-demolition of RICO ploppables (e.g. by building roads or other buildings)
+- Improve update notifications (thanks, macsergey!)
 
 
 Version 2.3.3

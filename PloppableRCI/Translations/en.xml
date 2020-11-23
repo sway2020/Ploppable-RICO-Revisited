@@ -132,5 +132,8 @@
     <Translation ID="PRR_UPD_23_3" String="RICO growable buildings can now be placed outside of zones (configurable)." />
     <Translation ID="PRR_UPD_23_4" String="Complaints about 'low land value' and 'not enough services' can now be disabled." />
     <Translation ID="PRR_UPD_23_5" String="Improved building thumbnail renderer that now only generates images as needed, reducing memory and improving loading times." />
+    <Translation ID="PRR_UPD_234_0" String="Add option for enabling or disabling warnings when demolishing plopped RICO buildings." />
+    <Translation ID="PRR_UPD_234_1" String="Add option for enabling or disabling auto-bulldoze when building over the top of plopped RICO buildings." />
+    <Translation ID="PRR_UPD_234_2" String="Improved update notifications." />
   </Translations>
 </Language>

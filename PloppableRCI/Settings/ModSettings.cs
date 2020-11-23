@@ -29,6 +29,9 @@ namespace PloppableRICO
         internal static bool warnBulldoze = false;
         internal static bool autoDemolish = false;
 
+        // What's new notification version.
+        internal static string whatsNewVersion = "0.0";
+
         // Thumbnail background category enum.
         public enum ThumbBackCats
         {
@@ -57,8 +60,8 @@ namespace PloppableRICO
     [XmlRoot("SettingsFile")]
     public class XMLSettingsFile
     {
-        [XmlElement("NotificationVersion")]
-        public int NotificationVersion { get => UpdateNotification.notificationVersion; set => UpdateNotification.notificationVersion = value; }
+        [XmlElement("WhatsNewVersion")]
+        public string WhatsNewVersion { get => ModSettings.whatsNewVersion; set => ModSettings.whatsNewVersion = value; }
 
         [XmlElement("PlopRico")]
         public bool PlopRico { get => ModSettings.plopRico; set => ModSettings.plopRico = value; }

@@ -79,6 +79,10 @@
     <Compile Include="GUI\Thumbnails.cs" />
     <Compile Include="Interfaces.cs" />
     <Compile Include="LevelUpExtension.cs" />
+    <Compile Include="Notifications\BaseMessageBox.cs" />
+    <Compile Include="Notifications\MessageBoxUtils.cs" />
+    <Compile Include="Notifications\WhatsNew.cs" />
+    <Compile Include="Notifications\WhatsNewMessageBox.cs" />
     <Compile Include="Patches\SpecializationPatches.cs" />
     <Compile Include="Settings\OptionsPanel.cs" />
     <Compile Include="Settings\OptionsPanelTabs\ComplaintOptions.cs" />
@@ -101,7 +105,6 @@
     <Compile Include="Settings\ModSettings.cs" />
     <Compile Include="Settings\SettingsUtils.cs" />
     <Compile Include="Settings\SettingsXML.cs" />
-    <Compile Include="Notifications\UpdateNotification.cs" />
     <Compile Include="ConvertPrefabs.cs" />
     <Compile Include="GUI\CategoryUtils.cs" />
     <Compile Include="GUI\FastList.cs" />
