@@ -40,14 +40,22 @@ namespace PloppableRICO
 
 
         /// <summary>
-        /// Confirmation button action.
+        /// Close button action.
         /// </summary>
         /// <returns>True (always)</returns>
-        public static bool Confirm()
+        public static bool Confirm() => true;
+
+        /// <summary>
+        /// 'Don't show again' button action.
+        /// </summary>
+        /// <returns>True (always)</returns>
+        public static bool DontShowAgain()
         {
-                //ModSettings.whatsNewVersion = PloppableRICOMod.Version;
-            //SettingsUtils.SaveSettings();
-                return true;
+            // Save current version to settings file.
+            ModSettings.whatsNewVersion = PloppableRICOMod.Version;
+            SettingsUtils.SaveSettings();
+
+            return true;
         }
 
 
@@ -78,7 +86,8 @@ namespace PloppableRICO
             // Show messagebox (complete with "CaprionText"...)
             WhatsNewMessageBox messageBox = MessageBoxBase.ShowModal<WhatsNewMessageBox>();
             messageBox.CaprionText = PloppableRICOMod.ModName + " " + PloppableRICOMod.Version;
-            messageBox.OnButtonClick = Confirm;
+            messageBox.OnButton1Click = Confirm;
+            messageBox.OnButton2Click = DontShowAgain;
             messageBox.Init(messages);
         }
 

@@ -9,24 +9,27 @@ namespace PloppableRICO.MessageBox
 {
     public class WhatsNewMessageBox : MessageBoxBase
     {
-        private UIButton OkButton { get; set; }
+        private UIButton CloseButton { get; set; }
+        private UIButton DontShowButton { get; set; }
         private UIButton GetEarlyAccessButton { get; set; }
-        public Func<bool> OnButtonClick { get; set; }
+        public Func<bool> OnButton1Click { get; set; }
+        public Func<bool> OnButton2Click { get; set; }
 
         public WhatsNewMessageBox()
         {
-            OkButton = AddButton(1, /*EarlyAccess.Status ? 1 : 2*/ 1, OkClick);
-            OkButton.text = "Okay"; //TODO NodeMarkup.Localize.MessageBox_OK;
-
-            //if(!EarlyAccess.Status)
-            //{
-            //    GetEarlyAccessButton = AddButton(2, 2, GetEarlyAccessClick);
-            //    GetEarlyAccessButton.text = NodeMarkup.Localize.EarlyAccess_GetButton;
-            //}
+            CloseButton = AddButton(1, 2, OkClick);
+            CloseButton.text = Translations.Translate("PRR_MES_CLS");
+            DontShowButton = AddButton(2, 2, DontShowClick);
+            DontShowButton.text = Translations.Translate("PRR_MES_DSA");
         }
         protected virtual void OkClick()
         {
-            if (OnButtonClick?.Invoke() != false)
+            if (OnButton1Click?.Invoke() != false)
+                Cancel();
+        }
+        protected virtual void DontShowClick()
+        {
+            if (OnButton2Click?.Invoke() != false)
                 Cancel();
         }
 

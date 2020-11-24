@@ -114,6 +114,8 @@
     <Translation ID="PRR_THUMB_COLOR" String="Color" />
     <Translation ID="PRR_THUMB_PLAIN" String="Plain" />
     <Translation ID="PRR_THUMB_SKY" String="Skybox" />
+    <Translation ID="PRR_MES_CLS" String="Close" />
+    <Translation ID="PRR_MES_DSA" String="Don't show again" />
     <Translation ID="PRR_ERR_HAR0" String="Harmony patching error" />
     <Translation ID="PRR_ERR_HAR1" String="Ploppable RICO Revisited was unable to complete its required Harmony patches.  This means that the mod is not able to operate, and has shut down to protect your save file from damage." />
     <Translation ID="PRR_ERR_HAR2" String="Possible causes of this problem include:" />
