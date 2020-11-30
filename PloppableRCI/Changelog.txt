@@ -3,6 +3,7 @@
 - Add option toggle for confirmation of bulldozing RICO ploppables
 - Add option toggle for auto-demolition of RICO ploppables (e.g. by building roads or other buildings)
 - Improve update notifications (thanks, macsergey!)
+- Add ClearWorkplaceCache method to enable other mods to trigger workplace cache clearance
 
 
 Version 2.3.3

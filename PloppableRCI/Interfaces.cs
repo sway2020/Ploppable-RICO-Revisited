@@ -79,5 +79,45 @@
             return false;
         }
 
+
+        /// <summary>
+        /// Called by other mods to clear any cached workplace settings for a given prefab (e.g. for when a Realistic Population mod's calculations have changed).
+        /// Only takes affect for buidings using Realistic Population settings.
+        /// </summary>
+        /// <param name="prefab">Prefab to clear</param>
+        public static void ClearWorkplaceCache(BuildingInfo prefab)
+        {
+            // First, do we have a setting at all?
+            if (Loading.xmlManager.prefabHash.ContainsKey(prefab))
+            {
+                // Get active RICO settings.
+                RICOBuilding building = RICOUtils.CurrentRICOSetting(Loading.xmlManager.prefabHash[prefab]);
+
+                // Check that it's enabled and is using reality.
+                if (building != null && building.ricoEnabled && building.useReality)
+                {
+                    // Get AI.
+                    PrivateBuildingAI buildingAI = (PrivateBuildingAI)prefab.GetAI();
+
+                    // See if it's one of our AI types; if so, clear the cache for that AI.
+                    if (buildingAI is GrowableCommercialAI comAI)
+                    {
+                        comAI.workplaceCount = null;
+                    }
+                    else if (buildingAI is GrowableIndustrialAI indAI)
+                    {
+                        indAI.workplaceCount = null;
+                    }
+                    else if (buildingAI is GrowableOfficeAI offAI)
+                    {
+                        offAI.workplaceCount = null;
+                    }
+                    else if (buildingAI is GrowableExtractorAI growAI)
+                    {
+                        growAI.workplaceCount = null;
+                    }
+                }
+            }
+        }
     }
 }
