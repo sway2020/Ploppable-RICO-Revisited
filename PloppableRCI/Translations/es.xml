@@ -106,5 +106,11 @@
     "<Translation ID="PRR_CON_GBC" String="Mod «Garbage Bin Controller» detectado" />
     "<Translation ID="PRR_CON_PTR" String="Mod «Painter» detectado" />
     "<Translation ID="PRR_CON_PTR1" String="El mod ''old painter'' esta causando problemas con las librerias Harmony (Harmony libraries) que usa este mod; lo que genera varios errores. Por favor anular la suscripción a este mod (No bastará con desactivarlo); el mod Repaint puede ser utilizado en su reemplazo." />
+    "<Translation ID="PRR_UPD_23_0" String="Actualización de Ploppable RICO Revisited 2.3" />
+    "<Translation ID="PRR_UPD_23_1" String="PRR se ha actualizado a la versión 2.3. Algunas de las características de esta actualización son: " />
+    "<Translation ID="PRR_UPD_23_2" String="PR ahora incluye 'Plop the Growables -todavía funcionalmente para ambos tipos de edificio: RICO y no RICO - Mira las opciones para más detalles" />
+    "<Translation ID="PRR_UPD_23_3" String="Los edificios que crecen con RICO (growables), ahora pueden ser colocados fuera de las zonas (configurable)" />
+    "<Translation ID="PRR_UPD_23_4" String="El aviso sobre «suelo de poco valor» y «no hay suficientes servicios» ahora pueden ser deshabilitados" />
+    "<Translation ID="PRR_UPD_23_5" String="Mejora el redenrizado de las miniaturas de edificios, que ahora solo genera las imágenes que necesita, reduciendo memoria y mejorando el tiempo de carga" />
   </Translations>
 </Language>
