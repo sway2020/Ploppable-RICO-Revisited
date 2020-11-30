@@ -144,6 +144,7 @@
     <Content Include="Changelog.txt" />
     <Content Include="Images\PreviewImage.png" />
     <Content Include="License.txt" />
+    <Content Include="Translations\pt-br..xml" />
     <Content Include="Translations\de.xml" />
     <Content Include="Translations\rs.xml" />
     <Content Include="Translations\es.xml" />
