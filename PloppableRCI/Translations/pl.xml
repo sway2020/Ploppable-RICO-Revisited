@@ -37,6 +37,7 @@
     "<Translation ID="PRR_OPT_CNT" String="Liczba mieszkańców/pracowników" />
     "<Translation ID="PRR_OPT_POP" String="Użyj moda Realistic Pop" />
     "<Translation ID="PRR_OPT_POL" String="Włącz zanieczyszczenie" />
+    "<Translation ID="PRR_OPT_GRO" String="Rozwijalny" />
     "<Translation ID="PRR_OPT_JB0" String="Niewyedukowani" />
     "<Translation ID="PRR_OPT_JB1" String="Wyedukowani" />
     "<Translation ID="PRR_OPT_JB2" String="Dobrze wyedukowani" />
@@ -82,11 +83,47 @@
     "<Translation ID="TRN_CHOICE" String="Ustaw język" />
     "<Translation ID="TRN_SYS" String="Użyj języka systemu" />
     "<Translation ID="PRR_DESCRIPTION" String="Pozwana RICO na budunki większe niż 4x4 i na personalizację budynków" />
-    "<Translation ID="PRR_OPTION_PLP" String="Natychmiast umieść budynki growable (brak konstrukcji)" />
-    "<Translation ID="PRR_OPTION_ZON" String="Budynki growable mogą istnieć poza dozwoloną strefą" />
-    "<Translation ID="PRR_OPTION_SPC" String="Budynki growable mogą istnieć poza wymaganą specjalizacją" />
+    "<Translation ID="PRR_OPTION_PLP" String="Natychmiast umieść budynki rozwijalne (brak konstrukcji)" />
+    "<Translation ID="PRR_OPTION_ZON" String="Budynki rozwijalne mogą istnieć poza dozwoloną strefą" />
+    "<Translation ID="PRR_OPTION_SPC" String="Budynki rozwijalne mogą istnieć poza wymaganą specjalizacją" />
     "<Translation ID="PRR_OPTION_VAL" String="Ignoruj problem 'niskiej wartości ziemi'" />
     "<Translation ID="PRR_OPTION_SVC" String="Ignoruj problem 'zbyt małej liczby pracowników'" />
-    "<Translation ID="PRR_OPTION_HST" String="Wszystkie umieszczone growable są zabytkami" />
+    "<Translation ID="PRR_OPTION_HST" String="Wszystkie umieszczone rozwijalne są zabytkami" />
+    "<Translation ID="PRR_OPTION_RPL" String="Umieszczalne budynki RICO" />
+    "<Translation ID="PRR_OPTION_RGR" String="Budynki RICO pojawiające się w strefach" />
+    "<Translation ID="PRR_OPTION_RCO" String="Wszystkie budynki RICO (w tym rozwijalne)" />
+    "<Translation ID="PRR_OPTION_OTH" String="Rozwijalne budynki nie-RICO" />
+    "<Translation ID="PRR_OPTION_LOA" String="Opcje wczytywania" />
+    "<Translation ID="PRR_OPTION_LOG" String="Opcje logowania" />
+    "<Translation ID="PRR_OPTION_TMB" String="Opcje miniaturek" />
+    "<Translation ID="PRR_OPTION_GRO" String="Opcje rozwijania" />
+    "<Translation ID="PRR_OPTION_COM" String="Opcje zgłaszanych problemów" />
+    "<Translation ID="PRR_OPTION_MOD" String="Opcje modu" />
+    "<Translation ID="PRR_OPTION_MOREDEBUG" String="Włącz dodatkowe logi błędów" />
+    "<Translation ID="PRR_OPTION_FORCERESET" String="Wymuś reset statystyk budynków przy wczytywaniu gry" />
+    "<Translation ID="PRR_OPTION_REGENTHUMBS" String="Odtwórz miniaturki" />
+    "<Translation ID="PRR_OPTION_SPDHDR" String="Przyspiesza grę, otwieranie panelu zajmie więcej czasu" />
+    "<Translation ID="PRR_OPTION_SPEED" String="Wyłącz panel, jeśli nie jest w użyciu" />
+    "<Translation ID="PRR_OPTION_FASTHDR" String="Szybciej renderuje miniaturki, potrzebuje więcej pamięci." />
+    "<Translation ID="PRR_OPTION_FASTHUMB" String="Przyspieszone renderowanie miniaturek" />
+    "<Translation ID="PRR_OPTION_THUMBACK" String="Tła miniaturek" />
+    "<Translation ID="PRR_THUMB_COLOR" String="Kolor" />
+    "<Translation ID="PRR_THUMB_PLAIN" String="Bez koloru" />
+    "<Translation ID="PRR_THUMB_SKY" String="Wygląd nieba" />
+    "<Translation ID="PRR_ERR_HAR0" String="Bład aktualizacji 'Harmony'" />
+    "<Translation ID="PRR_ERR_HAR1" String="Ploppable RICO Revisited nie mógł ukończyć tego zadania bez aktualizacji 'Harmony'. Ten mod nie będzie działał, gra wyłączyła się by uchować twój zapis przed uszkodzeniem." />
+    "<Translation ID="PRR_ERR_HAR2" String="Rzeczy prawdodpodobnie sprawiające problem:" />
+    "<Translation ID="PRR_ERR_HAR3" String="Wymagany mod 'Harmony 2' nie został zainstalowany" />
+    "<Translation ID="PRR_ERR_HAR4" String="Stary i/lub uszkodzony mod blokuje 'Harmony 2' przed prawidłowym działaniem. (olt Painter lub Garbage Bin Controller - przykładowe mody powodujące tę usterkę." />
+    "<Translation ID="PRR_CON_DWN" String="Mod 'RICO Revisited' wyłączył się, żeby nie zepsuć gry." />
+    "<Translation ID="PRR_CON_ONE" String="Tylko JEDEN z wybranych modów może być uruchomiony w tej samej sesji - proszę wybrać używany mod i odsubskrybować pozostałe." />
+    "<Translation ID="PRR_CON_OPR" String="Wykryto oryginaly mod 'Ploppable RICO'" />
+    "<Translation ID="PRR_CON_EBC" String="Wykryto mod 'Enhanced Building Capacity'" />
+    "<Translation ID="PRR_CON_GBC" String="Wykryto mod 'Garbage Bin Controller'" />
+    "<Translation ID="PRR_CON_PTR" String="Wykryto mod 'Old Painter'" />
+    "<Translation ID="PRR_CON_PTR1" String="Mody old Painter spowodował problem z bibliotekami używanymi przez 'Harmony', sprawiając losowe błędy. Proszę ODSUBSKRYBOWAĆ mod (odznaczenie nie rozwiązuje problemu). Sugerujemy mod 'Repainter' jako zamiennik." />
+    "<Translation ID="PRR_UPD_23_0" String="Ploppabre RICO Revisited wersja 2.3" />
+    "<Translation ID="PRR_UPD_23_1" String="Ploppable RICO Revisited został zaktualizowany do wersji 2.3.  Aktualizacja wprowadza:" />
+    "<Translation ID="PRR_UPD_23_2" String="RICO zawiera teraz styl 'Postaw Rozwijalny' funkcjonujący dla obu typów budynków RICO oraz nie-RICO. Otwórz panel opcji aby zapoznać się ze szczegółami." />
   </Translations>
 </Language>
