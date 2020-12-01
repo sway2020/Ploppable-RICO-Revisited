@@ -42,11 +42,19 @@ namespace PloppableRICO
             });
 
             // Add auto-demolish checkbox.
-            helper.AddCheckbox(Translations.Translate("PRR_OPTION_IMP"), ModSettings.autoDemolish, isChecked =>
+            UICheckBox impCheck = (UICheckBox)helper.AddCheckbox(Translations.Translate("PRR_OPTION_IMP"), ModSettings.autoDemolish, isChecked =>
             {
                 ModSettings.autoDemolish = isChecked;
                 SettingsUtils.SaveSettings();
             });
+
+            // Tweak auto-demolish checkbox label layout, to allow wrapping text.
+            impCheck.label.wordWrap = true;
+            impCheck.label.autoSize = false;
+            impCheck.label.autoHeight = true;
+            impCheck.label.width = 670f;
+            impCheck.label.anchor = UIAnchorStyle.Left | UIAnchorStyle.Top;
+            impCheck.label.relativePosition = new UnityEngine.Vector2(impCheck.label.relativePosition.x, 0f);
         }
     }
 }
