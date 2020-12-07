@@ -76,7 +76,7 @@
     "<Translation ID="PRR_SET_HASLOC" String="Paramètres locaux" />
     "<Translation ID="PRR_SET_HASANY" String="Tous les paramètres" />
     "<Translation ID="PRR_SET_HASNON" String="Aucun paramétrage" />
-    "<Translation ID="PRR_SAV_SAV" String="sauver" />
+    "<Translation ID="PRR_SAV_SAV" String="Sauvegarder" />
     "<Translation ID="PRR_SAV_ADD" String="Ajouter local" />
     "<Translation ID="PRR_SAV_REM" String="Supprimer local" />
     "<Translation ID="PRR_SAV_APP" String="Enregistrer et appliquer les modifications" />
@@ -97,7 +97,6 @@
     "<Translation ID="PRR_OPTION_LOA" String="Options de chargement" />
     "<Translation ID="PRR_OPTION_LOG" String="Options de rapport" />
     "<Translation ID="PRR_OPTION_TMB" String="Options de vignette" />
-
     "<Translation ID="PRR_OPTION_COM" String="Options des plaintes" />
     "<Translation ID="PRR_OPTION_MOD" String="Options du mod" />
     "<Translation ID="PRR_OPTION_MOREDEBUG" String="Activer la journalisation de débogage supplémentaire" />
@@ -124,10 +123,12 @@
     "<Translation ID="PRR_CON_PTR" String="Ancien mod Painter détecté" />
     "<Translation ID="PRR_CON_PTR1" String="L'ancien mod Painter provoque des problèmes avec les bibliothèques Harmony utilisées par ce mod, entraînant des erreurs aléatoires. Veuillez vous DÉSABONNER de Painter (la simple désactivation n'est PAS suffisante); le mod Repaint peut être utilisé en remplacement." />
     "<Translation ID="PRR_UPD_23_0" String="Mise à jour 2.3 de Ploppable RICO Revisité" />
-    "<Translation ID="PRR_UPD_23_0" String="Ploppable RICO Revisité a été mis à jour vers la version 2.3. Les points clés de cette mise à jour sont :" />
-    "<Translation ID="PRR_UPD_23_1" String="Ploppable RICO contient désormais la fonctionalité de &quot;placer les bâtiments zonés&quot; pour les bâtiments RICO et non RICO - voir les options pour plus d'informations" />
-    "<Translation ID="PRR_UPD_23_2" String="Les bâtiments zonés RICO peuvent être maintenant placés hors des zones (configurable)" />
-    "<Translation ID="PRR_UPD_23_3" String="Les plaintes &quot;Valeur foncière basse&quot; et &quot;Pas assez de services&quot; peuvent être désactivées" />
-    "<Translation ID="PRR_UPD_23_4" String="Amélioration du moteur de rendu des vignettes pour ne les générer que si besoin, ce qui réduit l'utilisation de mémoire et les temps de chargement " />
+    "<Translation ID="PRR_UPD_23_1" String="Ploppable RICO Revisité a été mis à jour vers la version 2.3. Les points clés de cette mise à jour sont :" />
+    "<Translation ID="PRR_UPD_23_2" String="Ploppable RICO contient désormais la fonctionalité de &quot;placer les bâtiments zonés&quot; pour les bâtiments RICO et non RICO - voir les options pour plus d'informations" />
+    "<Translation ID="PRR_UPD_23_3" String="Les bâtiments zonés RICO peuvent être maintenant placés hors des zones (configurable)" />
+    "<Translation ID="PRR_UPD_23_4" String="Les plaintes &quot;Valeur foncière basse&quot; et &quot;Pas assez de services&quot; peuvent être désactivées" />
+    "<Translation ID="PRR_UPD_23_5" String="Amélioration du moteur de rendu des vignettes pour ne les générer que si besoin, ce qui réduit l'utilisation de mémoire et les temps de chargement" />
+    "<Translation ID="PRR_UPD_234_0" String="Ajoutez une option pour activer ou désactiver les avertissements lors de la démolition de bâtiments RICO détruits." />
+    "<Translation ID="PRR_UPD_234_1=" String="Mise-à-jour de notifications amélioré" />
   </Translations>
 </Language>
