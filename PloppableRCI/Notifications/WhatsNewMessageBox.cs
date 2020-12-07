@@ -19,9 +19,8 @@ namespace PloppableRICO.MessageBox
         {
             CloseButton = AddButton(1, 2, OkClick);
             CloseButton.text = Translations.Translate("PRR_MES_CLS");
-            // TODO: remove for release
-            //DontShowButton = AddButton(2, 2, DontShowClick);
-            //DontShowButton.text = Translations.Translate("PRR_MES_DSA");
+            DontShowButton = AddButton(2, 2, DontShowClick);
+            DontShowButton.text = Translations.Translate("PRR_MES_DSA");
         }
         protected virtual void OkClick()
         {
