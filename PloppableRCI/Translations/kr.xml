@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Language UniqueName="kr" ReadableName="한국어">
+  <Translations>
+    "<Translation ID="PRR_NAME" String="Ploppable RICO 개정판" />
+    "<Translation ID="PRR_LEVEL" String="레벨" />
+    "<Translation ID="PRR_LVL" String="Lv" />
+    "<Translation ID="PRR_HOU" String="가구" />
+    "<Translation ID="PRR_WOR" String="직장" />
+    "<Translation ID="PRR_SRV_NON" String="없음" />
+    "<Translation ID="PRR_SRV_RES" String="거주지" />
+    "<Translation ID="PRR_SRV_IND" String="산업" />
+    "<Translation ID="PRR_SRV_OFF" String="사무" />
+    "<Translation ID="PRR_SRV_COM" String="상업" />
+    "<Translation ID="PRR_SRV_EXT" String="원자재" />
+    "<Translation ID="PRR_SRV_DUM" String="장식용" />
+    "<Translation ID="PRR_SUB_HIG" String="고밀도" />
+    "<Translation ID="PRR_SUB_LOW" String="저밀도" />
+    "<Translation ID="PRR_SUB_HEC" String="고밀도 자급자족 건물" />
+    "<Translation ID="PRR_SUB_LEC" String="저밀도 자급자족 건물" />
+    "<Translation ID="PRR_SUB_LEI" String="여가 특화" />
+    "<Translation ID="PRR_SUB_TOU" String="관광 특화" />
+    "<Translation ID="PRR_SUB_ORG" String="유기농 및 지역 농산물" />
+    "<Translation ID="PRR_SUB_GEN" String="일반" />
+    "<Translation ID="PRR_SUB_ITC" String="IT 클러스터" />
+    "<Translation ID="PRR_SUB_FAR" String="농업 산업" />
+    "<Translation ID="PRR_SUB_FOR" String="임업 산업" />
+    "<Translation ID="PRR_SUB_OIL" String="석유 산업" />
+    "<Translation ID="PRR_SUB_ORE" String="광물 산업" />
+    "<Translation ID="PRR_FTR_ALL" String="전체" />
+    "<Translation ID="PRR_FTR_NON" String="없음" />
+    "<Translation ID="PRR_FTR_NAM" String="이름" />
+    "<Translation ID="PRR_FTR_SET" String="필터 설정 : Mod/Author/Local/Any" />
+    "<Translation ID="PRR_OPT_ENA" String="RICO 활성화" />
+    "<Translation ID="PRR_OPT_SER" String="종류" />
+    "<Translation ID="PRR_OPT_SUB" String="하위 종류" />
+    "<Translation ID="PRR_OPT_UIC" String="UI 카테고리" />
+    "<Translation ID="PRR_OPT_CST" String="건설 비용" />
+    "<Translation ID="PRR_OPT_CNT" String="가구/일자리 수" />
+    "<Translation ID="PRR_OPT_POP" String="Realistic Pop mod 사용" />
+    "<Translation ID="PRR_OPT_POL" String="오염 활성화" />
+    "<Translation ID="PRR_OPT_GRO" String="Growable" />
+    "<Translation ID="PRR_OPT_JB0" String="교육 받지 못함" />
+    "<Translation ID="PRR_OPT_JB1" String="교육 받음" />
+    "<Translation ID="PRR_OPT_JB2" String="좋은 교육 받음" />
+    "<Translation ID="PRR_OPT_JB3" String="높은 교육 받음" />
+    "<Translation ID="PRR_CAT_MON" String="고유 건물" />
+    "<Translation ID="PRR_CAT_BEA" String="공원 및 광장" />
+    "<Translation ID="PRR_CAT_EDU" String="교육" />
+    "<Translation ID="PRR_CAT_POW" String="전력" />
+    "<Translation ID="PRR_CAT_WAT" String="물" />
+    "<Translation ID="PRR_CAT_HEA" String="의료" />
+    "<Translation ID="PRR_CAT_RES" String="거주지" />
+    "<Translation ID="PRR_CAT_COM" String="상업" />
+    "<Translation ID="PRR_CAT_OFF" String="사무" />
+    "<Translation ID="PRR_CAT_IND" String="산업" />
+    "<Translation ID="PRR_UIC_REL" String="저밀도 거주지" />
+    "<Translation ID="PRR_UIC_REH" String="고밀도 거주지" />
+    "<Translation ID="PRR_UIC_COL" String="저밀도 상업" />
+    "<Translation ID="PRR_UIC_COH" String="고밀도 상업" />
+    "<Translation ID="PRR_UIC_OFF" String="사무" />
+    "<Translation ID="PRR_UIC_IND" String="산업" />
+    "<Translation ID="PRR_UIC_FAR" String="농업 산업" />
+    "<Translation ID="PRR_UIC_FOR" String="임업 산업" />
+    "<Translation ID="PRR_UIC_OIL" String="석유산업" />
+    "<Translation ID="PRR_UIC_ORE" String="광물 산업" />
+    "<Translation ID="PRR_UIC_LEI" String="여가 특화" />
+    "<Translation ID="PRR_UIC_TOU" String="관광 특화" />
+    "<Translation ID="PRR_UIC_ORG" String="유기농 및 지역 농산물" />
+    "<Translation ID="PRR_UIC_ITC" String="IT 클러스터" />
+    "<Translation ID="PRR_UIC_ECO" String="자급자족 건물" />
+    "<Translation ID="PRR_UIC_NON" String="없음" />
+    "<Translation ID="PRR_SET" String="설정" />
+    "<Translation ID="PRR_SET_RICO" String="RICO 설정" />
+    "<Translation ID="PRR_SET_HASMOD" String="Mod 설정" />
+    "<Translation ID="PRR_SET_HASAUT" String="제작자 설정" />
+    "<Translation ID="PRR_SET_HASLOC" String="개인 설정" />
+    "<Translation ID="PRR_SET_HASANY" String="어느 설정이든" />
+    "<Translation ID="PRR_SET_HASNON" String="설정 없음" />
+    "<Translation ID="PRR_SAV_SAV" String="저장" />
+    "<Translation ID="PRR_SAV_ADD" String="개인 설정 추가" />
+    "<Translation ID="PRR_SAV_REM" String="개인 설정 제거" />
+    "<Translation ID="PRR_SAV_APP" String="변경사항 저장 및 적용" />
+    "<Translation ID="PRR_EXP" String="주의 : 실험 기능" />
+    "<Translation ID="TRN_CHOICE" String="언어 설정" />
+    "<Translation ID="TRN_SYS" String="시스템 언어 사용" />
+    "<Translation ID="PRR_DESCRIPTION" String="크기가 4x4보다 큰 RICO 건물 및 RICO  건물의 사용자 정의 허용" />
+    "<Translation ID="PRR_OPTION_PLP" String="Growable 건물을 즉각 완공 (공사 없음)" />
+    "<Translation ID="PRR_OPTION_ZON" String="Growable 건물이 정해진 구역(zone) 밖에서도 살아 남음." />
+    "<Translation ID="PRR_OPTION_SPC" String="Growable 건물이 요구되는 특화 지구 설정이 없어도 살아 남음." />
+    "<Translation ID="PRR_OPTION_VAL" String="'낮은 토지 가격' 불만 무시" />
+    "<Translation ID="PRR_OPTION_SVC" String="'공공 서비스 부족' 불만 무시" />
+    "<Translation ID="PRR_OPTION_HST" String="건설하는 RICO 건물을 역사적 건물로 만들기" />
+    "<Translation ID="PRR_OPTION_RPL" String="RICO ploppable 건물" />
+    "<Translation ID="PRR_OPTION_RGR" String="RICO growable 건물" />
+    "<Translation ID="PRR_OPTION_RCO" String="모든 RICO 건물 (growable 포함)" />
+    "<Translation ID="PRR_OPTION_OTH" String="RICO가 아닌 growable 건물" />
+    "<Translation ID="PRR_OPTION_BDZ" String="건설된 RICO 건물을 블도저로 철거하기 전에 묻기" />
+    "<Translation ID="PRR_OPTION_IMP" String="건설된 RICO 건물이 자동으로 철거되어 그 위에 건설할 수 있도록 허용. (예, 길을 놓거나 건물을 배치할 때)" />
+    "<Translation ID="PRR_OPTION_LOA" String="Loading 옵션" />
+    "<Translation ID="PRR_OPTION_LOG" String="Logging 옵션" />
+    "<Translation ID="PRR_OPTION_TMB" String="Thumbnail 옵션" />
+    "<Translation ID="PRR_OPTION_GRO" String="Growable 옵션" />
+    "<Translation ID="PRR_OPTION_PLO" String="Ploppable 옵션" />
+    "<Translation ID="PRR_OPTION_COM" String="불만 사항 옵션" />
+    "<Translation ID="PRR_OPTION_MOD" String="Mod 옵션" />
+    "<Translation ID="PRR_OPTION_MOREDEBUG" String="추가 debugging logging 활성화" />
+    "<Translation ID="PRR_OPTION_FORCERESET" String="게임 로드시 기존 건물 통계 강제 재설정" />
+    "<Translation ID="PRR_OPTION_REGENTHUMBS" String="Thumbnail 재생성" />
+    "<Translation ID="PRR_OPTION_SPDHDR" String="게임 속도가 약간 증가하지만 패널을 열 때 지연이 발생합니다." />
+    "<Translation ID="PRR_OPTION_SPEED" String="사용하지 않을 때 패널 비활성화" />
+    "<Translation ID="PRR_OPTION_FASTHDR" String="Thumbnails을 더 빨리 렌더링하지만 더 많은 메모리를 사용합니다." />
+    "<Translation ID="PRR_OPTION_FASTHUMB" String="빠른 속도로 thumbnails 렌더링" />
+    "<Translation ID="PRR_OPTION_THUMBACK" String="Thumbnail 배경" />
+    "<Translation ID="PRR_THUMB_COLOR" String="색상" />
+    "<Translation ID="PRR_THUMB_PLAIN" String="일반" />
+    "<Translation ID="PRR_THUMB_SKY" String="스카이박스" />
+    "<Translation ID="PRR_ERR_HAR0" String="Harmony 패치 오류" />
+    "<Translation ID="PRR_ERR_HAR1" String="Ploppable RICO Revisited가 Harmony 패치를 완료하지 못했습니다. 이것은 Mod가 작동할 수 없으며 손상으로부터 저장 파일을 보호하기 위해 종료되었음을 의미합니다." />
+    "<Translation ID="PRR_ERR_HAR2" String="이 문제의 가능한 원인은 다음과 같습니다." />
+    "<Translation ID="PRR_ERR_HAR3" String="필수적인 Harmony 2 mod dependency가 설치되지 않았습니다." />
+    "<Translation ID="PRR_ERR_HAR4" String="오래 되거나 손상된 mod로 인해 Harmony 2가 제대로 작동하지 않습니다. (오래 된 Painter mod와 Garbage Bin Controller mod가 이 문제를 일으키는 것으로 알려져 있습니다.)" />
+    "<Translation ID="PRR_CON_DWN" String="RICO Revisited가 게임을 보호하기 위해 종료됩니다." />
+    "<Translation ID="PRR_CON_ONE" String="이 Mod들 중 하나만 동시에 활성화할 수 있습니다. - 하나만 선택하고 다른 Mod는 구독을 취소하십시오!" />
+    "<Translation ID="PRR_CON_OPR" String="오리지날 Ploppable RICO mod 감지됨" />
+    "<Translation ID="PRR_CON_EBC" String="Enhanced Building Capacity mod 감지됨" />
+    "<Translation ID="PRR_CON_GBC" String="Garbage Bin Controller mod 감지됨" />
+    "<Translation ID="PRR_CON_PTR" String="오래 된 Painter mod 감지됨" />
+    "<Translation ID="PRR_CON_PTR1" String="오래 된 Painter mod는 Harmony 라이브러리에 문제를 일으켜 임의의 오류가 발생합니다.  Painter 구독을 취소하십시오 (단순히 비활성화하는 것으로 충분하지 않습니다). Repaint mod를 대신 사용할 수 있습니다." />
+    "<Translation ID="PRR_UPD_23_0" String="Plopplable RICO Revisited 2.3 업데이트" />
+    "<Translation ID="PRR_UPD_23_1" String="Ploppable RICO Revisited가 버전 2.3으로 업데이트되었습니다. 이번 업데이트의 주요 기능은 다음과 같습니다." />
+    "<Translation ID="PRR_UPD_23_2" String="Ploppable RICO에는 이제 RICO 및 RICO가 아닌 건물 모두에 대해 'Plop the Growables' 방식의 기능이 포함됩니다. - 자세한 내용은 옵션 패널을 참조하십시오." />
+    "<Translation ID="PRR_UPD_23_3" String="이제는 RICO growable 건물을 정해진 구역(zone) 밖에 배치할 수 있습니다. (구성 가능)." />
+    "<Translation ID="PRR_UPD_23_4" String="이제는 '낮은 토지 가격'및 '공공 서비스 부족'에 대한 불만을 비활성화할 수 있습니다." />
+    "<Translation ID="PRR_UPD_23_5" String="이제는 필요한 경우에만 이미지를 생성하도록 Thumbnail 렌더러를 개선하여, 메모리를 사용량을 줄이고 로드 시간을 개선했습니다" />
+    "<Translation ID="PRR_UPD_234_0" String="건설된 RICO 건물을 철거할 때 경고를 활성화하거나 비활성화하는 옵션 추가." />
+    "<Translation ID="PRR_UPD_234_1" String="건설된 RICO 건물 위에 건물을 지을 때 자동 철거를 활성화하거나 비활성화하는 옵션 추가." />
+    "<Translation ID="PRR_UPD_234_2" String="업데이트 알림이 개선되었습니다." />
+  </Translations>
+</Language>
