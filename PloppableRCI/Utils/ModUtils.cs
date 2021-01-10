@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using ColossalFramework.Plugins;
 using ColossalFramework.Packaging;
+using PloppableRICO.MessageBox;
 
 
 namespace PloppableRICO
@@ -64,6 +65,15 @@ namespace PloppableRICO
                 return false;
             }
 
+            // No hard conflicts - check for 'soft' conflicts.
+            if (IsModEnabled(924884948ul))
+            {
+                // Plop the Growables detected.
+                conflictingMod = true;
+                Debugging.Message("Plop the Growables detected");
+                conflictMessage = Translations.Translate("PRR_CON_PTG") + "\r\n\r\n" + Translations.Translate("PRR_CON_PTG1");
+            }
+
             // No conflicts - now check for realistic population mods.
             realPopEnabled = (IsModInstalled("RealPopRevisited", true) || IsModInstalled("WG_BalancedPopMod", true));
 
@@ -96,10 +106,10 @@ namespace PloppableRICO
             // If a conflicting mod has been detected, show the notification.
             if (conflictingMod)
             {
-                ConflictNotification notification = new ConflictNotification();
-                notification.Create();
-                notification.instance.messageText = conflictMessage;
-                notification.Show();
+                OneButtonMessageBox conflictBox = MessageBoxBase.ShowModal<OneButtonMessageBox>();
+                conflictBox.CaprionText = Translations.Translate("PRR_NAME");
+                conflictBox.MessageText = conflictMessage;
+                conflictBox.ButtonText = Translations.Translate("PRR_MES_CLS");
             }
         }
 

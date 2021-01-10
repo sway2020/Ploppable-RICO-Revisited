@@ -25,12 +25,12 @@ namespace PloppableRICO.MessageBox
         protected virtual void OkClick()
         {
             if (OnButton1Click?.Invoke() != false)
-                Cancel();
+                Close();
         }
         protected virtual void DontShowClick()
         {
             if (OnButton2Click?.Invoke() != false)
-                Cancel();
+                Close();
         }
 
         public void Init(Dictionary<Version, string> messages)

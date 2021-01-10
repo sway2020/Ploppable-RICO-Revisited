@@ -128,7 +128,7 @@ namespace PloppableRICO.MessageBox
             cancel.pressedBgSprite = "buttonclosepressed";
             cancel.size = new Vector2(32, 32);
             cancel.relativePosition = new Vector2(527, 4);
-            cancel.eventClick += (UIComponent component, UIMouseEventParameter eventParam) => Cancel();
+            cancel.eventClick += (UIComponent component, UIMouseEventParameter eventParam) => Close();
         }
         private void AddPanel()
         {
@@ -240,7 +240,7 @@ namespace PloppableRICO.MessageBox
                 if (p.keycode == KeyCode.Escape)
                 {
                     p.Use();
-                    Cancel();
+                    Close();
                 }
                 else if (p.keycode == KeyCode.Return)
                 {
@@ -251,6 +251,6 @@ namespace PloppableRICO.MessageBox
             }
         }
 
-        protected virtual void Cancel() => HideModal(this);
+        protected virtual void Close() => HideModal(this);
     }
 }

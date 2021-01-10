@@ -9,11 +9,11 @@ namespace PloppableRICO
     internal static class ModSettings
     {
         internal static bool plopRico = true;
-        internal static bool plopOther = false;
+        internal static bool plopOther = true;
         internal static bool noZonesRico = true;
-        internal static bool noZonesOther = false;
+        internal static bool noZonesOther = true;
         internal static bool noSpecRico = true;
-        internal static bool noSpecOther = false;
+        internal static bool noSpecOther = true;
         internal static bool noValueRicoPlop = true;
         internal static bool noValueRicoGrow = true;
         internal static bool noValueOther = false;

@@ -1,4 +1,9 @@
-﻿Version 2.3.4
+﻿- Growable options now have Plop the Growables behaviour enabled by default
+- Add warning if Plop the Growables is also subscribed
+- Improve mod conflict notifications
+
+
+Version 2.3.4
 
 - Add option toggle for confirmation of bulldozing RICO ploppables
 - Add option toggle for auto-demolition of RICO ploppables (e.g. by building roads or other buildings)
