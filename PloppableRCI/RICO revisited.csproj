@@ -80,8 +80,8 @@
     <Compile Include="Interfaces.cs" />
     <Compile Include="LevelUpExtension.cs" />
     <Compile Include="Notifications\BaseMessageBox.cs" />
+    <Compile Include="Notifications\ListMessageBox.cs" />
     <Compile Include="Notifications\MessageBoxUtils.cs" />
-    <Compile Include="Notifications\SimpleMessageBox.cs" />
     <Compile Include="Notifications\WhatsNew.cs" />
     <Compile Include="Notifications\WhatsNewMessageBox.cs" />
     <Compile Include="Patches\SpecializationPatches.cs" />
@@ -93,7 +93,6 @@
     <Compile Include="Settings\PanelUtils.cs" />
     <Compile Include="Utils\ModUtils.cs" />
     <Compile Include="Notifications\ErrorNotification.cs" />
-    <Compile Include="Notifications\HarmonyNotification.cs" />
     <Compile Include="Patches\PrivateBuildingAI.cs" />
     <Compile Include="Patches\BuildingLoaded.cs" />
     <Compile Include="Patches\MonumentsPatch.cs" />

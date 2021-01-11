@@ -1,6 +1,7 @@
 using System.IO;
 using System.Collections.Generic;
 using ICities;
+using PloppableRICO.MessageBox;
 
 
 namespace PloppableRICO
@@ -135,9 +136,15 @@ namespace PloppableRICO
             if (!patchOperating)
             {
                 // Patch wasn't operating; display warning notification and exit.
-                HarmonyNotification notification = new HarmonyNotification();
-                notification.Create();
-                notification.Show();
+                ListMessageBox harmonyBox = MessageBoxBase.ShowModal<ListMessageBox>();
+
+                // Key text items.
+                harmonyBox.CaprionText = Translations.Translate("PRR_ERR_HAR0");
+                harmonyBox.ButtonText = Translations.Translate("PRR_MES_CLS");
+                harmonyBox.AddParas(Translations.Translate("PRR_ERR_HAR1"), Translations.Translate("PRR_ERR_HAR2"));
+
+                // List of dot points.
+                harmonyBox.AddList(Translations.Translate("PRR_ERR_HAR3"), Translations.Translate("PRR_ERR_HAR4"));
 
                 return;
             }

@@ -71,7 +71,7 @@ namespace PloppableRICO
                 // Plop the Growables detected.
                 conflictingMod = true;
                 Debugging.Message("Plop the Growables detected");
-                conflictMessage = Translations.Translate("PRR_CON_PTG") + "\r\n\r\n" + Translations.Translate("PRR_CON_PTG1");
+                conflictMessage = Translations.Translate("PRR_CON_PTG1");
             }
 
             // No conflicts - now check for realistic population mods.
@@ -106,10 +106,10 @@ namespace PloppableRICO
             // If a conflicting mod has been detected, show the notification.
             if (conflictingMod)
             {
-                OneButtonMessageBox conflictBox = MessageBoxBase.ShowModal<OneButtonMessageBox>();
+                ListMessageBox conflictBox = MessageBoxBase.ShowModal<ListMessageBox>();
                 conflictBox.CaprionText = Translations.Translate("PRR_NAME");
-                conflictBox.MessageText = conflictMessage;
                 conflictBox.ButtonText = Translations.Translate("PRR_MES_CLS");
+                conflictBox.AddParas(conflictMessage);
             }
         }
 
