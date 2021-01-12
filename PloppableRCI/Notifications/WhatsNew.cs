@@ -61,7 +61,8 @@ namespace PloppableRICO
         public static bool DontShowAgain()
         {
             // Save current version to settings file.
-            ModSettings.whatsNewVersion = PloppableRICOMod.Version;
+            ModSettings.whatsNewVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            ModSettings.whatsNewBeta = PloppableRICOMod.Beta;
             SettingsUtils.SaveSettings();
 
             return true;
@@ -77,8 +78,8 @@ namespace PloppableRICO
             Version whatNewVersion = new Version(ModSettings.whatsNewVersion);
             Version modVersion = Assembly.GetExecutingAssembly().GetName().Version;
 
-            // Don't show notification if we're already up to (or ahead of) this version.
-            if (whatNewVersion >= modVersion)
+            // Don't show notification if we're already up to (or ahead of) this version AND there hasn't been a beta update.
+            if (whatNewVersion >= modVersion && ModSettings.whatsNewBeta.Equals(PloppableRICOMod.Beta))
             {
                 return;
             }
@@ -114,8 +115,8 @@ namespace PloppableRICO
             // Iterate through each verfsion 
             foreach (var version in Versions.Keys)
             {
-                // Skip this version message if it's newer than the current mod version or older than the last notified version.
-                if (version > modVersion || version <= lastNotifiedVersion)
+                // Skip this version message if it's newer than the current mod version, or older than the last notified version AND there hasn't been a beta update.
+                if (version > modVersion || (version <= lastNotifiedVersion && ModSettings.whatsNewBeta.Equals(PloppableRICOMod.Beta)))
                 {
                     continue;
                 }

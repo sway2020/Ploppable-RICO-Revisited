@@ -10,11 +10,15 @@ namespace PloppableRICO
     /// </summary>
     public class PloppableRICOMod : IUserMod
     {
-        public static string ModName => "RICO Revisited";
-        public static string Version => "2.3.5 BETA 1";
-
+        // Public mod name and description.
         public string Name => ModName + " " + Version;
         public string Description => Translations.Translate("PRR_DESCRIPTION");
+
+        // Internal and private name and version components.
+        internal static string ModName => "RICO Revisited";
+        internal static string Version => BaseVersion + " " + Beta;
+        internal static string Beta => "BETA 1";
+        private static string BaseVersion => "2.3.5";
 
 
         /// <summary>

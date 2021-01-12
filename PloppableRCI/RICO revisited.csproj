@@ -102,7 +102,6 @@
     <Compile Include="Utils\RICOUtils.cs" />
     <Compile Include="Settings\ModSettings.cs" />
     <Compile Include="Settings\SettingsUtils.cs" />
-    <Compile Include="Settings\SettingsXML.cs" />
     <Compile Include="ConvertPrefabs.cs" />
     <Compile Include="GUI\CategoryUtils.cs" />
     <Compile Include="GUI\FastList.cs" />

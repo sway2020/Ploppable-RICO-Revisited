@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System.ComponentModel;
+using System.Xml.Serialization;
 
 
 namespace PloppableRICO
@@ -31,6 +32,7 @@ namespace PloppableRICO
 
         // What's new notification version.
         internal static string whatsNewVersion = "0.0";
+        internal static string whatsNewBeta = "";
 
         // Thumbnail background category enum.
         public enum ThumbBackCats
@@ -62,6 +64,10 @@ namespace PloppableRICO
     {
         [XmlElement("WhatsNewVersion")]
         public string WhatsNewVersion { get => ModSettings.whatsNewVersion; set => ModSettings.whatsNewVersion = value; }
+
+        [XmlElement("WhatsNewBeta")]
+        [DefaultValue("")]
+        public string WhatsNewBeta { get => ModSettings.whatsNewBeta; set => ModSettings.whatsNewBeta = value; }
 
         [XmlElement("PlopRico")]
         public bool PlopRico { get => ModSettings.plopRico; set => ModSettings.plopRico = value; }
