@@ -1,4 +1,6 @@
-﻿- Growable options now have Plop the Growables behaviour enabled by default
+﻿Version 2.3.5
+
+- Growable options now have Plop the Growables behaviour enabled by default
 - Add warning if Plop the Growables is also subscribed
 - Improve mod conflict and Harmony error notifications
 

@@ -6,7 +6,7 @@ using UnityEngine;
 namespace PloppableRICO
 {
     /// <summary>
-    ///The far right column of the settigns panel. Contains the drop downs and entry fields that allows players to assign RICO settings. 
+    ///The far right column of the settings panel. Contains the drop downs and entry fields that allows players to assign RICO settings. 
     /// </summary>
     public class UIBuildingOptions : UIPanel
     {

@@ -19,6 +19,9 @@ namespace PloppableRICO
         private UIButton allCats;
         private UIButton noCats;
         private UITextField nameFilter;
+
+
+        // FIlter by settings checkboxes.
         internal UICheckBox[] SettingsFilter => settingsFilter;
 
 
@@ -177,7 +180,7 @@ namespace PloppableRICO
             noCats.eventClick += (c, p) =>
             {
                 // Iterate through all toggles and deactivate.
-                for (int i = 0; i < NumOfCategories; i++)
+                for (int i = 0; i < NumOfCategories; ++i)
                 {
                     categoryToggles[i].isChecked = false;
                 }
@@ -217,7 +220,7 @@ namespace PloppableRICO
 
             // Setting filter checkboxes.
             settingsFilter = new UICheckBox[NumOfSettings];
-            for (int i = 0; i < NumOfSettings; i++)
+            for (int i = 0; i < NumOfSettings; ++i)
             {
                 settingsFilter[i] = this.AddUIComponent<UICheckBox>();
                 settingsFilter[i].width = 20f;

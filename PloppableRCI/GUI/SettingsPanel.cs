@@ -13,16 +13,16 @@ namespace PloppableRICO
     /// </summary>
     public static class SettingsPanel
     {
+        // Instance references.
+        private static GameObject uiGameObject;
+        private static RICOSettingsPanel _panel;
+        public static RICOSettingsPanel Panel => _panel;
+
         // Previous selection.
         private static BuildingInfo lastSelection;
         private static bool[] lastFilter;
         private static float lastPostion;
         private static int lastIndex = -1;
-
-        // Instance references.
-        private static GameObject uiGameObject;
-        private static RICOSettingsPanel _panel;
-        public static RICOSettingsPanel Panel => _panel;
 
 
         /// <summary>
