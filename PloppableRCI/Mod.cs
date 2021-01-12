@@ -11,7 +11,7 @@ namespace PloppableRICO
     public class PloppableRICOMod : IUserMod
     {
         public static string ModName => "RICO Revisited";
-        public static string Version => "2.3.4";
+        public static string Version => "2.3.5 BETA 1";
 
         public string Name => ModName + " " + Version;
         public string Description => Translations.Translate("PRR_DESCRIPTION");

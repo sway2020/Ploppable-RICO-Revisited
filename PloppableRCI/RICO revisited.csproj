@@ -92,7 +92,6 @@
     <Compile Include="Settings\OptionsPanelTabs\PloppableOptions.cs" />
     <Compile Include="Settings\PanelUtils.cs" />
     <Compile Include="Utils\ModUtils.cs" />
-    <Compile Include="Notifications\ErrorNotification.cs" />
     <Compile Include="Patches\PrivateBuildingAI.cs" />
     <Compile Include="Patches\BuildingLoaded.cs" />
     <Compile Include="Patches\MonumentsPatch.cs" />

@@ -139,5 +139,8 @@
     <Translation ID="PRR_UPD_234_0" String="Add option for enabling or disabling warnings when demolishing plopped RICO buildings." />
     <Translation ID="PRR_UPD_234_1" String="Add option for enabling or disabling auto-bulldoze when building over the top of plopped RICO buildings." />
     <Translation ID="PRR_UPD_234_2" String="Improved update notifications." />
+    <Translation ID="PRR_UPD_235_0" String="Growable options now have 'Plop the Growables' behavior enabled by default (does not effect existing settings)." />
+    <Translation ID="PRR_UPD_235_1" String="Add warning if the 'Plop the Growables' mod is also active." />
+    <Translation ID="PRR_UPD_235_2" String="Improved mod conflict and error notifications." />
   </Translations>
 </Language>
