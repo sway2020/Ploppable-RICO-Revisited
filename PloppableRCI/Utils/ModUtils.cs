@@ -66,7 +66,7 @@ namespace PloppableRICO
             }
 
             // No hard conflicts - check for 'soft' conflicts.
-            if (IsModEnabled(924884948ul))
+            if (IsModInstalled("PlopTheGrowables", true))
             {
                 // Plop the Growables detected.
                 conflictingMod = true;
