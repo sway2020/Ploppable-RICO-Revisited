@@ -22,7 +22,7 @@ namespace PloppableRICO
         /// <returns>Replacement (patched) ILCode</returns>
         private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
-            Debugging.Message("transpiler patching CheckZoning calls in PrivateBuildingAI.SimulationStep");
+            Logging.Message("transpiler patching CheckZoning calls in PrivateBuildingAI.SimulationStep");
             return CheckZoningTranspiler.Transpiler(instructions);
         }
     }
@@ -42,7 +42,7 @@ namespace PloppableRICO
         /// <returns>Replacement (patched) ILCode</returns>
         private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
-            Debugging.Message("transpiler patching CheckZoning calls in PrivateBuildingAI.CheckNearbyBuildingZones");
+            Logging.Message("transpiler patching CheckZoning calls in PrivateBuildingAI.CheckNearbyBuildingZones");
             return CheckZoningTranspiler.Transpiler(instructions);
         }
     }

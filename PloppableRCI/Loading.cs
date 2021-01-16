@@ -38,7 +38,7 @@ namespace PloppableRICO
             if (loading.currentMode == AppMode.AssetEditor || loading.currentMode == AppMode.MapEditor || loading.currentMode == AppMode.ThemeEditor)
             {
                 isModEnabled = false;
-                Debugging.Message("not loading into game, skipping activation - AppMode is " + loading.currentMode);
+                Logging.KeyMessage("not loading into game, skipping activation - AppMode is ", loading.currentMode.ToString());
             }
             else
             {
@@ -56,13 +56,13 @@ namespace PloppableRICO
             // Make sure patches have been applied before proceeding.
             if (!Patcher.Patched)
             {
-                Debugging.Message("Harmony patches not applied, exiting");
+                Logging.Error("Harmony patches not applied, exiting");
                 isModEnabled = false;
                 return;
             }
 
             // Otherwise, game on!
-            Debugging.Message("v" + PloppableRICOMod.Version + " loading");
+            Logging.KeyMessage("version " + PloppableRICOMod.Version + " loading");
 
             // Ensure patch watchdog flag is properly initialised.
             patchOperating = false;
@@ -90,7 +90,7 @@ namespace PloppableRICO
 
             if (!File.Exists(ricoDefPath))
             {
-                Debugging.Message("no " + ricoDefPath + " file found");
+                Logging.Message("no ", ricoDefPath, " file found");
             }
             else
             {
@@ -98,7 +98,7 @@ namespace PloppableRICO
 
                 if (localRicoDef == null)
                 {
-                    Debugging.Message("no valid definitions in " + ricoDefPath);
+                    Logging.Message("no valid definitions in ", ricoDefPath);
                 }
             }
 
@@ -152,7 +152,7 @@ namespace PloppableRICO
             // Report any broken assets and remove from our prefab dictionary.
             foreach (BuildingInfo prefab in brokenPrefabs)
             {
-                Debugging.Message("broken prefab: " + prefab.name);
+                Logging.Error("broken prefab: ", prefab.name);
                 xmlManager.prefabHash.Remove(prefab);
             }
             brokenPrefabs.Clear();
@@ -163,11 +163,7 @@ namespace PloppableRICO
             // Add buttons to access building details from zoned building info panels.
             SettingsPanel.AddInfoPanelButtons();
 
-            // Report any loading errors.
-            Debugging.ReportErrors();
-            
-            Debugging.Message("loading complete");
-
+            Logging.KeyMessage("loading complete");
 
             // Display update notification.
             WhatsNew.ShowWhatsNew();

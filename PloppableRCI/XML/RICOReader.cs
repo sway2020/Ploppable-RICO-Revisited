@@ -19,7 +19,7 @@ namespace PloppableRICO
         /// <param name="ricoDefPath">Definition file path</param>
         /// <param name="isLocal">True if this is a local settings file, false for author settings file</param>
         /// <returns>Parsed Ploppable RICO definition file</returns>
-        public static PloppableRICODefinition ParseRICODefinition( string packageName, string ricoDefPath, bool isLocal = false)
+        public static PloppableRICODefinition ParseRICODefinition(string packageName, string ricoDefPath, bool isLocal = false)
         {
             // Note here we're using insanityOK as a local settings flag.
             string localOrAuthor = isLocal ? "local" : "author";
@@ -45,7 +45,7 @@ namespace PloppableRICO
 
                     if (result.Buildings.Count == 0)
                     {
-                        Debugging.Message("no parseable buildings in " + localOrAuthor + " XML settings file");
+                        Logging.Message("no parseable buildings in ", localOrAuthor, " XML settings file at ", ricoDefPath);
                     }
                     else
                     {
@@ -60,27 +60,22 @@ namespace PloppableRICO
 
                                 if (errorList.Length != 0)
                                 {
-                                    // Errors found - how we report them depends on whether its local or author settings (we're assuming mod settings are fine).
-
                                     if (isLocal && building.ricoEnabled)
                                     {
-                                        // Errors in local settings need to be reported direct to user, except for buildings that aren't activated in RICO.
-                                        Debugging.ErrorBuffer.Append(errorList.ToString());
-                                        Debugging.Message("non-fatal errors for building '" + building.name + "' in local settings");
+                                        // Errors in local settings need to be reported, except for buildings that aren't activated in RICO (e.g. for when the user has de-activated a RICO builidng with issues).
+                                        Logging.Error("non-fatal errors for building '", building.name, "' in local settings:\r\n", errorList.ToString());
                                     }
-                                    else if (ModSettings.debugLogging)
+                                    else
                                     {
                                         // Errors in other settings should be logged if verbose logging is enabled, but otherwise continue.
-                                        errorList.Insert(0, "found the following non-fatal errors for building '" + building.name + "' in author settings:\r\n");
-                                        Debugging.Message(errorList.ToString());
+                                        Logging.Message("non-fatal errors for building '", building.name, "' in author settings:\r\n", errorList.ToString());
                                     }
                                 }
                             }
                             else
                             {
                                 // Fatal errors!  Need to be reported direct to user and the building ignored.
-                                Debugging.ErrorBuffer.Append(errorList.ToString());
-                                Debugging.Message("fatal errors for building '" + building.name + "' in " + localOrAuthor + " settings");
+                                Logging.Error("fatal errors for building '", building.name, "' in ", localOrAuthor, " settings:\r\n", errorList.ToString());
                             }
                         }
                     }
@@ -92,7 +87,7 @@ namespace PloppableRICO
             }
             catch (Exception e)
             {
-                Debugging.ErrorBuffer.AppendLine(String.Format( "Unexpected Exception while deserializing " + localOrAuthor + " RICO file {0} ({1} [{2}])", packageName, e.Message, e.InnerException != null ? e.InnerException.Message : ""));
+                Logging.LogException(e, "Unexpected Exception while deserializing ", localOrAuthor, " RICO file at ", ricoDefPath);
                 return null;
             }
         }

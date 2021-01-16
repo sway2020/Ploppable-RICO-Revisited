@@ -24,7 +24,6 @@ namespace PloppableRICO
         internal static bool historicalRico = true;
         internal static bool historicalOther = false;
         internal static bool speedBoost = false;
-        internal static bool debugLogging = false;
         internal static bool resetOnLoad = true;
         internal static int thumbBacks = (byte)ThumbBackCats.skybox;
         internal static bool warnBulldoze = false;
@@ -115,7 +114,7 @@ namespace PloppableRICO
         public bool SpeedBoost { get => ModSettings.speedBoost; set => ModSettings.speedBoost = value; }
 
         [XmlElement("DebugLogging")]
-        public bool DebugLogging { get => ModSettings.debugLogging; set => ModSettings.debugLogging = value; }
+        public bool DebugLogging { get => Logging.detailLogging; set => Logging.detailLogging = value; }
 
         [XmlElement("ResetOnLoad")]
         public bool ResetOnLoad { get => ModSettings.resetOnLoad; set => ModSettings.resetOnLoad = value; }

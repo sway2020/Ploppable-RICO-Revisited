@@ -1,4 +1,7 @@
-﻿namespace PloppableRICO
+﻿using System.Collections.Generic;
+
+
+namespace PloppableRICO
 {
     /// <summary>
     /// Class for external public interface methods for other mods to use.
@@ -13,7 +16,7 @@
         public static bool IsRICOManaged(BuildingInfo prefab)
         {
             // First, do we have a setting at all?
-            if (Loading.xmlManager.prefabHash.ContainsKey(prefab))
+            if (prefab != null && Loading.xmlManager.prefabHash.ContainsKey(prefab))
             {
                 // Get active RICO settings.
                 RICOBuilding building = RICOUtils.CurrentRICOSetting(Loading.xmlManager.prefabHash[prefab]);
@@ -38,7 +41,7 @@
         public static bool IsRICOPloppable(BuildingInfo prefab)
         {
             // First, do we have a setting at all?
-            if (Loading.xmlManager.prefabHash.ContainsKey(prefab))
+            if (prefab != null && Loading.xmlManager.prefabHash.ContainsKey(prefab))
             {
                 // Get active RICO settings.
                 RICOBuilding building = RICOUtils.CurrentRICOSetting(Loading.xmlManager.prefabHash[prefab]);
@@ -63,7 +66,7 @@
         public static bool IsRICOPopManaged(BuildingInfo prefab)
         {
             // First, do we have a setting at all?
-            if (Loading.xmlManager.prefabHash.ContainsKey(prefab))
+            if (prefab != null && Loading.xmlManager.prefabHash.ContainsKey(prefab))
             {
                 // Get active RICO settings.
                 RICOBuilding building = RICOUtils.CurrentRICOSetting(Loading.xmlManager.prefabHash[prefab]);
@@ -87,35 +90,73 @@
         /// <param name="prefab">Prefab to clear</param>
         public static void ClearWorkplaceCache(BuildingInfo prefab)
         {
-            // First, do we have a setting at all?
-            if (Loading.xmlManager.prefabHash.ContainsKey(prefab))
+            // Safety first!
+            if (prefab == null)
             {
-                // Get active RICO settings.
-                RICOBuilding building = RICOUtils.CurrentRICOSetting(Loading.xmlManager.prefabHash[prefab]);
+                Logging.Error("null prefab passed to ClearWorkplaceCache");
+                return;
+            }
 
-                // Check that it's enabled and is using reality.
-                if (building != null && building.ricoEnabled && building.useReality)
+            // Clear cache.
+            ClearWorkplaceCache(prefab, Loading.xmlManager.prefabHash[prefab]);
+        }
+
+
+        /// <summary>
+        /// Called by other mods to clear any cached workplace settings for all prefabs (e.g. for when a Realistic Population mod's calculations have changed).
+        /// Only takes affect for buidings using Realistic Population settings.
+        /// </summary>
+        /// <param name="prefab">Prefab to clear</param>
+        public static void ClearAllWorkplaceCache()
+        {
+            // Iterate through all settings in dictionary.
+            foreach (KeyValuePair<BuildingInfo, BuildingData> entry in Loading.xmlManager.prefabHash)
+            {
+                // Clear cache for this entry.
+                ClearWorkplaceCache(entry.Key, entry.Value);
+            }
+        }
+
+
+        /// <summary>
+        /// Clears the workplace cache for the given RICO building.
+        /// </summary>
+        /// <param name="prefab"></param>
+        /// <param name="buildingData"></param>
+        private static void ClearWorkplaceCache(BuildingInfo prefab, BuildingData buildingData)
+        {
+            // Get active RICO settings.
+            RICOBuilding building = RICOUtils.CurrentRICOSetting(buildingData);
+
+            // Check that it's enabled and is using reality.
+            if (building != null && building.ricoEnabled && building.useReality)
+            {
+                // Get AI.
+                PrefabAI buildingAI = prefab.GetAI();
+
+                // Do nothing if null.
+                if (buildingAI == null)
                 {
-                    // Get AI.
-                    PrivateBuildingAI buildingAI = (PrivateBuildingAI)prefab.GetAI();
+                    Logging.Error("null prefabAI at ClearWorkplaceCache");
+                    return;
+                }
 
-                    // See if it's one of our AI types; if so, clear the cache for that AI.
-                    if (buildingAI is GrowableCommercialAI comAI)
-                    {
-                        comAI.workplaceCount = null;
-                    }
-                    else if (buildingAI is GrowableIndustrialAI indAI)
-                    {
-                        indAI.workplaceCount = null;
-                    }
-                    else if (buildingAI is GrowableOfficeAI offAI)
-                    {
-                        offAI.workplaceCount = null;
-                    }
-                    else if (buildingAI is GrowableExtractorAI growAI)
-                    {
-                        growAI.workplaceCount = null;
-                    }
+                // See if it's one of our AI types; if so, clear the cache for that AI.
+                if (buildingAI is GrowableCommercialAI comAI)
+                {
+                    comAI.workplaceCount = null;
+                }
+                else if (buildingAI is GrowableIndustrialAI indAI)
+                {
+                    indAI.workplaceCount = null;
+                }
+                else if (buildingAI is GrowableOfficeAI offAI)
+                {
+                    offAI.workplaceCount = null;
+                }
+                else if (buildingAI is GrowableExtractorAI growAI)
+                {
+                    growAI.workplaceCount = null;
                 }
             }
         }

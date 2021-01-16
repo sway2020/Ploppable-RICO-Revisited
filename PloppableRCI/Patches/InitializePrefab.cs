@@ -69,7 +69,7 @@ namespace PloppableRICO
 							if (MatchRICOName(buildingDef.name, __instance.name, asset.package.packageName))
 							{
 								// Match!  Add these author settings to our prefab dictionary.
-								Debugging.OptionalMessage("found author settings for " + buildingDef.name);
+								Logging.Message("found author settings for ", buildingDef.name);
 								Loading.xmlManager.prefabHash[__instance].author = buildingDef;
 								Loading.xmlManager.prefabHash[__instance].hasAuthor = true;
 							}
@@ -176,7 +176,7 @@ namespace PloppableRICO
 			else
 			{
 				// This means that there's been a significant failure.  Ploppable RICO settings can't be applied.
-				Debugging.Message("convertPrefabs not initialised");
+				Logging.Error("convertPrefabs not initialised");
 			}
 
 			// If we've made it this far, the patch is working fine - set the watchdog flag to confirm.

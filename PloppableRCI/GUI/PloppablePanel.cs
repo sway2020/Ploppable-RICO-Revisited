@@ -157,7 +157,7 @@ namespace PloppableRICO
             catch (Exception e)
             {
                 // Just carry on without displaying this button - don't stop the whole UI just for one failure.
-                Debugging.LogException(e);
+                Logging.LogException(e, "exception displaying ScrollPanelItem" );
             }
         }
 

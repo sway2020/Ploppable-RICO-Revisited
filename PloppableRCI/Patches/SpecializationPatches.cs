@@ -20,7 +20,7 @@ namespace PloppableRICO
 		/// <returns>Replacement (patched) ILCode</returns>
 		private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
 		{
-			Debugging.Message("transpiler patching specialized building checks in CommercialBuildingAI.SimulationStep");
+			Logging.Message("transpiler patching specialized building checks in CommercialBuildingAI.SimulationStep");
 			return CheckSpecTranspiler.Transpiler(instructions);
 		}
 	}
@@ -39,7 +39,7 @@ namespace PloppableRICO
 		/// <returns>Replacement (patched) ILCode</returns>
 		private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
 		{
-			Debugging.Message("transpiler patching specialized building checks in ResidentialBuildingAI.SimulationStep");
+			Logging.Message("transpiler patching specialized building checks in ResidentialBuildingAI.SimulationStep");
 			return CheckSpecTranspiler.Transpiler(instructions);
 		}
 	}
@@ -58,7 +58,7 @@ namespace PloppableRICO
 		/// <returns>Replacement (patched) ILCode</returns>
 		private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
 		{
-			Debugging.Message("transpiler patching specialized building checks in OfficeBuildingAI.SimulationStep");
+			Logging.Message("transpiler patching specialized building checks in OfficeBuildingAI.SimulationStep");
 			return CheckSpecTranspiler.Transpiler(instructions);
 		}
 	}
@@ -77,7 +77,7 @@ namespace PloppableRICO
 		/// <returns>Replacement (patched) ILCode</returns>
 		private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
 		{
-			Debugging.Message("transpiler patching specialized building checks in IndustrialBuildingAI.SimulationStep");
+			Logging.Message("transpiler patching specialized building checks in IndustrialBuildingAI.SimulationStep");
 			return CheckSpecTranspiler.Transpiler(instructions);
 		}
 	}
@@ -96,7 +96,7 @@ namespace PloppableRICO
 		/// <returns>Replacement (patched) ILCode</returns>
 		private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
 		{
-			Debugging.Message("transpiler patching specialized building checks in IndustrialExtractorAI.SimulationStep");
+			Logging.Message("transpiler patching specialized building checks in IndustrialExtractorAI.SimulationStep");
 			return CheckSpecTranspiler.Transpiler(instructions);
 		}
 	}

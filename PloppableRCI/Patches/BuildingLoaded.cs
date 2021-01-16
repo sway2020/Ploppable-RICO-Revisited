@@ -44,7 +44,7 @@ namespace PloppableRICO
 
 						if (data.m_level != newLevel)
 						{
-							Debugging.Message("found building '" + building.name + "' with level " + (data.m_level + 1) + ", overriding to level " + building.level);
+							Logging.Message("found building '", building.name, "' with level ", (data.m_level + 1).ToString(), ", overriding to level ", building.level.ToString());
 							data.m_level = newLevel;
 						}
 
@@ -85,7 +85,7 @@ namespace PloppableRICO
 							// The reverse case, targets greater than current, will be caught with the base-case call to EnsureCitizenUnits below.
 							if (targetHomeCount < currentHomeCount)
 							{
-								Debugging.Message("found Residential prefab " + building.name + " with target homecount " + targetHomeCount + " and citizen units " + currentHomeCount + "; forcing homecount reset");
+								Logging.Message("found Residential prefab ", building.name, " with target homecount ", targetHomeCount.ToString(), " and citizen units ", currentHomeCount.ToString(), "; forcing homecount reset");
 								RealisticCitizenUnits.EnsureCitizenUnits(ref __instance, buildingID, ref data, targetHomeCount, workCount, visitCount, 0);
 							}
 						}
@@ -124,7 +124,7 @@ namespace PloppableRICO
 				if (data.m_citizenUnits == 0)
                 {
 					// Uh oh...
-					Debugging.Message("no citizenUnits for building " + buildingID + " : " + data.Info.name + "; attempting reset");
+					Logging.Error("no citizenUnits for building ", buildingID.ToString(), " : ", data.Info.name, "; attempting reset");
 					
 					// Backup resetOnLoad setting and force to true for reset attempt.
 					bool oldReset = ModSettings.resetOnLoad;
@@ -138,7 +138,7 @@ namespace PloppableRICO
                 }
 				else
                 {
-					Debugging.Message("building " + buildingID + " : " + data.Info.name + " passed CitizenUnits check");
+					Logging.Message("building ", buildingID.ToString(), " : ", data.Info.name, " passed CitizenUnits check");
                 }
             }
         }
@@ -159,7 +159,7 @@ namespace PloppableRICO
 		[MethodImpl(MethodImplOptions.NoInlining)]
 		private static void EnsureCitizenUnitsRev(object instance, ushort buildingID, ref Building data, int homeCount, int workCount, int visitCount, int studentCount)
 		{
-			Debugging.Message("EnsureCitizenUnits reverse Harmony patch wasn't applied");
+			Logging.Error("EnsureCitizenUnits reverse Harmony patch wasn't applied");
 			throw new NotImplementedException("Harmony reverse patch not applied");
 		}
 	}

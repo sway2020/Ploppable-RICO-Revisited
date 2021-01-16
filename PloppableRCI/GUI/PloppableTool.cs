@@ -93,7 +93,7 @@ namespace PloppableRICO
                 }
                 catch (Exception e)
                 {
-                    Debugging.LogException(e);
+                    Logging.LogException(e, "exception initializing ploppable tool");
                 }
             }
         }
@@ -120,7 +120,7 @@ namespace PloppableRICO
             }
             catch (Exception e)
             {
-                Debugging.LogException(e);
+                Logging.LogException(e, "exception destorying PloppableTool");
             }
         }
 
@@ -483,7 +483,7 @@ namespace PloppableRICO
             // Only do this if the ploppable tool has been created.
             if (Instance != null)
             {
-                Debugging.Message("regenerating all thumbnails");
+                Logging.Message("regenerating all thumbnails");
 
                 // Step through each loaded and active RICO prefab.
                 foreach (BuildingData buildingData in Loading.xmlManager.prefabHash.Values)

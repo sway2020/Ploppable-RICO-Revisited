@@ -53,7 +53,7 @@ namespace PloppableRICO
             }
             catch (Exception e)
             {
-                Debugging.LogException(e);
+                Logging.LogException(e, "exception creating renderer");
             }
         }
 
@@ -93,7 +93,7 @@ namespace PloppableRICO
         /// </summary>
         public ThumbnailGenerator()
         {
-            Debugging.OptionalMessage("creating thumbnail generator");
+            Logging.Message("creating thumbnail generator");
 
             // Get local reference from parent.
             renderer = ThumbnailManager.Renderer;
@@ -125,7 +125,7 @@ namespace PloppableRICO
             if (!renderer.SetTarget(building.prefab))
             {
                 // Something went wrong - this isn't a valid rendering target; exit.
-                Debugging.Message("no thumbnail generated for null mesh " + building.prefab.name);
+                Logging.Message("no thumbnail generated for null mesh ", building.prefab.name);
                 return;
             }
 

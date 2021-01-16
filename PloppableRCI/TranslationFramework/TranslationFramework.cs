@@ -117,7 +117,7 @@ namespace PloppableRICO
         /// </summary>
         public void UpdateUILanguage()
         {
-            Debugging.Message("setting language to " + (currentIndex < 0 ? "system" : languages.Values[currentIndex].uniqueName));
+            Logging.Message("setting language to ", currentIndex < 0 ? "system" : languages.Values[currentIndex].uniqueName);
 
             // UI update code goes here.
 
@@ -200,7 +200,7 @@ namespace PloppableRICO
                 }
                 else
                 {
-                    Debugging.Message("no translation for language " + currentLanguage.uniqueName + " found for key " + key);
+                    Logging.Message("no translation for language ", currentLanguage.uniqueName, " found for key " + key);
 
                     // Attempt fallack translation.
                     return FallbackTranslation(currentLanguage.uniqueName, key);
@@ -208,7 +208,7 @@ namespace PloppableRICO
             }
             else
             {
-                Debugging.Message("no current language when translating key " + key);
+                Logging.Error("no current language when translating key ", key);
             }
 
             // If we've made it this far, something went wrong; just return the key.
@@ -257,7 +257,7 @@ namespace PloppableRICO
                 catch (Exception e)
                 {
                     // Don't really care.
-                    Debugging.LogException(e);
+                    Logging.LogException(e, "exception setting system language");
                 }
             }
 
@@ -343,7 +343,7 @@ namespace PloppableRICO
             catch (Exception e)
             {
                 // Don't care.  Just log the exception, as we really should have a default language.
-                Debugging.LogException(e);
+                Logging.LogException(e, "exception attempting fallback translation");
             }
 
             // At this point we've failed; just return the key.
@@ -382,19 +382,19 @@ namespace PloppableRICO
                             }
                             else
                             {
-                                Debugging.Message("couldn't deserialize translation file '" + translationFile);
+                                Logging.Error("couldn't deserialize translation file '", translationFile);
                             }
                         }
                     }
                 }
                 else
                 {
-                    Debugging.Message("translations directory not found");
+                    Logging.Error("translations directory not found");
                 }
             }
             else
             {
-                Debugging.Message("assembly path was empty");
+                Logging.Error("assembly path was empty");
             }
         }
 
@@ -430,7 +430,7 @@ namespace PloppableRICO
             }
 
             // If we got here, then we didn't find the assembly.
-            Debugging.Message("assembly path not found");
+            Logging.Error("assembly path not found");
             throw new FileNotFoundException(PloppableRICOMod.ModName + ": assembly path not found!");
         }
     }

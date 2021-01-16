@@ -282,7 +282,7 @@ namespace PloppableRICO
                     int originalWorkplaces = _workplaces[0];
 
                     // Calculate distribution ratio for this service/subservice/level combination.
-                    int[] distribution = Util.WorkplaceDistributionOf( service, subService, "Level" + level );
+                    int[] distribution = Util.WorkplaceDistributionOf(service, subService, "Level" + level);
                     if (distribution == null)
                     {
                         // Failsafe - allocate all jobs to lowest level.
@@ -299,10 +299,7 @@ namespace PloppableRICO
                     // Check and adjust for any rounding errors, assigning 'leftover' jobs to the lowest education level.
                     _workplaces[0] += originalWorkplaces - _workplaces.Sum();
 
-                    if (ModSettings.debugLogging)
-                    {
-                        Debugging.Message(originalWorkplaces + " old-format workplaces for building '" + name + "'; replacing with workplaces " + _workplaces[0] + " " + _workplaces[1] + " " + _workplaces[2] + " " + _workplaces[3]);
-                    }
+                    Logging.Message(originalWorkplaces.ToString(), " old-format workplaces for building '", name, "'; replacing with workplaces ", _workplaces[0].ToString(), " ", _workplaces[1].ToString(), " ", _workplaces[2].ToString(), " ", _workplaces[3].ToString());
 
                     // Reset flag; these workplaces are now updated.
                     _oldWorkplacesStyle = false;
@@ -354,7 +351,7 @@ namespace PloppableRICO
                     else
                     {
                         // If office or industrial, at least reset subservice to something decent.
-                        Debugging.Message("building '" + name + "' has " + (service == "" ? "no " : "an invalid ") + "sub-service.  Resetting to 'generic'");
+                         errors.AppendLine("building '" + name + "' has " + (service == "" ? "no " : "an invalid ") + "sub-service.  Resetting to 'generic'");
                         subService = "generic";
                     }
                 }
@@ -491,7 +488,7 @@ namespace PloppableRICO
                     if (newLevel == 1)
                     {
                         // Don't bother reporting errors for levels reset to 1, as those are generally for buildings that only have one level anwyay and it's just annoying users.
-                        Debugging.Message("building '" + name + "' has invalid level '" + level.ToString() + "'. Resetting to level '" + newLevel);
+                        Logging.Message("building '", name, "' has invalid level '", level.ToString(), "'. Resetting to level '", newLevel.ToString());
                     }
                     else
                     {

@@ -44,9 +44,9 @@ namespace PloppableRICO
             UIHelperBase logGroup = helper.AddGroup(Translations.Translate("PRR_OPTION_LOG"));
 
             // Add logging checkbox.
-            logGroup.AddCheckbox(Translations.Translate("PRR_OPTION_MOREDEBUG"), ModSettings.debugLogging, isChecked =>
+            logGroup.AddCheckbox(Translations.Translate("PRR_OPTION_MOREDEBUG"), Logging.detailLogging, isChecked =>
             {
-                ModSettings.debugLogging = isChecked;
+                Logging.detailLogging = isChecked;
                 SettingsUtils.SaveSettings();
             });
 

@@ -24,7 +24,7 @@ namespace PloppableRICO
             }
             catch
             {
-                Debugging.Message("caught monuments panel exception");
+                Logging.Message("caught monuments panel exception");
             }
 
             // Don't call base method after this.
@@ -41,7 +41,7 @@ namespace PloppableRICO
         [MethodImpl(MethodImplOptions.NoInlining)]
         private static void RefreshMonumentsPanelRev(object instance)
         {
-            Debugging.Message("RefreshMonumentsPanel reverse Harmony patch wasn't applied");
+            Logging.Error("RefreshMonumentsPanel reverse Harmony patch wasn't applied");
         }
     }
 }

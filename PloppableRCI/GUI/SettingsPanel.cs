@@ -48,7 +48,7 @@ namespace PloppableRICO
                 // Select appropriate building if there's a preselection.
                 if (selected != null)
                 {
-                    Debugging.Message("selecting preselected building " + selected.name);
+                    Logging.Message("selecting preselected building ", selected.name);
                     Panel.SelectBuilding(selected);
                 }
                 else if (lastSelection != null)
@@ -69,7 +69,7 @@ namespace PloppableRICO
             }
             catch (Exception e)
             {
-                Debugging.LogException(e);
+                Logging.LogException(e, "exception opening settings panel");
                 return;
             }
         }
@@ -147,7 +147,7 @@ namespace PloppableRICO
             catch
             {
                 // Don't really care; just use default relative Y.
-                Debugging.Message("couldn't find ProblemsPanel relative position");
+                Logging.Message("couldn't find ProblemsPanel relative position");
             }
 
             // Set position.
@@ -387,7 +387,7 @@ namespace PloppableRICO
             }
             catch (Exception e)
             {
-                Debugging.LogException(e);
+                Logging.LogException(e, "exception setting up settings panel");
             }
         }
 

@@ -28,14 +28,14 @@ namespace PloppableRICO
                     if (prefab.GetWidth() > 4 || prefab.GetLength() > 4)
                     {
                         buildingData.growable = false;
-                        Debugging.Message("building '" + prefab.name + "' can't be growable because it is too big");
+                        Logging.Error("building '", prefab.name, "' can't be growable because it is too big");
                     }
 
                     // Growables can't have net structures.
                     if (prefab.m_paths != null && prefab.m_paths.Length != 0)
                     {
                         buildingData.growable = false;
-                        Debugging.Message("building '" + prefab.name + "' can't be growable because it contains network assets");
+                        Logging.Error("building '", prefab.name, "' can't be growable because it contains network assets");
                     }
                 }
 
@@ -111,7 +111,7 @@ namespace PloppableRICO
                                 // If invalid subservice, report.
                                 if (buildingData.subService != "low")
                                 {
-                                    Debugging.ErrorBuffer.AppendLine("Residential building " + buildingData.name + " has invalid subservice " + buildingData.subService + "; reverting to low residential.");
+                                    Logging.Message("Residential building ", buildingData.name, " has invalid subservice ", buildingData.subService, "; reverting to low residential");
                                 }
                                 break;
                         }
@@ -218,7 +218,7 @@ namespace PloppableRICO
                         }
                         else
                         {
-                            Debugging.Message("invalid industry subservice " + buildingData.subService + " for extractor " + buildingData.name);
+                            Logging.Error("invalid industry subservice ", buildingData.subService, " for extractor ", buildingData.name);
                         }
 
                         break;
@@ -293,7 +293,7 @@ namespace PloppableRICO
                                 // If invalid subservice, report.
                                 if (buildingData.subService != "low")
                                 {
-                                    Debugging.ErrorBuffer.AppendLine("Commercial building " + buildingData.name + " has invalid subService " + buildingData.subService + "; reverting to low commercial.");
+                                    Logging.Message("Commercial building ", buildingData.name, " has invalid subService ", buildingData.subService, "; reverting to low commercial.");
                                 }
                                 break;
                         }

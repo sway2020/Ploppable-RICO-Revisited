@@ -141,7 +141,7 @@ namespace PloppableRICO
             }
             else
             {
-                Debugging.Message("couldn't find local settings file to save");
+                Logging.Error("couldn't find local settings file to save");
             }
 
             // Force an update of all panels with current values.
@@ -178,7 +178,7 @@ namespace PloppableRICO
             }
             else
             {
-                Debugging.Message("no current RICO settings to apply to prefab " + currentBuildingData);
+                Logging.Message("no current RICO settings to apply to prefab ", currentBuildingData.prefab.name);
             }
 
             // Force an update of all panels with current values.
@@ -398,7 +398,7 @@ namespace PloppableRICO
 
                         if (instance.m_buildings.m_buffer[i].m_level != newLevel)
                         {
-                            Debugging.Message("found building '" + prefabName + "' with level " + (instance.m_buildings.m_buffer[i].m_level + 1) + ", overriding to level " + level);
+                            Logging.Message("found building '", prefabName, "' with level ", (instance.m_buildings.m_buffer[i].m_level + 1).ToString(), ", overriding to level ", level.ToString());
                             instance.m_buildings.m_buffer[i].m_level = newLevel;
                         }
                     }
@@ -424,7 +424,7 @@ namespace PloppableRICO
                 }
             }
 
-            Debugging.Message("set household counts to " + homeCount + " for " + homeCountChanged + " '" + prefabName + "' buildings");
+            Logging.Message("set household counts to ", homeCount.ToString(), " for ", homeCountChanged.ToString(), " '", prefabName, "' buildings");
         }
 
 
@@ -485,7 +485,7 @@ namespace PloppableRICO
 
             if (prefab?.name != null)
             {
-                Debugging.Message("attempting to find UI button for " + prefab.name);
+                Logging.Message("attempting to find UI button for ", prefab.name);
                 // Find any existing UI component linked to this prefab.
                 refButton = UIView.GetAView()?.FindUIComponent<UIButton>(prefab.name);
             }
@@ -493,7 +493,7 @@ namespace PloppableRICO
             if (refButton != null)
             {
                 // We found one - destry it.
-                Debugging.Message("destroying UI button for " + prefab.name);
+                Logging.Message("destroying UI button for ", prefab.name);
                 refButton.isVisible = false;
                 GameObject.Destroy(refButton.gameObject);
             }
