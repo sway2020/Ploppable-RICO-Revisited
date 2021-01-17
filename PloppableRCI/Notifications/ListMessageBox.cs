@@ -10,7 +10,7 @@ namespace PloppableRICO.MessageBox
     public class ListMessageBox : MessageBoxBase
     {
         // Components.
-        private UIButton closeButton;
+        protected UIButton closeButton;
 
 
         /// <summary>

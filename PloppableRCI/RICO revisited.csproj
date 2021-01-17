@@ -79,6 +79,7 @@
     <Compile Include="GUI\Thumbnails.cs" />
     <Compile Include="Interfaces.cs" />
     <Compile Include="LevelUpExtension.cs" />
+    <Compile Include="Notifications\DontShowAgainMessageBox.cs" />
     <Compile Include="Notifications\ListMessageBox.cs" />
     <Compile Include="Notifications\MessageBoxBase.cs" />
     <Compile Include="Notifications\WhatsNew.cs" />

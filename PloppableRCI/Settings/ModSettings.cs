@@ -33,6 +33,9 @@ namespace PloppableRICO
         internal static string whatsNewVersion = "0.0";
         internal static string whatsNewBeta = "";
 
+        // Soft conflict notification (don't show again) flags.
+        internal static int dsaPTG = 0;
+
         // Thumbnail background category enum.
         public enum ThumbBackCats
         {
@@ -67,6 +70,9 @@ namespace PloppableRICO
         [XmlElement("WhatsNewBeta")]
         [DefaultValue("")]
         public string WhatsNewBeta { get => ModSettings.whatsNewBeta; set => ModSettings.whatsNewBeta = value; }
+
+        [XmlElement("WarnedPTG")]
+        public int WarnedPTG { get => ModSettings.dsaPTG; set => ModSettings.dsaPTG = value; }
 
         [XmlElement("PlopRico")]
         public bool PlopRico { get => ModSettings.plopRico; set => ModSettings.plopRico = value; }

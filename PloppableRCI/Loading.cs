@@ -186,10 +186,12 @@ namespace PloppableRICO
                 // Soft conflict detected - display warning notification for each one.
                 foreach (string mod in ModUtils.conflictingModNames)
                 {
-                    if (mod.Equals("PTG"))
+                    if (mod.Equals("PTG") && ModSettings.dsaPTG == 0)
                     {
-                        ListMessageBox softConflictBox = MessageBoxBase.ShowModal<ListMessageBox>();
-                        softConflictBox.AddParas(Translations.Translate("PRR_CON_PTG0"), Translations.Translate("PRR_CON_PTG1"));
+                        // Plop the Growables.
+                        DontShowAgainMessageBox softConflictBox = MessageBoxBase.ShowModal<DontShowAgainMessageBox>();
+                        softConflictBox.AddParas(Translations.Translate("PRR_CON_PTG0"), Translations.Translate("PRR_CON_PTG1"), Translations.Translate("PRR_CON_PTG2"));
+                        softConflictBox.DSAButton.eventClicked += (component, clickEvent) => { ModSettings.dsaPTG = 1; SettingsUtils.SaveSettings(); };
                     }
                 }
             }
