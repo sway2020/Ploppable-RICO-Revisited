@@ -17,8 +17,8 @@ namespace PloppableRICO
         // Internal and private name and version components.
         internal static string ModName => "RICO Revisited";
         internal static string Version => BaseVersion + " " + Beta;
-        internal static string Beta => "";
-        private static string BaseVersion => "2.3.5";
+        internal static string Beta => "BETA1";
+        private static string BaseVersion => "2.3.6";
 
 
         /// <summary>

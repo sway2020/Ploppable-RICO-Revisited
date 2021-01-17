@@ -1,4 +1,6 @@
-﻿- Add ClearAllWorkplaceCache method to enable other mods to trigger workplace cache clearance for all buildings at once
+﻿Version 2.3.6
+
+- Add ClearAllWorkplaceCache method to enable other mods to trigger workplace cache clearance for all buildings at once
 - Improve mod conflict detection and notification
 - Overhaul logging
 

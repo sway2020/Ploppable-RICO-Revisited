@@ -141,5 +141,6 @@
     <Translation ID="PRR_UPD_235_0" String="Growable options now have 'Plop the Growables' behavior enabled by default (does not affect existing settings)." />
     <Translation ID="PRR_UPD_235_1" String="Add warning if the 'Plop the Growables' mod is also active." />
     <Translation ID="PRR_UPD_235_2" String="Improved mod conflict and error notifications." />
+    <Translation ID="PRR_UPD_236_0" String="Improve mod conflict detection and notification." />
   </Translations>
 </Language>
