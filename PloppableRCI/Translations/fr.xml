@@ -94,6 +94,8 @@
     <Translation ID="PRR_OPTION_RGR" String="Bâtiments RICO construits automatiquement" />
     <Translation ID="PRR_OPTION_RCO" String="Tous les bâtiments RICO" />
     <Translation ID="PRR_OPTION_OTH" String="Bâtiments construits automatiquement hors RICO" />
+    <Translation ID="PRR_OPTION_BDZ" String="Demander avant de raser des batiments RICO plopped" />
+    <Translation ID="PRR_OPTION_IMP" String="Permettre au bulldozer automatique et à la construction de bâtiments RICO détruits (par exemple, lors de la construction de routes ou de la pose de bâtiments)" />
     <Translation ID="PRR_OPTION_LOA" String="Options de chargement" />
     <Translation ID="PRR_OPTION_LOG" String="Options de rapport" />
     <Translation ID="PRR_OPTION_TMB" String="Options de vignette" />
@@ -123,6 +125,7 @@
     <Translation ID="PRR_UPD_23_4" String="Les plaintes &quot;Valeur foncière basse&quot; et &quot;Pas assez de services&quot; peuvent être désactivées" />
     <Translation ID="PRR_UPD_23_5" String="Amélioration du moteur de rendu des vignettes pour ne les générer que si besoin, ce qui réduit l'utilisation de mémoire et les temps de chargement" />
     <Translation ID="PRR_UPD_234_0" String="Ajoutez une option pour activer ou désactiver les avertissements lors de la démolition de bâtiments RICO détruits." />
-    <Translation ID="PRR_UPD_234_1=" String="Mise-à-jour de notifications amélioré" />
+    <Translation ID="PRR_UPD_234_1" String="Ajoutez une option pour activer ou désactiver le bulldozer automatique lors de la construction au-dessus des bâtiments RICO plopped" />
+    <Translation ID="PRR_UPD_234_2" String="Mise-à-jour de notifications amélioré" />
   </Translations>
 </Language>
