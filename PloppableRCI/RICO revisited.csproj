@@ -79,9 +79,8 @@
     <Compile Include="GUI\Thumbnails.cs" />
     <Compile Include="Interfaces.cs" />
     <Compile Include="LevelUpExtension.cs" />
-    <Compile Include="Notifications\BaseMessageBox.cs" />
     <Compile Include="Notifications\ListMessageBox.cs" />
-    <Compile Include="Notifications\MessageBoxUtils.cs" />
+    <Compile Include="Notifications\MessageBoxBase.cs" />
     <Compile Include="Notifications\WhatsNew.cs" />
     <Compile Include="Notifications\WhatsNewMessageBox.cs" />
     <Compile Include="Patches\SpecializationPatches.cs" />
@@ -115,6 +114,7 @@
     <Compile Include="GUI\UIutils.cs" />
     <Compile Include="TranslationFramework\TranslationFramework.cs" />
     <Compile Include="TranslationFramework\TranslationXML.cs" />
+    <Compile Include="Utils\UIControls.cs" />
     <Compile Include="XML\CrpDataProvider.cs" />
     <Compile Include="XML\PloppableRICOBuilding.cs" />
     <Compile Include="XML\PloppableRICODefinition.cs" />

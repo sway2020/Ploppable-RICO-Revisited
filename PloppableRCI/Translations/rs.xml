@@ -110,18 +110,12 @@
     <Translation ID="PRR_THUMB_COLOR" String="Boja" />
     <Translation ID="PRR_THUMB_PLAIN" String="Obična" />
     <Translation ID="PRR_THUMB_SKY" String="Skybox" />
-    <Translation ID="PRR_ERR_HAR0" String="Greška pri zakrpljivanju Harmony" />
-    <Translation ID="PRR_ERR_HAR1" String="Ploppable RICO Revisited nije mogo da  dovrši neophodne Harmonz zakrpe. Ovo znači da mod ne mođe lepo da radi, i da je se ugasio da očuva vaš save file." />
-    <Translation ID="PRR_ERR_HAR2" String="Mogući razlozi ovog problema su:" />
-    <Translation ID="PRR_ERR_HAR3" String="Neophodan Harmonz 2 mod dependencz nije instaliran" />
-    <Translation ID="PRR_ERR_HAR4" String="Stari i/ili pokvaren mod ne dopušta Harmony 2 da pravilno funkcioniše (stari Painter i Garbage Bin Controller modovi mogu to da izazovu)" />
-    <Translation ID="PRR_CON_DWN" String="RICO Revisited se gasi da očuva vašu igricu." />
-    <Translation ID="PRR_CON_ONE" String="Samo JEDAN od ovih modova može biti uključen u isto vreme- molimo odaberite jedan i uklonite drugi!" />
-    <Translation ID="PRR_CON_OPR" String="Originalni Ploppable RICO mod detektovan" />
-    <Translation ID="PRR_CON_EBC" String="Enhanced Building Capacity mod detektovan." />
-    <Translation ID="PRR_CON_GBC" String="Garbage Bin Controller mod detektovan" />
-    <Translation ID="PRR_CON_PTR" String="Stari Painter mod detektovan" />
-    <Translation ID="PRR_CON_PTR1" String="Stari Painter mod izaziva probleme sa Harmony filovima koje ovaj mod koristi, što izaziva nasumične greške. Molimo vas da UKLONITE Painter (gašenje moda NIJE dovoljno); Repaint mod može da se koristi kao zamena." />
+    <Translation ID="ERR_HAR0" String="Greška pri zakrpljivanju Harmony" />
+    <Translation ID="PRR_ERR_FAT" String="Ovo znači da mod ne mođe lepo da radi, i da je se ugasio." />
+    <Translation ID="PRR_ERR_HAR" String="Ploppable RICO Revisited nije mogo da  dovrši neophodne Harmonz zakrpe." />
+    <Translation ID="ERR_HAR1" String="Mogući razlozi ovog problema su:" />
+    <Translation ID="ERR_HAR2" String="Neophodan Harmonz 2 mod dependencz nije instaliran" />
+    <Translation ID="ERR_HAR3" String="Stari i/ili pokvaren mod ne dopušta Harmony 2 da pravilno funkcioniše" />
     <Translation ID="PRR_UPD_23_0" String="Ploppable RICO Revisited 2.3 update" />
     <Translation ID="PRR_UPD_23_1" String="Ploppable RICO Revisited se ažurirao na verziju 2.3 neke glavne funkcije ovog update-a su:" />
     <Translation ID="PRR_UPD_23_2" String="Ploppable RICO sada sadrži funkciju sličnu 'Plop the Growables' za i RICO i ne RICO zgrade- pogledaj panel podešavanja za detalje." />

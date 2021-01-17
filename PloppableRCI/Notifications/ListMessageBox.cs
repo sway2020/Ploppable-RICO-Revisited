@@ -10,13 +10,7 @@ namespace PloppableRICO.MessageBox
     public class ListMessageBox : MessageBoxBase
     {
         // Components.
-        private UIButton button;
-
-
-        /// <summary>
-        /// Sets button text.
-        /// </summary>
-        public string ButtonText { set => button.text = value; }
+        private UIButton closeButton;
 
 
         /// <summary>
@@ -24,8 +18,22 @@ namespace PloppableRICO.MessageBox
         /// </summary>
         public ListMessageBox()
         {
-            // Add button instance.
-            button = AddButton(1, 1, Close);
+            // Set title.
+            Title = PloppableRICOMod.ModName;
+
+            // Add buttons.
+            AddButtons();
+        }
+
+
+        /// <summary>
+        /// Adds buttons to the message box.
+        /// </summary>
+        public virtual void AddButtons()
+        {
+            // Add close button.
+            closeButton = AddButton(1, 1, Close);
+            closeButton.text = Translations.Translate("MES_CLS");
         }
 
 
@@ -56,6 +64,21 @@ namespace PloppableRICO.MessageBox
 
 
         /// <summary>
+        /// Creates a blank panel spacer.
+        /// </summary>
+        /// <param name="height">Spacer height (default 10)</param>
+        /// <returns></returns>
+        public void AddSpacer(float height = 10f)
+        {
+            UIPanel spacer = ScrollableContent.AddUIComponent<UIPanel>();
+
+            spacer.autoSize = false;
+            spacer.height = height;
+            spacer.width = width - ScrollableContent.autoLayoutPadding.left - ScrollableContent.autoLayoutPadding.right;
+        }
+
+
+        /// <summary>
         /// Add dot pointed list.
         /// </summary>
         /// <param name="listItems">Array of messages for display as separte dot points</param>
@@ -67,6 +90,9 @@ namespace PloppableRICO.MessageBox
                 ListItem listItem = ScrollableContent.AddUIComponent<ListItem>();
                 listItem.Text = listItems[i];
             }
+
+            // Add spacer at end of list.
+            AddSpacer();
         }
 
 

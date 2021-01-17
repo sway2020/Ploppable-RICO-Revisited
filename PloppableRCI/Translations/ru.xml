@@ -1,141 +1,135 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Language UniqueName="ru" ReadableName="Русский">
   <Translations>
-    "<Translation ID="PRR_NAME" String="РИКО" />
-    "<Translation ID="PRR_LEVEL" String="Уровень" />
-    "<Translation ID="PRR_LVL" String="Ур" />
-    "<Translation ID="PRR_HOU" String="Семьи" />
-    "<Translation ID="PRR_WOR" String="Рабочие" />
-    "<Translation ID="PRR_SRV_NON" String="Неопределено" />
-    "<Translation ID="PRR_SRV_RES" String="Жильё" />
-    "<Translation ID="PRR_SRV_IND" String="Промышленность" />
-    "<Translation ID="PRR_SRV_OFF" String="Офис" />
-    "<Translation ID="PRR_SRV_COM" String="Коммерция" />
-    "<Translation ID="PRR_SRV_EXT" String="Добыча" />
-    "<Translation ID="PRR_SRV_DUM" String="Пустышка" />
-    "<Translation ID="PRR_SUB_HIG" String="Высокая плотность" />
-    "<Translation ID="PRR_SUB_LOW" String="Низкая плотность" />
-    "<Translation ID="PRR_SUB_HEC" String="Эко выс плотность" />
-    "<Translation ID="PRR_SUB_LEC" String="Эко низ плотность" />
-    "<Translation ID="PRR_SUB_LEI" String="Развлечения" />
-    "<Translation ID="PRR_SUB_TOU" String="Туризм" />
-    "<Translation ID="PRR_SUB_ORG" String="Эко органика" />
-    "<Translation ID="PRR_SUB_GEN" String="Стандарт" />
-    "<Translation ID="PRR_SUB_ITC" String="IT" />
-    "<Translation ID="PRR_SUB_FAR" String="Фермерство" />
-    "<Translation ID="PRR_SUB_FOR" String="Лесопроизводство" />
-    "<Translation ID="PRR_SUB_OIL" String="Нефтедобыча" />
-    "<Translation ID="PRR_SUB_ORE" String="Горная промышленность" />
-    "<Translation ID="PRR_FTR_ALL" String="Всё" />
-    "<Translation ID="PRR_FTR_NON" String="Ничего" />
-    "<Translation ID="PRR_FTR_NAM" String="Имя" />
-    "<Translation ID="PRR_FTR_SET" String="Настройки фильтра: Мод/Автор/Локально/Всё" />
-    "<Translation ID="PRR_OPT_ENA" String="Включить РИКО" />
-    "<Translation ID="PRR_OPT_SER" String="Категория" />
-    "<Translation ID="PRR_OPT_SUB" String="Подкатегория" />
-    "<Translation ID="PRR_OPT_UIC" String="Категория интерфейса" />
-    "<Translation ID="PRR_OPT_CST" String="Стоимость постройки" />
-    "<Translation ID="PRR_OPT_CNT" String="Рабочие/Семьи" />
-    "<Translation ID="PRR_OPT_POP" String="Использовать мод Realistic Pop" />
-    "<Translation ID="PRR_OPT_POL" String="Включить загрязнение" />
-    "<Translation ID="PRR_OPT_GRO" String="Зонируемое" />
-    "<Translation ID="PRR_OPT_JB0" String="Необразованные рабочие" />
-    "<Translation ID="PRR_OPT_JB1" String="Образованные рабочие" />
-    "<Translation ID="PRR_OPT_JB2" String="Хорошо образованные" />
-    "<Translation ID="PRR_OPT_JB3" String="С высшим образованием" />
-    "<Translation ID="PRR_CAT_MON" String="Монументы" />
-    "<Translation ID="PRR_CAT_BEA" String="Украшения" />
-    "<Translation ID="PRR_CAT_EDU" String="Образование" />
-    "<Translation ID="PRR_CAT_POW" String="Электроэнергия" />
-    "<Translation ID="PRR_CAT_WAT" String="Водоснабжение" />
-    "<Translation ID="PRR_CAT_HEA" String="Здравоохранение" />
-    "<Translation ID="PRR_CAT_RES" String="Жильё" />
-    "<Translation ID="PRR_CAT_COM" String="Коммерция" />
-    "<Translation ID="PRR_CAT_OFF" String="Офис" />
-    "<Translation ID="PRR_CAT_IND" String="Промышленность" />
-    "<Translation ID="PRR_UIC_REL" String="Жильё низ плотность" />
-    "<Translation ID="PRR_UIC_REH" String="Жильё выс плотность" />
-    "<Translation ID="PRR_UIC_COL" String="Коммерция низ плотность" />
-    "<Translation ID="PRR_UIC_COH" String="Коммерция выс плотность" />
-    "<Translation ID="PRR_UIC_OFF" String="Офис" />
-    "<Translation ID="PRR_UIC_IND" String="Промышленность" />
-    "<Translation ID="PRR_UIC_FAR" String="Фермерство" />
-    "<Translation ID="PRR_UIC_FOR" String="Лесопроизводство" />
-    "<Translation ID="PRR_UIC_OIL" String="Нефтепроизводство" />
-    "<Translation ID="PRR_UIC_ORE" String="Минералопроизводство" />
-    "<Translation ID="PRR_UIC_LEI" String="Развлечения" />
-    "<Translation ID="PRR_UIC_TOU" String="Туризм" />
-    "<Translation ID="PRR_UIC_ORG" String="Органик коммерция" />
-    "<Translation ID="PRR_UIC_ITC" String="IT" />
-    "<Translation ID="PRR_UIC_ECO" String="Экодома" />
-    "<Translation ID="PRR_UIC_NON" String="Неопределено" />
-    "<Translation ID="PRR_SET" String="Настройки" />
-    "<Translation ID="PRR_SET_RICO" String="РИКО настройки" />
-    "<Translation ID="PRR_SET_HASMOD" String="Настройки мода" />
-    "<Translation ID="PRR_SET_HASAUT" String="Авторские настройки" />
-    "<Translation ID="PRR_SET_HASLOC" String="Пользовательские настройки" />
-    "<Translation ID="PRR_SET_HASANY" String="Любое" />
-    "<Translation ID="PRR_SET_HASNON" String="Без настроек" />
-    "<Translation ID="PRR_SAV_SAV" String="Сохранить" />
-    "<Translation ID="PRR_SAV_ADD" String="Редактировать" />
-    "<Translation ID="PRR_SAV_REM" String="Удалить" />
-    "<Translation ID="PRR_SAV_APP" String="Сохранить и применить изменения" />
-    "<Translation ID="PRR_EXP" String="ЭКСПЕРИМЕНТАЛЬНАЯ ФУНКЦИЯ" />
-    "<Translation ID="TRN_CHOICE" String="Установить язык" />
-    "<Translation ID="TRN_SYS" String="Использ. системный" />
-    "<Translation ID="PRR_DESCRIPTION" String="Здания RICO размером больше чем 4x4 и настройка зданий RICO" />
-    "<Translation ID="PRR_OPTION_PLP" String="Размещение growable зданий без анимации строительства" />
-    "<Translation ID="PRR_OPTION_ZON" String="Growable здания могут размещ. и существовать без учёта зонирования" />
-    "<Translation ID="PRR_OPTION_SPC" String="Growable здания могут существ. без необходим. районной специализации" />
-    "<Translation ID="PRR_OPTION_VAL" String="Игнорировать сообщение 'низкая стоимость земли'" />
-    "<Translation ID="PRR_OPTION_SVC" String="Игнорировать сообщение 'слишком мало услуг'" />
-    "<Translation ID="PRR_OPTION_HST" String="Сделать все размещаемые Growable здания историческими" />
-    "<Translation ID="PRR_OPTION_RPL" String="RICO Ploppable здания" />
-    "<Translation ID="PRR_OPTION_RGR" String="RICO Growable здания" />
-    "<Translation ID="PRR_OPTION_RCO" String="Все здания RICO (включая Growable)" />
-    "<Translation ID="PRR_OPTION_OTH" String="Не-RICO Growable здания" />
-    "<Translation ID="PRR_OPTION_BDZ" String="Подтверждать снос размещаемых(Ploppable) зданий RICO" />
-    "<Translation ID="PRR_OPTION_IMP" String="Разрешить автоматически сносить размещаемые(Ploppable) здания RICO (например, при строительстве дорог или размещении зданий)" />
-    "<Translation ID="PRR_OPTION_LOA" String="Настройки загрузки" />
-    "<Translation ID="PRR_OPTION_LOG" String="Настройки журнала" />
-    "<Translation ID="PRR_OPTION_TMB" String="Настройки миниатюр" />
-    "<Translation ID="PRR_OPTION_GRO" String="Ploppable здания" />
-    "<Translation ID="PRR_OPTION_PLO" String="Growable здания" />
-    "<Translation ID="PRR_OPTION_COM" String="Настройки сообщений" />
-    "<Translation ID="PRR_OPTION_MOD" String="Настройки мода" />
-    "<Translation ID="PRR_OPTION_MOREDEBUG" String="Включить дополнительные журналы отладки" />
-    "<Translation ID="PRR_OPTION_FORCERESET" String="Принудительно сбросить существующ. данные зданий при загрузке игры" />
-    "<Translation ID="PRR_OPTION_REGENTHUMBS" String="Изменить миниатюры" />
-    "<Translation ID="PRR_OPTION_SPDHDR" String="Немного увелич. скорость игры, но вызывает задержку открытия панели:" />
-    "<Translation ID="PRR_OPTION_SPEED" String="Отключить панель, когда она не используется" />
-    "<Translation ID="PRR_OPTION_FASTHDR" String="Отрисовывает миниатюры быстрее, но использует больше памяти:" />
-    "<Translation ID="PRR_OPTION_FASTHUMB" String="Рендеринг миниатюр на ускоренной скорости" />
-    "<Translation ID="PRR_OPTION_THUMBACK" String="Фон миниатюр" />
-    "<Translation ID="PRR_THUMB_COLOR" String="Цвет" />
-    "<Translation ID="PRR_THUMB_PLAIN" String="Пусто" />
-    "<Translation ID="PRR_THUMB_SKY" String="Skybox" />
-    "<Translation ID="PRR_MES_CLS" String="Закрыть" />
-    "<Translation ID="PRR_MES_DSA" String="Больше не показывать" />
-    "<Translation ID="PRR_ERR_HAR0" String="Ошибка пропатчивания мода Harmony" />
-    "<Translation ID="PRR_ERR_HAR1" String="Ploppable RICO Revisited не смог завершить необходимые исправления Harmony. Это означает, что мод не может работать, и был закрыт, чтобы защитить файл сохранения от повреждения." />
-    "<Translation ID="PRR_ERR_HAR2" String="Возможные причины этой проблемы включают:" />
-    "<Translation ID="PRR_ERR_HAR3" String="Требуемый мод, Harmony 2 – не установлен" />
-    "<Translation ID="PRR_ERR_HAR4" String="Старый и/или сломанный мод препятствует нормальной работе Harmony 2 (известно, что старые моды Painter и Garbage Bin Controller вызывают это)" />
-    "<Translation ID="PRR_CON_DWN" String="RICO Revisited закрывается, чтобы защитить вашу игру." />
-    "<Translation ID="PRR_CON_ONE" String="Одновременно может быть включён только ОДИН из этих модов - выберите один и отмените подписку на другой!" />
-    "<Translation ID="PRR_CON_OPR" String="Обнаружен оригинальный Ploppable RICO" />
-    "<Translation ID="PRR_CON_EBC" String="Обнаружен мод Enhanced Building Capacity" />
-    "<Translation ID="PRR_CON_GBC" String="Обнаружен мод Garbage Bin Controller" />
-    "<Translation ID="PRR_CON_PTR" String="Обнаружен старый мод Painter" />
-    "<Translation ID="PRR_CON_PTR1" String="Старый мод Painter вызывает проблемы с библиотеками Harmony, используемыми этим модом, что приводит к случайным ошибкам. Пожалуйста, ОТПИШИТЕСЬ от Painter (просто отключить НЕ достаточно); мод Repaint можно использовать как замену." />
-    "<Translation ID="PRR_UPD_23_0" String="Plopplable RICO Revisited 2.3 обновлён" />
-    "<Translation ID="PRR_UPD_23_1" String="Ploppable RICO Revisited обновлён до версии 2.3. Некоторые ключевые особенности этого обновления:" />
-    "<Translation ID="PRR_UPD_23_2" String="Ploppable RICO теперь включает в себя функциональность в стиле 'Plop the Growables' как для зданий RICO так и не-RICO - подробности смотрите в Настройках." />
-    "<Translation ID="PRR_UPD_23_3" String="Growable здания RICO теперь можно размещать за пределами зон (настраивается)." />
-    "<Translation ID="PRR_UPD_23_4" String="Сообщения о «низкой стоимости земли» и «недостаточном количестве услуг» теперь можно отключить." />
-    "<Translation ID="PRR_UPD_23_5" String="Улучшен рендерер миниатюр зданий, который теперь генерирует изображения только по мере необходимости, сокращая используемый объём памяти и улучшая время загрузки." />
-    "<Translation ID="PRR_UPD_234_0" String="Добавлена опция включения или отключения предупреждений при сносе размещённых зданий RICO." />
-    "<Translation ID="PRR_UPD_234_1" String="Добавлена опция включения или отключения автосноса размещённых зданий RICO при строительстве." />
-    "<Translation ID="PRR_UPD_234_2" String="Улучшенные уведомления об обновлениях." />
+    <Translation ID="PRR_NAME" String="РИКО" />
+    <Translation ID="PRR_LEVEL" String="Уровень" />
+    <Translation ID="PRR_LVL" String="Ур" />
+    <Translation ID="PRR_HOU" String="Семьи" />
+    <Translation ID="PRR_WOR" String="Рабочие" />
+    <Translation ID="PRR_SRV_NON" String="Неопределено" />
+    <Translation ID="PRR_SRV_RES" String="Жильё" />
+    <Translation ID="PRR_SRV_IND" String="Промышленность" />
+    <Translation ID="PRR_SRV_OFF" String="Офис" />
+    <Translation ID="PRR_SRV_COM" String="Коммерция" />
+    <Translation ID="PRR_SRV_EXT" String="Добыча" />
+    <Translation ID="PRR_SRV_DUM" String="Пустышка" />
+    <Translation ID="PRR_SUB_HIG" String="Высокая плотность" />
+    <Translation ID="PRR_SUB_LOW" String="Низкая плотность" />
+    <Translation ID="PRR_SUB_HEC" String="Эко выс плотность" />
+    <Translation ID="PRR_SUB_LEC" String="Эко низ плотность" />
+    <Translation ID="PRR_SUB_LEI" String="Развлечения" />
+    <Translation ID="PRR_SUB_TOU" String="Туризм" />
+    <Translation ID="PRR_SUB_ORG" String="Эко органика" />
+    <Translation ID="PRR_SUB_GEN" String="Стандарт" />
+    <Translation ID="PRR_SUB_ITC" String="IT" />
+    <Translation ID="PRR_SUB_FAR" String="Фермерство" />
+    <Translation ID="PRR_SUB_FOR" String="Лесопроизводство" />
+    <Translation ID="PRR_SUB_OIL" String="Нефтедобыча" />
+    <Translation ID="PRR_SUB_ORE" String="Горная промышленность" />
+    <Translation ID="PRR_FTR_ALL" String="Всё" />
+    <Translation ID="PRR_FTR_NON" String="Ничего" />
+    <Translation ID="PRR_FTR_NAM" String="Имя" />
+    <Translation ID="PRR_FTR_SET" String="Настройки фильтра: Мод/Автор/Локально/Всё" />
+    <Translation ID="PRR_OPT_ENA" String="Включить РИКО" />
+    <Translation ID="PRR_OPT_SER" String="Категория" />
+    <Translation ID="PRR_OPT_SUB" String="Подкатегория" />
+    <Translation ID="PRR_OPT_UIC" String="Категория интерфейса" />
+    <Translation ID="PRR_OPT_CST" String="Стоимость постройки" />
+    <Translation ID="PRR_OPT_CNT" String="Рабочие/Семьи" />
+    <Translation ID="PRR_OPT_POP" String="Использовать мод Realistic Pop" />
+    <Translation ID="PRR_OPT_POL" String="Включить загрязнение" />
+    <Translation ID="PRR_OPT_GRO" String="Зонируемое" />
+    <Translation ID="PRR_OPT_JB0" String="Необразованные рабочие" />
+    <Translation ID="PRR_OPT_JB1" String="Образованные рабочие" />
+    <Translation ID="PRR_OPT_JB2" String="Хорошо образованные" />
+    <Translation ID="PRR_OPT_JB3" String="С высшим образованием" />
+    <Translation ID="PRR_CAT_MON" String="Монументы" />
+    <Translation ID="PRR_CAT_BEA" String="Украшения" />
+    <Translation ID="PRR_CAT_EDU" String="Образование" />
+    <Translation ID="PRR_CAT_POW" String="Электроэнергия" />
+    <Translation ID="PRR_CAT_WAT" String="Водоснабжение" />
+    <Translation ID="PRR_CAT_HEA" String="Здравоохранение" />
+    <Translation ID="PRR_CAT_RES" String="Жильё" />
+    <Translation ID="PRR_CAT_COM" String="Коммерция" />
+    <Translation ID="PRR_CAT_OFF" String="Офис" />
+    <Translation ID="PRR_CAT_IND" String="Промышленность" />
+    <Translation ID="PRR_UIC_REL" String="Жильё низ плотность" />
+    <Translation ID="PRR_UIC_REH" String="Жильё выс плотность" />
+    <Translation ID="PRR_UIC_COL" String="Коммерция низ плотность" />
+    <Translation ID="PRR_UIC_COH" String="Коммерция выс плотность" />
+    <Translation ID="PRR_UIC_OFF" String="Офис" />
+    <Translation ID="PRR_UIC_IND" String="Промышленность" />
+    <Translation ID="PRR_UIC_FAR" String="Фермерство" />
+    <Translation ID="PRR_UIC_FOR" String="Лесопроизводство" />
+    <Translation ID="PRR_UIC_OIL" String="Нефтепроизводство" />
+    <Translation ID="PRR_UIC_ORE" String="Минералопроизводство" />
+    <Translation ID="PRR_UIC_LEI" String="Развлечения" />
+    <Translation ID="PRR_UIC_TOU" String="Туризм" />
+    <Translation ID="PRR_UIC_ORG" String="Органик коммерция" />
+    <Translation ID="PRR_UIC_ITC" String="IT" />
+    <Translation ID="PRR_UIC_ECO" String="Экодома" />
+    <Translation ID="PRR_UIC_NON" String="Неопределено" />
+    <Translation ID="PRR_SET" String="Настройки" />
+    <Translation ID="PRR_SET_RICO" String="РИКО настройки" />
+    <Translation ID="PRR_SET_HASMOD" String="Настройки мода" />
+    <Translation ID="PRR_SET_HASAUT" String="Авторские настройки" />
+    <Translation ID="PRR_SET_HASLOC" String="Пользовательские настройки" />
+    <Translation ID="PRR_SET_HASANY" String="Любое" />
+    <Translation ID="PRR_SET_HASNON" String="Без настроек" />
+    <Translation ID="PRR_SAV_SAV" String="Сохранить" />
+    <Translation ID="PRR_SAV_ADD" String="Редактировать" />
+    <Translation ID="PRR_SAV_REM" String="Удалить" />
+    <Translation ID="PRR_SAV_APP" String="Сохранить и применить изменения" />
+    <Translation ID="PRR_EXP" String="ЭКСПЕРИМЕНТАЛЬНАЯ ФУНКЦИЯ" />
+    <Translation ID="TRN_CHOICE" String="Установить язык" />
+    <Translation ID="TRN_SYS" String="Использ. системный" />
+    <Translation ID="PRR_DESCRIPTION" String="Здания RICO размером больше чем 4x4 и настройка зданий RICO" />
+    <Translation ID="PRR_OPTION_PLP" String="Размещение growable зданий без анимации строительства" />
+    <Translation ID="PRR_OPTION_ZON" String="Growable здания могут размещ. и существовать без учёта зонирования" />
+    <Translation ID="PRR_OPTION_SPC" String="Growable здания могут существ. без необходим. районной специализации" />
+    <Translation ID="PRR_OPTION_VAL" String="Игнорировать сообщение 'низкая стоимость земли'" />
+    <Translation ID="PRR_OPTION_SVC" String="Игнорировать сообщение 'слишком мало услуг'" />
+    <Translation ID="PRR_OPTION_HST" String="Сделать все размещаемые Growable здания историческими" />
+    <Translation ID="PRR_OPTION_RPL" String="RICO Ploppable здания" />
+    <Translation ID="PRR_OPTION_RGR" String="RICO Growable здания" />
+    <Translation ID="PRR_OPTION_RCO" String="Все здания RICO (включая Growable)" />
+    <Translation ID="PRR_OPTION_OTH" String="Не-RICO Growable здания" />
+    <Translation ID="PRR_OPTION_BDZ" String="Подтверждать снос размещаемых(Ploppable) зданий RICO" />
+    <Translation ID="PRR_OPTION_IMP" String="Разрешить автоматически сносить размещаемые(Ploppable) здания RICO (например, при строительстве дорог или размещении зданий)" />
+    <Translation ID="PRR_OPTION_LOA" String="Настройки загрузки" />
+    <Translation ID="PRR_OPTION_LOG" String="Настройки журнала" />
+    <Translation ID="PRR_OPTION_TMB" String="Настройки миниатюр" />
+    <Translation ID="PRR_OPTION_GRO" String="Ploppable здания" />
+    <Translation ID="PRR_OPTION_PLO" String="Growable здания" />
+    <Translation ID="PRR_OPTION_COM" String="Настройки сообщений" />
+    <Translation ID="PRR_OPTION_MOD" String="Настройки мода" />
+    <Translation ID="PRR_OPTION_MOREDEBUG" String="Включить дополнительные журналы отладки" />
+    <Translation ID="PRR_OPTION_FORCERESET" String="Принудительно сбросить существующ. данные зданий при загрузке игры" />
+    <Translation ID="PRR_OPTION_REGENTHUMBS" String="Изменить миниатюры" />
+    <Translation ID="PRR_OPTION_SPDHDR" String="Немного увелич. скорость игры, но вызывает задержку открытия панели:" />
+    <Translation ID="PRR_OPTION_SPEED" String="Отключить панель, когда она не используется" />
+    <Translation ID="PRR_OPTION_FASTHDR" String="Отрисовывает миниатюры быстрее, но использует больше памяти:" />
+    <Translation ID="PRR_OPTION_FASTHUMB" String="Рендеринг миниатюр на ускоренной скорости" />
+    <Translation ID="PRR_OPTION_THUMBACK" String="Фон миниатюр" />
+    <Translation ID="PRR_THUMB_COLOR" String="Цвет" />
+    <Translation ID="PRR_THUMB_PLAIN" String="Пусто" />
+    <Translation ID="PRR_THUMB_SKY" String="Skybox" />
+    <Translation ID="MES_CLS" String="Закрыть" />
+    <Translation ID="MES_DSA" String="Больше не показывать" />
+    <Translation ID="PRR_ERR_FAT" String="Это означает, что мод не может работать, и был закрыт." />
+    <Translation ID="PRR_ERR_HAR" String="Ploppable RICO Revisited не смог завершить необходимые исправления Harmony." />
+    <Translation ID="ERR_HAR0" String="Ошибка пропатчивания мода Harmony" />
+    <Translation ID="ERR_HAR1" String="Возможные причины этой проблемы включают:" />
+    <Translation ID="ERR_HAR2" String="Требуемый мод, Harmony 2 – не установлен" />
+    <Translation ID="ERR_HAR3" String="Старый и/или сломанный мод препятствует нормальной работе Harmony 2" />
+    <Translation ID="PRR_UPD_23_0" String="Plopplable RICO Revisited 2.3 обновлён" />
+    <Translation ID="PRR_UPD_23_1" String="Ploppable RICO Revisited обновлён до версии 2.3. Некоторые ключевые особенности этого обновления:" />
+    <Translation ID="PRR_UPD_23_2" String="Ploppable RICO теперь включает в себя функциональность в стиле 'Plop the Growables' как для зданий RICO так и не-RICO - подробности смотрите в Настройках." />
+    <Translation ID="PRR_UPD_23_3" String="Growable здания RICO теперь можно размещать за пределами зон (настраивается)." />
+    <Translation ID="PRR_UPD_23_4" String="Сообщения о «низкой стоимости земли» и «недостаточном количестве услуг» теперь можно отключить." />
+    <Translation ID="PRR_UPD_23_5" String="Улучшен рендерер миниатюр зданий, который теперь генерирует изображения только по мере необходимости, сокращая используемый объём памяти и улучшая время загрузки." />
+    <Translation ID="PRR_UPD_234_0" String="Добавлена опция включения или отключения предупреждений при сносе размещённых зданий RICO." />
+    <Translation ID="PRR_UPD_234_1" String="Добавлена опция включения или отключения автосноса размещённых зданий RICO при строительстве." />
+    <Translation ID="PRR_UPD_234_2" String="Улучшенные уведомления об обновлениях." />
   </Translations>
 </Language>

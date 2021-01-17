@@ -24,8 +24,13 @@ namespace PloppableRICO
         internal static PloppableRICODefinition mod2RicoDef;
 
         // Internal flags.
-        private static bool isModEnabled;
-        internal static bool patchOperating;
+        private static bool isModEnabled = false;
+        private bool harmonyLoaded = false;
+        internal static bool patchOperating = false;
+
+        // Used to flag if conflicting mods are running.
+        private static bool conflictingMod = false;
+        private static bool softModConflct;
 
 
         /// <summary>
@@ -34,75 +39,87 @@ namespace PloppableRICO
         /// <param name="loading">Loading mode (e.g. game, editor, scenario, etc.)</param>
         public override void OnCreated(ILoading loading)
         {
+            base.OnCreated(loading);
+
             // Don't do anything if not in game (e.g. if we're going into an editor).
-            if (loading.currentMode == AppMode.AssetEditor || loading.currentMode == AppMode.MapEditor || loading.currentMode == AppMode.ThemeEditor)
+            if (loading.currentMode != AppMode.Game)
             {
                 isModEnabled = false;
-                Logging.KeyMessage("not loading into game, skipping activation - AppMode is ", loading.currentMode.ToString());
-            }
-            else
-            {
-                // Check for conflicting (and other) mods.
-                isModEnabled = ModUtils.CheckMods();
-            }
+                Logging.KeyMessage("not loading into game, skipping activation");
 
-            // If we're not enabling the mod due to one of the above checks failing, unapply Harmony patches before returning without doing anything.
-            if (!isModEnabled)
-            {
+                // Unload Harmony patches and exit before doing anything further.
                 Patcher.UnpatchAll();
                 return;
             }
 
-            // Make sure patches have been applied before proceeding.
-            if (!Patcher.Patched)
+            // Ensure that Harmony patches have been applied.
+            harmonyLoaded = Patcher.Patched;
+            if (!harmonyLoaded)
             {
-                Logging.Error("Harmony patches not applied, exiting");
                 isModEnabled = false;
+                Logging.Error("Harmony patches not applied; aborting");
                 return;
             }
 
-            // Otherwise, game on!
-            Logging.KeyMessage("version " + PloppableRICOMod.Version + " loading");
-
-            // Ensure patch watchdog flag is properly initialised.
-            patchOperating = false;
-
-            // Create instances if they don't already exist.
-            if (convertPrefabs == null)
+            // Check for mod conflicts.
+            if (ModUtils.IsModConflict())
             {
-                convertPrefabs = new ConvertPrefabs();
+                // Conflict detected.
+                conflictingMod = true;
+                isModEnabled = false;
+
+                // Unload Harmony patches and exit before doing anything further.
+                Patcher.UnpatchAll();
+                return;
             }
 
-            if (xmlManager == null)
+            // Passed all checks - okay to load (if we haven't already fo some reason).
+            if (!isModEnabled)
             {
-                xmlManager = new RICOPrefabManager
+                isModEnabled = true;
+                Logging.KeyMessage("v " + PloppableRICOMod.Version + " loading");
+
+                // Ensure patch watchdog flag is properly initialised.
+                patchOperating = false;
+
+                // Check for other mods, including any soft conflicts.
+                softModConflct = ModUtils.CheckMods();
+
+                // Create instances if they don't already exist.
+                if (convertPrefabs == null)
                 {
-                    prefabHash = new Dictionary<BuildingInfo, BuildingData>(),
-                };
-            }
+                    convertPrefabs = new ConvertPrefabs();
+                }
 
-            // Reset broken prefabs list.
-            brokenPrefabs = new List<BuildingInfo>();
-
-            // Read any local RICO settings.
-            string ricoDefPath = "LocalRICOSettings.xml";
-            localRicoDef = null;
-
-            if (!File.Exists(ricoDefPath))
-            {
-                Logging.Message("no ", ricoDefPath, " file found");
-            }
-            else
-            {
-                localRicoDef = RICOReader.ParseRICODefinition("", ricoDefPath, isLocal: true);
-
-                if (localRicoDef == null)
+                if (xmlManager == null)
                 {
-                    Logging.Message("no valid definitions in ", ricoDefPath);
+                    xmlManager = new RICOPrefabManager
+                    {
+                        prefabHash = new Dictionary<BuildingInfo, BuildingData>(),
+                    };
+                }
+
+                // Reset broken prefabs list.
+                brokenPrefabs = new List<BuildingInfo>();
+
+                // Read any local RICO settings.
+                string ricoDefPath = "LocalRICOSettings.xml";
+                localRicoDef = null;
+
+                if (!File.Exists(ricoDefPath))
+                {
+                    Logging.Message("no ", ricoDefPath, " file found");
+                }
+                else
+                {
+                    localRicoDef = RICOReader.ParseRICODefinition("", ricoDefPath, isLocal: true);
+
+                    if (localRicoDef == null)
+                    {
+                        Logging.Message("no valid definitions in ", ricoDefPath);
+                    }
                 }
             }
-
-            base.OnCreated(loading);
         }
 
 
@@ -112,22 +129,7 @@ namespace PloppableRICO
         /// <param name="mode">Loading mode (e.g. game, editor, scenario, etc.)</param>
         public override void OnLevelLoaded(LoadMode mode)
         {
-            // Alert the user to any mod conflicts.
-            ModUtils.NotifyConflict();
-
-            // Don't do anything further if mod hasn't activated (conflicting mod detected, or loading into editor instead of game).
-            if (!isModEnabled)
-            {
-                return;
-            }
-
             base.OnLevelLoaded(mode);
-
-            // Don't do anything if in asset editor.
-            if (mode == LoadMode.NewAsset || mode == LoadMode.LoadAsset)
-            {
-                return;
-            }
 
             // Wait for loading to fully complete.
             while (!LoadingManager.instance.m_loadingComplete) { }
@@ -135,18 +137,61 @@ namespace PloppableRICO
             // Check watchdog flag.
             if (!patchOperating)
             {
-                // Patch wasn't operating; display warning notification and exit.
+                // Patch wasn't operating; display harmony error and abort.
+                harmonyLoaded = false;
+                isModEnabled = false;
+            }
+
+            // Check to see that Harmony 2 was properly loaded.
+            if (!harmonyLoaded)
+            {
+                // Harmony 2 wasn't loaded; display warning notification and exit.
                 ListMessageBox harmonyBox = MessageBoxBase.ShowModal<ListMessageBox>();
 
                 // Key text items.
-                harmonyBox.CaprionText = Translations.Translate("PRR_ERR_HAR0");
-                harmonyBox.ButtonText = Translations.Translate("PRR_MES_CLS");
-                harmonyBox.AddParas(Translations.Translate("PRR_ERR_HAR1"), Translations.Translate("PRR_ERR_HAR2"));
+                harmonyBox.AddParas(Translations.Translate("ERR_HAR0"), Translations.Translate("PRR_ERR_HAR"), Translations.Translate("PRR_ERR_FAT"), Translations.Translate("ERR_HAR1"));
 
                 // List of dot points.
-                harmonyBox.AddList(Translations.Translate("PRR_ERR_HAR3"), Translations.Translate("PRR_ERR_HAR4"));
+                harmonyBox.AddList(Translations.Translate("ERR_HAR2"), Translations.Translate("ERR_HAR3"));
 
+                // Closing para.
+                harmonyBox.AddParas(Translations.Translate("MES_PAGE"));
+            }
+
+            // Check to see if a conflicting mod has been detected.
+            if (conflictingMod)
+            {
+                // Mod conflict detected - display warning notification and exit.
+                ListMessageBox modConflictBox = MessageBoxBase.ShowModal<ListMessageBox>();
+
+                // Key text items.
+                modConflictBox.AddParas(Translations.Translate("ERR_CON0"), Translations.Translate("PRR_ERR_FAT"), Translations.Translate("PRR_ERR_CON0"), Translations.Translate("ERR_CON1"));
+
+                // Add conflicting mod name(s).
+                modConflictBox.AddList(ModUtils.conflictingModNames.ToArray());
+
+                // Closing para.
+                modConflictBox.AddParas(Translations.Translate("PRR_ERR_CON1"));
+            }
+
+            // Don't do anything further if mod hasn't activated for whatever reason (mod conflict, harmony error, something else).
+            if (!isModEnabled)
+            {
                 return;
+            }
+
+            // Report any 'soft' mod conflicts.
+            if (softModConflct)
+            {
+                // Soft conflict detected - display warning notification for each one.
+                foreach (string mod in ModUtils.conflictingModNames)
+                {
+                    if (mod.Equals("PTG"))
+                    {
+                        ListMessageBox softConflictBox = MessageBoxBase.ShowModal<ListMessageBox>();
+                        softConflictBox.AddParas(Translations.Translate("PRR_CON_PTG0"), Translations.Translate("PRR_CON_PTG1"));
+                    }
+                }
             }
 
             // Report any broken assets and remove from our prefab dictionary.

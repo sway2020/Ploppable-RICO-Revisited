@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Collections.Generic;
 using System.Reflection;
 using ColossalFramework.Plugins;
 using ColossalFramework.Packaging;
@@ -14,67 +15,97 @@ namespace PloppableRICO
     /// </summary>
     public static class ModUtils
     {
+        // List of conflcting mod names.
+        internal static List<string> conflictingModNames;
+
         /// <summary>
         ///  Flag to determine whether or not a realistic population mod is installed and enabled.
         /// </summary>
         internal static bool realPopEnabled = false;
 
-        // Flags for handling mod conflicts.
-        private static bool conflictingMod = false;
-        internal static string conflictMessage;
+
+        /// <summary>
+        /// Checks for any known fatal mod conflicts.
+        /// </summary>
+        /// <returns>True if a mod conflict was detected, false otherwise</returns>
+        internal static bool IsModConflict()
+        {
+            // Initialise flag and list of conflicting mods.
+            bool conflictDetected = false;
+            conflictingModNames = new List<string>();
+
+            // Iterate through the full list of plugins.
+            foreach (PluginManager.PluginInfo plugin in PluginManager.instance.GetPluginsInfo())
+            {
+                foreach (Assembly assembly in plugin.GetAssemblies())
+                {
+                    switch (assembly.GetName().Name)
+                    {
+                        case "PloppableRICO":
+                            // Original Ploppable RICO mod.
+                            conflictDetected = true;
+                            conflictingModNames.Add("Ploppable RICO (old version)");
+                            break;
+                        case "EnhancedBuildingCapacity":
+                            // Enhanced building capacity.
+                            conflictDetected = true;
+                            conflictingModNames.Add("Enhanced Building Capacity");
+                            break;
+                        case "VanillaGarbageBinBlocker":
+                            // Garbage Bin Controller
+                            conflictDetected = true;
+                            conflictingModNames.Add("Garbage Bin Controller");
+                            break;
+                        case "Painter":
+                            // Painter - this one is trickier because both Painter and Repaint use Painter.dll (thanks to CO savegame serialization...)
+                            if (plugin.userModInstance.GetType().ToString().Equals("Painter.UserMod"))
+                            {
+                                conflictDetected = true;
+                                conflictingModNames.Add("Painter");
+                            }
+                            break;
+                    }
+                }
+            }
+
+            // Was a conflict detected?
+            if (conflictDetected)
+            {
+                // Yes - log each conflict.
+                foreach (string conflictingMod in conflictingModNames)
+                {
+                    Logging.Error("Conflicting mod found: ", conflictingMod);
+                }
+                Logging.Error("exiting due to mod conflict");
+            }
+
+            return conflictDetected;
+        }
 
 
 
         /// <summary>
-        /// Checks for known mod conflicts and function extenders.
+        /// Checks for known 'soft' mod conflicts and function extenders.
         /// </summary>
-        /// <returns>Whether or not Ploppable RICO should load</returns>
+        /// <returns>Whether or not a soft mod conflict was detected</returns>
         internal static bool CheckMods()
         {
-            // Check for conflicting mods.
-            if (IsModEnabled(586012417ul))
-            {
-                // Original Ploppable RICO mod detected.
-                conflictingMod = true;
-                Logging.Error("Original Ploppable RICO detected - RICO Revisited exiting");
-                conflictMessage = Translations.Translate("PRR_CON_OPR") + " - " + Translations.Translate("PRR_CON_DWN") + "\r\n\r\n" + Translations.Translate("PRR_CON_ONE");
-                return false;
-            }
-            else if (IsModInstalled("EnhancedBuildingCapacity"))
-            {
-                // Enhanced Building Capacity mod detected.
-                conflictingMod = true;
-                Logging.Error("Enhanced Building Capacity mod detected - RICO Revisited exiting");
-                conflictMessage = Translations.Translate("PRR_CON_EBC") + " - " + Translations.Translate("PRR_CON_DWN") + "\r\n\r\n" + Translations.Translate("PRR_CON_ONE");
-                return false;
-            }
-            else if (IsModInstalled("VanillaGarbageBinBlocker"))
-            {
-                // Garbage bin controller mod detected.
-                conflictingMod = true;
-                Logging.Error("Garbage Bin Controller mod detected - RICO Revisited exiting");
-                conflictMessage = Translations.Translate("PRR_CON_GBC") + " - " + Translations.Translate("PRR_CON_DWN") + "\r\n\r\n" + Translations.Translate("PRR_CON_ONE");
-                return false;
-            }
-            else if (IsModInstalled(1372431101ul))
-            {
-                // Painter mod detected.
-                conflictingMod = true;
-                Logging.Error("Painter detected - RICO Revisited exiting");
-                conflictMessage = Translations.Translate("PRR_CON_PTR") + " - " + Translations.Translate("PRR_CON_DWN") + "\r\n\r\n" + Translations.Translate("PRR_CON_PTR1");
-                return false;
-            }
+            // Initialise flag and list of conflicting mods.
+            bool conflictDetected = false;
+            conflictingModNames = new List<string>();
 
             // No hard conflicts - check for 'soft' conflicts.
             if (IsModInstalled("PlopTheGrowables", true))
             {
                 // Plop the Growables detected.
-                conflictingMod = true;
-                Logging.Error("Plop the Growables detected");
-                conflictMessage = Translations.Translate("PRR_CON_PTG1");
+                conflictDetected = true;
+                Logging.Message("Plop the Growables detected");
+
+                // Add PTG to mod conflict list.
+                conflictingModNames.Add("PTG");
             }
 
-            // No conflicts - now check for realistic population mods.
+            // Check for realistic population mods.
             realPopEnabled = (IsModInstalled("RealPopRevisited", true) || IsModInstalled("WG_BalancedPopMod", true));
 
             // Check for Workshop RICO settings mod.
@@ -92,36 +123,7 @@ namespace PloppableRICO
                 Loading.mod2RicoDef = RICOReader.ParseRICODefinition("", Path.Combine(Path.GetDirectoryName(modernJapanRICO.packagePath), "PloppableRICODefinition.xml"), false);
             }
 
-            return true;
-        }
-
-
-        /// <summary>
-        /// Notifies the user if any mod conflict has been detected.
-        /// Mod conflicts are determined at Loading.OnCreated(); this is called at Loading.OnLevelLoaded() to provide the notification to the user.
-        /// (UI can only be accessed after loading is complete).
-        /// </summary>
-        internal static void NotifyConflict()
-        {
-            // If a conflicting mod has been detected, show the notification.
-            if (conflictingMod)
-            {
-                ListMessageBox conflictBox = MessageBoxBase.ShowModal<ListMessageBox>();
-                conflictBox.CaprionText = Translations.Translate("PRR_NAME");
-                conflictBox.ButtonText = Translations.Translate("PRR_MES_CLS");
-                conflictBox.AddParas(conflictMessage);
-            }
-        }
-
-
-        /// <summary>
-        /// Checks to see if another mod is installed, based on a provided Steam Workshop ID.
-        /// </summary>
-        /// <param name="id">Steam workshop ID</param>
-        /// <returns>True if the mod is installed and enabled, false otherwise</returns>
-        internal static bool IsModInstalled(UInt64 id)
-        {
-            return PluginManager.instance.GetPluginsInfo().Any(mod => (mod.publishedFileID.AsUInt64 == id));
+            return conflictDetected;
         }
 
 

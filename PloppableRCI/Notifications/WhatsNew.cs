@@ -95,7 +95,7 @@ namespace PloppableRICO
 
             // Show messagebox (complete with "CaprionText"...)
             WhatsNewMessageBox messageBox = MessageBoxBase.ShowModal<WhatsNewMessageBox>();
-            messageBox.CaprionText = PloppableRICOMod.ModName + " " + PloppableRICOMod.Version;
+            messageBox.Title = PloppableRICOMod.ModName + " " + PloppableRICOMod.Version;
             messageBox.OnButton1Click = Confirm;
             messageBox.OnButton2Click = DontShowAgain;
             messageBox.Init(messages);

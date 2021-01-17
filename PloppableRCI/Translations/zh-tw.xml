@@ -83,18 +83,18 @@
     <Translation ID="TRN_CHOICE" String="語言設置" />
     <Translation ID="TRN_SYS" String="使用遊戲默認語言" />
     <Translation ID="PRR_DESCRIPTION" String="允許可放置型(RICO)建築大於4x4區域尺吋和可客制化" />
-    "<Translation ID="PRR_OPTION_PLP" String="立即放置可成長型建築(略過建築動畫)" />
-    "<Translation ID="PRR_OPTION_ZON" String="可成長型建築不受區域劃分限制" />
-    "<Translation ID="PRR_OPTION_VAL" String="忽略 &quot;地價過低&quot; 抱怨" />
-    "<Translation ID="PRR_OPTION_SVC" String="忽略 &quot;服務不足&quot; 抱怨" />
-    "<Translation ID="PRR_OPTION_HST" String="將所有已放置的可成長型建築設為歷史建築" />
-    "<Translation ID="PRR_OPTION_RCO" String="可放置兼可成長型建築" />
-    "<Translation ID="PRR_OPTION_OTH" String="非可放置兼可成長型建築" />
-    "<Translation ID="PRR_OPTION_LOA" String="載入選項" />
-    "<Translation ID="PRR_OPTION_LOG" String="日誌記錄選項" />
-    "<Translation ID="PRR_OPTION_TMB" String="縮略圖選項" />
-    "<Translation ID="PRR_OPTION_GRO" String="可成長型建築選項" />
-    "<Translation ID="PRR_OPTION_MOD" String="模組選項" />
+    <Translation ID="PRR_OPTION_PLP" String="立即放置可成長型建築(略過建築動畫)" />
+    <Translation ID="PRR_OPTION_ZON" String="可成長型建築不受區域劃分限制" />
+    <Translation ID="PRR_OPTION_VAL" String="忽略 &quot;地價過低&quot; 抱怨" />
+    <Translation ID="PRR_OPTION_SVC" String="忽略 &quot;服務不足&quot; 抱怨" />
+    <Translation ID="PRR_OPTION_HST" String="將所有已放置的可成長型建築設為歷史建築" />
+    <Translation ID="PRR_OPTION_RCO" String="可放置兼可成長型建築" />
+    <Translation ID="PRR_OPTION_OTH" String="非可放置兼可成長型建築" />
+    <Translation ID="PRR_OPTION_LOA" String="載入選項" />
+    <Translation ID="PRR_OPTION_LOG" String="日誌記錄選項" />
+    <Translation ID="PRR_OPTION_TMB" String="縮略圖選項" />
+    <Translation ID="PRR_OPTION_GRO" String="可成長型建築選項" />
+    <Translation ID="PRR_OPTION_MOD" String="模組選項" />
     <Translation ID="PRR_OPTION_MOREDEBUG" String="啟用額外的除錯日誌記錄" />
     <Translation ID="PRR_OPTION_FORCERESET" String="在遊戲加載時強制重置現有建築統計數值" />
     <Translation ID="PRR_OPTION_REGENTHUMBS" String="重創建特寫式資訊縮略圖" />
@@ -106,22 +106,16 @@
     <Translation ID="PRR_THUMB_COLOR" String="顏色" />
     <Translation ID="PRR_THUMB_PLAIN" String="平地" />
     <Translation ID="PRR_THUMB_SKY" String="天空環境" />
-    <Translation ID="PRR_ERR_HAR0" String="“Harmony” 擴展文檔錯誤" />
-    <Translation ID="PRR_ERR_HAR1" String="“Ploppable RICO Revisited” 模組(Mod)無法獲取所需的“Harmony”擴展文檔。 這意味著本模組(Mod)無法正常運轉，並且模組(Mod)已自動禁用以保護您的存檔不受損壞" />
-    <Translation ID="PRR_ERR_HAR2" String="此問題的可能原因包括:" />
-    <Translation ID="PRR_ERR_HAR3" String="未安裝“Harmony 2”擴展文檔" />
-    <Translation ID="PRR_ERR_HAR4" String="舊的或損壞、不兼容的模組(Mod)阻止“Harmony 2”擴展文檔正常運作。(已知舊的“Painter”模組(Mod)和“Garbage Bin Controller” 模組(Mod)會導致此問題。）" />
-    <Translation ID="PRR_CON_DWN" String="“Ploppable RICO Revisited” 模組(Mod)已自動禁用以保護您的遊戲。" />
-    <Translation ID="PRR_CON_ONE" String="在這些模組(Mods)中只能同時啟用一個-請選擇一個，然後取消訂閱其他模組(Mods)！" />
-    <Translation ID="PRR_CON_OPR" String="發現原版“Ploppable RICO” 模組(Mod)！" />
-    <Translation ID="PRR_CON_EBC" String="發現“Enhanced Building Capacity”模組(Mod)！" />
-    <Translation ID="PRR_CON_GBC" String="發現“Garbage Bin Controller”模組(Mod)！" />
-    <Translation ID="PRR_CON_PTR" String="發現“Painter”模組(Mod)！" />
-    <Translation ID="PRR_CON_PTR1" String="原版“Painter”模組(Mod)導致“Ploppable RICO Revisited”模組(Mod)使用的“Harmony 2” 數據庫出現問題，從而導致隨機錯誤。 請：取消訂閱，原版“Painter”模組(Mod)而不是在遊戲內‘禁用’。訂閱“Repaint”模組(Mod)可以替代原版。" />"<Translation ID="PRR_UPD_23_0" String="Plopplable RICO Revisited 2.3 更新" />
-    "<Translation ID="PRR_UPD_23_1" String="Ploppable RICO Revisited 已更新至版本 2.3. 主要更新內容包括:" />
-    "<Translation ID="PRR_UPD_23_2" String="Ploppable RICO 已內建類似 'Plop the Growables' 模組功能, 無論 RICO 或非 RICO 建築皆適用 - 細節請參閱模組設定面板" />
-    "<Translation ID="PRR_UPD_23_3" String="可放置(RICO)兼可成長型建築可不受區域劃分限制(設定可調整)" />
-    "<Translation ID="PRR_UPD_23_4" String="地價過低' 和 '服務不足' 的抱怨可被忽略停用" />
-    "<Translation ID="PRR_UPD_23_5" String="渲染縮略圖功能現在只在需要時渲染略縮圖. 減少記憶體使用量並縮短遊戲讀取時間" />
+    <Translation ID="ERR_HAR0" String="“Harmony” 擴展文檔錯誤" />
+    <Translation ID="PRR_ERR_FAT" String="這意味著本模組(Mod)無法正常運轉，並且模組(Mod)已自動禁用以保護您的存檔不受損壞" />
+    <Translation ID="PRR_ERR_HAR" String="“Ploppable RICO Revisited” 模組(Mod)無法獲取所需的“Harmony”擴展文檔。" />
+    <Translation ID="ERR_HAR1" String="此問題的可能原因包括:" />
+    <Translation ID="ERR_HAR2" String="未安裝“Harmony 2”擴展文檔" />
+    <Translation ID="ERR_HAR3" String="舊的或損壞、不兼容的模組(Mod)阻止“Harmony 2”擴展文檔正常運作。" />
+    <Translation ID="PRR_UPD_23_1" String="Ploppable RICO Revisited 已更新至版本 2.3. 主要更新內容包括:" />
+    <Translation ID="PRR_UPD_23_2" String="Ploppable RICO 已內建類似 'Plop the Growables' 模組功能, 無論 RICO 或非 RICO 建築皆適用 - 細節請參閱模組設定面板" />
+    <Translation ID="PRR_UPD_23_3" String="可放置(RICO)兼可成長型建築可不受區域劃分限制(設定可調整)" />
+    <Translation ID="PRR_UPD_23_4" String="地價過低' 和 '服務不足' 的抱怨可被忽略停用" />
+    <Translation ID="PRR_UPD_23_5" String="渲染縮略圖功能現在只在需要時渲染略縮圖. 減少記憶體使用量並縮短遊戲讀取時間" />
   </Translations>
 </Language>

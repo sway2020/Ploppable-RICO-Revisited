@@ -1,133 +1,126 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Language UniqueName="nl" ReadableName="Nederlands">
   <Translations>
-    "<Translation ID="PRR_LEVEL" String="Niveau" />
-    "<Translation ID="PRR_LVL" String="Niv." />
-    "<Translation ID="PRR_HOU" String="Huishoudens" />
-    "<Translation ID="PRR_WOR" String="Werkplekken" />
-    "<Translation ID="PRR_SRV_NON" String="Zonder specialisering" />
-    "<Translation ID="PRR_SRV_RES" String="Woningen" />
-    "<Translation ID="PRR_SRV_IND" String="Industrieën" />
-    "<Translation ID="PRR_SRV_OFF" String="Kantoren" />
-    "<Translation ID="PRR_SRV_COM" String="Commercieel" />
-    "<Translation ID="PRR_SRV_EXT" String="Extractor" />
-    "<Translation ID="PRR_SRV_DUM" String="Zonder functie" />
-    "<Translation ID="PRR_SUB_HIG" String="Hoge dichtheid" />
-    "<Translation ID="PRR_SUB_LOW" String="Lage dichtheid" />
-    "<Translation ID="PRR_SUB_HEC" String="Hoge dichtheid ecologisch" />
-    "<Translation ID="PRR_SUB_LEC" String="Lage dichtheid ecologisch" />
-    "<Translation ID="PRR_SUB_LEI" String="Uitgaan" />
-    "<Translation ID="PRR_SUB_TOU" String="Tourisme" />
-    "<Translation ID="PRR_SUB_ORG" String="Ecologisch" />
-    "<Translation ID="PRR_SUB_GEN" String="Algemeen" />
-    "<Translation ID="PRR_SUB_ITC" String="IT kluster" />
-    "<Translation ID="PRR_SUB_FAR" String="Agrarisch" />
-    "<Translation ID="PRR_SUB_FOR" String="Bosbouw" />
-    "<Translation ID="PRR_SUB_OIL" String="Olie" />
-    "<Translation ID="PRR_SUB_ORE" String="Erts" />
-    "<Translation ID="PRR_FTR_ALL" String="Alles selecteren" />
-    "<Translation ID="PRR_FTR_NON" String="Selectie verwijderen" />
-    "<Translation ID="PRR_FTR_NAM" String="Naam" />
-    "<Translation ID="PRR_FTR_SET" String="Filter: Mod/Auteur/lokaal/Alles" />
-    "<Translation ID="PRR_OPT_ENA" String="RICO activeren" />
-    "<Translation ID="PRR_OPT_SER" String="Gebouwstype" />
-    "<Translation ID="PRR_OPT_SUB" String="Sub-type" />
-    "<Translation ID="PRR_OPT_UIC" String="UI categorie" />
-    "<Translation ID="PRR_OPT_CST" String="Bouwkosten" />
-    "<Translation ID="PRR_OPT_CNT" String="Arbeider/woning ratio" />
-    "<Translation ID="PRR_OPT_POP" String="Gebruik 'Realistic pop' mod" />
-    "<Translation ID="PRR_OPT_POL" String="Vervuiling inschakelen" />
-    "<Translation ID="PRR_OPT_GRO" String="Groeibaar" />
-    "<Translation ID="PRR_OPT_JB0" String="Banen voor onopgeleiden" />
-    "<Translation ID="PRR_OPT_JB1" String="Banen voor opgeleiden" />
-    "<Translation ID="PRR_OPT_JB2" String="Banen voor hoogopgeleiden" />
-    "<Translation ID="PRR_OPT_JB3" String="Banen voor zeer hoogopgeleiden" />
-    "<Translation ID="PRR_CAT_MON" String="Monumenten" />
-    "<Translation ID="PRR_CAT_BEA" String="Versiering" />
-    "<Translation ID="PRR_CAT_EDU" String="Opleiding" />
-    "<Translation ID="PRR_CAT_POW" String="Electriciteit" />
-    "<Translation ID="PRR_CAT_WAT" String="Water" />
-    "<Translation ID="PRR_CAT_HEA" String="Gezondheid" />
-    "<Translation ID="PRR_CAT_RES" String="Woningen" />
-    "<Translation ID="PRR_CAT_COM" String="Commercieel" />
-    "<Translation ID="PRR_CAT_OFF" String="Kantoren" />
-    "<Translation ID="PRR_CAT_IND" String="Industrieën" />
-    "<Translation ID="PRR_UIC_REL" String="Woonwijk" />
-    "<Translation ID="PRR_UIC_REH" String="Appartmenten" />
-    "<Translation ID="PRR_UIC_COL" String="Kleine winkels" />
-    "<Translation ID="PRR_UIC_COH" String="Grote winkels" />
-    "<Translation ID="PRR_UIC_OFF" String="Kantoren" />
-    "<Translation ID="PRR_UIC_IND" String="Industrieën" />
-    "<Translation ID="PRR_UIC_FAR" String="Agrarisch" />
-    "<Translation ID="PRR_UIC_FOR" String="Bosbouw" />
-    "<Translation ID="PRR_UIC_OIL" String="Olie" />
-    "<Translation ID="PRR_UIC_ORE" String="Erts" />
-    "<Translation ID="PRR_UIC_LEI" String="Uitgaan" />
-    "<Translation ID="PRR_UIC_TOU" String="Tourisme" />
-    "<Translation ID="PRR_UIC_ORG" String="Commercieel-Organisch" />
-    "<Translation ID="PRR_UIC_ITC" String="IT kluster" />
-    "<Translation ID="PRR_UIC_ECO" String="Zelfvoorzienende gebouwen" />
-    "<Translation ID="PRR_UIC_NON" String="Geen" />
-    "<Translation ID="PRR_SET" String="Instellingen" />
-    "<Translation ID="PRR_SET_RICO" String="RICO-instellingen" />
-    "<Translation ID="PRR_SET_HASMOD" String="MOD-instellingen" />
-    "<Translation ID="PRR_SET_HASAUT" String="Autheurs instellingen" />
-    "<Translation ID="PRR_SET_HASLOC" String="Lokale instellingen" />
-    "<Translation ID="PRR_SET_HASANY" String="Alle instellingen" />
-    "<Translation ID="PRR_SET_HASNON" String="Geen instellingen" />
-    "<Translation ID="PRR_SAV_SAV" String="Opslaan" />
-    "<Translation ID="PRR_SAV_ADD" String="Lokale instellingen toevoegen" />
-    "<Translation ID="PRR_SAV_REM" String="Lokale instellingen verwijderen" />
-    "<Translation ID="PRR_SAV_APP" String="Opslaan en veranderingen toepassen" />
-    "<Translation ID="PRR_EXP" String="LET OP: EXPERIMENTEEL" />
-    "<Translation ID="TRN_CHOICE" String="Taal kiezen" />
-    "<Translation ID="TRN_SYS" String="Systeemtaal kiezen" />
-    "<Translation ID="PRR_DESCRIPTION" String="Staat toe dat RICO-gebouwen aangepast kunnen worden en RICO-gebouwen groter dan de 4x4 grootte geplaats kunnen worden" />
-    "<Translation ID="PRR_OPTION_PLP" String="Direct gebouw plaatsen (zonder constructie)" />
-    "<Translation ID="PRR_OPTION_ZON" String="Groeibare gebouwen kunnen buiten de correcte zone blijven staan" />
-    "<Translation ID="PRR_OPTION_SPC" String="Groeibare gebouwen kunnen zonder specifice districsspecialisatie blijven staan" />
-    "<Translation ID="PRR_OPTION_VAL" String="Negeer lage landwaardemeldingen" />
-    "<Translation ID="PRR_OPTION_SVC" String="Negeer onvoldoende dienstverleningsmeldingen" />
-    "<Translation ID="PRR_OPTION_HST" String="Maak alle geplaatste gebouwen historisch" />
-    "<Translation ID="PRR_OPTION_RPL" String="RICO plaatsbare gebouwen" />
-    "<Translation ID="PRR_OPTION_RGR" String="RICO groeibare gebouwen" />
-    "<Translation ID="PRR_OPTION_RCO" String="Alle RICO gebouwen (inclusief groeibare)" />
-    "<Translation ID="PRR_OPTION_OTH" String="Groeibare niet-RICO gebouwen" />
-    "<Translation ID="PRR_OPTION_LOA" String="Laadopties" />
-    "<Translation ID="PRR_OPTION_LOG" String="Inlogopties" />
-    "<Translation ID="PRR_OPTION_TMB" String="Thumbnail-opties" />
-    "<Translation ID="PRR_OPTION_GRO" String="Opties voor groeibare gebouwen" />
-    "<Translation ID="PRR_OPTION_COM" String="Klachtopties" />
-    "<Translation ID="PRR_OPTION_MOD" String="Mod opties" />
-    "<Translation ID="PRR_OPTION_MOREDEBUG" String="Schakel extra 'debugging' logging in" />
-    "<Translation ID="PRR_OPTION_FORCERESET" String="Forceer reset van bestaande gebouwgegevens van het spel" />
-    "<Translation ID="PRR_OPTION_REGENTHUMBS" String="Regenereer thumbnails" />
-    "<Translation ID="PRR_OPTION_SPDHDR" String="Vergroot een beetje de spelsnelheid, maar veroorzaakt een vertraging bij het openen van het paneel." />
-    "<Translation ID="PRR_OPTION_SPEED" String="Schakelt het paneel uit wanneer het niet wordt gebruikt." />
-    "<Translation ID="PRR_OPTION_FASTHDR" String="Thumbnails worden sneller gerendered, maar gebruikt meer geheugen." />
-    "<Translation ID="PRR_OPTION_FASTHUMB" String="Thumbnails worden op geaccelereerde snelheid gerendered." />
-    "<Translation ID="PRR_OPTION_THUMBACK" String="Thumbnail achtergronden" />
-    "<Translation ID="PRR_THUMB_COLOR" String="Kleur" />
-    "<Translation ID="PRR_THUMB_PLAIN" String="Gewoon" />
-    "<Translation ID="PRR_THUMB_SKY" String="Skybox" />
-    "<Translation ID="PRR_ERR_HAR0" String="Harmony patching error" />
-    "<Translation ID="PRR_ERR_HAR1" String="'Ploppable RICO Revisited' was niet in staat om de benodigde 'Harmony patches' uit te voeren. Dit betekent dat de mod niet langer werkt en is daarom afgesloten om je bestanden te beschermen tegen schade." />
-    "<Translation ID="PRR_ERR_HAR2" String="Mogelijke oorzaken van dit probleem zijn:" />
-    "<Translation ID="PRR_ERR_HAR3" String="De benodigde 'Harmony 2' mod is niet geïnstalleerd." />
-    "<Translation ID="PRR_ERR_HAR4" String="Een oude en/of gebroken mod verhindert 'Harmony 2' om goed te kunnen werken (de oude 'Painter' en de 'Garbage Bin Controller' mods zijn bekende veroorzakers van dit probleem)." />
-    "<Translation ID="PRR_ERR_HAR4" String="Een oude en/of gebroken mod verhindert 'Harmony 2' om goed te kunnen werken (de oude 'Painter' en de 'Garbage Bin Controller' mods zijn bekende veroorzakers van dit probleem)." />
-    "<Translation ID="PRR_CON_DWN" String="RICO Revisited' sluit nu af om je spel te beschermen." />
-    "<Translation ID="PRR_CON_ONE" String="Alleen één van deze mods kan worden ingeschakeld. Kies één mod en schrijf je uit voor de ander(e)." />
-    "<Translation ID="PRR_CON_OPR" String="Originele 'Ploppable RICO' mod gedetecteerd" />
-    "<Translation ID="PRR_CON_EBC" String="Enhanced Building Capacity' mod detected" />
-    "<Translation ID="PRR_CON_GBC" String="Garbage Bin Controller' mod gedetecteerd" />
-    "<Translation ID="PRR_CON_PTR" String="Old Painter' mod gedetecteerd" />
-    "<Translation ID="PRR_CON_PTR1" String="De 'Old Painter' mod veroorzaakt problemen met de 'Harmony-'bibliotheek waardoor verschillende fouten ontstaan. Schrijf je uit voor de 'Painter'-mod (uitschakelen in het mod-menu is niet voldoende). De 'Repaint' mod kan gebruikt worden ter vervanging." />
-    "<Translation ID="PRR_UPD_23_0" String="Plopplable RICO Revisited 2.3 update" />
-    "<Translation ID="PRR_UPD_23_1" String="Ploppable RICO Revisited' is geüpdatet naar versie 2.3. De belangrijkste functies van deze update zijn: " />
-    "<Translation ID="PRR_UPD_23_2" String="Ploppable RICO' heeft nu: 'Plop the Growables' functionaliteit voor RICO en niet-RICO gebouwen. Bekijk bij de opties voor meer details. " />
-    "<Translation ID="PRR_UPD_23_3" String="Het is nu mogelijk om RICO's groeibare gebouwen buiten een specifieke zone te plaatsen (in te stellen)." />
-    "<Translation ID="PRR_UPD_23_4" String="Klachten over lage landwaarden en onvoldoende dienstverlening zijn nu uit te schakelen." />
-    "<Translation ID="PRR_UPD_23_5" String="Verbeterde rendering van de thumbnails van de gebouwen. Zo worden deze alleen laten zien als deze nodig zijn, waardoor geheugegebruik wordt verlaagd en opstarttijd wordt verbeterd. " />
+    <Translation ID="PRR_LEVEL" String="Niveau" />
+    <Translation ID="PRR_LVL" String="Niv." />
+    <Translation ID="PRR_HOU" String="Huishoudens" />
+    <Translation ID="PRR_WOR" String="Werkplekken" />
+    <Translation ID="PRR_SRV_NON" String="Zonder specialisering" />
+    <Translation ID="PRR_SRV_RES" String="Woningen" />
+    <Translation ID="PRR_SRV_IND" String="Industrieën" />
+    <Translation ID="PRR_SRV_OFF" String="Kantoren" />
+    <Translation ID="PRR_SRV_COM" String="Commercieel" />
+    <Translation ID="PRR_SRV_EXT" String="Extractor" />
+    <Translation ID="PRR_SRV_DUM" String="Zonder functie" />
+    <Translation ID="PRR_SUB_HIG" String="Hoge dichtheid" />
+    <Translation ID="PRR_SUB_LOW" String="Lage dichtheid" />
+    <Translation ID="PRR_SUB_HEC" String="Hoge dichtheid ecologisch" />
+    <Translation ID="PRR_SUB_LEC" String="Lage dichtheid ecologisch" />
+    <Translation ID="PRR_SUB_LEI" String="Uitgaan" />
+    <Translation ID="PRR_SUB_TOU" String="Tourisme" />
+    <Translation ID="PRR_SUB_ORG" String="Ecologisch" />
+    <Translation ID="PRR_SUB_GEN" String="Algemeen" />
+    <Translation ID="PRR_SUB_ITC" String="IT kluster" />
+    <Translation ID="PRR_SUB_FAR" String="Agrarisch" />
+    <Translation ID="PRR_SUB_FOR" String="Bosbouw" />
+    <Translation ID="PRR_SUB_OIL" String="Olie" />
+    <Translation ID="PRR_SUB_ORE" String="Erts" />
+    <Translation ID="PRR_FTR_ALL" String="Alles selecteren" />
+    <Translation ID="PRR_FTR_NON" String="Selectie verwijderen" />
+    <Translation ID="PRR_FTR_NAM" String="Naam" />
+    <Translation ID="PRR_FTR_SET" String="Filter: Mod/Auteur/lokaal/Alles" />
+    <Translation ID="PRR_OPT_ENA" String="RICO activeren" />
+    <Translation ID="PRR_OPT_SER" String="Gebouwstype" />
+    <Translation ID="PRR_OPT_SUB" String="Sub-type" />
+    <Translation ID="PRR_OPT_UIC" String="UI categorie" />
+    <Translation ID="PRR_OPT_CST" String="Bouwkosten" />
+    <Translation ID="PRR_OPT_CNT" String="Arbeider/woning ratio" />
+    <Translation ID="PRR_OPT_POP" String="Gebruik 'Realistic pop' mod" />
+    <Translation ID="PRR_OPT_POL" String="Vervuiling inschakelen" />
+    <Translation ID="PRR_OPT_GRO" String="Groeibaar" />
+    <Translation ID="PRR_OPT_JB0" String="Banen voor onopgeleiden" />
+    <Translation ID="PRR_OPT_JB1" String="Banen voor opgeleiden" />
+    <Translation ID="PRR_OPT_JB2" String="Banen voor hoogopgeleiden" />
+    <Translation ID="PRR_OPT_JB3" String="Banen voor zeer hoogopgeleiden" />
+    <Translation ID="PRR_CAT_MON" String="Monumenten" />
+    <Translation ID="PRR_CAT_BEA" String="Versiering" />
+    <Translation ID="PRR_CAT_EDU" String="Opleiding" />
+    <Translation ID="PRR_CAT_POW" String="Electriciteit" />
+    <Translation ID="PRR_CAT_WAT" String="Water" />
+    <Translation ID="PRR_CAT_HEA" String="Gezondheid" />
+    <Translation ID="PRR_CAT_RES" String="Woningen" />
+    <Translation ID="PRR_CAT_COM" String="Commercieel" />
+    <Translation ID="PRR_CAT_OFF" String="Kantoren" />
+    <Translation ID="PRR_CAT_IND" String="Industrieën" />
+    <Translation ID="PRR_UIC_REL" String="Woonwijk" />
+    <Translation ID="PRR_UIC_REH" String="Appartmenten" />
+    <Translation ID="PRR_UIC_COL" String="Kleine winkels" />
+    <Translation ID="PRR_UIC_COH" String="Grote winkels" />
+    <Translation ID="PRR_UIC_OFF" String="Kantoren" />
+    <Translation ID="PRR_UIC_IND" String="Industrieën" />
+    <Translation ID="PRR_UIC_FAR" String="Agrarisch" />
+    <Translation ID="PRR_UIC_FOR" String="Bosbouw" />
+    <Translation ID="PRR_UIC_OIL" String="Olie" />
+    <Translation ID="PRR_UIC_ORE" String="Erts" />
+    <Translation ID="PRR_UIC_LEI" String="Uitgaan" />
+    <Translation ID="PRR_UIC_TOU" String="Tourisme" />
+    <Translation ID="PRR_UIC_ORG" String="Commercieel-Organisch" />
+    <Translation ID="PRR_UIC_ITC" String="IT kluster" />
+    <Translation ID="PRR_UIC_ECO" String="Zelfvoorzienende gebouwen" />
+    <Translation ID="PRR_UIC_NON" String="Geen" />
+    <Translation ID="PRR_SET" String="Instellingen" />
+    <Translation ID="PRR_SET_RICO" String="RICO-instellingen" />
+    <Translation ID="PRR_SET_HASMOD" String="MOD-instellingen" />
+    <Translation ID="PRR_SET_HASAUT" String="Autheurs instellingen" />
+    <Translation ID="PRR_SET_HASLOC" String="Lokale instellingen" />
+    <Translation ID="PRR_SET_HASANY" String="Alle instellingen" />
+    <Translation ID="PRR_SET_HASNON" String="Geen instellingen" />
+    <Translation ID="PRR_SAV_SAV" String="Opslaan" />
+    <Translation ID="PRR_SAV_ADD" String="Lokale instellingen toevoegen" />
+    <Translation ID="PRR_SAV_REM" String="Lokale instellingen verwijderen" />
+    <Translation ID="PRR_SAV_APP" String="Opslaan en veranderingen toepassen" />
+    <Translation ID="PRR_EXP" String="LET OP: EXPERIMENTEEL" />
+    <Translation ID="TRN_CHOICE" String="Taal kiezen" />
+    <Translation ID="TRN_SYS" String="Systeemtaal kiezen" />
+    <Translation ID="PRR_DESCRIPTION" String="Staat toe dat RICO-gebouwen aangepast kunnen worden en RICO-gebouwen groter dan de 4x4 grootte geplaats kunnen worden" />
+    <Translation ID="PRR_OPTION_PLP" String="Direct gebouw plaatsen (zonder constructie)" />
+    <Translation ID="PRR_OPTION_ZON" String="Groeibare gebouwen kunnen buiten de correcte zone blijven staan" />
+    <Translation ID="PRR_OPTION_SPC" String="Groeibare gebouwen kunnen zonder specifice districsspecialisatie blijven staan" />
+    <Translation ID="PRR_OPTION_VAL" String="Negeer lage landwaardemeldingen" />
+    <Translation ID="PRR_OPTION_SVC" String="Negeer onvoldoende dienstverleningsmeldingen" />
+    <Translation ID="PRR_OPTION_HST" String="Maak alle geplaatste gebouwen historisch" />
+    <Translation ID="PRR_OPTION_RPL" String="RICO plaatsbare gebouwen" />
+    <Translation ID="PRR_OPTION_RGR" String="RICO groeibare gebouwen" />
+    <Translation ID="PRR_OPTION_RCO" String="Alle RICO gebouwen (inclusief groeibare)" />
+    <Translation ID="PRR_OPTION_OTH" String="Groeibare niet-RICO gebouwen" />
+    <Translation ID="PRR_OPTION_LOA" String="Laadopties" />
+    <Translation ID="PRR_OPTION_LOG" String="Inlogopties" />
+    <Translation ID="PRR_OPTION_TMB" String="Thumbnail-opties" />
+    <Translation ID="PRR_OPTION_GRO" String="Opties voor groeibare gebouwen" />
+    <Translation ID="PRR_OPTION_COM" String="Klachtopties" />
+    <Translation ID="PRR_OPTION_MOD" String="Mod opties" />
+    <Translation ID="PRR_OPTION_MOREDEBUG" String="Schakel extra 'debugging' logging in" />
+    <Translation ID="PRR_OPTION_FORCERESET" String="Forceer reset van bestaande gebouwgegevens van het spel" />
+    <Translation ID="PRR_OPTION_REGENTHUMBS" String="Regenereer thumbnails" />
+    <Translation ID="PRR_OPTION_SPDHDR" String="Vergroot een beetje de spelsnelheid, maar veroorzaakt een vertraging bij het openen van het paneel." />
+    <Translation ID="PRR_OPTION_SPEED" String="Schakelt het paneel uit wanneer het niet wordt gebruikt." />
+    <Translation ID="PRR_OPTION_FASTHDR" String="Thumbnails worden sneller gerendered, maar gebruikt meer geheugen." />
+    <Translation ID="PRR_OPTION_FASTHUMB" String="Thumbnails worden op geaccelereerde snelheid gerendered." />
+    <Translation ID="PRR_OPTION_THUMBACK" String="Thumbnail achtergronden" />
+    <Translation ID="PRR_THUMB_COLOR" String="Kleur" />
+    <Translation ID="PRR_THUMB_PLAIN" String="Gewoon" />
+    <Translation ID="PRR_THUMB_SKY" String="Skybox" />
+    <Translation ID="PRR_ERR_FAT" String="Dit betekent dat de mod niet langer werkt en is daarom afgesloten." />
+    <Translation ID="PRR_ERR_HAR" String="'Ploppable RICO Revisited' was niet in staat om de benodigde 'Harmony patches' uit te voeren." />
+    <Translation ID="ERR_HAR0" String="Harmony patching error" />
+    <Translation ID="ERR_HAR1" String="Mogelijke oorzaken van dit probleem zijn:" />
+    <Translation ID="ERR_HAR2" String="De benodigde 'Harmony 2' mod is niet geïnstalleerd." />
+    <Translation ID="ERR_HAR3" String="Een oude en/of gebroken mod verhindert 'Harmony 2' om goed te kunnen werken." />
+    <Translation ID="PRR_UPD_23_0" String="Plopplable RICO Revisited 2.3 update" />
+    <Translation ID="PRR_UPD_23_1" String="Ploppable RICO Revisited' is geüpdatet naar versie 2.3. De belangrijkste functies van deze update zijn: " />
+    <Translation ID="PRR_UPD_23_2" String="Ploppable RICO' heeft nu: 'Plop the Growables' functionaliteit voor RICO en niet-RICO gebouwen. Bekijk bij de opties voor meer details. " />
+    <Translation ID="PRR_UPD_23_3" String="Het is nu mogelijk om RICO's groeibare gebouwen buiten een specifieke zone te plaatsen (in te stellen)." />
+    <Translation ID="PRR_UPD_23_4" String="Klachten over lage landwaarden en onvoldoende dienstverlening zijn nu uit te schakelen." />
+    <Translation ID="PRR_UPD_23_5" String="Verbeterde rendering van de thumbnails van de gebouwen. Zo worden deze alleen laten zien als deze nodig zijn, waardoor geheugegebruik wordt verlaagd en opstarttijd wordt verbeterd. " />
   </Translations>
 </Language>

@@ -1,122 +1,117 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Language UniqueName="de" ReadableName="Deutsch">
   <Translations>
-    "<Translation ID="PRR_NAME" String="Ploppable RICO Revisited" />
-    "<Translation ID="PRR_LEVEL" String="Level" />
-    "<Translation ID="PRR_LVL" String="Lvl" />
-    "<Translation ID="PRR_HOU" String="Haushalte" />
-    "<Translation ID="PRR_WOR" String="Arbeitsplätze" />
-    "<Translation ID="PRR_SRV_NON" String="Ohne Spezialisierung" />
-    "<Translation ID="PRR_SRV_RES" String="Wohnen" />
-    "<Translation ID="PRR_SRV_IND" String="Industrie" />
-    "<Translation ID="PRR_SRV_OFF" String="Büro" />
-    "<Translation ID="PRR_SRV_COM" String="Gewerbe" />
-    "<Translation ID="PRR_SRV_EXT" String="Rohstoffförderung" />
-    "<Translation ID="PRR_SRV_DUM" String="Ohne Funktion" />
-    "<Translation ID="PRR_SUB_HIG" String="Dicht bebaut" />
-    "<Translation ID="PRR_SUB_LOW" String="Dünn bebaut" />
-    "<Translation ID="PRR_SUB_HEC" String="Großgewerbe ökologisch" />
-    "<Translation ID="PRR_SUB_LEC" String="Kleingewerbe ökologisch" />
-    "<Translation ID="PRR_SUB_LEI" String="Freizeit" />
-    "<Translation ID="PRR_SUB_TOU" String="Tourismus" />
-    "<Translation ID="PRR_SUB_ORG" String="Lokale Herstellung" />
-    "<Translation ID="PRR_SUB_GEN" String="Standard" />
-    "<Translation ID="PRR_SUB_ITC" String="IT-Unternehmen" />
-    "<Translation ID="PRR_SUB_FAR" String="Landwirtschaft" />
-    "<Translation ID="PRR_SUB_FOR" String="Forstwirtschaft" />
-    "<Translation ID="PRR_SUB_OIL" String="Öl" />
-    "<Translation ID="PRR_SUB_ORE" String="Erz" />
-    "<Translation ID="PRR_FTR_ALL" String="Alle Kategorien" />
-    "<Translation ID="PRR_FTR_NON" String="Keine Kategorie" />
-    "<Translation ID="PRR_FTR_NAM" String="Name/Bezeichnung" />
-    "<Translation ID="PRR_FTR_SET" String="Filtern nach: Mod/Ersteller/Lokal/Alle" />
-    "<Translation ID="PRR_OPT_ENA" String="RICO aktivieren" />
-    "<Translation ID="PRR_OPT_SER" String="Gebäudeart" />
-    "<Translation ID="PRR_OPT_SUB" String="Unterart" />
-    "<Translation ID="PRR_OPT_UIC" String="UI-Kategorie" />
-    "<Translation ID="PRR_OPT_CST" String="Baukosten" />
-    "<Translation ID="PRR_OPT_CNT" String="Arbeiter-/Hauhaltsanzahl" />
-    "<Translation ID="PRR_OPT_POP" String="„Realistic Pop“-Mod nutzen" />
-    "<Translation ID="PRR_OPT_POL" String="Verschmutzung aktivieren" />
-    "<Translation ID="PRR_OPT_GRO" String="Aufstufend" />
-    "<Translation ID="PRR_OPT_JB0" String="Ungebildete Arbeitskräfte" />
-    "<Translation ID="PRR_OPT_JB1" String="Gebildete Arbeitskräfte" />
-    "<Translation ID="PRR_OPT_JB2" String="Gut gebildete Arbeitskräfte" />
-    "<Translation ID="PRR_OPT_JB3" String="Hochgebildete Arbeitskräfte" />
-    "<Translation ID="PRR_CAT_MON" String="Monumente" />
-    "<Translation ID="PRR_CAT_BEA" String="Verschönerung" />
-    "<Translation ID="PRR_CAT_EDU" String="Bildung" />
-    "<Translation ID="PRR_CAT_POW" String="Strom" />
-    "<Translation ID="PRR_CAT_WAT" String="Wasser" />
-    "<Translation ID="PRR_CAT_HEA" String="Gesundheit" />
-    "<Translation ID="PRR_CAT_RES" String="Wohngebiet" />
-    "<Translation ID="PRR_CAT_COM" String="Geschäftsviertel" />
-    "<Translation ID="PRR_CAT_OFF" String="Büro" />
-    "<Translation ID="PRR_CAT_IND" String="Industrie" />
-    "<Translation ID="PRR_UIC_REL" String="Gering besiedeltes Wohngebiet" />
-    "<Translation ID="PRR_UIC_REH" String="Dicht besiedeltes Wohngebiet" />
-    "<Translation ID="PRR_UIC_COL" String="Gering besiedeltes Gewerbegebiet" />
-    "<Translation ID="PRR_UIC_COH" String="Dicht besiedeltes Gewerbegebiet" />
-    "<Translation ID="PRR_UIC_OFF" String="Büro" />
-    "<Translation ID="PRR_UIC_IND" String="Industrie" />
-    "<Translation ID="PRR_UIC_FAR" String="Landwirtschaft" />
-    "<Translation ID="PRR_UIC_FOR" String="Forstwirtschaft" />
-    "<Translation ID="PRR_UIC_OIL" String="Öl" />
-    "<Translation ID="PRR_UIC_ORE" String="Erz" />
-    "<Translation ID="PRR_UIC_LEI" String="Unterhaltung" />
-    "<Translation ID="PRR_UIC_TOU" String="Tourismus" />
-    "<Translation ID="PRR_UIC_ORG" String="Lokale Herstellung" />
-    "<Translation ID="PRR_UIC_ITC" String="IT-Cluster" />
-    "<Translation ID="PRR_UIC_ECO" String="Selbstversorgende Wohngebäude" />
-    "<Translation ID="PRR_UIC_NON" String="Keine Vorgaben" />
-    "<Translation ID="PRR_SET" String="Einstellungen" />
-    "<Translation ID="PRR_SET_RICO" String="RICO-Einstellungen" />
-    "<Translation ID="PRR_SET_HASMOD" String="Mod-Einstellungen" />
-    "<Translation ID="PRR_SET_HASAUT" String="Ersteller-Einstellungen" />
-    "<Translation ID="PRR_SET_HASLOC" String="Lokale Einstellungen" />
-    "<Translation ID="PRR_SET_HASANY" String="Alle Einstellungen" />
-    "<Translation ID="PRR_SET_HASNON" String="Keine Einstellungen" />
-    "<Translation ID="PRR_SAV_SAV" String="Speichern" />
-    "<Translation ID="PRR_SAV_ADD" String="Lokale Einstellungen hinzufügen" />
-    "<Translation ID="PRR_SAV_REM" String="Lokale Einstellungen entfernen" />
-    "<Translation ID="PRR_SAV_APP" String="Speichern und anwenden" />
-    "<Translation ID="PRR_EXP" String="ACHTUNG: EXPERIMENTELL" />
-    "<Translation ID="TRN_CHOICE" String="Sprache ändern" />
-    "<Translation ID="TRN_SYS" String="Systemsprache verwenden" />
-    "<Translation ID="PRR_DESCRIPTION" String="Lässt RICO-Gebäude mit einem Grundriss größer als 4 × 4 zu sowie RICO-Bearbeitung" />
-    "<Translation ID="PRR_OPTION_PLP" String="Erstelle aufstufende Gebäude sofort (ohne Konstruktionsanimation)" />
-    "<Translation ID="PRR_OPTION_ZON" String="Gebäude bleiben außerhalb ihrer ursprünglichen Zone bestehen" />
-    "<Translation ID="PRR_OPTION_SPC" String="Gebäude bleiben ohne ihre ursprünglichen Zone bestehen" />
-    "<Translation ID="PRR_OPTION_VAL" String="Ignoriert Beschwerde über zu geringen Bodenrichtwert" />
-    "<Translation ID="PRR_OPTION_SVC" String="Ignoriert Beschwerde über zu wenige Dienstleistungen " />
-    "<Translation ID="PRR_OPTION_HST" String="Alle platzierten Gebäude werden historisch" />
-    "<Translation ID="PRR_OPTION_LOA" String="Lade-Optionen" />
-    "<Translation ID="PRR_OPTION_TMB" String="Thumbnail-Optionen" />
-    "<Translation ID="PRR_OPTION_MOD" String="Mod-Optionen" />
-    "<Translation ID="PRR_OPTION_MOREDEBUG" String="Zusätzliche Debugging-Logs" />
-    "<Translation ID="PRR_OPTION_FORCERESET" String="Bestehende Gebäudewerte werden beim Laden immer zurückgesetzt" />
-    "<Translation ID="PRR_OPTION_REGENTHUMBS" String="Thumbnails erneuern" />
-    "<Translation ID="PRR_OPTION_SPDHDR" String="Erhöht die Spielgeschwindigkeit etwas, sorgt aber für eine Verzögerung beim Öffnen des Menüs" />
-    "<Translation ID="PRR_OPTION_SPEED" String="Menü deaktivieren, wenn es nicht verwendet wird" />
-    "<Translation ID="PRR_OPTION_FASTHDR" String="Vorschaubilder werden schneller gerendert, benötigt allerdings mehr Speicher" />
-    "<Translation ID="PRR_OPTION_FASTHUMB" String="Rendert Miniaturansichten mit erhöhter Geschwindigkeit" />
-    "<Translation ID="PRR_OPTION_THUMBACK" String="Hintegrundfarbe Miniaturansicht" />
-    "<Translation ID="PRR_THUMB_COLOR" String="Farbe" />
-    "<Translation ID="PRR_THUMB_PLAIN" String="Grau" />
-    "<Translation ID="PRR_THUMB_SKY" String="Skybox" />
-    "<Translation ID="PRR_ERR_HAR1" String="Ploppable RICO Revisited konnte die benötigten Harmony-Patches nicht durchführen. Das bedeutet, dass die Mod nicht funktioniert und sich deaktiviert hat, um Ihre Speicherstände vor Schäden zu bewahren." />
-    "<Translation ID="PRR_ERR_HAR2" String="Mögliche Gründe für das Problem sind:" />
-    "<Translation ID="PRR_ERR_HAR3" String="Die benötigte Mod Harmony 2 ist nicht installiert" />
-    "<Translation ID="PRR_ERR_HAR4" String="Eine alte und/oder kaputte Mod verhindert, dass Harmony 2 richtig funktioniert (die alten Mods Painter und Garbage Bin Controller sind Beispiele hierfür)" />
-    "<Translation ID="PRR_CON_DWN" String="RICO Revisited wird beendet, um Ihr Spiel nicht zu gefährden." />
-    "<Translation ID="PRR_CON_ONE" String="Nur EINE der folgenden Mods kann gleichzeitig aktiv sein – bitte wählen Sie eine der beiden und deabonnieren Sie die andere!" />
-    "<Translation ID="PRR_CON_OPR" String="Original Ploppable RICO aktiv" />
-    "<Translation ID="PRR_CON_EBC" String="Enhanced Building Capacity aktiv" />
-    "<Translation ID="PRR_CON_GBC" String="Garbage Bin Controller aktiv" />
-    "<Translation ID="PRR_CON_PTR" String="Die alte Painter Mod aktiv" />
-    "<Translation ID="PRR_CON_PTR1" String="Die alte Painter Mod verursacht Probleme mit den von dieser Mod benötigten Harmony-Bibliotheken und verursacht dadurch unvorhersehbare Fehlermeldungen. Bitte deabonnieren Sie die alte Painter Mod (die Mod nur zu deaktivieren reicht NICHT aus); die Mod Repaint ist ein geeigneter Ersatz." />
-    "<Translation ID="PRR_UPD_23_0" String="Ploppable RICO Revisited Update 2.3" />
-    "<Translation ID="PRR_UPD_23_1" String="Ploppable RICO Revisited wurde auf Version 2.3 geupdatet. Einige wichtige Neuerungen:" />
-    "<Translation ID="PRR_UPD_23_4" String="Beschwerden über „zu geringer Bodenrichtwert“ und „nicht genügend Dienstleistungen“ können nun deaktiviert werden." />
+    <Translation ID="PRR_NAME" String="Ploppable RICO Revisited" />
+    <Translation ID="PRR_LEVEL" String="Level" />
+    <Translation ID="PRR_LVL" String="Lvl" />
+    <Translation ID="PRR_HOU" String="Haushalte" />
+    <Translation ID="PRR_WOR" String="Arbeitsplätze" />
+    <Translation ID="PRR_SRV_NON" String="Ohne Spezialisierung" />
+    <Translation ID="PRR_SRV_RES" String="Wohnen" />
+    <Translation ID="PRR_SRV_IND" String="Industrie" />
+    <Translation ID="PRR_SRV_OFF" String="Büro" />
+    <Translation ID="PRR_SRV_COM" String="Gewerbe" />
+    <Translation ID="PRR_SRV_EXT" String="Rohstoffförderung" />
+    <Translation ID="PRR_SRV_DUM" String="Ohne Funktion" />
+    <Translation ID="PRR_SUB_HIG" String="Dicht bebaut" />
+    <Translation ID="PRR_SUB_LOW" String="Dünn bebaut" />
+    <Translation ID="PRR_SUB_HEC" String="Großgewerbe ökologisch" />
+    <Translation ID="PRR_SUB_LEC" String="Kleingewerbe ökologisch" />
+    <Translation ID="PRR_SUB_LEI" String="Freizeit" />
+    <Translation ID="PRR_SUB_TOU" String="Tourismus" />
+    <Translation ID="PRR_SUB_ORG" String="Lokale Herstellung" />
+    <Translation ID="PRR_SUB_GEN" String="Standard" />
+    <Translation ID="PRR_SUB_ITC" String="IT-Unternehmen" />
+    <Translation ID="PRR_SUB_FAR" String="Landwirtschaft" />
+    <Translation ID="PRR_SUB_FOR" String="Forstwirtschaft" />
+    <Translation ID="PRR_SUB_OIL" String="Öl" />
+    <Translation ID="PRR_SUB_ORE" String="Erz" />
+    <Translation ID="PRR_FTR_ALL" String="Alle Kategorien" />
+    <Translation ID="PRR_FTR_NON" String="Keine Kategorie" />
+    <Translation ID="PRR_FTR_NAM" String="Name/Bezeichnung" />
+    <Translation ID="PRR_FTR_SET" String="Filtern nach: Mod/Ersteller/Lokal/Alle" />
+    <Translation ID="PRR_OPT_ENA" String="RICO aktivieren" />
+    <Translation ID="PRR_OPT_SER" String="Gebäudeart" />
+    <Translation ID="PRR_OPT_SUB" String="Unterart" />
+    <Translation ID="PRR_OPT_UIC" String="UI-Kategorie" />
+    <Translation ID="PRR_OPT_CST" String="Baukosten" />
+    <Translation ID="PRR_OPT_CNT" String="Arbeiter-/Hauhaltsanzahl" />
+    <Translation ID="PRR_OPT_POP" String="„Realistic Pop“-Mod nutzen" />
+    <Translation ID="PRR_OPT_POL" String="Verschmutzung aktivieren" />
+    <Translation ID="PRR_OPT_GRO" String="Aufstufend" />
+    <Translation ID="PRR_OPT_JB0" String="Ungebildete Arbeitskräfte" />
+    <Translation ID="PRR_OPT_JB1" String="Gebildete Arbeitskräfte" />
+    <Translation ID="PRR_OPT_JB2" String="Gut gebildete Arbeitskräfte" />
+    <Translation ID="PRR_OPT_JB3" String="Hochgebildete Arbeitskräfte" />
+    <Translation ID="PRR_CAT_MON" String="Monumente" />
+    <Translation ID="PRR_CAT_BEA" String="Verschönerung" />
+    <Translation ID="PRR_CAT_EDU" String="Bildung" />
+    <Translation ID="PRR_CAT_POW" String="Strom" />
+    <Translation ID="PRR_CAT_WAT" String="Wasser" />
+    <Translation ID="PRR_CAT_HEA" String="Gesundheit" />
+    <Translation ID="PRR_CAT_RES" String="Wohngebiet" />
+    <Translation ID="PRR_CAT_COM" String="Geschäftsviertel" />
+    <Translation ID="PRR_CAT_OFF" String="Büro" />
+    <Translation ID="PRR_CAT_IND" String="Industrie" />
+    <Translation ID="PRR_UIC_REL" String="Gering besiedeltes Wohngebiet" />
+    <Translation ID="PRR_UIC_REH" String="Dicht besiedeltes Wohngebiet" />
+    <Translation ID="PRR_UIC_COL" String="Gering besiedeltes Gewerbegebiet" />
+    <Translation ID="PRR_UIC_COH" String="Dicht besiedeltes Gewerbegebiet" />
+    <Translation ID="PRR_UIC_OFF" String="Büro" />
+    <Translation ID="PRR_UIC_IND" String="Industrie" />
+    <Translation ID="PRR_UIC_FAR" String="Landwirtschaft" />
+    <Translation ID="PRR_UIC_FOR" String="Forstwirtschaft" />
+    <Translation ID="PRR_UIC_OIL" String="Öl" />
+    <Translation ID="PRR_UIC_ORE" String="Erz" />
+    <Translation ID="PRR_UIC_LEI" String="Unterhaltung" />
+    <Translation ID="PRR_UIC_TOU" String="Tourismus" />
+    <Translation ID="PRR_UIC_ORG" String="Lokale Herstellung" />
+    <Translation ID="PRR_UIC_ITC" String="IT-Cluster" />
+    <Translation ID="PRR_UIC_ECO" String="Selbstversorgende Wohngebäude" />
+    <Translation ID="PRR_UIC_NON" String="Keine Vorgaben" />
+    <Translation ID="PRR_SET" String="Einstellungen" />
+    <Translation ID="PRR_SET_RICO" String="RICO-Einstellungen" />
+    <Translation ID="PRR_SET_HASMOD" String="Mod-Einstellungen" />
+    <Translation ID="PRR_SET_HASAUT" String="Ersteller-Einstellungen" />
+    <Translation ID="PRR_SET_HASLOC" String="Lokale Einstellungen" />
+    <Translation ID="PRR_SET_HASANY" String="Alle Einstellungen" />
+    <Translation ID="PRR_SET_HASNON" String="Keine Einstellungen" />
+    <Translation ID="PRR_SAV_SAV" String="Speichern" />
+    <Translation ID="PRR_SAV_ADD" String="Lokale Einstellungen hinzufügen" />
+    <Translation ID="PRR_SAV_REM" String="Lokale Einstellungen entfernen" />
+    <Translation ID="PRR_SAV_APP" String="Speichern und anwenden" />
+    <Translation ID="PRR_EXP" String="ACHTUNG: EXPERIMENTELL" />
+    <Translation ID="TRN_CHOICE" String="Sprache ändern" />
+    <Translation ID="TRN_SYS" String="Systemsprache verwenden" />
+    <Translation ID="PRR_DESCRIPTION" String="Lässt RICO-Gebäude mit einem Grundriss größer als 4 × 4 zu sowie RICO-Bearbeitung" />
+    <Translation ID="PRR_OPTION_PLP" String="Erstelle aufstufende Gebäude sofort (ohne Konstruktionsanimation)" />
+    <Translation ID="PRR_OPTION_ZON" String="Gebäude bleiben außerhalb ihrer ursprünglichen Zone bestehen" />
+    <Translation ID="PRR_OPTION_SPC" String="Gebäude bleiben ohne ihre ursprünglichen Zone bestehen" />
+    <Translation ID="PRR_OPTION_VAL" String="Ignoriert Beschwerde über zu geringen Bodenrichtwert" />
+    <Translation ID="PRR_OPTION_SVC" String="Ignoriert Beschwerde über zu wenige Dienstleistungen " />
+    <Translation ID="PRR_OPTION_HST" String="Alle platzierten Gebäude werden historisch" />
+    <Translation ID="PRR_OPTION_LOA" String="Lade-Optionen" />
+    <Translation ID="PRR_OPTION_TMB" String="Thumbnail-Optionen" />
+    <Translation ID="PRR_OPTION_MOD" String="Mod-Optionen" />
+    <Translation ID="PRR_OPTION_MOREDEBUG" String="Zusätzliche Debugging-Logs" />
+    <Translation ID="PRR_OPTION_FORCERESET" String="Bestehende Gebäudewerte werden beim Laden immer zurückgesetzt" />
+    <Translation ID="PRR_OPTION_REGENTHUMBS" String="Thumbnails erneuern" />
+    <Translation ID="PRR_OPTION_SPDHDR" String="Erhöht die Spielgeschwindigkeit etwas, sorgt aber für eine Verzögerung beim Öffnen des Menüs" />
+    <Translation ID="PRR_OPTION_SPEED" String="Menü deaktivieren, wenn es nicht verwendet wird" />
+    <Translation ID="PRR_OPTION_FASTHDR" String="Vorschaubilder werden schneller gerendert, benötigt allerdings mehr Speicher" />
+    <Translation ID="PRR_OPTION_FASTHUMB" String="Rendert Miniaturansichten mit erhöhter Geschwindigkeit" />
+    <Translation ID="PRR_OPTION_THUMBACK" String="Hintegrundfarbe Miniaturansicht" />
+    <Translation ID="PRR_THUMB_COLOR" String="Farbe" />
+    <Translation ID="PRR_THUMB_PLAIN" String="Grau" />
+    <Translation ID="PRR_THUMB_SKY" String="Skybox" />
+    <Translation ID="PRR_ERR_FAT" String="Das bedeutet, dass die Mod nicht funktioniert und sich deaktiviert hat." />
+    <Translation ID="PRR_ERR_HAR" String="Ploppable RICO Revisited konnte die benötigten Harmony-Patches nicht durchführen." />
+    <Translation ID="ERR_HAR1" String="Mögliche Gründe für das Problem sind:" />
+    <Translation ID="ERR_HAR2" String="Die benötigte Mod Harmony 2 ist nicht installiert" />
+    <Translation ID="ERR_HAR3" String="Eine alte und/oder kaputte Mod verhindert, dass Harmony 2 richtig funktioniert" />
+    <Translation ID="PRR_CON_PTR1" String="Die alte Painter Mod verursacht Probleme mit den von dieser Mod benötigten Harmony-Bibliotheken und verursacht dadurch unvorhersehbare Fehlermeldungen. Bitte deabonnieren Sie die alte Painter Mod (die Mod nur zu deaktivieren reicht NICHT aus); die Mod Repaint ist ein geeigneter Ersatz." />
+    <Translation ID="PRR_UPD_23_0" String="Ploppable RICO Revisited Update 2.3" />
+    <Translation ID="PRR_UPD_23_1" String="Ploppable RICO Revisited wurde auf Version 2.3 geupdatet. Einige wichtige Neuerungen:" />
+    <Translation ID="PRR_UPD_23_4" String="Beschwerden über „zu geringer Bodenrichtwert“ und „nicht genügend Dienstleistungen“ können nun deaktiviert werden." />
   </Translations>
 </Language>

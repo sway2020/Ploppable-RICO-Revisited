@@ -95,18 +95,12 @@
     <Translation ID="PRR_THUMB_COLOR" String="Color" />
     <Translation ID="PRR_THUMB_PLAIN" String="Plain" />
     <Translation ID="PRR_THUMB_SKY" String="Skybox" />
-    <Translation ID="PRR_ERR_HAR0" String="HARMONY修补错误" />
-    <Translation ID="PRR_ERR_HAR1" String="可重新访问的RICO无法完成其所需的Harmony补丁。这意味着它无法运行，并且已经关闭以保护您的保存文件不受损坏" />
-    <Translation ID="PRR_ERR_HAR2" String="此问题的可能原因包括:" />
-    <Translation ID="PRR_ERR_HAR3" String="未安装所需的HARMONY 2 MOD依赖项" />
-    <Translation ID="PRR_ERR_HAR4" String="较旧和/或损坏的mod导致HARMONY 2无法正常运行。已知旧的PAINTER和GARBAGE BIN CONTROLLER会导致这种情况)" />
-    <Translation ID="PRR_CON_DWN" String="RICO Revisited即将关闭以保护您的游戏。" />
-    <Translation ID="PRR_CON_ONE" String="这些模组中只有一个可以同时启用-请选择一个模组，然后取消订阅另一个模组" />
-    <Translation ID="PRR_CON_OPR" String="请取消原先版本的Ploppable RICO" />
-    <Translation ID="PRR_CON_EBC" String="检测到Enhanced Building Capacity mod" />
-    <Translation ID="PRR_CON_GBC" String="检测到Garbage Bin Controller mod" />
-    <Translation ID="PRR_CON_PTR" String="检测到Painter mod" />
-    <Translation ID="PRR_CON_PTR1" String="旧的Painter Mod导致此Mod使用的Harmony库出现问题，从而导致随机错误。请从Painter取消订阅（仅禁用是不够的）； Repaint mod可以替代" />
+    <Translation ID="PRR_ERR_FAT" String="这意味着它无法运行，并且已经关闭以保护您的保存文件不受损坏。" />
+    <Translation ID="PRR_ERR_HAR" String="可重新访问的RICO无法完成其所需的Harmony补丁。" />
+    <Translation ID="ERR_HAR0" String="HARMONY修补错误" />
+    <Translation ID="ERR_HAR1" String="此问题的可能原因包括:" />
+    <Translation ID="ERR_HAR2" String="未安装所需的HARMONY 2 MOD依赖项" />
+    <Translation ID="ERR_HAR3" String="较旧和/或损坏的mod导致HARMONY 2无法正常运行。" />
     <Translation ID="PRR_UPD_21_0" String="Plopplable RICO Revisited 2.1更新" />
     <Translation ID="PRR_UPD_21_1" String="Ploppable RICO Revisited已更新至版本2.1。此更新的一些关键功能是:" />
     <Translation ID="PRR_UPD_21_2" String="新的mod选项面板（可通过游戏选项访问），包括纯缩略图背景的选项" />
