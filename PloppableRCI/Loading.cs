@@ -47,7 +47,8 @@ namespace PloppableRICO
                 isModEnabled = false;
                 Logging.KeyMessage("not loading into game, skipping activation");
 
-                // Set harmonyLoaded flag to suppress Harmony warning when e.g. loading into editor.
+                // Set harmonyLoaded and PatchOperating flags to suppress Harmony warning when e.g. loading into editor.
+                patchOperating = true;
                 harmonyLoaded = true;
 
                 // Unload Harmony patches and exit before doing anything further.
