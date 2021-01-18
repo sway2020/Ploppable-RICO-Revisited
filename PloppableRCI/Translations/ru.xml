@@ -80,7 +80,7 @@
     <Translation ID="PRR_SAV_ADD" String="Редактировать" />
     <Translation ID="PRR_SAV_REM" String="Удалить" />
     <Translation ID="PRR_SAV_APP" String="Сохранить и применить изменения" />
-    <Translation ID="PRR_EXP" String="ЭКСПЕРИМЕНТАЛЬНАЯ ФУНКЦИЯ" />
+    <Translation ID="PRR_EXP" String="ВНИМАНИЕ: EXPERIMENTAL" />
     <Translation ID="TRN_CHOICE" String="Установить язык" />
     <Translation ID="TRN_SYS" String="Использ. системный" />
     <Translation ID="PRR_DESCRIPTION" String="Здания RICO размером больше чем 4x4 и настройка зданий RICO" />
@@ -99,8 +99,8 @@
     <Translation ID="PRR_OPTION_LOA" String="Настройки загрузки" />
     <Translation ID="PRR_OPTION_LOG" String="Настройки журнала" />
     <Translation ID="PRR_OPTION_TMB" String="Настройки миниатюр" />
-    <Translation ID="PRR_OPTION_GRO" String="Ploppable здания" />
-    <Translation ID="PRR_OPTION_PLO" String="Growable здания" />
+    <Translation ID="PRR_OPTION_PLO" String="Ploppable здания" />
+    <Translation ID="PRR_OPTION_GRO" String="Growable здания" />
     <Translation ID="PRR_OPTION_COM" String="Настройки сообщений" />
     <Translation ID="PRR_OPTION_MOD" String="Настройки мода" />
     <Translation ID="PRR_OPTION_MOREDEBUG" String="Включить дополнительные журналы отладки" />
@@ -116,20 +116,32 @@
     <Translation ID="PRR_THUMB_SKY" String="Skybox" />
     <Translation ID="MES_CLS" String="Закрыть" />
     <Translation ID="MES_DSA" String="Больше не показывать" />
-    <Translation ID="PRR_ERR_FAT" String="Это означает, что мод не может работать, и был закрыт." />
-    <Translation ID="PRR_ERR_HAR" String="Ploppable RICO Revisited не смог завершить необходимые исправления Harmony." />
-    <Translation ID="ERR_HAR0" String="Ошибка пропатчивания мода Harmony" />
+    <Translation ID="MES_PAGE" String="Пожалуйста, обратитесь к странице модов Steam Workshop для получения дополнительной информации." />
+    <Translation ID="PRR_ERR_FAT" String="Это означает, что мод не может работать и отключился." />
+    <Translation ID="PRR_ERR_HAR" String="Ploppable RICO Revisited не смог завершить необходимые патчи Harmony." />
+    <Translation ID="ERR_HAR0" String="Ошибка Harmony patching" />
     <Translation ID="ERR_HAR1" String="Возможные причины этой проблемы включают:" />
     <Translation ID="ERR_HAR2" String="Требуемый мод, Harmony 2 – не установлен" />
-    <Translation ID="ERR_HAR3" String="Старый и/или сломанный мод препятствует нормальной работе Harmony 2" />
+    <Translation ID="ERR_HAR3" String="Старый и/или сломанный мод мешает правильной работе Harmony 2" />
+    <Translation ID="ERR_CON0" String="Обнаружен конфликт модов!" />
+    <Translation ID="ERR_CON1" String="Конфликтующие моды::" />
+    <Translation ID="PRR_ERR_CON0" String="Ploppable RICO Revisited обнаружил конфликт как минимум с одним другим модом." />
+    <Translation ID="PRR_ERR_CON1" String="Эти моды должны быть удалены, прежде чем Ploppable RICO Revisited сможет работать." />
+    <Translation ID="PRR_CON_PTG0" String="Обнаружен мод Plop the Growables" />
+    <Translation ID="PRR_CON_PTG1" String="Обнаружен мод Plop the Growables - этот мод больше не нужен, поскольку его функции были включены в Ploppable RICO Revisited. Пожалуйста, будьте осторожны при использовании двух модов вместе, так как их настройки могут конфликтовать." />
+    <Translation ID="PRR_CON_PTG2" String="Можно использовать оба мода вместе - ЕСЛИ их настройки не противоречат друг другу!" />
     <Translation ID="PRR_UPD_23_0" String="Plopplable RICO Revisited 2.3 обновлён" />
-    <Translation ID="PRR_UPD_23_1" String="Ploppable RICO Revisited обновлён до версии 2.3. Некоторые ключевые особенности этого обновления:" />
+    <Translation ID="PRR_UPD_23_1" String="Ploppable RICO Revisited обновлён до версии 2.3. Некоторые ключевые особенности этого обновления::" />
     <Translation ID="PRR_UPD_23_2" String="Ploppable RICO теперь включает в себя функциональность в стиле 'Plop the Growables' как для зданий RICO так и не-RICO - подробности смотрите в Настройках." />
     <Translation ID="PRR_UPD_23_3" String="Growable здания RICO теперь можно размещать за пределами зон (настраивается)." />
-    <Translation ID="PRR_UPD_23_4" String="Сообщения о «низкой стоимости земли» и «недостаточном количестве услуг» теперь можно отключить." />
+    <Translation ID="PRR_UPD_23_4" String="Сообщения о 'низкой стоимости земли' и 'недостаточном количестве услуг' теперь можно отключить." />
     <Translation ID="PRR_UPD_23_5" String="Улучшен рендерер миниатюр зданий, который теперь генерирует изображения только по мере необходимости, сокращая используемый объём памяти и улучшая время загрузки." />
     <Translation ID="PRR_UPD_234_0" String="Добавлена опция включения или отключения предупреждений при сносе размещённых зданий RICO." />
     <Translation ID="PRR_UPD_234_1" String="Добавлена опция включения или отключения автосноса размещённых зданий RICO при строительстве." />
     <Translation ID="PRR_UPD_234_2" String="Улучшенные уведомления об обновлениях." />
+    <Translation ID="PRR_UPD_235_0" String="В опциях Growable зданий теперь по умолчанию включено 'Plop the Growables' (не влияет на существующие настройки)." />
+    <Translation ID="PRR_UPD_235_1" String="Добавлено предупреждение, если мод 'Plop the Growables' также активен." />
+    <Translation ID="PRR_UPD_235_2" String="Улучшены уведомления о конфликтах модов и ошибках." />
+    <Translation ID="PRR_UPD_236_0" String="Улучшение обнаружения конфликтов модов и уведомления." />
   </Translations>
 </Language>
