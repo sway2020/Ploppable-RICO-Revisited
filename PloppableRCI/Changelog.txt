@@ -1,4 +1,7 @@
-﻿Version 2.3.6
+﻿- Stop Harmony error message from (incorrectly) showing when loading into editors.
+
+
+Version 2.3.6
 
 - Add ClearAllWorkplaceCache method to enable other mods to trigger workplace cache clearance for all buildings at once
 - Improve mod conflict detection and notification
