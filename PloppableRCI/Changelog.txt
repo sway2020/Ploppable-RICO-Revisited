@@ -1,4 +1,5 @@
 ﻿- Stop Harmony error message from (incorrectly) showing when loading into editors.
+- Improve update notification message layout
 
 
 Version 2.3.6

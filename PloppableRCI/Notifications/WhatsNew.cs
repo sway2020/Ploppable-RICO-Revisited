@@ -82,63 +82,20 @@ namespace PloppableRICO
         internal static void ShowWhatsNew()
         {
             // Get last notified version and current mod version.
-            Version whatNewVersion = new Version(ModSettings.whatsNewVersion);
+            Version whatsNewVersion = new Version(ModSettings.whatsNewVersion);
             Version modVersion = Assembly.GetExecutingAssembly().GetName().Version;
 
             // Don't show notification if we're already up to (or ahead of) this version AND there hasn't been a beta update.
-            if (whatNewVersion >= modVersion && ModSettings.whatsNewBeta.Equals(PloppableRICOMod.Beta))
+            if (whatsNewVersion >= modVersion && ModSettings.whatsNewBeta.Equals(PloppableRICOMod.Beta))
             {
                 return;
             }
 
-            // Get version update messages.
-            Dictionary<Version, string> messages = GetWhatsNewMessages(whatNewVersion, modVersion);
-
-            // Don't do anything if no version messages to display. 
-            if (!messages.Any())
-            {
-                return;
-            }
-
-            // Show messagebox (complete with "CaprionText"...)
+            // Show messagebox.
             WhatsNewMessageBox messageBox = MessageBoxBase.ShowModal<WhatsNewMessageBox>();
             messageBox.Title = PloppableRICOMod.ModName + " " + PloppableRICOMod.Version;
-            messageBox.OnButton1Click = Confirm;
-            messageBox.OnButton2Click = DontShowAgain;
-            messageBox.Init(messages);
-        }
-
-
-        /// <summary>
-        /// Builds a dictionary of versions and associated what's new messages.
-        /// </summary>
-        /// <param name="lastNotifiedVersion">Most recently notified version</param>
-        /// <param name="modVersion">Current mod version</param>
-        /// <returns>New dictionary of version and associated what's new strings</returns>
-        private static Dictionary<Version, string> GetWhatsNewMessages(Version lastNotifiedVersion, Version modVersion)
-        {
-            Dictionary<Version, string> messages = new Dictionary<Version, string>();
-
-            // Iterate through each verfsion 
-            foreach (var version in Versions.Keys)
-            {
-                // Skip this version message if it's newer than the current mod version, or older than the last notified version AND there hasn't been a beta update.
-                if (version > modVersion || (version <= lastNotifiedVersion && ModSettings.whatsNewBeta.Equals(PloppableRICOMod.Beta)))
-                {
-                    continue;
-                }
-
-                // Convert the message list for this version into a single string, and append it to the dictionary of messages to display.
-                StringBuilder message = new StringBuilder();
-                foreach (string line in Versions[version])
-                {
-                    message.Append(" - ");
-                    message.AppendLine(Translations.Translate(line));
-                }
-                messages.Add(version, message.ToString());
-            }
-
-            return messages;
+            messageBox.DSAButton.eventClicked += (component, clickEvent) => DontShowAgain();
+            messageBox.SetMessages(whatsNewVersion, Versions);
         }
     }
 }

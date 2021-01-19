@@ -67,14 +67,13 @@ namespace PloppableRICO.MessageBox
         /// Creates a blank panel spacer.
         /// </summary>
         /// <param name="height">Spacer height (default 10)</param>
-        /// <returns></returns>
         public void AddSpacer(float height = 10f)
         {
-            UIPanel spacer = ScrollableContent.AddUIComponent<UIPanel>();
+            UILabel spacer = ScrollableContent.AddUIComponent<UILabel>();
 
             spacer.autoSize = false;
             spacer.height = height;
-            spacer.width = width - ScrollableContent.autoLayoutPadding.left - ScrollableContent.autoLayoutPadding.right;
+            spacer.width = 10f;
         }
 
 
