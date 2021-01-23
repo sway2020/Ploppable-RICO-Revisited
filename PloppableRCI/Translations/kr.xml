@@ -83,12 +83,12 @@
     <Translation ID="PRR_EXP" String="주의 : 실험 기능" />
     <Translation ID="TRN_CHOICE" String="언어 설정" />
     <Translation ID="TRN_SYS" String="시스템 언어 사용" />
-    <Translation ID="PRR_DESCRIPTION" String="크기가 4x4보다 큰 RICO 건물 및 RICO  건물의 사용자 정의 허용" />
+    <Translation ID="PRR_DESCRIPTION" String="크기가 4x4보다 큰 RICO 건물 및 RICO 건물의 사용자 정의 허용" />
     <Translation ID="PRR_OPTION_PLP" String="Growable 건물을 즉각 완공 (공사 없음)" />
     <Translation ID="PRR_OPTION_ZON" String="Growable 건물이 정해진 구역(zone) 밖에서도 살아 남음." />
     <Translation ID="PRR_OPTION_SPC" String="Growable 건물이 요구되는 특화 지구 설정이 없어도 살아 남음." />
-    <Translation ID="PRR_OPTION_VAL" String="'낮은 토지 가격' 불만 무시" />
-    <Translation ID="PRR_OPTION_SVC" String="'공공 서비스 부족' 불만 무시" />
+    <Translation ID="PRR_OPTION_VAL" String="낮은 토지 가격' 불만 무시" />
+    <Translation ID="PRR_OPTION_SVC" String="공공 서비스 부족' 불만 무시" />
     <Translation ID="PRR_OPTION_HST" String="건설하는 RICO 건물을 역사적 건물로 만들기" />
     <Translation ID="PRR_OPTION_RPL" String="RICO ploppable 건물" />
     <Translation ID="PRR_OPTION_RGR" String="RICO growable 건물" />
@@ -99,8 +99,8 @@
     <Translation ID="PRR_OPTION_LOA" String="Loading 옵션" />
     <Translation ID="PRR_OPTION_LOG" String="Logging 옵션" />
     <Translation ID="PRR_OPTION_TMB" String="Thumbnail 옵션" />
-    <Translation ID="PRR_OPTION_GRO" String="Growable 옵션" />
     <Translation ID="PRR_OPTION_PLO" String="Ploppable 옵션" />
+    <Translation ID="PRR_OPTION_GRO" String="Growable 옵션" />
     <Translation ID="PRR_OPTION_COM" String="불만 사항 옵션" />
     <Translation ID="PRR_OPTION_MOD" String="Mod 옵션" />
     <Translation ID="PRR_OPTION_MOREDEBUG" String="추가 debugging logging 활성화" />
@@ -114,20 +114,34 @@
     <Translation ID="PRR_THUMB_COLOR" String="색상" />
     <Translation ID="PRR_THUMB_PLAIN" String="일반" />
     <Translation ID="PRR_THUMB_SKY" String="스카이박스" />
-    <Translation ID="ERR_HAR0" String="Harmony 패치 오류" />
+    <Translation ID="MES_CLS" String="닫기" />
+    <Translation ID="MES_DSA" String="다시 표시하지 않음" />
+    <Translation ID="MES_PAGE" String="자세한 내용은 모드의 스팀 창작마당 페이지를 참조하십시오." />
     <Translation ID="PRR_ERR_FAT" String="이것은 Mod가 작동할 수 없으며 손상으로부터 저장 파일을 보호하기 위해 종료되었음을 의미합니다." />
     <Translation ID="PRR_ERR_HAR" String="Ploppable RICO Revisited가 Harmony 패치를 완료하지 못했습니다." />
+    <Translation ID="ERR_HAR0" String="Harmony 패치 오류" />
     <Translation ID="ERR_HAR1" String="이 문제의 가능한 원인은 다음과 같습니다." />
     <Translation ID="ERR_HAR2" String="필수적인 Harmony 2 mod dependency가 설치되지 않았습니다." />
     <Translation ID="ERR_HAR3" String="오래 되거나 손상된 mod로 인해 Harmony 2가 제대로 작동하지 않습니다." />
+    <Translation ID="ERR_CON0" String="모드 충돌 감지됨!" />
+    <Translation ID="ERR_CON1" String="충돌된 모드는 다음과 같습니다:" />
+    <Translation ID="PRR_ERR_CON0" String="Ploppable RICO Revisited는 하나 이상의 다른 모드와의 충돌을 감지했습니다." />
+    <Translation ID="PRR_ERR_CON1" String="이들 모드는 Ploppable RICO를 작동하기 전까지 반드시 제거되어야 합니다." />
+    <Translation ID="PRR_CON_PTG0" String="Plop the Growables 모드 감지됨" />
+    <Translation ID="PRR_CON_PTG1" String="Plop the Growables 모드 감지됨 - 이 모드의 대부분의 기능은 Ploppable RICO Revisited와 통합되었습니다. 설정들이 충돌할 수 있으므로 두 모드를 함께 쓸 때 주의하십시오." />
+    <Translation ID="PRR_CON_PTG2" String="만약' 설정들이 충돌하지 않는다면 여전히 두 모드를 함께 쓸 수 있습니다." />
     <Translation ID="PRR_UPD_23_0" String="Plopplable RICO Revisited 2.3 업데이트" />
     <Translation ID="PRR_UPD_23_1" String="Ploppable RICO Revisited가 버전 2.3으로 업데이트되었습니다. 이번 업데이트의 주요 기능은 다음과 같습니다." />
-    <Translation ID="PRR_UPD_23_2" String="Ploppable RICO에는 이제 RICO 및 RICO가 아닌 건물 모두에 대해 'Plop the Growables' 방식의 기능이 포함됩니다. - 자세한 내용은 옵션 패널을 참조하십시오." />
+    "<Translation ID="PRR_UPD_23_2" String="Ploppable RICO에는 이제 RICO 및 RICO가 아닌 건물 모두에 대해 'Plop the Growables' 방식의 기능이 포함됩니다. - 자세한 내용은 옵션 패널을 참조하십시오." />"
     <Translation ID="PRR_UPD_23_3" String="이제는 RICO growable 건물을 정해진 구역(zone) 밖에 배치할 수 있습니다. (구성 가능)." />
     <Translation ID="PRR_UPD_23_4" String="이제는 '낮은 토지 가격'및 '공공 서비스 부족'에 대한 불만을 비활성화할 수 있습니다." />
     <Translation ID="PRR_UPD_23_5" String="이제는 필요한 경우에만 이미지를 생성하도록 Thumbnail 렌더러를 개선하여, 메모리를 사용량을 줄이고 로드 시간을 개선했습니다" />
     <Translation ID="PRR_UPD_234_0" String="건설된 RICO 건물을 철거할 때 경고를 활성화하거나 비활성화하는 옵션 추가." />
     <Translation ID="PRR_UPD_234_1" String="건설된 RICO 건물 위에 건물을 지을 때 자동 철거를 활성화하거나 비활성화하는 옵션 추가." />
     <Translation ID="PRR_UPD_234_2" String="업데이트 알림이 개선되었습니다." />
+    <Translation ID="PRR_UPD_235_0" String="Growable 옵션은 이제 기본적으로 Plop the Growables를 포함합니다. ( 기존 설정에 영향 없음)" />
+    <Translation ID="PRR_UPD_235_1" String="Plop the Growables 모드가 함께 켜져 있을 때 경고 추가" />
+    <Translation ID="PRR_UPD_235_2" String="모드 충돌과 에러 알림 개선" />
+    <Translation ID="PRR_UPD_236_0" String="모드 충돌 감지와 알림 개선" />
   </Translations>
 </Language>

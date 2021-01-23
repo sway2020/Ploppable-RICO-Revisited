@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using ColossalFramework.Plugins;
 using ColossalFramework.Packaging;
-using PloppableRICO.MessageBox;
 
 
 namespace PloppableRICO
