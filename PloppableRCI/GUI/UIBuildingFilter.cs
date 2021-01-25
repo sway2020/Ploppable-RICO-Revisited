@@ -189,19 +189,9 @@ namespace PloppableRICO
                 eventFilteringChanged(this, 0);
             };
 
-            // Name filter label.
-            UILabel nameLabel = AddUIComponent<UILabel>();
-            nameLabel.textScale = 0.8f;
-            nameLabel.padding = new RectOffset(0, 0, 8, 0);
-            nameLabel.relativePosition = new Vector3(width - 250, 0);
-            nameLabel.text = Translations.Translate("PRR_FTR_NAM") + ": ";
-
             // Name filter textfield.
-            nameFilter = UIUtils.CreateTextField(this);
-            nameFilter.width = 200;
-            nameFilter.height = 30;
+            nameFilter = UIControls.LabelledTextField(this, width - 200f, 0, Translations.Translate("PRR_FTR_NAM") + ": ");
             nameFilter.padding = new RectOffset(6, 6, 6, 6);
-            nameFilter.relativePosition = new Vector3(width - nameFilter.width, 0);
 
             // Trigger events when textfield is updated.
             nameFilter.eventTextChanged += (control, value) => eventFilteringChanged(this, 5);

@@ -6,29 +6,6 @@ namespace PloppableRICO
 {
     public class UIUtils
     {
-        // Figuring all this was a pain (no documentation whatsoever)
-        // So if your are using it for your mod consider thanking me (SamsamTS)
-        // Extended Public Transport UI's code helped me a lot so thanks a lot AcidFire
-        public static UITextField CreateTextField(UIComponent parent)
-        {
-            UITextField textField = parent.AddUIComponent<UITextField>();
-
-            textField.size = new Vector2(90f, 20f);
-            textField.padding = new RectOffset(6, 6, 3, 3);
-            textField.builtinKeyNavigation = true;
-            textField.isInteractive = true;
-            textField.readOnly = false;
-            textField.horizontalAlignment = UIHorizontalAlignment.Center;
-            textField.selectionSprite = "EmptySprite";
-            textField.selectionBackgroundColor = new Color32(0, 172, 234, 255);
-            textField.normalBgSprite = "TextFieldPanelHovered";
-            textField.disabledBgSprite = "TextFieldPanel";
-            textField.textColor = new Color32(0, 0, 0, 255);
-            textField.disabledTextColor = new Color32(0, 0, 0, 128);
-            textField.color = new Color32(255, 255, 255, 255);
-
-            return textField;
-        }
 
         public static UIButton CreateButton(UIComponent parent)
         {
@@ -46,56 +23,6 @@ namespace PloppableRICO
             return button;
         }
 
-        public static UISlider CreateSlider(UIPanel parent, float min, float max)
-        {
-            UIPanel bg = parent.AddUIComponent<UIPanel>();
-            bg.backgroundSprite = "ChirpScrollbarTrack";
-            bg.size = new Vector2(parent.width - (parent.autoLayoutPadding.left * 2), 17);
-
-            UISlider slider = bg.AddUIComponent<UISlider>();
-            slider.area = new Vector4(8, 0, bg.width - 16, 15);
-            slider.height = 17;
-            slider.autoSize = false;
-            //slider.backgroundSprite = "ChirpScrollbarTrack";
-
-            slider.maxValue = max;
-            slider.minValue = min;
-
-            slider.fillPadding = new RectOffset(10, 10, 0, 0);
-
-            UISprite thumb = slider.AddUIComponent<UISprite>();
-            thumb.size = new Vector2(16, 16);
-            thumb.position = new Vector2(0, 0);
-            thumb.spriteName = "ToolbarIconZoomOutGlobeDisabled";
-
-            slider.value = 0.0f;
-            slider.thumbObject = thumb;
-
-
-            return slider;
-        }
-        public static UIPanel CreatePanel(UIComponent parent, float height, UICheckBox checkBox)
-        {
-            UIPanel basePanel = parent.AddUIComponent<UIPanel>();
-            basePanel.height = 0;
-            basePanel.isVisible = false;
-            basePanel.name = "OptionsPanel";
-
-            checkBox.eventCheckChanged += (c, state) =>
-            {
-                if (!checkBox.isChecked)
-                {
-                    basePanel.height = 0;
-                    basePanel.isVisible = false;
-                }
-                else {
-                    basePanel.height = height;
-                    basePanel.isVisible = true;
-                }
-            };
-
-            return basePanel;
-        }
 
         public static UIDropDown CreateDropDown(UIComponent parent, float offset, string label)
         {

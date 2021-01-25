@@ -10,6 +10,84 @@ namespace PloppableRICO
     public static class UIControls
     {
         /// <summary>
+        /// Adds a textfield with an attached label to the left.
+        /// </summary>
+        /// <param name="parent">Parent component</param>
+        /// <param name="posX">Relative X postion</param>
+        /// <param name="posY">Relative Y position</param>
+        /// <param name="text">Label text</param>
+        /// <param name="width">Textfield width (default 200)</param>
+        /// <param name="height">Textfield height (default 30)</param>
+        /// <param name="scale">Text scale (default 1.0)</param>
+        /// <returns>New textfield with attached label</returns>
+        internal static UITextField LabelledTextField(UIComponent parent, float posX, float posY, string text, float width = 200f, float height = 30f, float scale = 1.0f)
+        {
+            UITextField textField = AddTextField(parent, posX, posY, width);
+
+            // Label.
+            UILabel label = textField.AddUIComponent<UILabel>();
+            label.textScale = scale;
+            label.text = text;
+            label.autoSize = true;
+            label.verticalAlignment = UIVerticalAlignment.Middle;
+            label.wordWrap = true;
+
+            // Set position.
+            label.relativePosition = new Vector2(-(label.width + 5f), (height - label.height) / 2);
+
+            return textField;
+        }
+
+
+        /// <summary>
+        /// Adds an input text field at the specified coordinates.
+        /// </summary>
+        /// <param name="textField">Textfield object</param>
+        /// <param name="posX">Relative X postion</param>
+        /// <param name="posY">Relative Y position</param>
+        /// <param name="parent">component to add to</param>
+        /// <param name="height">Textfield height (default 30)</param>
+        /// <param name="scale">Text scale (default 0.9)</param>
+        /// <param name="tooltip">Tooltip, if any</param>
+        /// <returns>New textfield *without* attached label</returns>
+        public static UITextField AddTextField(UIComponent parent, float posX, float posY, float width = 200f, float height = 30f, float scale = 0.9f, string tooltip = null)
+        {
+            UITextField textField = parent.AddUIComponent<UITextField>();
+
+            // Size and position.
+            textField.size = new Vector2(width, height);
+            textField.relativePosition = new Vector2(posX, posY);
+
+            // Text settings.
+            textField.textScale = scale;
+            textField.padding = new RectOffset(6, 6, 3, 3);
+            textField.horizontalAlignment = UIHorizontalAlignment.Center;
+
+            // Behaviour.
+            textField.builtinKeyNavigation = true;
+            textField.isInteractive = true;
+            textField.readOnly = false;
+
+            // Appearance.
+            textField.color = new Color32(255, 255, 255, 255);
+            textField.textColor = new Color32(0, 0, 0, 255);
+            textField.disabledTextColor = new Color32(0, 0, 0, 128);
+            textField.selectionSprite = "EmptySprite";
+            textField.selectionBackgroundColor = new Color32(0, 172, 234, 255);
+            textField.normalBgSprite = "TextFieldPanelHovered";
+            textField.disabledBgSprite = "TextFieldPanel";
+
+            // Add tooltip.
+            if (tooltip != null)
+            {
+                textField.tooltip = tooltip;
+            }
+
+            return textField;
+        }
+
+
+        /// <summary>
         /// Creates a vertical scrollbar
         /// </summary>
         /// <param name="parent">Parent component</param>
