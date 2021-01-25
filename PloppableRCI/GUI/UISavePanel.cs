@@ -47,22 +47,19 @@ namespace PloppableRICO
             builtinKeyNavigation = true;
             clipChildren = true;
 
+            // Standardise button widths.
+            float buttonWidth = this.width - autoLayoutPadding.left - autoLayoutPadding.right;
+
             // Save button.
-            saveButton = UIUtils.CreateButton(this);
-            saveButton.width = this.width - autoLayoutPadding.left - autoLayoutPadding.right;
-            saveButton.text = Translations.Translate("PRR_SAV_SAV");
+            saveButton = UIControls.AddButton(this, autoLayoutPadding.left, 0f, Translations.Translate("PRR_SAV_SAV"), buttonWidth);
             saveButton.eventClick += (control, clickEvent) => Save();
 
             // Add local settings button.
-            addLocalButton = UIUtils.CreateButton(this);
-            addLocalButton.width = this.width - autoLayoutPadding.left - autoLayoutPadding.right;
-            addLocalButton.text = Translations.Translate("PRR_SAV_ADD");
+            addLocalButton = UIControls.AddButton(this, autoLayoutPadding.left, 0f, Translations.Translate("PRR_SAV_ADD"), buttonWidth);
             addLocalButton.eventClick += (control, clickEvent) => AddLocal();
 
             // 'Remove local settings' button.
-            removeLocalButton = UIUtils.CreateButton(this);
-            removeLocalButton.width = this.width - autoLayoutPadding.left - autoLayoutPadding.right;
-            removeLocalButton.text = Translations.Translate("PRR_SAV_REM");
+            removeLocalButton = UIControls.AddButton(this, autoLayoutPadding.left, 0f, Translations.Translate("PRR_SAV_REM"), buttonWidth);
             removeLocalButton.eventClick += (control, clickEvent) => RemoveLocal();
 
             // Warning label for 'apply changes' being experimental.
@@ -75,11 +72,8 @@ namespace PloppableRICO
             warningLabel.text = "\r\n" + Translations.Translate("PRR_EXP");
 
             // 'Save and apply changes' button.
-            applyButton = UIUtils.CreateButton(this);
-            applyButton.width = this.width - autoLayoutPadding.left - autoLayoutPadding.right;
-            applyButton.text = Translations.Translate("PRR_SAV_APP");
+            applyButton = UIControls.AddButton(this, autoLayoutPadding.left, 0f, Translations.Translate("PRR_SAV_APP"), buttonWidth, scale: 0.8f);
             applyButton.eventClick += (control, clickEvent) => SaveAndApply();
-            applyButton.textScale = 0.8f;
             applyButton.wordWrap = true;
         }
 

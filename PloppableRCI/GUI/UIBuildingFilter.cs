@@ -154,11 +154,7 @@ namespace PloppableRICO
             }
 
             // 'Select all' button.
-            allCats = UIUtils.CreateButton(this);
-            allCats.width = 55;
-            allCats.text = Translations.Translate("PRR_FTR_ALL");
-            allCats.relativePosition = new Vector3(405, 5);
-
+            allCats = UIControls.AddButton(this, 405f, 5f, Translations.Translate("PRR_FTR_ALL"), 55f);
             allCats.eventClick += (control, clickEvent) =>
             {
                 // Iterate through all toggles and activate.
@@ -172,11 +168,7 @@ namespace PloppableRICO
             };
 
             // 'Select none'button.
-            noCats = UIUtils.CreateButton(this);
-            noCats.width = 55;
-            noCats.text = Translations.Translate("PRR_FTR_NON");
-            noCats.relativePosition = new Vector3(465, 5);
-
+            noCats = UIControls.AddButton(this, 465f, 5f, Translations.Translate("PRR_FTR_NON"), 55f);
             noCats.eventClick += (c, p) =>
             {
                 // Iterate through all toggles and deactivate.
@@ -190,8 +182,7 @@ namespace PloppableRICO
             };
 
             // Name filter textfield.
-            nameFilter = UIControls.LabelledTextField(this, width - 200f, 0, Translations.Translate("PRR_FTR_NAM") + ": ");
-            nameFilter.padding = new RectOffset(6, 6, 6, 6);
+            nameFilter = UIControls.BigLabelledTextField(this, width - 200f, 0, Translations.Translate("PRR_FTR_NAM") + ": ");
 
             // Trigger events when textfield is updated.
             nameFilter.eventTextChanged += (control, value) => eventFilteringChanged(this, 5);
