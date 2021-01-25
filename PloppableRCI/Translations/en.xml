@@ -143,5 +143,6 @@
     <Translation ID="PRR_UPD_235_1" String="Add warning if the 'Plop the Growables' mod is also active." />
     <Translation ID="PRR_UPD_235_2" String="Improved mod conflict and error notifications." />
     <Translation ID="PRR_UPD_236_0" String="Improve mod conflict detection and notification." />
+    <Translation ID="PRR_UPD_237_0" String="Fix Harmony error message incorrectly showing when loading into editors." />
   </Translations>
 </Language>
