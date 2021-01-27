@@ -1,4 +1,7 @@
-﻿Version 2.3.7
+﻿- Add configurable cost overrides
+
+
+Version 2.3.7
 
 - Stop Harmony error message from (incorrectly) showing when loading into editors
 - Minor tweaks to UI layout

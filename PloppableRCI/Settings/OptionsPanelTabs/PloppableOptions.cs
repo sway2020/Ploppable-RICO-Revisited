@@ -1,4 +1,5 @@
-﻿using ColossalFramework.UI;
+﻿using ICities;
+using ColossalFramework.UI;
 
 
 namespace PloppableRICO
@@ -20,8 +21,11 @@ namespace PloppableRICO
             UIHelper helper = new UIHelper(panel);
             panel.autoLayout = true;
 
+            // Demolition options.
+            UIHelperBase demolishGroup = helper.AddGroup(Translations.Translate("PRR_OPTION_DEM"));
+
             // Add 'warn if bulldozing ploppables' checkbox.
-            helper.AddCheckbox(Translations.Translate("PRR_OPTION_BDZ"), ModSettings.warnBulldoze, isChecked =>
+            demolishGroup.AddCheckbox(Translations.Translate("PRR_OPTION_BDZ"), ModSettings.warnBulldoze, isChecked =>
             {
                 ModSettings.warnBulldoze = isChecked;
                 SettingsUtils.SaveSettings();
@@ -42,7 +46,7 @@ namespace PloppableRICO
             });
 
             // Add auto-demolish checkbox.
-            UICheckBox impCheck = (UICheckBox)helper.AddCheckbox(Translations.Translate("PRR_OPTION_IMP"), ModSettings.autoDemolish, isChecked =>
+            UICheckBox impCheck = (UICheckBox)demolishGroup.AddCheckbox(Translations.Translate("PRR_OPTION_IMP"), ModSettings.autoDemolish, isChecked =>
             {
                 ModSettings.autoDemolish = isChecked;
                 SettingsUtils.SaveSettings();
@@ -55,6 +59,20 @@ namespace PloppableRICO
             impCheck.label.width = 670f;
             impCheck.label.anchor = UIAnchorStyle.Left | UIAnchorStyle.Top;
             impCheck.label.relativePosition = new UnityEngine.Vector2(impCheck.label.relativePosition.x, 0f);
+
+            // Cost options.
+            UIHelperBase costGroup = helper.AddGroup(Translations.Translate("PRR_OPTION_CST"));
+            costGroup.AddCheckbox(Translations.Translate("PRR_OPTION_COV"), ModSettings.overrideCost, isChecked => ModSettings.overrideCost = isChecked);
+
+            // Household costs.
+            costGroup.AddTextfield(Translations.Translate("PRR_OPTION_CPH"), ModSettings.costPerHousehold.ToString(), value => { }, value => { ModSettings.costPerHousehold = int.Parse(value); });
+            costGroup.AddTextfield(Translations.Translate("PRR_OPTION_CHM"), ModSettings.costMultResLevel.ToString(), value => { }, value => { ModSettings.costMultResLevel = int.Parse(value); });
+
+            // Workplace costs.
+            costGroup.AddTextfield(Translations.Translate("PRR_OPTION_CJ0"), ModSettings.costPerJob0.ToString(), value => { }, value => { ModSettings.costPerJob0 = int.Parse(value); });
+            costGroup.AddTextfield(Translations.Translate("PRR_OPTION_CJ1"), ModSettings.costPerJob1.ToString(), value => { }, value => { ModSettings.costPerJob1 = int.Parse(value); });
+            costGroup.AddTextfield(Translations.Translate("PRR_OPTION_CJ2"), ModSettings.costPerJob2.ToString(), value => { }, value => { ModSettings.costPerJob2 = int.Parse(value); });
+            costGroup.AddTextfield(Translations.Translate("PRR_OPTION_CJ3"), ModSettings.costPerJob3.ToString(), value => { }, value => { ModSettings.costPerJob3 = int.Parse(value); });
         }
     }
 }

@@ -14,13 +14,6 @@ namespace PloppableRICO
 
     internal static class WorkplaceAIHelper
     {
-        internal static int GetConstructionCost(int constructionCostValue, ItemClass.Service service, ItemClass.SubService subService, ItemClass.Level level)
-        {
-            int result = (constructionCostValue * 100);
-            Singleton<EconomyManager>.instance.m_EconomyWrapper.OnGetConstructionCost(ref result, service, subService, level);
-            return result;
-        }
-
         internal static void CalculateWorkplaceCount(ItemClass.Level level, RICOBuilding ricoData, IWorkplaceLevelCalculator ai, Randomizer r, int width, int length, out int level0, out int level1, out int level2, out int level3)
         {
             SetWorkplaceLevels(out level0, out level1, out level2, out level3, 0, 0, 0, 0);

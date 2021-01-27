@@ -123,10 +123,7 @@ namespace PloppableRICO
         ///  Returns the construction cost of the building.
         /// </summary>
         /// <returns>Construction cost</returns>
-        public override int GetConstructionCost()
-        {
-            return WorkplaceAIHelper.GetConstructionCost(m_constructionCost, this.m_info.m_class.m_service, this.m_info.m_class.m_subService, this.m_info.m_class.m_level);
-        }
+        public override int GetConstructionCost() => AIUtils.WorkplaceConstructionCost(this, m_constructionCost);
 
 
         /// <summary>
