@@ -3,7 +3,7 @@
   <Translations>
     <Translation ID="PRR_NAME" String="Poppable RICO revisado" />
     <Translation ID="PRR_LEVEL" String="Nivel" />
-    <Translation ID="PRR_LVL" String="Lvl" />
+    <Translation ID="PRR_LVL" String="Nvl" />
     <Translation ID="PRR_HOU" String="Hogares" />
     <Translation ID="PRR_WOR" String="Lugar de Trabajo" />
     <Translation ID="PRR_SRV_NON" String="Ninguno" />
@@ -65,7 +65,7 @@
     <Translation ID="PRR_UIC_ORE" String="Minería" />
     <Translation ID="PRR_UIC_LEI" String="Ocio" />
     <Translation ID="PRR_UIC_TOU" String="Turismo" />
-    <Translation ID="PRR_UIC_ORG" String="Comercio de material orgánico" />
+    <Translation ID="PRR_UIC_ORG" String="Comercio Orgánico" />
     <Translation ID="PRR_UIC_ITC" String="Cluster de tecnología" />
     <Translation ID="PRR_UIC_ECO" String="Residencias autosuficientes" />
     <Translation ID="PRR_UIC_NON" String="Ninguno" />
@@ -84,6 +84,26 @@
     <Translation ID="TRN_CHOICE" String="Seleccionar lenguaje" />
     <Translation ID="TRN_SYS" String="Usar lenguaje del juego" />
     <Translation ID="PRR_DESCRIPTION" String="Permitir en RICO edificios con un mayor tamaño al estandar 4x4 y personalización de edificios de RICO" />
+    <Translation ID="PRR_OPTION_PLP" String="Instantáneamente colocar edificios expandibles (sin construcción)" />
+    <Translation ID="PRR_OPTION_ZON" String="Edificios expandibles pueden sobrevivir fuera de la zona correcta" />
+    <Translation ID="PRR_OPTION_SPC" String="Edificios expandibles pueden sobrevivir sin las especializaciones de distrito requeridas" />
+    <Translation ID="PRR_OPTION_VAL" String="Ignorar queja de 'bajo valor de terreno'" />
+    <Translation ID="PRR_OPTION_SVC" String="Ignorar queja de 'muy pocos servicios'" />
+    <Translation ID="PRR_OPTION_HST" String="Declarar todos los edificios expandibles históricos" />
+    <Translation ID="PRR_OPTION_RPL" String="Edificios RICO colocables" />
+    <Translation ID="PRR_OPTION_RGR" String="Edificios RICO expandibles" />
+    <Translation ID="PRR_OPTION_RCO" String="Todos los edificios RICO (incluídos los expandibles)" />
+    <Translation ID="PRR_OPTION_OTH" String="Edificios no-RICO expandibles" />
+    <Translation ID="PRR_OPTION_BDZ" String="Preguntar antes de demoler construcciones RICO colocadas" />
+    <Translation ID="PRR_OPTION_IMP" String="Permitir que edificios RICO colocados sean auto-demolidas y sobre construidas (ej. al construir carreteras o colocar edificios" />
+    <Translation ID="PRR_OPTION_LOA" String="Opciones de cargado" />
+    <Translation ID="PRR_OPTION_LOG" String="Opciones de inicio de sesión" />
+    <Translation ID="PRR_OPTION_TMB" String="Opciones de miniatura" />
+    <Translation ID="PRR_OPTION_PLO" String="Opciones de colocado" />
+    <Translation ID="PRR_OPTION_GRO" String="Opciones de expandido" />
+    <Translation ID="PRR_OPTION_COM" String="Opciones de quejas" />
+    <Translation ID="PRR_OPTION_MOD" String="Opciones del mod" />
+    <Translation ID="PRR_OPTION_MOREDEBUG" String="" />
     <Translation ID="PRR_OPTION_FORCERESET" String="Forzar reseteo de las estadísticas de los edificios en la carga del juego" />
     <Translation ID="PRR_OPTION_REGENTHUMBS" String="Regenerar miniaturas (thumbnails)" />
     <Translation ID="PRR_OPTION_SPDHDR" String="Incrementa ligeramente la velocidad del juego pero el panel se demorará mas en abrir" />
@@ -94,19 +114,35 @@
     <Translation ID="PRR_THUMB_COLOR" String="Color" />
     <Translation ID="PRR_THUMB_PLAIN" String="Plano" />
     <Translation ID="PRR_THUMB_SKY" String="Firmamento" />
+    <Translation ID="MES_CLS" String="Cerrar" />
+    <Translation ID="MES_DSA" String="No volver a mostrar" />
+    <Translation ID="MES_PAGE" String="Por favor referirse a la página de Steam Workshop del mod para más información" />
     <Translation ID="PRR_ERR_FAT" String="Esto significa que el mod no esta listo para operar, y se ha desactivado." />
-    <Translation ID="PRR_ERR_HAR" String="Ploppable RICO Revisited no pudo parchear el mod Harmony." />
+    <Translation ID="PRR_ERR_HAR" String="Ploppable RICO Revisited no pudo completar los parches del mod Harmony requeridos." />
     <Translation ID="ERR_HAR0" String="Error de Parcheo de Harmony" />
     <Translation ID="ERR_HAR1" String="Las posibles causas de este problema son:" />
     <Translation ID="ERR_HAR2" String="El mod Harmony 2 no fue instalado" />
     <Translation ID="ERR_HAR3" String="Un mod desactualizado y/o roto no deja que Harmony 2 funcione adecuadamente" />
-    <Translation ID="PRR_CON_DWN" String="RICO Revisited se desactivará para proteger tu partida" />
-    <Translation ID="PRR_CON_ONE" String="Solamente uno de estos mods puede estar activado - por favor escoja uno y anule la suscripción del otro." />
+    <Translation ID="ERR_CON0" String="¡Incompatibilidad entre mods detectada!" />
+    <Translation ID="ERR_CON1" String="Los mods incompatibles son:" />
+    <Translation ID="PRR_ERR_CON0" String="Ploppable RICO Revisited ha detectado un conflicto con al menos un otro mod" />
+    <Translation ID="PRR_ERR_CON1" String="Estos mods deben ser removidos antes que Ploppable RICO Revisited pueda operar" />
+    <Translation ID="PRR_CON_PTG0" String="Mod Plop the Growables detectado" />
+    <Translation ID="PRR_CON_PTG1" String="Mod Plop the Growables detectado - la mayoría de la funcionalidad de este mod ha sido incorporado a Ploppable RICO Revisited. Por favor sea cuidadoso al usar los dos mods, puesto que sus configuraciones pueden ser incompatibles" />
+    <Translation ID="PRR_CON_PTG2" String="Sigue siendo OK usar ambos juntos - SI es que sus configuraciones no son incompatibles" />
     <Translation ID="PRR_UPD_23_0" String="Actualización de Ploppable RICO Revisited 2.3" />
     <Translation ID="PRR_UPD_23_1" String="PRR se ha actualizado a la versión 2.3. Algunas de las características de esta actualización son: " />
     <Translation ID="PRR_UPD_23_2" String="PR ahora incluye 'Plop the Growables -todavía funcionalmente para ambos tipos de edificio: RICO y no RICO - Mira las opciones para más detalles" />
     <Translation ID="PRR_UPD_23_3" String="Los edificios que crecen con RICO (growables), ahora pueden ser colocados fuera de las zonas (configurable)" />
     <Translation ID="PRR_UPD_23_4" String="El aviso sobre «suelo de poco valor» y «no hay suficientes servicios» ahora pueden ser deshabilitados" />
     <Translation ID="PRR_UPD_23_5" String="Mejora el redenrizado de las miniaturas de edificios, que ahora solo genera las imágenes que necesita, reduciendo memoria y mejorando el tiempo de carga" />
+    <Translation ID="PRR_UPD_234_0" String="Añade opciones para habilitar o deshabilitar advertencias al demoler edificios RICO colocables" />
+    <Translation ID="PRR_UPD_234_1" String="Añade opciones para habilitar o deshabilitar auto-demolición al construir sobre edificios RICO colocados" />
+    <Translation ID="PRR_UPD_234_2" String="Notificaciones de atualizaciones mejoradas" />
+    <Translation ID="PRR_UPD_235_0" String="Las opciones de expandido ahora tienen el comportamiento de 'Plop the Growables' habilitado por defecto (no afecta las configuraciones preexistentes)" />
+    <Translation ID="PRR_UPD_235_1" String="Añadir advertencia de que el mod 'Plop the Growables' está también activo" />
+    <Translation ID="PRR_UPD_235_2" String="Notificaciones de incompatibilidades entre mods y de error mejoradas" />
+    <Translation ID="PRR_UPD_236_0" String="Mejorar la notificación y detección de incompatibilidades de mods." />
+    <Translation ID="PRR_UPD_237_0" String="Arreglar el mensaje de error incorrectamente mostrado al cargar editores" />
   </Translations>
 </Language>
