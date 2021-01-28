@@ -169,7 +169,7 @@ namespace PloppableRICO
             label.text = Translations.Translate("PRR_SET_HASNON");
 
             // RICO enabled.
-            ricoEnabled = UIUtils.CreateCheckBar(this, Translations.Translate("PRR_OPT_ENA"));
+            ricoEnabled = UIUtils.CreateCheckBar(this, Translations.Translate("PRR_OPT_ENA"), this.width);
             enableRICOPanel = this.AddUIComponent<UIPanel>();
             enableRICOPanel.height = 0;
             enableRICOPanel.isVisible = false;
