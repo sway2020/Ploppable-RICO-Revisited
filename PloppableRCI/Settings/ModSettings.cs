@@ -30,9 +30,11 @@ namespace PloppableRICO
         internal static bool noServicesRicoGrow = true;
         internal static bool noServicesOther = false;
 
-        // Historical settings.
+        // Levelling settings.
         internal static bool historicalRico = true;
         internal static bool historicalOther = false;
+        internal static bool lockLevelRico = false;
+        internal static bool lockLevelOther = false;
 
         // Ploppable demolition warnings.
         internal static bool warnBulldoze = false;
@@ -133,6 +135,12 @@ namespace PloppableRICO
 
         [XmlElement("MakeOtherHistorical")]
         public bool MakeOtherHistorical { get => ModSettings.historicalOther; set => ModSettings.historicalOther = value; }
+
+        [XmlElement("LockRicoLevel")]
+        public bool LockRicoLevel { get => ModSettings.lockLevelRico; set => ModSettings.lockLevelRico = value; }
+
+        [XmlElement("LockOtherLevel")]
+        public bool LockOtherLevel { get => ModSettings.lockLevelOther; set => ModSettings.lockLevelOther = value; }
 
         [XmlElement("SpeedBoost")]
         public bool SpeedBoost { get => ModSettings.speedBoost; set => ModSettings.speedBoost = value; }

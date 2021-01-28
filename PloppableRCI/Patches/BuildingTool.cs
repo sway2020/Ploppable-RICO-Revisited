@@ -54,7 +54,7 @@ namespace PloppableRICO
 	internal class CreateBuildingPatch
 	{
 		/// <summary>
-		/// Harmony Postfix patch to skip 'gradual construction' for plopped RICO growables, and/or to apply the 'Make Historical' setting on building creation, accoriding to settings.
+		/// Harmony Postfix patch to skip 'gradual construction' for plopped RICO growables, and/or to apply the 'Make Historical' and/or 'Lock level' settings on building creation, accoriding to settings.
 		/// </summary>
 		/// <param name="__result">Original method result (unchanged)</param>
 		/// <param name="info">BuildingInfo prefab for this building (unchanged)</param>
@@ -101,6 +101,12 @@ namespace PloppableRICO
 				if ((ModSettings.historicalOther && !isRICO) || (ModSettings.historicalRico && isRICO))
 				{
 					info.m_buildingAI.SetHistorical(__result, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[__result], historical: true);
+				}
+
+				// Enable ABLC level lock if option is set and ABLC is running.
+				if (ModUtils.ablcLockBuildingLevel != null && ((ModSettings.lockLevelOther && !isRICO) || (ModSettings.lockLevelRico && isRICO)))
+				{
+					ModUtils.ablcLockBuildingLevel.Invoke(null, new object[] { __result, Singleton<BuildingManager>.instance.m_buildings.m_buffer[__result].m_level });
 				}
 			}
 		}

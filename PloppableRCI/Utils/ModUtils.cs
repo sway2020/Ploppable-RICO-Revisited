@@ -14,8 +14,12 @@ namespace PloppableRICO
     /// </summary>
     public static class ModUtils
     {
+        // ABLC methods.
+        internal static MethodInfo ablcLockBuildingLevel;
+
         // List of conflcting mod names.
         internal static List<string> conflictingModNames;
+
 
         /// <summary>
         ///  Flag to determine whether or not a realistic population mod is installed and enabled.
@@ -170,6 +174,46 @@ namespace PloppableRICO
 
             // If we've made it here, then we haven't found a matching assembly.
             return false;
+        }
+
+
+        /// <summary>
+        /// Uses reflection to find the IsRICOPopManaged and ClearWorkplaceCache methods of Advanced Building Level Control.
+        /// If successful, sets ricoPopManaged and ricoClearWorkplace fields.
+        /// </summary>
+        internal static void ABLCReflection()
+        {
+            // Iterate through each loaded plugin assembly.
+            foreach (PluginManager.PluginInfo plugin in PluginManager.instance.GetPluginsInfo())
+            {
+                foreach (Assembly assembly in plugin.GetAssemblies())
+                {
+                    if (assembly.GetName().Name.Equals("AdvancedBuildingLevelControl") && plugin.isEnabled)
+                    {
+                        Logging.Message("Found Advanced Building Level Control");
+
+                        // Found AdvancedBuildingLevelControl.dll that's part of an enabled plugin; try to get its ExternalCalls class.
+                        Type ablcExternalCalls = assembly.GetType("ABLC.ExternalCalls");
+
+                        if (ablcExternalCalls != null)
+                        {
+                            // Try to get LockBuildingLevel method.
+                            ablcLockBuildingLevel = ablcExternalCalls.GetMethod("LockBuildingLevel", BindingFlags.Public | BindingFlags.Static);
+                            if (ablcLockBuildingLevel != null)
+                            {
+                                // Success!
+                                Logging.Message("found LockBuildingLevel");
+                            }
+                        }
+
+                        // At this point, we're done; return.
+                        return;
+                    }
+                }
+            }
+
+            // If we got here, we were unsuccessful.
+            Logging.Message("Advanced Building Level Control not found");
         }
     }
 }

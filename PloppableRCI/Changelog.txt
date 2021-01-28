@@ -1,4 +1,5 @@
-﻿- Add configurable cost overrides
+﻿- Add option to automatically lock the building level of plopped growables (requires Advanced Building Level Control mod)
+- Add configurable cost overrides
 
 
 Version 2.3.7

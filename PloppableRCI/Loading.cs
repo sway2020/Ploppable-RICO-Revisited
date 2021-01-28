@@ -89,6 +89,9 @@ namespace PloppableRICO
                 // Check for other mods, including any soft conflicts.
                 softModConflct = ModUtils.CheckMods();
 
+                // Check for Advanced Building Level Control.
+                ModUtils.ABLCReflection();
+
                 // Create instances if they don't already exist.
                 if (convertPrefabs == null)
                 {
