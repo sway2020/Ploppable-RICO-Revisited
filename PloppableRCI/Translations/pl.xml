@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Language UniqueName="pl" ReadableName="Polski">
   <Translations>
+    <Translation ID="PRR_NAME" String="Ręcznie stawiane budunki RICO odnowiony mod" />
     <Translation ID="PRR_LEVEL" String="Poziom" />
     <Translation ID="PRR_LVL" String="Poz." />
     <Translation ID="PRR_HOU" String="Gospodarstwa domowe" />
@@ -8,15 +9,15 @@
     <Translation ID="PRR_SRV_NON" String="Brak specjalizacji" />
     <Translation ID="PRR_SRV_RES" String="Mieszkalne" />
     <Translation ID="PRR_SRV_IND" String="Przemysłowe" />
-    <Translation ID="PRR_SRV_OFF" String="Biurowe" />
-    <Translation ID="PRR_SRV_COM" String="Komercyjne" />
+    <Translation ID="PRR_SRV_OFF" String="Biuro" />
+    <Translation ID="PRR_SRV_COM" String="Handlowy" />
     <Translation ID="PRR_SRV_EXT" String="Wydobycie" />
     <Translation ID="PRR_SRV_DUM" String="Wyłączony" />
     <Translation ID="PRR_SUB_HIG" String="Wysoka" />
     <Translation ID="PRR_SUB_LOW" String="Niska" />
     <Translation ID="PRR_SUB_HEC" String="Wysoka eko" />
     <Translation ID="PRR_SUB_LEC" String="Niska eko" />
-    <Translation ID="PRR_SUB_LEI" String="Wypoczynek" />
+    <Translation ID="PRR_SUB_LEI" String="Rozrywka i wypoczynek" />
     <Translation ID="PRR_SUB_TOU" String="Turystyka" />
     <Translation ID="PRR_SUB_ORG" String="Ekologiczna" />
     <Translation ID="PRR_SUB_GEN" String="Zwykła" />
@@ -28,7 +29,7 @@
     <Translation ID="PRR_FTR_ALL" String="Wszystkie" />
     <Translation ID="PRR_FTR_NON" String="Żadne" />
     <Translation ID="PRR_FTR_NAM" String="Nazwa" />
-    <Translation ID="PRR_FTR_SET" String="Filtr ustawień: Mod/Autor/Local/Dowolne" />
+    <Translation ID="PRR_FTR_SET" String="Filtr ustawień: Mod/Autor/Własne/Dowolne" />
     <Translation ID="PRR_OPT_ENA" String="Włącz RICO" />
     <Translation ID="PRR_OPT_SER" String="Typ" />
     <Translation ID="PRR_OPT_SUB" String="Podtyp" />
@@ -49,22 +50,22 @@
     <Translation ID="PRR_CAT_WAT" String="Woda" />
     <Translation ID="PRR_CAT_HEA" String="Zdrowie" />
     <Translation ID="PRR_CAT_RES" String="Mieszkalne" />
-    <Translation ID="PRR_CAT_COM" String="Komercyjne" />
-    <Translation ID="PRR_CAT_OFF" String="Biurowe" />
-    <Translation ID="PRR_CAT_IND" String="Przemysłowe" />
-    <Translation ID="PRR_UIC_REL" String="Mieszkalne małe" />
-    <Translation ID="PRR_UIC_REH" String="Mieszkalne duże" />
-    <Translation ID="PRR_UIC_COL" String="Komercyjne małe" />
-    <Translation ID="PRR_UIC_COH" String="Komercyjne duże" />
+    <Translation ID="PRR_CAT_COM" String="Handlowe" />
+    <Translation ID="PRR_CAT_OFF" String="Biuro" />
+    <Translation ID="PRR_CAT_IND" String="Przemysł" />
+    <Translation ID="PRR_UIC_REL" String="Mieszkalne o niskiej gęstości" />
+    <Translation ID="PRR_UIC_REH" String="Mieszkalne o dużej gęstości" />
+    <Translation ID="PRR_UIC_COL" String="Budynki handlowe o niskiej gęstości" />
+    <Translation ID="PRR_UIC_COH" String="Budynki handlowe o dużej gęstości" />
     <Translation ID="PRR_UIC_OFF" String="Biura" />
     <Translation ID="PRR_UIC_IND" String="Przemysł" />
     <Translation ID="PRR_UIC_FAR" String="Rolnictwo" />
     <Translation ID="PRR_UIC_FOR" String="Leśnictwo" />
     <Translation ID="PRR_UIC_OIL" String="Przemysł naftowy" />
     <Translation ID="PRR_UIC_ORE" String="Przemysł górniczy" />
-    <Translation ID="PRR_UIC_LEI" String="Wypoczynek" />
+    <Translation ID="PRR_UIC_LEI" String="Rozrywka i wypoczynek" />
     <Translation ID="PRR_UIC_TOU" String="Turystyka" />
-    <Translation ID="PRR_UIC_ORG" String="Ekologiczna" />
+    <Translation ID="PRR_UIC_ORG" String="Sklepy z produktami ekologicznymi" />
     <Translation ID="PRR_UIC_ITC" String="Klaster IT" />
     <Translation ID="PRR_UIC_ECO" String="Domy samowystarczalne" />
     <Translation ID="PRR_UIC_NON" String="Brak" />
@@ -72,31 +73,34 @@
     <Translation ID="PRR_SET_RICO" String="Ustawienia RICO" />
     <Translation ID="PRR_SET_HASMOD" String="Ustawienia moda" />
     <Translation ID="PRR_SET_HASAUT" String="Ustawienia autora" />
-    <Translation ID="PRR_SET_HASLOC" String="Ustawienia lokalne" />
+    <Translation ID="PRR_SET_HASLOC" String="Ustawienia gracza" />
     <Translation ID="PRR_SET_HASANY" String="Dowolne ustawienia" />
     <Translation ID="PRR_SET_HASNON" String="Brak ustawień" />
     <Translation ID="PRR_SAV_SAV" String="Zapisz" />
-    <Translation ID="PRR_SAV_ADD" String="Dodaj lokalne" />
-    <Translation ID="PRR_SAV_REM" String="Usuń lokalne" />
+    <Translation ID="PRR_SAV_ADD" String="Dodaj własne ustawienia" />
+    <Translation ID="PRR_SAV_REM" String="Usuń własne ustawienia" />
     <Translation ID="PRR_SAV_APP" String="Zapisz i zatwierdź zmiany" />
     <Translation ID="PRR_EXP" String="UWAGA: EKSPERYMENTALNE" />
     <Translation ID="TRN_CHOICE" String="Ustaw język" />
     <Translation ID="TRN_SYS" String="Użyj języka systemu" />
-    <Translation ID="PRR_DESCRIPTION" String="Pozwana RICO na budunki większe niż 4x4 i na personalizację budynków" />
+    <Translation ID="PRR_DESCRIPTION" String="Pozwala na budunki RICO większe niż 4x4 i na personalizację budynków RICO" />
     <Translation ID="PRR_OPTION_PLP" String="Natychmiast umieść budynki rozwijalne (brak konstrukcji)" />
     <Translation ID="PRR_OPTION_ZON" String="Budynki rozwijalne mogą istnieć poza dozwoloną strefą" />
     <Translation ID="PRR_OPTION_SPC" String="Budynki rozwijalne mogą istnieć poza wymaganą specjalizacją" />
     <Translation ID="PRR_OPTION_VAL" String="Ignoruj problem 'niskiej wartości ziemi'" />
-    <Translation ID="PRR_OPTION_SVC" String="Ignoruj problem 'zbyt małej liczby pracowników'" />
-    <Translation ID="PRR_OPTION_HST" String="Wszystkie umieszczone rozwijalne są zabytkami" />
-    <Translation ID="PRR_OPTION_RPL" String="Umieszczalne budynki RICO" />
-    <Translation ID="PRR_OPTION_RGR" String="Budynki RICO pojawiające się w strefach" />
+    <Translation ID="PRR_OPTION_SVC" String="Ignoruj problem 'zbyt niskich usług komunalnych'" />
+    <Translation ID="PRR_OPTION_HST" String="Zamień wszystkie ręcznie umieszczone budynki rozwijalne na zabytki" />
+    <Translation ID="PRR_OPTION_RPL" String="Ręcznie umieszczone budynki RICO" />
+    <Translation ID="PRR_OPTION_RGR" String="Budynki RICO samopojawiające się w strefach" />
     <Translation ID="PRR_OPTION_RCO" String="Wszystkie budynki RICO (w tym rozwijalne)" />
     <Translation ID="PRR_OPTION_OTH" String="Rozwijalne budynki nie-RICO" />
+    <Translation ID="PRR_OPTION_BDZ" String="Potwierdzenie wymagane do wyburzenia budynków nierozwijalnych (ręcznie stawianych)" />
+    <Translation ID="PRR_OPTION_IMP" String="Zezwalaj na automatyczne wyburzanie ręcznie ustawionych budynków RICO (np. podczas budowy drogi albo stawiania innych budynków)" />
     <Translation ID="PRR_OPTION_LOA" String="Opcje wczytywania" />
     <Translation ID="PRR_OPTION_LOG" String="Opcje logowania" />
     <Translation ID="PRR_OPTION_TMB" String="Opcje miniaturek" />
-    <Translation ID="PRR_OPTION_GRO" String="Opcje rozwijania" />
+    <Translation ID="PRR_OPTION_PLO" String="Opcje budynków ręcznie stawianych" />
+    <Translation ID="PRR_OPTION_GRO" String="Opcje budynków samopojawiających się" />
     <Translation ID="PRR_OPTION_COM" String="Opcje zgłaszanych problemów" />
     <Translation ID="PRR_OPTION_MOD" String="Opcje modu" />
     <Translation ID="PRR_OPTION_MOREDEBUG" String="Włącz dodatkowe logi błędów" />
@@ -110,14 +114,35 @@
     <Translation ID="PRR_THUMB_COLOR" String="Kolor" />
     <Translation ID="PRR_THUMB_PLAIN" String="Bez koloru" />
     <Translation ID="PRR_THUMB_SKY" String="Wygląd nieba" />
+    <Translation ID="MES_CLS" String="Zamknij" />
+    <Translation ID="MES_DSA" String="Nie pokazuj więcej" />
+    <Translation ID="MES_PAGE" String="Proszę o wyszukanie więcej informacji na stronie moda na Steam Workshop" />
     <Translation ID="PRR_ERR_FAT" String="Ten mod nie będzie działał." />
-    <Translation ID="PRR_ERR_HAR" String="Ploppable RICO Revisited nie mógł ukończyć tego zadania bez aktualizacji 'Harmony'." />
-    <Translation ID="ERR_HAR0" String="Bład aktualizacji 'Harmony'" />
+    <Translation ID="PRR_ERR_HAR" String="Ploppable RICO Revisited nie mógł ukończyć tego zadania bez aktualizacji moda 'Harmony'." />
+    <Translation ID="ERR_HAR0" String="Bład aktualizacji moda 'Harmony'" />
     <Translation ID="ERR_HAR1" String="Rzeczy prawdodpodobnie sprawiające problem:" />
     <Translation ID="ERR_HAR2" String="Wymagany mod 'Harmony 2' nie został zainstalowany" />
     <Translation ID="ERR_HAR3" String="Stary i/lub uszkodzony mod blokuje 'Harmony 2' przed prawidłowym działaniem." />
-    <Translation ID="PRR_UPD_23_0" String="Ploppabre RICO Revisited wersja 2.3" />
-    <Translation ID="PRR_UPD_23_1" String="Ploppable RICO Revisited został zaktualizowany do wersji 2.3.  Aktualizacja wprowadza:" />
-    <Translation ID="PRR_UPD_23_2" String="RICO zawiera teraz styl 'Postaw Rozwijalny' funkcjonujący dla obu typów budynków RICO oraz nie-RICO. Otwórz panel opcji aby zapoznać się ze szczegółami." />
+    <Translation ID="ERR_CON0" String="Wykryto konflikt modów!" />
+    <Translation ID="ERR_CON1" String="Kolidujące mody to:" />
+    <Translation ID="PRR_ERR_CON0" String="Mod Ploppable RICO Revisited wykrył konflikt z przynajmniej jednym modem." />
+    <Translation ID="PRR_ERR_CON1" String="Następujące mody muszą być usunięte żeby mod Ploppable RICO Revisited zaczął działać." />
+    <Translation ID="PRR_CON_PTG0" String="Mod Plop the Growables wykryty" />
+    <Translation ID="PRR_CON_PTG1" String="Mod Plop the Growables wykryty - większość funkcji tego moda została włączona do Ploppable RICO Revisited. Proszę być ostrożnym w używaniu obu modów ponieważ ich ustawienia mogą kolidować." />
+    <Translation ID="PRR_CON_PTG2" String="Można nadal używać obu modów razem - JEŚLI ich ustawienia nie konfliktują ze sobą!" />
+    <Translation ID="PRR_UPD_23_0" String="Ploppable RICO Revisited aktualizacja 2.3" />
+    <Translation ID="PRR_UPD_23_1" String="Ploppable RICO Revisited został zaktualizowany do wersji 2.3. Niektóre elementy tej aktualizacji:" />
+    <Translation ID="PRR_UPD_23_2" String="RICO zawiera teraz funkcję 'Postaw Budynki Rozwijalne' działającą dla obu typów budynków RICO oraz nie-RICO. Sprawdź panel opcji aby zapoznać się ze szczegółami." />
+    <Translation ID="PRR_UPD_23_3" String="Rozwijalne budynki RICO mogą być teraz ustawiane poza ich strefami (konfigurowalne)." />
+    <Translation ID="PRR_UPD_23_4" String="Skargi &quot;niska wartość gruntów&quot; i &quot;niewystarczajace usługi&quot; można teraz wyłączyć." />
+    <Translation ID="PRR_UPD_23_5" String="Usprawniono renderer miniaturek budynków, który tworzy teraz obrazy kiedy są potrzebne, redukując użycie pamięci and poprawiając czas wgrywania." />
+    <Translation ID="PRR_UPD_234_0" String="Dodaj opcję włączenia lub wyłączenia ostrzeżeń przed wyburzeniem budynków RICO ustawionych ręcznie." />
+    <Translation ID="PRR_UPD_234_1" String="Dodaj opcję włączenia lub wyłączenia autowyburzania podczas budowania na budynkach RICO ustawianych ręcznie." />
+    <Translation ID="PRR_UPD_234_2" String="Usprawnione powiadomienia o aktualizacji." />
+    <Translation ID="PRR_UPD_235_0" String="Rozwijalne budynki zachowują się teraz domyślnie tak jak Plop the Growables (nie wpływa to na dotychczasowe ustawienia)." />
+    <Translation ID="PRR_UPD_235_1" String="Dodaj ostrzeżenie jeśli mod &quot;Plop The Growables&quot; jest także włączony." />
+    <Translation ID="PRR_UPD_235_2" String="Usprawnione powiadomienia o niezgodnych modach i błędach." />
+    <Translation ID="PRR_UPD_236_0" String="Usprawnione wykrywanie konfliktów między modami i powiadomienia o nich." />
+    <Translation ID="PRR_UPD_237_0" String="Poprawiony komunikat o błędzie w związku z modem &quot;Harmony&quot; pokazującym się niepoprawnie podczas wczytywania w Edytorze gry." />
   </Translations>
 </Language>

@@ -131,13 +131,13 @@ namespace PloppableRICO
         }
 
 
-        public static UICheckBox CreateCheckBar(UIComponent parent , string label)
+        public static UICheckBox CreateCheckBar(UIComponent parent, string label, float width)
         {
 
             UIPanel basePanel = parent.AddUIComponent<UIPanel>();
             basePanel.height = 25;
             basePanel.backgroundSprite = "ScrollbarTrack";
-            basePanel.width = 275;
+            basePanel.width = width;
             basePanel.relativePosition = new Vector3(0, 5);
 
             UICheckBox checkBox = basePanel.AddUIComponent<UICheckBox>();

@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Language UniqueName="ru" ReadableName="Русский">
   <Translations>
-    <Translation ID="PRR_NAME" String="РИКО" />
+    <Translation ID="PRR_NAME" String="Ploppable RICO Revisited TESTING" />
     <Translation ID="PRR_LEVEL" String="Уровень" />
-    <Translation ID="PRR_LVL" String="Ур" />
+    <Translation ID="PRR_LVL" String="Ур." />
     <Translation ID="PRR_HOU" String="Семьи" />
     <Translation ID="PRR_WOR" String="Рабочие" />
     <Translation ID="PRR_SRV_NON" String="Неопределено" />
@@ -12,15 +12,15 @@
     <Translation ID="PRR_SRV_OFF" String="Офис" />
     <Translation ID="PRR_SRV_COM" String="Коммерция" />
     <Translation ID="PRR_SRV_EXT" String="Добыча" />
-    <Translation ID="PRR_SRV_DUM" String="Пустышка" />
+    <Translation ID="PRR_SRV_DUM" String="Без функций" />
     <Translation ID="PRR_SUB_HIG" String="Высокая плотность" />
     <Translation ID="PRR_SUB_LOW" String="Низкая плотность" />
-    <Translation ID="PRR_SUB_HEC" String="Эко выс плотность" />
-    <Translation ID="PRR_SUB_LEC" String="Эко низ плотность" />
+    <Translation ID="PRR_SUB_HEC" String="Эко выс. плотности" />
+    <Translation ID="PRR_SUB_LEC" String="Эко низ. плотности" />
     <Translation ID="PRR_SUB_LEI" String="Развлечения" />
     <Translation ID="PRR_SUB_TOU" String="Туризм" />
-    <Translation ID="PRR_SUB_ORG" String="Эко органика" />
-    <Translation ID="PRR_SUB_GEN" String="Стандарт" />
+    <Translation ID="PRR_SUB_ORG" String="Эко (органика)" />
+    <Translation ID="PRR_SUB_GEN" String="Без специализации" />
     <Translation ID="PRR_SUB_ITC" String="IT" />
     <Translation ID="PRR_SUB_FAR" String="Фермерство" />
     <Translation ID="PRR_SUB_FOR" String="Лесопроизводство" />
@@ -30,7 +30,7 @@
     <Translation ID="PRR_FTR_NON" String="Ничего" />
     <Translation ID="PRR_FTR_NAM" String="Имя" />
     <Translation ID="PRR_FTR_SET" String="Настройки фильтра: Мод/Автор/Локально/Всё" />
-    <Translation ID="PRR_OPT_ENA" String="Включить РИКО" />
+    <Translation ID="PRR_OPT_ENA" String="Включить RICO" />
     <Translation ID="PRR_OPT_SER" String="Категория" />
     <Translation ID="PRR_OPT_SUB" String="Подкатегория" />
     <Translation ID="PRR_OPT_UIC" String="Категория интерфейса" />
@@ -38,7 +38,7 @@
     <Translation ID="PRR_OPT_CNT" String="Рабочие/Семьи" />
     <Translation ID="PRR_OPT_POP" String="Использовать мод Realistic Pop" />
     <Translation ID="PRR_OPT_POL" String="Включить загрязнение" />
-    <Translation ID="PRR_OPT_GRO" String="Зонируемое" />
+    <Translation ID="PRR_OPT_GRO" String="Growable" />
     <Translation ID="PRR_OPT_JB0" String="Необразованные рабочие" />
     <Translation ID="PRR_OPT_JB1" String="Образованные рабочие" />
     <Translation ID="PRR_OPT_JB2" String="Хорошо образованные" />
@@ -53,10 +53,10 @@
     <Translation ID="PRR_CAT_COM" String="Коммерция" />
     <Translation ID="PRR_CAT_OFF" String="Офис" />
     <Translation ID="PRR_CAT_IND" String="Промышленность" />
-    <Translation ID="PRR_UIC_REL" String="Жильё низ плотность" />
-    <Translation ID="PRR_UIC_REH" String="Жильё выс плотность" />
-    <Translation ID="PRR_UIC_COL" String="Коммерция низ плотность" />
-    <Translation ID="PRR_UIC_COH" String="Коммерция выс плотность" />
+    <Translation ID="PRR_UIC_REL" String="Жильё низ. плотности" />
+    <Translation ID="PRR_UIC_REH" String="Жильё выс. плотности" />
+    <Translation ID="PRR_UIC_COL" String="Коммерция низ. плотности" />
+    <Translation ID="PRR_UIC_COH" String="Коммерция выс. плотности" />
     <Translation ID="PRR_UIC_OFF" String="Офис" />
     <Translation ID="PRR_UIC_IND" String="Промышленность" />
     <Translation ID="PRR_UIC_FAR" String="Фермерство" />
@@ -65,12 +65,12 @@
     <Translation ID="PRR_UIC_ORE" String="Минералопроизводство" />
     <Translation ID="PRR_UIC_LEI" String="Развлечения" />
     <Translation ID="PRR_UIC_TOU" String="Туризм" />
-    <Translation ID="PRR_UIC_ORG" String="Органик коммерция" />
+    <Translation ID="PRR_UIC_ORG" String="Натуральные продукты" />
     <Translation ID="PRR_UIC_ITC" String="IT" />
     <Translation ID="PRR_UIC_ECO" String="Экодома" />
     <Translation ID="PRR_UIC_NON" String="Неопределено" />
     <Translation ID="PRR_SET" String="Настройки" />
-    <Translation ID="PRR_SET_RICO" String="РИКО настройки" />
+    <Translation ID="PRR_SET_RICO" String="Настройки RICO" />
     <Translation ID="PRR_SET_HASMOD" String="Настройки мода" />
     <Translation ID="PRR_SET_HASAUT" String="Авторские настройки" />
     <Translation ID="PRR_SET_HASLOC" String="Пользовательские настройки" />
@@ -143,5 +143,6 @@
     <Translation ID="PRR_UPD_235_1" String="Добавлено предупреждение, если мод 'Plop the Growables' также активен." />
     <Translation ID="PRR_UPD_235_2" String="Улучшены уведомления о конфликтах модов и ошибках." />
     <Translation ID="PRR_UPD_236_0" String="Улучшение обнаружения конфликтов модов и уведомления." />
+    <Translation ID="PRR_UPD_237_0" String="Исправлено сообщение об ошибке Harmony, неправильно отображаемое при загрузке в редакторы." />
   </Translations>
 </Language>
