@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Language UniqueName="ru" ReadableName="Русский">
   <Translations>
-    <Translation ID="PRR_NAME" String="Ploppable RICO Revisited TESTING" />
+    <Translation ID="PRR_NAME" String="Ploppable RICO Revisited" />
     <Translation ID="PRR_LEVEL" String="Уровень" />
     <Translation ID="PRR_LVL" String="Ур." />
     <Translation ID="PRR_HOU" String="Семьи" />
