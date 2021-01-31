@@ -1,5 +1,6 @@
 ﻿- Add option to automatically lock the building level of plopped growables (requires Advanced Building Level Control mod)
 - Add configurable cost overrides
+- Update bundled CitiesHarmony to 1.0.6 with Harmony 2.0.4
 
 
 Version 2.3.7
