@@ -444,53 +444,5 @@ namespace PloppableRICO
 
             return false;
         }
-
-
-        /// <summary>
-        /// Returns the currently applied RICO UI category for the selected building.
-        /// </summary>
-        /// <returns>True if residential, otherwise false.</returns>
-        private string CurrentUICategory()
-        {
-            if (currentSelection.hasLocal)
-            {
-                return currentSelection.local.UiCategory;
-            }
-            else if (currentSelection.hasAuthor)
-            {
-                return currentSelection.author.UiCategory;
-            }
-            else if (currentSelection.hasMod)
-            {
-                return currentSelection.mod.UiCategory;
-            }
-
-            return "none";
-        }
-
-
-        /// <summary>
-        /// Removes a given prefab's existing UI button, if any (e.g. from the game's Park menu if the prefab was originally a park, etc.)
-        /// </summary>
-        /// <param name="prefab">Building prefab</param>
-        private void RemoveUIButton(BuildingInfo prefab)
-        {
-            UIButton refButton = new UIButton();
-
-            if (prefab?.name != null)
-            {
-                Logging.Message("attempting to find UI button for ", prefab.name);
-                // Find any existing UI component linked to this prefab.
-                refButton = UIView.GetAView()?.FindUIComponent<UIButton>(prefab.name);
-            }
-
-            if (refButton != null)
-            {
-                // We found one - destry it.
-                Logging.Message("destroying UI button for ", prefab.name);
-                refButton.isVisible = false;
-                GameObject.Destroy(refButton.gameObject);
-            }
-        }
     }
 }
