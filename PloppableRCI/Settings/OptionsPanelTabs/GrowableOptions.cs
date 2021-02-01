@@ -72,6 +72,31 @@ namespace PloppableRICO
                 ModSettings.historicalOther = isChecked;
                 SettingsUtils.SaveSettings();
             });
+
+            // Add level control checkboxes.
+            UIHelperBase levelGroup = helper.AddGroup(Translations.Translate("PRR_OPTION_BLC"));
+
+            // If we haven't already, check for Advanced Building Level Control.
+            if (ModUtils.ablcLockBuildingLevel == null)
+            {
+                ModUtils.ABLCReflection();
+            }
+
+            // Is it (still) null?
+            if (ModUtils.ablcLockBuildingLevel != null)
+            {
+                // ABLC installed; display checkboxes.
+                levelGroup.AddCheckbox(Translations.Translate("PRR_OPTION_RGR"), ModSettings.lockLevelRico, isChecked =>
+                {
+                    ModSettings.lockLevelRico = isChecked;
+                    SettingsUtils.SaveSettings();
+                });
+                levelGroup.AddCheckbox(Translations.Translate("PRR_OPTION_OTH"), ModSettings.lockLevelOther, isChecked =>
+                {
+                    ModSettings.lockLevelOther = isChecked;
+                    SettingsUtils.SaveSettings();
+                });
+            }
         }
     }
 }

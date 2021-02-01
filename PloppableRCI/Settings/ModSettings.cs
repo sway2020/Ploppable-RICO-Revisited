@@ -9,25 +9,45 @@ namespace PloppableRICO
     /// </summary>
     internal static class ModSettings
     {
+        // General mod settings.
+        internal static bool speedBoost = false;
+        internal static bool resetOnLoad = true;
+        internal static int thumbBacks = (byte)ThumbBackCats.skybox;
+
+        // Growable plopping settings.
         internal static bool plopRico = true;
         internal static bool plopOther = true;
         internal static bool noZonesRico = true;
         internal static bool noZonesOther = true;
         internal static bool noSpecRico = true;
         internal static bool noSpecOther = true;
+
+        // Ignore complaint settings.
         internal static bool noValueRicoPlop = true;
         internal static bool noValueRicoGrow = true;
         internal static bool noValueOther = false;
         internal static bool noServicesRicoPlop = true;
         internal static bool noServicesRicoGrow = true;
         internal static bool noServicesOther = false;
+
+        // Levelling settings.
         internal static bool historicalRico = true;
         internal static bool historicalOther = false;
-        internal static bool speedBoost = false;
-        internal static bool resetOnLoad = true;
-        internal static int thumbBacks = (byte)ThumbBackCats.skybox;
+        internal static bool lockLevelRico = false;
+        internal static bool lockLevelOther = false;
+
+        // Ploppable demolition warnings.
         internal static bool warnBulldoze = false;
         internal static bool autoDemolish = false;
+
+        // Cost overides.
+        internal static bool overrideCost = false;
+        internal static int costPerHousehold = 100;
+        internal static int costMultResLevel = 20;
+        internal static int costPerJob0 = 20;
+        internal static int costPerJob1 = 25;
+        internal static int costPerJob2 = 30;
+        internal static int costPerJob3 = 35;
 
         // What's new notification version.
         internal static string whatsNewVersion = "0.0";
@@ -116,6 +136,12 @@ namespace PloppableRICO
         [XmlElement("MakeOtherHistorical")]
         public bool MakeOtherHistorical { get => ModSettings.historicalOther; set => ModSettings.historicalOther = value; }
 
+        [XmlElement("LockRicoLevel")]
+        public bool LockRicoLevel { get => ModSettings.lockLevelRico; set => ModSettings.lockLevelRico = value; }
+
+        [XmlElement("LockOtherLevel")]
+        public bool LockOtherLevel { get => ModSettings.lockLevelOther; set => ModSettings.lockLevelOther = value; }
+
         [XmlElement("SpeedBoost")]
         public bool SpeedBoost { get => ModSettings.speedBoost; set => ModSettings.speedBoost = value; }
 
@@ -172,5 +198,21 @@ namespace PloppableRICO
                 }
             }
         }
+
+        // Cost Overrides.
+        [XmlElement("OverrideCost")]
+        public bool OverrideCost { get => ModSettings.overrideCost; set => ModSettings.overrideCost = value; }
+        [XmlElement("CostPerHousehold")]
+        public int CostPerHousehold { get => ModSettings.costPerHousehold; set => ModSettings.costPerHousehold = value; }
+        [XmlElement("CostMultResLevel")]
+        public int CostMultResLevel { get => ModSettings.costMultResLevel; set => ModSettings.costMultResLevel = value; }
+        [XmlElement("CostPerUneducated")]
+        public int CostPerJob0 { get => ModSettings.costPerJob0; set => ModSettings.costPerJob0 = value; }
+        [XmlElement("CostPerEducated")]
+        public int CostPerJob1 { get => ModSettings.costPerJob1; set => ModSettings.costPerJob1 = value; }
+        [XmlElement("CostPerWellEducated")]
+        public int CostPerJob2 { get => ModSettings.costPerJob2; set => ModSettings.costPerJob2 = value; }
+        [XmlElement("CostPerHighlyEducated")]
+        public int CostPerJob3 { get => ModSettings.costPerJob3; set => ModSettings.costPerJob3 = value; }
     }
 }

@@ -1,4 +1,8 @@
-﻿namespace PloppableRICO
+﻿using ColossalFramework;
+using ColossalFramework.Math;
+
+
+namespace PloppableRICO
 {
     internal static class AIUtils
     {
@@ -23,6 +27,39 @@
 
             // Make sure building isn't 'turned off' (otherwise this could be an issue with coverted parks, monuments, etc. that were previously turned off). 
             buildingData.m_problems &= ~Notification.Problem.TurnedOff;
+        }
+
+
+        /// <summary>
+        /// Calculates the construction cost of a workplace, depending on current settings (overrides or default). 
+        /// </summary>
+        /// <param name="thisAI">AI reference to calculate for</param>
+        /// <returns>Final construction cost</returns>
+        internal static int WorkplaceConstructionCost(PrivateBuildingAI thisAI, int fixedCost)
+        {
+            int jobs0, jobs1, jobs2, jobs3, baseCost;
+
+            // Local references.
+            BuildingInfo thisInfo = thisAI.m_info;
+            ItemClass.Level thisLevel = thisInfo.GetClassLevel();
+
+            // Are we overriding cost?
+            if (ModSettings.overrideCost)
+            {
+                // Yes - calculate based on workplaces by level multiplied by appropriate cost-per-job setting.
+                thisAI.CalculateWorkplaceCount(thisLevel, new Randomizer(), thisInfo.GetWidth(), thisInfo.GetLength(), out jobs0, out jobs1, out jobs2, out jobs3);
+                baseCost = (ModSettings.costPerJob0 * jobs0) + (ModSettings.costPerJob1 * jobs1) + (ModSettings.costPerJob2 * jobs2) + (ModSettings.costPerJob3 * jobs3);
+            }
+            else
+            {
+                // No - just use the base cost provided.
+                baseCost = fixedCost;
+            }
+
+            // Multiply base cost by 100 before feeding to EconomyManager for nomalization to game conditions prior to return.
+            baseCost *= 100;
+            Singleton<EconomyManager>.instance.m_EconomyWrapper.OnGetConstructionCost(ref baseCost, thisInfo.GetService(), thisInfo.GetSubService(), thisLevel);
+            return baseCost;
         }
     }
 }
