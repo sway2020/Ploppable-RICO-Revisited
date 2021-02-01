@@ -437,9 +437,11 @@ namespace PloppableRICO
             }
 
             // Create return list with our filtered list, sorted alphabetically.
-            FastList<object> fastList = new FastList<object>();
-            fastList.m_buffer = filteredList.OrderBy(x => x.DisplayName).ToArray();
-            fastList.m_size = filteredList.Count;
+            FastList<object> fastList = new FastList<object>
+            {
+                m_buffer = filteredList.OrderBy(x => x.DisplayName).ToArray(),
+                m_size = filteredList.Count
+            };
 
             return fastList;
         }

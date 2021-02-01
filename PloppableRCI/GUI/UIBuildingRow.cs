@@ -113,41 +113,9 @@ namespace PloppableRICO
             buildingName.text = buildingData.DisplayName;
 
             // Update custom settings checkboxes to correct state.
-            if (buildingData.hasMod)
-            {
-                // Mod settings found.
-                hasModSettings.spriteName = "AchievementCheckedTrue";
-            }
-            else
-            {
-                // No mod settings.
-                hasModSettings.spriteName = "AchievementCheckedFalse";
-
-            }
-
-            if (buildingData.hasAuthor)
-            {
-                // Author settings found.
-                hasAuthorSettings.spriteName = "AchievementCheckedTrue";
-            }
-            else
-            {
-                // No mod settings.
-                hasAuthorSettings.spriteName = "AchievementCheckedFalse";
-
-            }
-
-            if (buildingData.hasLocal)
-            {
-                // Local settings found.
-                hasLocalSettings.spriteName = "AchievementCheckedTrue";
-            }
-            else
-            {
-                // No mod settings.
-                hasLocalSettings.spriteName = "AchievementCheckedFalse";
-
-            }
+            hasModSettings.spriteName = buildingData.hasMod ? "AchievementCheckedTrue" : "AchievementCheckedFalse";
+            hasAuthorSettings.spriteName = buildingData.hasAuthor ? "AchievementCheckedTrue" : "AchievementCheckedFalse";
+            hasLocalSettings.spriteName = buildingData.hasLocal ? "AchievementCheckedTrue" : "AchievementCheckedFalse";
 
             // Set initial background as deselected state.
             Deselect(isRowOdd);
