@@ -26,7 +26,7 @@ namespace PloppableRICO
 
 
         // Event to trigger when filtering changes.
-        public event PropertyChangedEventHandler<int> eventFilteringChanged;
+        public event PropertyChangedEventHandler<int> EventFilteringChanged;
 
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace PloppableRICO
             }
 
             // Trigger an update.
-            eventFilteringChanged(this, 0);
+            EventFilteringChanged(this, 0);
         }
 
 
@@ -164,7 +164,7 @@ namespace PloppableRICO
                 }
 
                 // Trigger an update.
-                eventFilteringChanged(this, 0);
+                EventFilteringChanged(this, 0);
             };
 
             // 'Select none'button.
@@ -178,15 +178,15 @@ namespace PloppableRICO
                 }
 
                 // Trigger an update.
-                eventFilteringChanged(this, 0);
+                EventFilteringChanged(this, 0);
             };
 
             // Name filter textfield.
             nameFilter = UIControls.BigLabelledTextField(this, width - 200f, 0, Translations.Translate("PRR_FTR_NAM") + ": ");
 
             // Trigger events when textfield is updated.
-            nameFilter.eventTextChanged += (control, value) => eventFilteringChanged(this, 5);
-            nameFilter.eventTextSubmitted += (control, value) => eventFilteringChanged(this, 5);
+            nameFilter.eventTextChanged += (control, value) => EventFilteringChanged(this, 5);
+            nameFilter.eventTextSubmitted += (control, value) => EventFilteringChanged(this, 5);
 
             // Create settings filters.
             UILabel filterLabel = this.AddUIComponent<UILabel>();
@@ -248,7 +248,7 @@ namespace PloppableRICO
                 }
 
                 // Trigger filtering changed event if any checkbox is changed.
-                settingsFilter[i].eventCheckChanged += (control, isChecked) => { eventFilteringChanged(this, 0); };
+                settingsFilter[i].eventCheckChanged += (control, isChecked) => { EventFilteringChanged(this, 0); };
             }
 
             // Add settings filter tooltips.

@@ -5,6 +5,9 @@ using ColossalFramework;
 using HarmonyLib;
 
 
+#pragma warning disable IDE0060 // Remove unused parameter
+
+
 namespace PloppableRICO
 {
 	/// <summary>
@@ -23,7 +26,7 @@ namespace PloppableRICO
 		/// <param name="info">Building prefab</param>
 		/// <param name="building">Building instance data (ingnored)</param>
 		/// <returns>False (don't continue execution chain) if this is a RICO building (original return value changed to true), true (continue exection chain) otherwise.</returns>
-		private static bool Prefix (ref bool __result, BuildingInfo info, ref Building building)
+		public static bool Prefix (ref bool __result, BuildingInfo info, ref Building building)
 		{
 			// Only do this if our settings are set to ensure RICO buildings are important.
 			if (!ModSettings.autoDemolish)
@@ -63,7 +66,7 @@ namespace PloppableRICO
 		/// <param name="relocating">Building relocation (ignored)</param>
 		/// <param name="needMoney">Is money needed (ignored)</param>
 		/// <param name="fixedHeight">Fixed height (ignored)</param>
-		private static void Postfix(ref ushort __result, ref BuildingInfo info, Vector3 position, float angle, int relocating, bool needMoney, bool fixedHeight)
+		internal static void Postfix(ref ushort __result, ref BuildingInfo info, Vector3 position, float angle, int relocating, bool needMoney, bool fixedHeight)
 		{
 			// Check that we have a valid building ID.
 			if (__result == 0)
@@ -87,8 +90,6 @@ namespace PloppableRICO
 					// Check to see if construction time is greater than zero.
 					if (buildingAI.m_constructionTime > 0)
 					{
-						Building data = Singleton<BuildingManager>.instance.m_buildings.m_buffer[__result];
-
 						Singleton<BuildingManager>.instance.m_buildings.m_buffer[__result].m_frame0.m_constructState = byte.MaxValue;
 						BuildingCompletedRev(buildingAI, __result, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[__result]);
 
@@ -128,3 +129,5 @@ namespace PloppableRICO
 		}
 	}
 }
+
+#pragma warning restore IDE0060 // Remove unused parameter

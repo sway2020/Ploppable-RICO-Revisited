@@ -119,7 +119,7 @@ namespace PloppableRICO
                 }
                 else
                 {
-                    localRicoDef = RICOReader.ParseRICODefinition("", ricoDefPath, isLocal: true);
+                    localRicoDef = RICOReader.ParseRICODefinition(ricoDefPath, isLocal: true);
 
                     if (localRicoDef == null)
                     {

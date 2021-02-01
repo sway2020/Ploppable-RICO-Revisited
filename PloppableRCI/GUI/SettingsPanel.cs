@@ -319,7 +319,7 @@ namespace PloppableRICO
                 filterBar.relativePosition = new Vector3(Spacing, TitleHeight);
 
                 // Event handler to dealth with changes to filtering.
-                filterBar.eventFilteringChanged += (component, value) =>
+                filterBar.EventFilteringChanged += (component, value) =>
                 {
                     if (value == -1) return;
 

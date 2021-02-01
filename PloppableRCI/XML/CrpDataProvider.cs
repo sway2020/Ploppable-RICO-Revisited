@@ -7,12 +7,6 @@ using System.IO;
 
 namespace PloppableRICO
 {
-    public interface ICrpDataProvider
-    {
-        CrpData getCrpData( string file );
-        CrpData getCrpData( FileInfo file );
-    }
-    
     public class CrpData
     {
         public Object PreviewImage { get; set; }
@@ -22,6 +16,6 @@ namespace PloppableRICO
         public string SteamId { get; set; }
         public string AuthorName { get; set; }
         public string BuildingName { get; set; }
-        public FileInfo sourceFile { get; set; }
+        public FileInfo SourceFile { get; set; }
     }
 }

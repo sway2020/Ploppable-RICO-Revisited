@@ -11,7 +11,7 @@ namespace PloppableRICO
     public class UIBuildingOptions : UIPanel
     {
         // Whole buncha UI strings.
-        private string[] Service = new string[]
+        private readonly string[] Service = new string[]
         {
             Translations.Translate("PRR_SRV_NON"),
             Translations.Translate("PRR_SRV_RES"),
@@ -22,13 +22,13 @@ namespace PloppableRICO
             Translations.Translate("PRR_SRV_DUM")
         };
 
-        private string[] OfficeSub = new string[]
+        private readonly string[] OfficeSub = new string[]
         {
             Translations.Translate("PRR_SUB_GEN"),
             Translations.Translate("PRR_SUB_ITC")
         };
 
-        private string[] ResSub = new string[]
+        private readonly string[] ResSub = new string[]
         {
             Translations.Translate("PRR_SUB_HIG"),
             Translations.Translate("PRR_SUB_LOW"),
@@ -36,7 +36,7 @@ namespace PloppableRICO
             Translations.Translate("PRR_SUB_LEC")
         };
 
-        private string[] ComSub = new string[]
+        private readonly string[] ComSub = new string[]
         {
             Translations.Translate("PRR_SUB_HIG"),
             Translations.Translate("PRR_SUB_LOW"),
@@ -45,7 +45,7 @@ namespace PloppableRICO
             Translations.Translate("PRR_SUB_ORG")
         };
 
-        private string[] IndustrialSub = new string[]
+        private readonly string[] IndustrialSub = new string[]
         {
             Translations.Translate("PRR_SUB_GEN"),
             Translations.Translate("PRR_SUB_FAR"),
@@ -54,7 +54,7 @@ namespace PloppableRICO
             Translations.Translate("PRR_SUB_ORE")
         };
 
-        private string[] ExtractorSub = new string[]
+        private readonly string[] ExtractorSub = new string[]
         {
             Translations.Translate("PRR_SUB_FAR"),
             Translations.Translate("PRR_SUB_FOR"),
@@ -62,19 +62,19 @@ namespace PloppableRICO
             Translations.Translate("PRR_SUB_ORE")
         };
 
-        private string[] DummySub = new string[]
+        private readonly string[] DummySub = new string[]
         {
             Translations.Translate("PRR_SRV_NON")
         };
 
-        private string[] Level = new string[]
+        private readonly string[] Level = new string[]
         {
             "1",
             "2",
             "3",
         };
 
-        private string[] resLevel = new string[]
+        private readonly string[] resLevel = new string[]
         {
             "1",
             "2",
@@ -83,7 +83,7 @@ namespace PloppableRICO
             "5"
         };
 
-        private string[] extLevel = new string[]
+        private readonly string[] extLevel = new string[]
         {
             "1"
         };
@@ -347,8 +347,7 @@ namespace PloppableRICO
             currentSelection.level = level.selectedIndex + 1;
 
             // Get home/total worker count, with default of zero.
-            int manualCount = 0;
-            int.TryParse(manual.text, out manualCount);
+            int.TryParse(manual.text, out int manualCount);
             currentSelection.homeCount = manualCount;
 
             // Get workplace breakdown.
@@ -364,73 +363,68 @@ namespace PloppableRICO
             {
                 // No workplace breakdown provided (all fields zero); use total workplaces ('manual', previously parsed as manualCount) and allocate.
                 int[] d = Util.WorkplaceDistributionOf(currentSelection.service, currentSelection.subService, "Level" + currentSelection.level);
-                a = WorkplaceAIHelper.distributeWorkplaceLevels(manualCount, d);
+                a = WorkplaceAIHelper.DistributeWorkplaceLevels(manualCount, d);
 
                 // Check and adjust for any rounding errors, assigning 'leftover' jobs to the lowest education level.
                 a[0] += (manualCount - a[0] - a[1] - a[2] - a[3]);
             }
 
-            currentSelection.workplaces = a;
+            currentSelection.Workplaces = a;
 
-            currentSelection.constructionCost = int.Parse(construction.text);
-            // Construction cost should be at least 10 to maintain compatibility with other mods (Real Time, Real Construction).
-            if (currentSelection.constructionCost < 10)
-            {
-                currentSelection.constructionCost = 10;
-                // If we've overridden the value (set it to 10), write that back to the construction cost text field so the user knows.
-                construction.text = currentSelection.constructionCost.ToString();
-            }
+            currentSelection.ConstructionCost = int.Parse(construction.text);
+            // Write parsed (and filtered, e.g. minimum value 10) back to the construction cost text field so the user knows.
+            construction.text = currentSelection.ConstructionCost.ToString();
 
             // UI categories from menu.
             switch (uiCategory.selectedIndex)
             {
                 case 0:
-                    currentSelection.uiCategory = "reslow";
+                    currentSelection.UiCategory = "reslow";
                     break;
                 case 1:
-                    currentSelection.uiCategory = "reshigh";
+                    currentSelection.UiCategory = "reshigh";
                     break;
                 case 2:
-                    currentSelection.uiCategory = "comlow";
+                    currentSelection.UiCategory = "comlow";
                     break;
                 case 3:
-                    currentSelection.uiCategory = "comhigh";
+                    currentSelection.UiCategory = "comhigh";
                     break;
                 case 4:
-                    currentSelection.uiCategory = "office";
+                    currentSelection.UiCategory = "office";
                     break;
                 case 5:
-                    currentSelection.uiCategory = "industrial";
+                    currentSelection.UiCategory = "industrial";
                     break;
                 case 6:
-                    currentSelection.uiCategory = "farming";
+                    currentSelection.UiCategory = "farming";
                     break;
                 case 7:
-                    currentSelection.uiCategory = "forest";
+                    currentSelection.UiCategory = "forest";
                     break;
                 case 8:
-                    currentSelection.uiCategory = "oil";
+                    currentSelection.UiCategory = "oil";
                     break;
                 case 9:
-                    currentSelection.uiCategory = "ore";
+                    currentSelection.UiCategory = "ore";
                     break;
                 case 10:
-                    currentSelection.uiCategory = "leisure";
+                    currentSelection.UiCategory = "leisure";
                     break;
                 case 11:
-                    currentSelection.uiCategory = "tourist";
+                    currentSelection.UiCategory = "tourist";
                     break;
                 case 12:
-                    currentSelection.uiCategory = "organic";
+                    currentSelection.UiCategory = "organic";
                     break;
                 case 13:
-                    currentSelection.uiCategory = "hightech";
+                    currentSelection.UiCategory = "hightech";
                     break;
                 case 14:
-                    currentSelection.uiCategory = "selfsufficient";
+                    currentSelection.UiCategory = "selfsufficient";
                     break;
                 default:
-                    currentSelection.uiCategory = "none";
+                    currentSelection.UiCategory = "none";
                     break;
             }
 
@@ -538,11 +532,11 @@ namespace PloppableRICO
             // Updates the values in the RICO options panel to match the selected building.
 
             // Workplaces.
-            manual.text = building.workplaceCount.ToString();
-            uneducated.text = building.workplaces[0].ToString();
-            educated.text = building.workplaces[1].ToString();
-            welleducated.text = building.workplaces[2].ToString();
-            highlyeducated.text = building.workplaces[3].ToString();
+            manual.text = building.WorkplaceCount.ToString();
+            uneducated.text = building.Workplaces[0].ToString();
+            educated.text = building.Workplaces[1].ToString();
+            welleducated.text = building.Workplaces[2].ToString();
+            highlyeducated.text = building.Workplaces[3].ToString();
 
             // Service and sub-service.
             switch (building.service)
@@ -622,7 +616,7 @@ namespace PloppableRICO
             }
 
             // UI category.
-            switch (building.uiCategory)
+            switch (building.UiCategory)
             {
                 case "reslow":
                     uiCategory.selectedIndex = 0;
@@ -678,7 +672,7 @@ namespace PloppableRICO
             level.selectedIndex = (building.level - 1);
 
             // Construction cost.
-            construction.text = building.constructionCost.ToString();
+            construction.text = building.ConstructionCost.ToString();
 
             // Use realistic population.
             realityIgnored.isChecked = !building.RealityIgnored;
@@ -1013,7 +1007,7 @@ namespace PloppableRICO
 
                 // Allocate out total workplaces ('manual').
                 int[] distribution = Util.WorkplaceDistributionOf(serviceString, subServiceString, "Level" + (level.selectedIndex + 1));
-                allocation = WorkplaceAIHelper.distributeWorkplaceLevels(int.Parse(manual.text), distribution);
+                allocation = WorkplaceAIHelper.DistributeWorkplaceLevels(int.Parse(manual.text), distribution);
 
                 // Check and adjust for any rounding errors, assigning 'leftover' jobs to the lowest education level.
                 allocation[0] += (int.Parse(manual.text) - allocation[0] - allocation[1] - allocation[2] - allocation[3]);

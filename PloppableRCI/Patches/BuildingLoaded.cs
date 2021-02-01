@@ -5,6 +5,9 @@ using ColossalFramework.Math;
 using HarmonyLib;
 
 
+#pragma warning disable IDE0060 // Remove unused parameter
+
+
 /// <summary>
 /// Patch for PrivateBuildingAI.BuildingLoaded to catch Ploppable RICO buildings and override their initialisation with Ploppable RICO assets.
 /// This is used to catch Ploppable RICO buildings created from PrivateBuilding (growable) originals; normally, their original stats would initialise before Ploppable RICO can override.
@@ -13,7 +16,7 @@ namespace PloppableRICO
 {
     [HarmonyPatch(typeof(PrivateBuildingAI), "BuildingLoaded")]
     [HarmonyPriority(Priority.VeryHigh)]
-    internal static class RICOBuildingLoaded
+    public static class RICOBuildingLoaded
 	{
 		/// <summary>
 		/// Prefix to force settings reset on load (if enabled) for RICO buildings (resetting to current settings).
@@ -22,7 +25,7 @@ namespace PloppableRICO
 		/// <param name="buildingID">Building instance ID</param>
 		/// <param name="data">Building data</param>
 		/// <param name="version">Version</param>
-		private static bool Prefix(PrivateBuildingAI __instance, ushort buildingID, ref Building data, uint version)
+		public static bool Prefix(PrivateBuildingAI __instance, ushort buildingID, ref Building data, uint version)
 		{
 			// Don't do anything if the flag isn't set.
 			if (!ModSettings.resetOnLoad)
@@ -115,7 +118,7 @@ namespace PloppableRICO
 		/// <param name="buildingID">Building instance ID</param>
 		/// <param name="data">Building data</param>
 		/// <param name="version">Version</param>
-		private static void Postfix(PrivateBuildingAI __instance, ushort buildingID, ref Building data, uint version)
+		public static void Postfix(PrivateBuildingAI __instance, ushort buildingID, ref Building data, uint version)
         {
 			// Check to see if this is one of ours.
 			if (__instance is GrowableResidentialAI)
@@ -157,10 +160,12 @@ namespace PloppableRICO
 		[HarmonyReversePatch]
 		[HarmonyPatch((typeof(BuildingAI)), "EnsureCitizenUnits")]
 		[MethodImpl(MethodImplOptions.NoInlining)]
-		private static void EnsureCitizenUnitsRev(object instance, ushort buildingID, ref Building data, int homeCount, int workCount, int visitCount, int studentCount)
+		public static void EnsureCitizenUnitsRev(object instance, ushort buildingID, ref Building data, int homeCount, int workCount, int visitCount, int studentCount)
 		{
 			Logging.Error("EnsureCitizenUnits reverse Harmony patch wasn't applied");
 			throw new NotImplementedException("Harmony reverse patch not applied");
 		}
 	}
 }
+
+#pragma warning restore IDE0060 // Remove unused parameter

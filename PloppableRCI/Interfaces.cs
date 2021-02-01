@@ -72,7 +72,7 @@ namespace PloppableRICO
                 RICOBuilding building = RICOUtils.CurrentRICOSetting(Loading.xmlManager.prefabHash[prefab]);
 
                 // Check that it's enabled and isn't using reality.
-                if (building != null && building.ricoEnabled && !building.useReality)
+                if (building != null && building.ricoEnabled && !building.UseReality)
                 {
                     return true;
                 }
@@ -129,7 +129,7 @@ namespace PloppableRICO
             RICOBuilding building = RICOUtils.CurrentRICOSetting(buildingData);
 
             // Check that it's enabled and is using reality.
-            if (building != null && building.ricoEnabled && building.useReality)
+            if (building != null && building.ricoEnabled && building.UseReality)
             {
                 // Get AI.
                 PrefabAI buildingAI = prefab.GetAI();

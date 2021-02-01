@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using ColossalFramework.UI;
 
+#pragma warning disable IDE1006 // Naming Styles
+
 
 namespace PloppableRICO
 {
@@ -60,7 +62,7 @@ namespace PloppableRICO
         private FastList<I> m_items;
         private FastList<O> m_itemsData;
 
-        private Color32 m_color = new Color32(255, 255, 255, 255);
+        //private Color32 m_color = new Color32(255, 255, 255, 255);
         private float m_itemWidth = -1;
         private float m_itemHeight = -1;
         private float m_pos = -1;
@@ -565,7 +567,6 @@ namespace PloppableRICO
 
             //if (!p.used)
             //{
-            float prevPos = listPosition;
 
             int nbRow = /*Mathf.CeilToInt*/(int)(height / m_itemHeight);
             if (nbRow > 1)
@@ -687,3 +688,5 @@ namespace PloppableRICO
         #endregion
     }
 }
+
+#pragma warning restore IDE1006 // Naming Styles

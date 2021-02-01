@@ -2,6 +2,8 @@
 using ColossalFramework.UI;
 using System;
 
+#pragma warning disable IDE1006 // Naming Styles
+
 
 namespace PloppableRICO
 {
@@ -528,7 +530,6 @@ namespace PloppableRICO
                 m_scrollbar.isVisible = isVisible;
             }
 
-            float H = m_rowHeight * m_rowsData.m_size;
             float scrollSize = height * height / (m_rowHeight * m_rowsData.m_size);
             float amount = stepSize * height / (m_rowHeight * m_rowsData.m_size);
 
@@ -612,3 +613,5 @@ namespace PloppableRICO
         #endregion
     }
 }
+
+#pragma warning restore IDE1006 // Naming Styles

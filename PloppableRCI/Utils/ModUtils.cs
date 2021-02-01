@@ -115,7 +115,7 @@ namespace PloppableRICO
             if (IsModEnabled(629850626uL))
             {
                 Logging.Message("found Workshop RICO settings mod");
-                Loading.mod1RicoDef = RICOReader.ParseRICODefinition("", Path.Combine(Util.SettingsModPath("629850626"), "WorkshopRICOSettings.xml"), false);
+                Loading.mod1RicoDef = RICOReader.ParseRICODefinition(Path.Combine(Util.SettingsModPath("629850626"), "WorkshopRICOSettings.xml"), false);
             }
 
             // Check for Ryuichi Kaminogi's "RICO Settings for Modern Japan CCP"
@@ -123,7 +123,7 @@ namespace PloppableRICO
             if (modernJapanRICO != null)
             {
                 Logging.Message("found RICO Settings for Modern Japan CCP");
-                Loading.mod2RicoDef = RICOReader.ParseRICODefinition("", Path.Combine(Path.GetDirectoryName(modernJapanRICO.packagePath), "PloppableRICODefinition.xml"), false);
+                Loading.mod2RicoDef = RICOReader.ParseRICODefinition(Path.Combine(Path.GetDirectoryName(modernJapanRICO.packagePath), "PloppableRICODefinition.xml"), false);
             }
 
             return conflictDetected;

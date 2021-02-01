@@ -22,10 +22,10 @@ namespace PloppableRICO
             if ( rc != null )
             {
                 // reality mod is running and the xml file says ignore-reality="false"
-                if ( rc.useReality )
+                if ( rc.UseReality)
                     ai.CalculateBaseWorkplaceCount(level, r, width, length, out level0, out level1, out level2, out level3 );
                 else
-                    SetWorkplaceLevels( out level0, out level1, out level2, out level3, ricoData.workplaces );
+                    SetWorkplaceLevels( out level0, out level1, out level2, out level3, ricoData.Workplaces);
             }
         }
 
@@ -42,7 +42,7 @@ namespace PloppableRICO
             level3 = values[3];
         }
 
-        internal static int[] distributeWorkplaceLevels( int workplaces, int[] workplaceDistribution)
+        internal static int[] DistributeWorkplaceLevels( int workplaces, int[] workplaceDistribution)
         {
             int[] wd = workplaceDistribution;
            
@@ -58,15 +58,6 @@ namespace PloppableRICO
                   ).ToArray();
 
             return jobs;
-        }
-
-        private static int[] deviateWorkplaces( int[] workplaces, int[] deviatons )
-        {
-            if (deviatons != null)
-                return workplaces.Select(
-                    (jobc, i) => (int)new System.Random().Next( jobc - deviatons[i], jobc + deviatons[i] )
-                ).ToArray();
-            return workplaces;
         }
     }
 }

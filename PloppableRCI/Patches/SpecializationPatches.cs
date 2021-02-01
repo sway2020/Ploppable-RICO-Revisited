@@ -18,7 +18,7 @@ namespace PloppableRICO
 		/// </summary>
 		/// <param name="instructions">Original ILCode</param>
 		/// <returns>Replacement (patched) ILCode</returns>
-		private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+		public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
 		{
 			Logging.Message("transpiler patching specialized building checks in CommercialBuildingAI.SimulationStep");
 			return CheckSpecTranspiler.Transpiler(instructions);
@@ -37,7 +37,7 @@ namespace PloppableRICO
 		/// </summary>
 		/// <param name="instructions">Original ILCode</param>
 		/// <returns>Replacement (patched) ILCode</returns>
-		private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+		public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
 		{
 			Logging.Message("transpiler patching specialized building checks in ResidentialBuildingAI.SimulationStep");
 			return CheckSpecTranspiler.Transpiler(instructions);
@@ -56,7 +56,7 @@ namespace PloppableRICO
 		/// </summary>
 		/// <param name="instructions">Original ILCode</param>
 		/// <returns>Replacement (patched) ILCode</returns>
-		private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+		public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
 		{
 			Logging.Message("transpiler patching specialized building checks in OfficeBuildingAI.SimulationStep");
 			return CheckSpecTranspiler.Transpiler(instructions);
@@ -75,7 +75,7 @@ namespace PloppableRICO
 		/// </summary>
 		/// <param name="instructions">Original ILCode</param>
 		/// <returns>Replacement (patched) ILCode</returns>
-		private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+		public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
 		{
 			Logging.Message("transpiler patching specialized building checks in IndustrialBuildingAI.SimulationStep");
 			return CheckSpecTranspiler.Transpiler(instructions);
@@ -94,7 +94,7 @@ namespace PloppableRICO
 		/// </summary>
 		/// <param name="instructions">Original ILCode</param>
 		/// <returns>Replacement (patched) ILCode</returns>
-		private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+		public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
 		{
 			Logging.Message("transpiler patching specialized building checks in IndustrialExtractorAI.SimulationStep");
 			return CheckSpecTranspiler.Transpiler(instructions);
@@ -106,7 +106,7 @@ namespace PloppableRICO
 	/// <summary>
 	/// Harmony transpiler to apply patches adding checks where buildings would normally be demolished due to being outside of relevant specialised districts.
 	/// </summary>
-	internal static class CheckSpecTranspiler
+	public static class CheckSpecTranspiler
     {
 		/// <summary>
 		/// Harmony transpiler that replaces specific code blocks with a call to a custom replacement method.
@@ -114,7 +114,7 @@ namespace PloppableRICO
 		/// </summary>
 		/// <param name="instructions">CIL code to alter.</param>
 		/// <returns>Patched CIL code</returns>
-		internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+		public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
 		{
 			// Replacing this code block with a call to our custom replacement method:
 
@@ -195,7 +195,7 @@ namespace PloppableRICO
 		/// Called via Harmony Transpiler patches.
 		/// </summary>
 		/// <param name="buildingData">Building instance data</param>
-		internal static void CheckSpecial(ref Building buildingData)
+		public static void CheckSpecial(ref Building buildingData)
 		{
 			bool isRICO = RICOUtils.IsRICOAI(buildingData.Info.GetAI() as PrivateBuildingAI);
 

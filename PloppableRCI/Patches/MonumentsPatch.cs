@@ -2,13 +2,16 @@
 using HarmonyLib;
 
 
+#pragma warning disable IDE0060 // Remove unused parameter
+
+
 namespace PloppableRICO
 {
     /// <summary>
     /// Harmony patch and reverse patch to catch exceptions when no valid monuments are avaliable (presumably because they've all been converted to Ploppable RICO buildings and/or skipped by LSM prefab skipping).
     /// </summary>
     [HarmonyPatch(typeof(UnlockingPanel), "RefreshMonumentsPanel")]
-    internal static class RefreshMonumentsPanelPatch
+    public static class RefreshMonumentsPanelPatch
     {
         /// <summary>
         /// Simple Prefix patch to catch Monuments panel setup exceptions.
@@ -16,7 +19,7 @@ namespace PloppableRICO
         /// </summary>
         /// <param name="__instance">Harmony original instance reference</param>
         /// <returns></returns>
-        private static bool Prefix(UnlockingPanel __instance)
+        public static bool Prefix(UnlockingPanel __instance)
         {
             try
             {
@@ -45,3 +48,5 @@ namespace PloppableRICO
         }
     }
 }
+
+#pragma warning restore IDE0060 // Remove unused parameter

@@ -12,14 +12,14 @@ namespace PloppableRICO
     /// This approach fixes a whole bunch of issues, enables code simplifications, and is required to properly enable 'Growable RICO'.
     /// </summary>
     [HarmonyPatch(typeof(BuildingInfo), "InitializePrefab")]
-    internal static class InitPrefabTranspiler
+    public static class InitPrefabTranspiler
     {
         /// <summary>
         /// Harmony transpiler removing two checks from BuildingInfo.InitializePrefab.
         /// </summary>
         /// <param name="instructions">CIL code to alter.</param>
         /// <returns></returns>
-        private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
             // The checks we're targeting for removal are fortunately clearly defined by their exception operands.
             // We're only going to remove the exception throw itself (including stack loading), and not the preceeding conditional check.

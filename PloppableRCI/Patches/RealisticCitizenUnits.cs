@@ -12,15 +12,14 @@ namespace PloppableRICO
     /// </summary>
     internal class RealisticCitizenUnits
     {
-        private static CitizenManager citizenManager = Singleton<CitizenManager>.instance;
-        private static CitizenUnit[] citizenUnitArray = Singleton<CitizenManager>.instance.m_units.m_buffer;
-        private static Citizen[] citizenArray = Singleton<CitizenManager>.instance.m_citizens.m_buffer;
+        private static readonly CitizenManager citizenManager = Singleton<CitizenManager>.instance;
+        private static readonly CitizenUnit[] citizenUnitArray = Singleton<CitizenManager>.instance.m_units.m_buffer;
+        private static readonly Citizen[] citizenArray = Singleton<CitizenManager>.instance.m_citizens.m_buffer;
 
 
         internal static void EnsureCitizenUnits(ref PrivateBuildingAI __instance, ushort buildingID, ref Building data, int homeCount, int workCount, int visitCount, int studentCount)
         {
             int totalWorkCount = (workCount + 4) / 5;
-            int totalVisitCount = (visitCount + 4) / 5;
             int totalHomeCount = homeCount;
 
             int[] workersRequired = new int[] { 0, 0, 0, 0 };
@@ -78,8 +77,7 @@ namespace PloppableRICO
 
                 if (homeCount > 0 || workCount > 0 || visitCount > 0 || studentCount > 0)
                 {
-                    uint num4 = 0u;
-                    if (citizenManager.CreateUnits(out num4, ref Singleton<SimulationManager>.instance.m_randomizer, buildingID, 0, homeCount, workCount, visitCount, 0, studentCount))
+                    if (citizenManager.CreateUnits(out uint num4, ref Singleton<SimulationManager>.instance.m_randomizer, buildingID, 0, homeCount, workCount, visitCount, 0, studentCount))
                     {
                         if (num != 0u)
                         {
@@ -94,20 +92,16 @@ namespace PloppableRICO
 
 
                 // Stop incoming offers to get HandleWorkers() to start fresh
-                TransferManager.TransferOffer offer = default(TransferManager.TransferOffer);
+                TransferManager.TransferOffer offer = default;
                 offer.Building = buildingID;
                 Singleton<TransferManager>.instance.RemoveIncomingOffer(TransferManager.TransferReason.Worker0, offer);
                 Singleton<TransferManager>.instance.RemoveIncomingOffer(TransferManager.TransferReason.Worker1, offer);
                 Singleton<TransferManager>.instance.RemoveIncomingOffer(TransferManager.TransferReason.Worker2, offer);
                 Singleton<TransferManager>.instance.RemoveIncomingOffer(TransferManager.TransferReason.Worker3, offer);
 
-                int worker0 = 0;
-                int worker1 = 0;
-                int worker2 = 0;
-                int worker3 = 0;
                 ItemClass.Level level = ((PrivateBuildingAI)data.Info.GetAI()).m_info.m_class.m_level;
                 ((PrivateBuildingAI)data.Info.GetAI()).CalculateWorkplaceCount(level, new Randomizer((int)buildingID), data.Width, data.Length,
-                                                                               out worker0, out worker1, out worker2, out worker3);
+                                                                               out int worker0, out int worker1, out int worker2, out int worker3);
 
                 // Update the workers required once figuring out how many are needed by the new building
                 workersRequired[0] += worker0;
@@ -117,11 +111,11 @@ namespace PloppableRICO
 
                 if (workCount < 0)
                 {
-                    RemoveWorkerBuilding(buildingID, ref data, totalWorkCount);
+                    RemoveWorkerBuilding(ref data, totalWorkCount);
                 }
                 else if (homeCount < 0)
                 {
-                    RemoveHouseHold(buildingID, ref data, totalHomeCount);
+                    RemoveHouseHold(ref data, totalHomeCount);
                 }
                 /*
                     if (visitCount < 0)
@@ -129,7 +123,7 @@ namespace PloppableRICO
                         RemoveVisitorsBuilding(buildingID, ref data, totalVisitCount);
                     }
                 */
-                PromoteWorkers(buildingID, ref data, ref workersRequired);
+                PromoteWorkers(ref data, ref workersRequired);
                 // Do nothing for students
 
             } // end if good building
@@ -139,10 +133,9 @@ namespace PloppableRICO
         /// Send this unit away to empty to requirements
         /// EmptyBuilding
         /// </summary>
-        /// <param name="buildingID"></param>
         /// <param name="data"></param>
         /// <param name="citizenNumber"></param>
-        private static void RemoveWorkerBuilding(ushort buildingID, ref Building data, int workerUnits)
+        private static void RemoveWorkerBuilding(ref Building data, int workerUnits)
         {
             int loopCounter = 0;
             uint previousUnit = data.m_citizenUnits;
@@ -186,7 +179,7 @@ namespace PloppableRICO
                     // Link previous unit to next unit and release the item
                     citizenUnitArray[previousUnit].m_nextUnit = nextUnit;
 
-                    citizenUnitArray[currentUnit] = default(CitizenUnit);
+                    citizenUnitArray[currentUnit] = default;
                     citizenManager.m_units.ReleaseItem(currentUnit);
                     // Previous unit number has not changed
                 }
@@ -208,13 +201,12 @@ namespace PloppableRICO
         /// <summary>
         /// Promote the workers to fit the education bill better.
         /// </summary>
-        /// <param name="buildingID"></param>
         /// <param name="data"></param>
         /// <param name="workersRequired"></param>
         /// <param name="instance"></param>
         /// <param name="citizenUnitArray"></param>
         /// <param name="citizenArray"></param>
-        private static void PromoteWorkers(ushort buildingID, ref Building data, ref int[] workersRequired)
+        private static void PromoteWorkers(ref Building data, ref int[] workersRequired)
         {
             if (workersRequired[0] == 0 && workersRequired[1] == 0 && workersRequired[2] == 0 && workersRequired[3] == 0)
             {
@@ -227,7 +219,7 @@ namespace PloppableRICO
             data.m_garbageBuffer = 0;
 
             int loopCounter = 0;
-            uint previousUnit = data.m_citizenUnits;
+            uint previousUnit;
             uint currentUnit = data.m_citizenUnits;
             while (currentUnit != 0u)
             {
@@ -243,10 +235,7 @@ namespace PloppableRICO
                         uint citizen = citizenUnitArray[(int)((UIntPtr)currentUnit)].GetCitizen(i);
                         if (citizen != 0u)
                         {
-                            // Do not shift back where possible. There should be enough staff turnover that the spaces aren't worth the intensive checking
-                            int citizenIndex = (int)((UIntPtr)citizen);
-                            ushort citizenInstanceIndex = citizenArray[citizenIndex].m_instance;
-                            CitizenInstance citData = citizenManager.m_instances.m_buffer[(int)citizenInstanceIndex];
+                            // Do not shift back where possible. There should be enough staff turnover that the spaces aren't worth the intensive checking.
 
                             // Get education level. Perform checks
                             Citizen cit = citizenArray[(int)((UIntPtr)citizen)];
@@ -297,7 +286,6 @@ namespace PloppableRICO
                     } // end for
                 } // Flag match
 
-                previousUnit = currentUnit;
                 currentUnit = nextUnit;
 
                 if (++loopCounter > 524288)
@@ -306,73 +294,6 @@ namespace PloppableRICO
                 }
             } // end while
         } // end PromoteWorkers
-
-
-        /// <summary>
-        /// Send this unit away to empty to requirements
-        /// 
-        /// This may not be working as intended
-        /// </summary>
-        /// <param name="buildingID"></param>
-        /// <param name="data"></param>
-        /// <param name="citizenNumber"></param>
-        private static void RemoveVisitorsBuilding(ushort buildingID, ref Building data, int visitorsUnit)
-        {
-            int loopCounter = 0;
-            uint previousUnit = data.m_citizenUnits;
-            uint currentUnit = data.m_citizenUnits;
-
-            while (currentUnit != 0u)
-            {
-                // If this unit matches what we one, send the citizens away or remove citzens
-                uint nextUnit = citizenUnitArray[currentUnit].m_nextUnit;
-                bool removeCurrentUnit = false;
-
-                // Only think about removing if it matches the flag
-                if ((ushort)(CitizenUnit.Flags.Visit & citizenUnitArray[currentUnit].m_flags) != 0)
-                {
-                    if (visitorsUnit > 0)
-                    {
-                        // Don't remove the unit, we'll remove excess afterwards
-                        visitorsUnit--;
-                    }
-                    else
-                    {
-                        // Send unit home like empty building
-                        for (int i = 0; i < 5; i++)
-                        {
-                            // CommonBuildingAI.RemovePeople() -> CitizenManager. ReleaseUnitImplementation()
-                            uint citizen = citizenUnitArray[(int)((UIntPtr)currentUnit)].GetCitizen(i);
-                            citizenManager.m_citizens.m_buffer[(int)((UIntPtr)citizen)].m_visitBuilding = 0;
-                        } // end for
-                        removeCurrentUnit = true;  // No need to reset, we're already at the end
-                    } // end if
-                } // Flag match
-
-                // Don't need to worry about trying to remove the initial citizen unit. 
-                // This should always exist and other code will always force at least one.
-                if (removeCurrentUnit)
-                {
-                    // Link previous unit to next unit and release the item
-                    citizenUnitArray[previousUnit].m_nextUnit = nextUnit;
-
-                    citizenUnitArray[currentUnit] = default(CitizenUnit);
-                    citizenManager.m_units.ReleaseItem(currentUnit);
-                    // Previous unit number has not changed
-                }
-                else
-                {
-                    // Current unit is not to be removed, proceed to next
-                    previousUnit = currentUnit;
-                }
-                currentUnit = nextUnit;
-
-                if (++loopCounter > 524288)
-                {
-                    currentUnit = 0u; // Bail out loop
-                }
-            } // end while
-        } // end RemoveWorkerBuilding
 
 
         /// <summary>
@@ -408,14 +329,12 @@ namespace PloppableRICO
         /// Send this unit away to empty to requirements
         /// EmptyBuilding
         /// </summary>
-        /// <param name="buildingID"></param>
         /// <param name="data"></param>
         /// <param name="citizenNumber"></param>
-        private static void RemoveHouseHold(ushort buildingID, ref Building data, int maxHomes)
+        private static void RemoveHouseHold(ref Building data, int maxHomes)
         {
             CitizenManager instance = Singleton<CitizenManager>.instance;
             CitizenUnit[] citizenUnitArray = instance.m_units.m_buffer;
-            Citizen[] citizenArray = instance.m_citizens.m_buffer;
 
             int loopCounter = 0;
             uint previousUnit = data.m_citizenUnits;
@@ -454,7 +373,7 @@ namespace PloppableRICO
                     // Link previous unit to next unit and release the item
                     citizenUnitArray[previousUnit].m_nextUnit = nextUnit;
 
-                    citizenUnitArray[currentUnit] = default(CitizenUnit);
+                    citizenUnitArray[currentUnit] = default;
                     instance.m_units.ReleaseItem(currentUnit);
                     // Previous unit number has not changed
                 }

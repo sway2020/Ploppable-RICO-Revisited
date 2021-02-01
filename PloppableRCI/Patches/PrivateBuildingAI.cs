@@ -20,7 +20,7 @@ namespace PloppableRICO
         /// </summary>
         /// <param name="instructions">Original ILCode</param>
         /// <returns>Replacement (patched) ILCode</returns>
-        private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
             Logging.Message("transpiler patching CheckZoning calls in PrivateBuildingAI.SimulationStep");
             return CheckZoningTranspiler.Transpiler(instructions);
@@ -40,7 +40,7 @@ namespace PloppableRICO
         /// </summary>
         /// <param name="instructions">Original ILCode</param>
         /// <returns>Replacement (patched) ILCode</returns>
-        private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
             Logging.Message("transpiler patching CheckZoning calls in PrivateBuildingAI.CheckNearbyBuildingZones");
             return CheckZoningTranspiler.Transpiler(instructions);
@@ -59,7 +59,7 @@ namespace PloppableRICO
         /// </summary>
         /// <param name="instructions">Original ILCode to patch</param>
         /// <returns>Replacement (patched) ILCode</returns>
-        internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
             // Get list of original opcodes and create our replacement list.
             List<CodeInstruction> code = new List<CodeInstruction>(instructions);

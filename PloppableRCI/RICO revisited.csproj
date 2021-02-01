@@ -128,7 +128,6 @@
     <Compile Include="GUI\PloppableTool.cs" />
     <Compile Include="AI\CommercialAI.cs" />
     <Compile Include="XML\RICOReader.cs" />
-    <Compile Include="XML\SteamDataProvider.cs" />
     <Compile Include="XML\XMLManager.cs" />
     <Compile Include="Loading.cs" />
     <Compile Include="Patches\BuildingTool.cs" />

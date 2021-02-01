@@ -15,11 +15,10 @@ namespace PloppableRICO
         /// <summary>
         /// Loads and parses the given RICO file.
         /// </summary>
-        /// <param name="packageName">Package name</param>
         /// <param name="ricoDefPath">Definition file path</param>
         /// <param name="isLocal">True if this is a local settings file, false for author settings file</param>
         /// <returns>Parsed Ploppable RICO definition file</returns>
-        public static PloppableRICODefinition ParseRICODefinition(string packageName, string ricoDefPath, bool isLocal = false)
+        public static PloppableRICODefinition ParseRICODefinition(string ricoDefPath, bool isLocal = false)
         {
             // Note here we're using insanityOK as a local settings flag.
             string localOrAuthor = isLocal ? "local" : "author";
@@ -31,9 +30,11 @@ namespace PloppableRICO
                 {
                     // Create new XML (de)serializer
                     XmlAttributes attrs = new XmlAttributes();
-                    XmlElementAttribute attr = new XmlElementAttribute();
-                    attr.ElementName = "RICOBuilding";
-                    attr.Type = typeof(RICOBuilding);
+                    XmlElementAttribute attr = new XmlElementAttribute
+                    {
+                        ElementName = "RICOBuilding",
+                        Type = typeof(RICOBuilding)
+                    };
                     XmlAttributeOverrides attrOverrides = new XmlAttributeOverrides();
                     attrOverrides.Add(typeof(RICOBuilding), "Building", attrs);
 
@@ -52,11 +53,11 @@ namespace PloppableRICO
                         foreach (var building in result.Buildings)
                         {
                             // Check for fatal errors in each building.
-                            errorList = building.fatalErrors;
+                            errorList = building.FatalErrors;
                             if (errorList.Length == 0)
                             {
                                 // No fatal errors; check for non-fatal errors.
-                                errorList = building.nonFatalErrors;
+                                errorList = building.NonFatalErrors;
 
                                 if (errorList.Length != 0)
                                 {

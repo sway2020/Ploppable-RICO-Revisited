@@ -34,8 +34,8 @@ namespace PloppableRICO
         private UIScrollPanel scrollPanel;
 
         private UITabstrip Tabs;
-        private UISprite[] TabSprites = new UISprite[NumTabs];
-        private UIButton[] TabButtons = new UIButton[NumTabs];
+        private readonly UISprite[] TabSprites = new UISprite[NumTabs];
+        private readonly UIButton[] TabButtons = new UIButton[NumTabs];
         private UIButton showSettings;
 
         // State flag.
@@ -43,7 +43,7 @@ namespace PloppableRICO
 
 
         // Names used to identify icons for tabs (specific game icon names - not just made up).
-        private string[] Names = new string[]
+        private readonly string[] Names = new string[]
         {
             "ResidentialLow",
             "ResidentialHigh",
@@ -231,14 +231,14 @@ namespace PloppableRICO
                 //BuildingPanels[0].isVisible = true;
 
                 // Hide AD tabs if AD is not installed.
-                if (!Util.isADinstalled())
+                if (!Util.IsADinstalled())
                 {
                     TabButtons[10].isVisible = false;
                     TabButtons[11].isVisible = false;
                 }
 
                 // Hide GC tabs if GC is not installed.
-                if (!Util.isGCinstalled())
+                if (!Util.IsGCinstalled())
                 {
                     TabButtons[12].isVisible = false;
                     TabButtons[13].isVisible = false;
@@ -351,7 +351,7 @@ namespace PloppableRICO
                 if (ricoSetting != null)
                 {
                     // Valid setting - if the UI category matches this one, add it to the list.
-                    if (UICategoryIndex(ricoSetting.uiCategory) == uiCategory)
+                    if (UICategoryIndex(ricoSetting.UiCategory) == uiCategory)
                     {
                         buildingList.Add(buildingData);
                     }
@@ -382,7 +382,7 @@ namespace PloppableRICO
             // Focus this sprite (no focused versions for AD or GC sprites so exclude those).
             if (sprite.spriteName != "IconPolicyLeisure" && sprite.spriteName != "IconPolicyTourist" && sprite.spriteName != "IconPolicyHightech" && sprite.spriteName != "IconPolicyOrganic" && sprite.spriteName != "IconPolicySelfsufficient")
             {
-                sprite.spriteName = sprite.spriteName + "Focused";
+                sprite.spriteName += "Focused";
             }
         }
 
@@ -417,7 +417,7 @@ namespace PloppableRICO
                 case "ore":
                     return 9;
                 case "leisure":
-                    if (Util.isADinstalled())
+                    if (Util.IsADinstalled())
                     {
                         return 10;
                     }
@@ -427,7 +427,7 @@ namespace PloppableRICO
                         return 2;
                     }
                 case "tourist":
-                    if (Util.isADinstalled())
+                    if (Util.IsADinstalled())
                     {
                         return 11;
                     }
@@ -437,7 +437,7 @@ namespace PloppableRICO
                         return 2;
                     }
                 case "organic":
-                    if (Util.isGCinstalled())
+                    if (Util.IsGCinstalled())
                     {
                         return 12;
                     }
@@ -448,7 +448,7 @@ namespace PloppableRICO
                     }
                 case "hightech":
                     // IT cluster.
-                    if (Util.isGCinstalled())
+                    if (Util.IsGCinstalled())
                     {
                         return 13;
                     }
@@ -459,7 +459,7 @@ namespace PloppableRICO
                     }
                 case "selfsufficient":
                     // Self-sufficient (eco) residential.
-                    if (Util.isGCinstalled())
+                    if (Util.IsGCinstalled())
                     {
                         return 14;
                     }

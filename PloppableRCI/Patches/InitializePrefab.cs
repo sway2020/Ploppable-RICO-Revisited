@@ -11,7 +11,7 @@ namespace PloppableRICO
 	/// and opens a lot of doors.
 	/// </summary>
 	[HarmonyPatch(typeof(BuildingInfo), "InitializePrefab")]
-	internal static class InitPatch
+	public static class InitPatch
 	{
 		/// <summary>
 		/// Harmony prefix patch for BuildingInfo.InitializePrefab.
@@ -22,7 +22,7 @@ namespace PloppableRICO
 		/// <returns>Whether to continue InitializePrefab (always true)</returns>
 		[HarmonyPriority(Priority.High)]
 		[HarmonyBefore(new string[] { "github.com/boformer/PrefabHook" })]
-		private static bool Prefix(BuildingInfo __instance)
+		public static bool Prefix(BuildingInfo __instance)
 		{
 			// Basic sanity check before proceeding; if failed, don't do anything here - just continue on to game method.
 			if (__instance.name == null)
@@ -59,7 +59,7 @@ namespace PloppableRICO
 				if (File.Exists(ricoDefPath))
 				{
 					// Parse the file.
-					var tempRicoDef = RICOReader.ParseRICODefinition(asset.package.packageName, ricoDefPath);
+					var tempRicoDef = RICOReader.ParseRICODefinition(ricoDefPath);
 
 					if (tempRicoDef != null)
 					{
@@ -192,7 +192,7 @@ namespace PloppableRICO
 		/// Confirms that the prefab made it through initialisation.
 		/// </summary>
 		/// <param name="__instance"></param>
-		private static void Postfix(BuildingInfo __instance)
+		public static void Postfix(BuildingInfo __instance)
 		{
 			// If we've made it here, the asset has initialised correctly (no PrefabExceptions thrown); remove it from broken prefabs list.
 			Loading.brokenPrefabs.Remove(__instance);

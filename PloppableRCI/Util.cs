@@ -10,21 +10,6 @@ namespace PloppableRICO
     // Get .crp files (for building information and pretty pictures).
     public static class Util
     {
-        public static FileInfo crpFileIn(DirectoryInfo d)
-        {
-            try
-            {
-                var f = d.GetFiles("*.crp");
-                if (f != null && f.Count() == 1)
-                    return f[0];
-            }
-            catch
-            {
-            }
-            return null;
-        }
-
-
         public static int[] WorkplaceDistributionOf(string service, string subservice, string level)
         {
             // Workplace distributions by building category, subservice, and level.
@@ -189,17 +174,10 @@ namespace PloppableRICO
 
 
         // Check if After Dark DLC is installed.
-        public static bool isADinstalled()
-        {
-
-            return SteamHelper.IsDLCOwned(SteamHelper.DLC.AfterDarkDLC);
-        }
+        public static bool IsADinstalled() => SteamHelper.IsDLCOwned(SteamHelper.DLC.AfterDarkDLC);
 
 
         // Check if Green Cities is installed.
-        public static bool isGCinstalled()
-        {
-            return SteamHelper.IsDLCOwned(SteamHelper.DLC.GreenCitiesDLC);
-        }
+        public static bool IsGCinstalled() => SteamHelper.IsDLCOwned(SteamHelper.DLC.GreenCitiesDLC);
     }
 }

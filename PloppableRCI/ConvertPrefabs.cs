@@ -69,7 +69,7 @@ namespace PloppableRICO
 
                         // Assign basic parameters.
                         residentialAI.m_ricoData = buildingData;
-                        residentialAI.m_constructionCost = buildingData.constructionCost;
+                        residentialAI.m_constructionCost = buildingData.ConstructionCost;
                         residentialAI.m_homeCount = buildingData.homeCount;
 
                         // Determine AI class string according to subservice.
@@ -77,7 +77,7 @@ namespace PloppableRICO
                         {
                             case "low eco":
                                 // Apply eco service if GC installed, otherwise use normal low residential.
-                                if (Util.isGCinstalled())
+                                if (Util.IsGCinstalled())
                                 {
                                     aiClass = "Low Residential Eco - Level";
                                 }
@@ -89,7 +89,7 @@ namespace PloppableRICO
 
                             case "high eco":
                                 // Apply eco service if GC installed, otherwise use normal high residential.
-                                if (Util.isGCinstalled())
+                                if (Util.IsGCinstalled())
                                 {
                                     aiClass = "High Residential Eco - Level";
                                 }
@@ -133,8 +133,8 @@ namespace PloppableRICO
 
                         // Assign basic parameters.
                         officeAI.m_ricoData = buildingData;
-                        officeAI.m_workplaceCount = buildingData.workplaceCount;
-                        officeAI.m_constructionCost = buildingData.constructionCost;
+                        officeAI.m_workplaceCount = buildingData.WorkplaceCount;
+                        officeAI.m_constructionCost = buildingData.ConstructionCost;
 
                         // Check if this is an IT Cluster specialisation.
 
@@ -142,7 +142,7 @@ namespace PloppableRICO
                         if (buildingData.subService == "high tech")
                         {
                             // Apply IT cluster if GC installed, otherwise use Level 3 office.
-                            if (Util.isGCinstalled())
+                            if (Util.IsGCinstalled())
                             {
                                 aiClass = "Office - Hightech";
                             }
@@ -173,8 +173,8 @@ namespace PloppableRICO
 
                         // Assign basic parameters.
                         industrialAI.m_ricoData = buildingData;
-                        industrialAI.m_workplaceCount = buildingData.workplaceCount;
-                        industrialAI.m_constructionCost = buildingData.constructionCost;
+                        industrialAI.m_workplaceCount = buildingData.WorkplaceCount;
+                        industrialAI.m_constructionCost = buildingData.ConstructionCost;
                         industrialAI.m_pollutionEnabled = buildingData.pollutionEnabled;
 
                         // Determine AI class string according to subservice.
@@ -206,8 +206,8 @@ namespace PloppableRICO
 
                         // Assign basic parameters.
                         extractorAI.m_ricoData = buildingData;
-                        extractorAI.m_workplaceCount = buildingData.workplaceCount;
-                        extractorAI.m_constructionCost = buildingData.constructionCost;
+                        extractorAI.m_workplaceCount = buildingData.WorkplaceCount;
+                        extractorAI.m_constructionCost = buildingData.ConstructionCost;
                         extractorAI.m_pollutionEnabled = buildingData.pollutionEnabled;
 
                         // Check that we have a valid industry subservice.
@@ -234,8 +234,8 @@ namespace PloppableRICO
 
                         // Assign basic parameters.
                         commercialAI.m_ricoData = buildingData;
-                        commercialAI.m_workplaceCount = buildingData.workplaceCount;
-                        commercialAI.m_constructionCost = buildingData.constructionCost;
+                        commercialAI.m_workplaceCount = buildingData.WorkplaceCount;
+                        commercialAI.m_constructionCost = buildingData.ConstructionCost;
 
                         // Determine AI class string according to subservice.
                         switch (buildingData.subService)
@@ -243,7 +243,7 @@ namespace PloppableRICO
                             // Organic and Local Produce.
                             case "eco":
                                 // Apply eco specialisation if GC installed, otherwise use Level 1 low commercial.
-                                if (Util.isGCinstalled())
+                                if (Util.IsGCinstalled())
                                 {
                                     // Eco commercial buildings only import food goods.
                                     commercialAI.m_incomingResource = TransferManager.TransferReason.Food;
@@ -258,7 +258,7 @@ namespace PloppableRICO
                             // Tourism.
                             case "tourist":
                                 // Apply tourist specialisation if AD installed, otherwise use Level 1 low commercial.
-                                if (Util.isADinstalled())
+                                if (Util.IsADinstalled())
                                 {
                                     aiClass = "Tourist Commercial - Land";
                                 }
@@ -271,7 +271,7 @@ namespace PloppableRICO
                             // Leisure.
                             case "leisure":
                                 // Apply leisure specialisation if AD installed, otherwise use Level 1 low commercial.
-                                if (Util.isADinstalled())
+                                if (Util.IsADinstalled())
                                 {
                                     aiClass = "Leisure Commercial";
                                 }
@@ -317,9 +317,9 @@ namespace PloppableRICO
         private void InitializePrefab(BuildingInfo prefab, BuildingAI ai, String aiClass, bool growable)
         {
             // Non-zero construction time important for other mods (Real Time, Real Construction) - only for private building AIs.
-            if (ai is PrivateBuildingAI)
+            if (ai is PrivateBuildingAI privateBuildingAI)
             {
-                ((PrivateBuildingAI)ai).m_constructionTime = 30;
+                privateBuildingAI.m_constructionTime = 30;
             }
 
             // Assign required fields.
@@ -327,7 +327,7 @@ namespace PloppableRICO
             prefab.m_buildingAI.m_info = prefab;
             prefab.m_class = ItemClassCollection.FindClass(aiClass);
             prefab.m_placementStyle = growable ? ItemClass.Placement.Automatic : ItemClass.Placement.Manual;
-            prefab.m_autoRemove = growable ? true : !ModSettings.warnBulldoze;
+            prefab.m_autoRemove = growable || !ModSettings.warnBulldoze;
         }
 
 

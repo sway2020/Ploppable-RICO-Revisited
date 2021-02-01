@@ -212,7 +212,7 @@ namespace PloppableRICO
                 currentSelection.local.service = GetRICOService();
                 currentSelection.local.subService = GetRICOSubService();
                 currentSelection.local.level = (int)currentSelection.prefab.GetClassLevel() + 1;
-                currentSelection.local.constructionCost = 10;
+                currentSelection.local.ConstructionCost = 10;
 
                 // See if selected 'virgin' prefab has Private AI.
                 if (currentSelection.prefab.GetAI() is PrivateBuildingAI privateAI)
@@ -234,7 +234,7 @@ namespace PloppableRICO
 
                         privateAI.CalculateWorkplaceCount(currentSelection.prefab.GetClassLevel(), new Randomizer(), buildingWidth, buildingLength, out workplaces[0], out workplaces[1], out workplaces[2], out workplaces[3]);
 
-                        currentSelection.local.workplaces = workplaces;
+                        currentSelection.local.Workplaces = workplaces;
                     }
 
                     // Set as growable if building is appropriate size.
@@ -247,11 +247,11 @@ namespace PloppableRICO
                 {
                     // Basic catchall defaults for homes and workplaces.
                     currentSelection.local.homeCount = 1;
-                    currentSelection.local.workplaces = new int[] { 1, 0, 0, 0 };
+                    currentSelection.local.Workplaces = new int[] { 1, 0, 0, 0 };
                 }
 
                 // UI Category will be updated later.
-                currentSelection.local.uiCategory = "none";
+                currentSelection.local.UiCategory = "none";
             }
 
             currentSelection.local.name = currentSelection.name;
@@ -454,15 +454,15 @@ namespace PloppableRICO
         {
             if (currentSelection.hasLocal)
             {
-                return currentSelection.local.uiCategory;
+                return currentSelection.local.UiCategory;
             }
             else if (currentSelection.hasAuthor)
             {
-                return currentSelection.author.uiCategory;
+                return currentSelection.author.UiCategory;
             }
             else if (currentSelection.hasMod)
             {
-                return currentSelection.mod.uiCategory;
+                return currentSelection.mod.UiCategory;
             }
 
             return "none";

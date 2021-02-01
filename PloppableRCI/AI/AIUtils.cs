@@ -37,7 +37,7 @@ namespace PloppableRICO
         /// <returns>Final construction cost</returns>
         internal static int WorkplaceConstructionCost(PrivateBuildingAI thisAI, int fixedCost)
         {
-            int jobs0, jobs1, jobs2, jobs3, baseCost;
+            int baseCost;
 
             // Local references.
             BuildingInfo thisInfo = thisAI.m_info;
@@ -47,7 +47,7 @@ namespace PloppableRICO
             if (ModSettings.overrideCost)
             {
                 // Yes - calculate based on workplaces by level multiplied by appropriate cost-per-job setting.
-                thisAI.CalculateWorkplaceCount(thisLevel, new Randomizer(), thisInfo.GetWidth(), thisInfo.GetLength(), out jobs0, out jobs1, out jobs2, out jobs3);
+                thisAI.CalculateWorkplaceCount(thisLevel, new Randomizer(), thisInfo.GetWidth(), thisInfo.GetLength(), out int jobs0, out int jobs1, out int jobs2, out int jobs3);
                 baseCost = (ModSettings.costPerJob0 * jobs0) + (ModSettings.costPerJob1 * jobs1) + (ModSettings.costPerJob2 * jobs2) + (ModSettings.costPerJob3 * jobs3);
             }
             else

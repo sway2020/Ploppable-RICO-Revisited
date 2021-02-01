@@ -85,7 +85,7 @@ namespace PloppableRICO
     public class ThumbnailGenerator
     {
         // Renderer for thumbnail images.
-        private UIPreviewRenderer renderer;
+        private readonly UIPreviewRenderer renderer;
 
 
         /// <summary>

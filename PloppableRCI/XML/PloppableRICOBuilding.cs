@@ -36,8 +36,8 @@ namespace PloppableRICO
             name = "";
             service = "";
             subService = "";
-            constructionCost = 10;
-            uiCategory = "";
+            ConstructionCost = 10;
+            UiCategory = "";
             homeCount = 0;
             level = 0;
             density = 0;
@@ -49,43 +49,43 @@ namespace PloppableRICO
         }
 
         // Regex expression for integer values.
-        private Regex RegexXmlIntegerValue = new System.Text.RegularExpressions.Regex("^ *(\\d+) *$");
-        private Regex RegexXML4IntegerValues = new System.Text.RegularExpressions.Regex("^ *(\\d+) *, *(\\d+) *, *(\\d+) *, *(\\d+) *");
+        private readonly Regex RegexXmlIntegerValue = new System.Text.RegularExpressions.Regex("^ *(\\d+) *$");
+        private readonly Regex RegexXML4IntegerValues = new System.Text.RegularExpressions.Regex("^ *(\\d+) *, *(\\d+) *, *(\\d+) *, *(\\d+) *");
 
 
         /// <summary>
         /// Building name.
         /// </summary>
-        [XmlAttribute( "name" )]
-        public string name { get; set; }
+        [XmlAttribute("name")]
+        public string name;
 
 
         /// <summary>
         /// Building service.
         /// </summary>
-        [XmlAttribute( "service" )]
-        public string service { get; set; }
+        [XmlAttribute("service")]
+        public string service;
 
 
         /// <summary>
         /// Density - currently unused, but retained for possible future use.
         /// </summary>
         [XmlAttribute("density")]
-        public int density { get; set; }
+        public int density;
 
 
         /// <summary>
         /// Building subservice (specialisation).
         /// </summary>
-        [XmlAttribute( "sub-service" )]
-        public string subService { get; set; }
+        [XmlAttribute("sub-service")]
+        public string subService;
 
 
         /// <summary>
         /// Building ploppable construction cost.
         /// </summary>
         [XmlAttribute( "construction-cost" )]
-        public int constructionCost
+        public int ConstructionCost
         {
             get
             {
@@ -105,7 +105,7 @@ namespace PloppableRICO
         /// Building UI category (for ploppable tool panel).
         /// </summary>
         [XmlAttribute( "ui-category" )]
-        public string uiCategory
+        public string UiCategory
         {
             get
             {
@@ -122,16 +122,16 @@ namespace PloppableRICO
         /// <summary>
         /// Building household count.
         /// </summary>
-        [XmlAttribute( "homes" )]
-        [DefaultValue( 0 )]
-        public int homeCount { get; set; }
+        [XmlAttribute("homes")]
+        [DefaultValue(0)]
+        public int homeCount;
 
 
         /// <summary>
         /// Building level.
         /// </summary>
-        [XmlAttribute( "level" )]
-        public int level { get; set; }
+        [XmlAttribute("level")]
+        public int level;
 
 
         /// <summary>
@@ -139,7 +139,7 @@ namespace PloppableRICO
         /// </summary>
         [XmlAttribute("enable-rico")]
         [DefaultValue(true)]
-        public bool ricoEnabled { get; set; }
+        public bool ricoEnabled;
 
 
         /// <summary>
@@ -147,7 +147,7 @@ namespace PloppableRICO
         /// </summary>
         [XmlAttribute("growable")]
         [DefaultValue(false)]
-        public bool growable { get; set; }
+        public bool growable;
 
 
         /// <summary>
@@ -155,7 +155,7 @@ namespace PloppableRICO
         /// </summary>
         [XmlAttribute("enable-pollution")]
         [DefaultValue(true)]
-        public bool pollutionEnabled { get; set; }
+        public bool pollutionEnabled;
 
 
         /// <summary>
@@ -163,18 +163,18 @@ namespace PloppableRICO
         /// </summary>
         [XmlAttribute( "workplaces" )]
         [DefaultValue( "0,0,0,0" )]
-        public string workplacesString
+        public string WorkplacesString
         {
             get
             {
                 // Return 'zero-string' if no workplaces.
-                if (workplaceCount == 0)
+                if (WorkplaceCount == 0)
                 {
                     return "0,0,0,0";
                 }
 
                 // Otherwise, return a comma-separated list of our workplace breakdowns.
-                return String.Join( ",", workplaces.Select(n => n.ToString()).ToArray());
+                return String.Join( ",", Workplaces.Select(n => n.ToString()).ToArray());
             }
             set
             {
@@ -183,7 +183,7 @@ namespace PloppableRICO
                 {
                     // We have an old workplace format - return with all workplaces assigned to the lowest level (these will be allocated out later).
                     _oldWorkplacesStyle = true;
-                    workplaces = new int[] { Convert.ToInt32(value), 0, 0, 0 };
+                    Workplaces = new int[] { Convert.ToInt32(value), 0, 0, 0 };
                 }
                 else
                 {
@@ -194,12 +194,12 @@ namespace PloppableRICO
                     if (RegexXML4IntegerValues.IsMatch(value))
                     {
                         // Yes - use this list to populate array.
-                        workplaces = value.Replace(" ", "").Split(',').Select(n => Convert.ToInt32(n)).ToArray();
+                        Workplaces = value.Replace(" ", "").Split(',').Select(n => Convert.ToInt32(n)).ToArray();
                     }
                     else
                     {
                         // Garbage input - return zero workplace count.
-                        workplaces = new int[] { 0, 0, 0, 0 };
+                        Workplaces = new int[] { 0, 0, 0, 0 };
                     }
                 }
             }
@@ -219,21 +219,14 @@ namespace PloppableRICO
         /// Considers both the building setting and whether or not such a mod is active.
         /// </summary>
         [XmlIgnore]
-        public bool useReality
-        {
-            get
-            {
-                // Check for Realistic Population Revisited or original WG Realistic Population, and obviously ignore-reality flag.
-                return (!RealityIgnored && ModUtils.realPopEnabled);
-            }
-        }
+        public bool UseReality => !RealityIgnored && ModUtils.realPopEnabled;
 
 
         /// <summary>
         /// Returns the maximum building level for this service/subservice combination.
         /// </summary>
         [XmlIgnore]
-        public int maxLevel
+        public int MaxLevel
         {
             get
             {
@@ -250,7 +243,7 @@ namespace PloppableRICO
         /// Whether or not the RICO data for this asset used an old-format workplace style.
         /// </summary>
         [XmlIgnore]
-        public bool oldWorkplacesStyle => _oldWorkplacesStyle;
+        public bool OldWorkplacesStyle => _oldWorkplacesStyle;
         private bool _oldWorkplacesStyle;
 
 
@@ -258,14 +251,14 @@ namespace PloppableRICO
         /// Returns the total number of workplaces for this building.
         /// </summary>
         [XmlIgnore]
-        public int workplaceCount => workplaces.Sum();
+        public int WorkplaceCount => Workplaces.Sum();
 
 
         /// <summary>
         /// Workplace breakdown by education level, as an integer array.
         /// </summary>
         [XmlIgnore]
-        public int[] workplaces
+        public int[] Workplaces
         {
             get
             {
@@ -276,7 +269,7 @@ namespace PloppableRICO
                 }
 
                 // If we have old-style workplaces, we ned to allocate out the single value to workplace levels.
-                if (oldWorkplacesStyle)
+                if (OldWorkplacesStyle)
                 {
                     // Get original workplace count.
                     int originalWorkplaces = _workplaces[0];
@@ -290,7 +283,7 @@ namespace PloppableRICO
                     }
 
                     // Distribute jobs.
-                    int[] allocation = WorkplaceAIHelper.distributeWorkplaceLevels(originalWorkplaces, distribution);
+                    int[] allocation = WorkplaceAIHelper.DistributeWorkplaceLevels(originalWorkplaces, distribution);
                     for (int i = 0; i < 4; ++i)
                     {
                         _workplaces[i] = allocation[i];
@@ -320,7 +313,7 @@ namespace PloppableRICO
         /// Checks the parsed XML data for any fatal errors.
         /// </summary>
         [XmlIgnore]
-        public StringBuilder fatalErrors
+        public StringBuilder FatalErrors
         {
             // Detect and report any fatal errors.
             get
@@ -357,7 +350,7 @@ namespace PloppableRICO
                 }
 
                 // Workplaces.  Need something to go with, here.
-                if (!(RegexXML4IntegerValues.IsMatch(workplacesString) || RegexXmlIntegerValue.IsMatch(workplacesString)))
+                if (!(RegexXML4IntegerValues.IsMatch(WorkplacesString) || RegexXmlIntegerValue.IsMatch(WorkplacesString)))
                 {
                     errors.AppendLine("Building '" + name + "' has an invalid value for 'workplaces'. Must be either a positive integer number or a comma separated list of 4 positive integer numbers.");
                 }
@@ -371,7 +364,7 @@ namespace PloppableRICO
         /// Checks the parsed XML data for any non-fatal errors.
         /// </summary>
         [XmlIgnore]
-        public StringBuilder nonFatalErrors
+        public StringBuilder NonFatalErrors
         {
             // Errors that we can recover from, or at least work with.
             // Should only be used after fatalErrors so that we know we've got legitimate service and sub-service values to work with.
@@ -380,7 +373,7 @@ namespace PloppableRICO
                 var errors = new StringBuilder();
 
 
-                if (!new Regex(@"^(comlow|comhigh|reslow|reshigh|office|industrial|oil|ore|farming|forest|tourist|leisure|organic|hightech|selfsufficient|none)$").IsMatch(uiCategory))
+                if (!new Regex(@"^(comlow|comhigh|reslow|reshigh|office|industrial|oil|ore|farming|forest|tourist|leisure|organic|hightech|selfsufficient|none)$").IsMatch(UiCategory))
                 {
                     // Invalid UI Category; calculate new one from scratch.
                     string newCategory = string.Empty;
@@ -449,8 +442,8 @@ namespace PloppableRICO
                     }
                     
                     // Report the error and update the UI category.
-                    errors.AppendLine("Building '" + name + "' has an invalid ui-category '" + uiCategory + "'; reverting to '" + newCategory + "'.");
-                    uiCategory = newCategory;
+                    errors.AppendLine("Building '" + name + "' has an invalid ui-category '" + UiCategory + "'; reverting to '" + newCategory + "'.");
+                    UiCategory = newCategory;
                 }
 
                 // Check home and workplace counts, as appropriate.
@@ -473,7 +466,7 @@ namespace PloppableRICO
                 else
                 {
                     // Any non-residential building should have jobs unless it's an empty or dummy service.
-                    if ((workplaceCount == 0) && service != "" && service != "none" && service != "dummy")
+                    if ((WorkplaceCount == 0) && service != "" && service != "none" && service != "dummy")
                     {
                         _workplaces[0] = 1;
                         errors.AppendLine("Building '" + name + "' provides " + service + " jobs but no jobs are set; setting to 1.");
@@ -481,7 +474,7 @@ namespace PloppableRICO
                 }
 
                 // Building level.  Basically check and clamp to 1 <= level <= maximum level (for this category and sub-category combination).
-                int newLevel = Math.Min(Math.Max(level, 1), maxLevel);
+                int newLevel = Math.Min(Math.Max(level, 1), MaxLevel);
 
                 if (newLevel != level)
                 {

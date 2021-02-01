@@ -10,7 +10,7 @@ namespace PloppableRICO
     /// </summary>
     public class UIPreviewRenderer : MonoBehaviour
     {
-        private Camera renderCamera;
+        private readonly Camera renderCamera;
         private Mesh currentMesh;
         private Bounds currentBounds;
         private float currentRotation;
