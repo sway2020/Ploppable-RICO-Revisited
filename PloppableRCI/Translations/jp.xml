@@ -86,19 +86,12 @@
     <Translation ID="PRR_DESCRIPTION" String="建物の架装と4x4タイル以上の建物を可能" />
     <Translation ID="PRR_OPTION_MOREDEBUG" String="ディーバグロギングを可能" />
     <Translation ID="PRR_OPTION_FORCERESET" String="ゲーム起動のたびに前回の統計を消す" />
-    <Translation ID="PRR_OPTION_REGENTHUMBS" String="" />
-    <Translation ID="PRR_OPTION_SPDHDR" String="" />
-    <Translation ID="PRR_OPTION_SPEED" String="" />
-    <Translation ID="PRR_OPTION_FASTHDR" String="" />
-    <Translation ID="PRR_OPTION_FASTHUMB" String="" />
-    <Translation ID="PRR_OPTION_THUMBACK" String="" />
     <Translation ID="PRR_THUMB_COLOR" String="色" />
     <Translation ID="PRR_THUMB_PLAIN" String="普通" />
     <Translation ID="PRR_THUMB_SKY" String="スカイボクス" />
     <Translation ID="PRR_ERR_FAT" String="利用者のデータを守るために、プロップする再RICOを可能にしませんでした。" />
     <Translation ID="PRR_ERR_HAR" String="プロップする再RICOは必要されたHarmonyパッチを完成できませんでした。" />
     <Translation ID="ERR_HAR0" String="Harmonyパッチのエラー" />
-    <Translation ID="ERR_HAR1" String="" />
     <Translation ID="ERR_HAR2" String="必要されたHarmony 2 Modがありません" />
     <Translation ID="ERR_HAR3" String="他のModはHarmony 2を正しく動くことに妨げているそうです。できれば、このModを可能にさせないでください" />
     <Translation ID="PRR_UPD_21_0" String="プロップする再RICO 2.1版(日本語訳)" />
