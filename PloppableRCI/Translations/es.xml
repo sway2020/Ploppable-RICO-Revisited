@@ -103,7 +103,6 @@
     <Translation ID="PRR_OPTION_GRO" String="Opciones de expandido" />
     <Translation ID="PRR_OPTION_COM" String="Opciones de quejas" />
     <Translation ID="PRR_OPTION_MOD" String="Opciones del mod" />
-    <Translation ID="PRR_OPTION_MOREDEBUG" String="" />
     <Translation ID="PRR_OPTION_FORCERESET" String="Forzar reseteo de las estadísticas de los edificios en la carga del juego" />
     <Translation ID="PRR_OPTION_REGENTHUMBS" String="Regenerar miniaturas (thumbnails)" />
     <Translation ID="PRR_OPTION_SPDHDR" String="Incrementa ligeramente la velocidad del juego pero el panel se demorará mas en abrir" />

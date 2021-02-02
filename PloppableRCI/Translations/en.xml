@@ -30,6 +30,10 @@
     <Translation ID="PRR_FTR_NON" String="None" />
     <Translation ID="PRR_FTR_NAM" String="Name" />
     <Translation ID="PRR_FTR_SET" String="Settings filter: Mod/Author/Local/Any" />
+    <Translation ID="PRR_OPT_SET" String="Settings" />
+    <Translation ID="PRR_OPT_MOD" String="Mod" />
+    <Translation ID="PRR_OPT_AUT" String="Author" />
+    <Translation ID="PRR_OPT_LOC" String="Local" />
     <Translation ID="PRR_OPT_ENA" String="Enable RICO" />
     <Translation ID="PRR_OPT_SER" String="Service" />
     <Translation ID="PRR_OPT_SUB" String="Sub-service" />

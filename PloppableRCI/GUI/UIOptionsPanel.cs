@@ -89,51 +89,271 @@ namespace PloppableRICO
         };
 
         // Flages.
-        public bool disableEvents;
+        private bool disableEvents;
 
         // Selection.
-        public RICOBuilding currentSelection;
+        private BuildingData currentBuildingData;
+        private RICOBuilding currentSettings;
 
         // Panel components.
         // Panel title.
-        public UILabel label;
-        public UIPanel labelpanel;
+        private UILabel label;
+        private UIPanel labelpanel;
+
+        // Settings selection.
+        private UIDropDown settingDropDown;
 
         // Enable RICO.
-        public UICheckBox ricoEnabled;
-        public UIPanel enableRICOPanel;
+        private UICheckBox ricoEnabled;
+        private UIPanel enableRICOPanel;
 
         // Growable.
-        public UICheckBox growable;
+        private UICheckBox growable;
 
         // Fundamental attributes.
-        public UIDropDown service;
-        public UIDropDown subService;
-        public UIDropDown level;
-        public UIDropDown uiCategory;
+        private UIDropDown service, subService, level, uiCategory;
 
-        // Households / aggregate workplaces.
-        public UITextField manual;
-
-        // Workplace breakdown by education level.
-        public UITextField uneducated;
-        public UITextField educated;
-        public UITextField welleducated;
-        public UITextField highlyeducated;
+        // Households / workplaces.
+        private UITextField manual, uneducated, educated, welleducated, highlyeducated;
 
         // Pollution.
-        public UICheckBox pollutionEnabled;
-        public UIPanel pollutionPanel;
+        private UICheckBox pollutionEnabled;
 
         // Realistic population.
-        public UICheckBox realityIgnored;
-        //public UICheckBox manualWorkersEnabled;
-        //public UIPanel manualPanel;
+        private UICheckBox realityIgnored;
 
         // Construction.
-        public UICheckBox constructionCostEnabled;
-        public UIPanel constructionPanel;
-        public UITextField construction;
+        private UITextField construction;
+
+
+        /// <summary>
+        /// Updates the options panel when the building selection changes, including showing/hiding relevant controls.
+        /// </summary>
+        /// <param name="buildingData">RICO building data</param>
+        internal void SelectionChanged(BuildingData buildingData)
+        {
+            // Set current data.
+            currentBuildingData = buildingData;
+
+            // Set displayed settings via settings dropdown menu event handler.
+            if (buildingData.hasLocal)
+            {
+                // Local settings have priority - select them if they exist.
+                settingDropDown.selectedIndex = 0;
+            }
+            else if (buildingData.hasAuthor)
+            {
+                // Then author settings - select them if no local settings.
+                settingDropDown.selectedIndex = 1;
+            }
+            else if (buildingData.hasMod)
+            {
+                // Finally, set mod settings if no other settings.
+                settingDropDown.selectedIndex = 2;
+            }
+            else
+            {
+                // No settings are available for this builidng - default to local.
+                settingDropDown.selectedIndex = 0;
+            }
+        }
+
+
+        /// <summary>
+        /// Reads current settings from UI elements, and saves them to XML.
+        /// </summary>
+        internal void SaveRICO()
+        {
+            // Set service and subservice.
+            GetService(out string serviceString, out string subServiceString);
+            currentSettings.service = serviceString;
+            currentSettings.subService = subServiceString;
+
+            // Set level.
+            currentSettings.level = level.selectedIndex + 1;
+
+            // Get home/total worker count, with default of zero.
+            int.TryParse(manual.text, out int manualCount);
+            currentSettings.homeCount = manualCount;
+
+            // Get workplace breakdown.
+            int[] a = new int[4] { 0, 0, 0, 0 };
+            int.TryParse(uneducated.text, out a[0]);
+            int.TryParse(educated.text, out a[1]);
+            int.TryParse(welleducated.text, out a[2]);
+            int.TryParse(highlyeducated.text, out a[3]);
+
+            // If no breakdown has been provided, then we try the total jobs instead.
+            // Yeah, it's a bit clunky to add the elements individually like this, but saves bringing in System.Linq for just this one case.
+            if (a[0] + a[1] + a[2] + a[3] == 0)
+            {
+                // No workplace breakdown provided (all fields zero); use total workplaces ('manual', previously parsed as manualCount) and allocate.
+                int[] d = Util.WorkplaceDistributionOf(currentSettings.service, currentSettings.subService, "Level" + currentSettings.level);
+                a = WorkplaceAIHelper.DistributeWorkplaceLevels(manualCount, d);
+
+                // Check and adjust for any rounding errors, assigning 'leftover' jobs to the lowest education level.
+                a[0] += (manualCount - a[0] - a[1] - a[2] - a[3]);
+            }
+
+            currentSettings.Workplaces = a;
+
+            currentSettings.ConstructionCost = int.Parse(construction.text);
+            // Write parsed (and filtered, e.g. minimum value 10) back to the construction cost text field so the user knows.
+            construction.text = currentSettings.ConstructionCost.ToString();
+
+            // UI categories from menu.
+            switch (uiCategory.selectedIndex)
+            {
+                case 0:
+                    currentSettings.UiCategory = "reslow";
+                    break;
+                case 1:
+                    currentSettings.UiCategory = "reshigh";
+                    break;
+                case 2:
+                    currentSettings.UiCategory = "comlow";
+                    break;
+                case 3:
+                    currentSettings.UiCategory = "comhigh";
+                    break;
+                case 4:
+                    currentSettings.UiCategory = "office";
+                    break;
+                case 5:
+                    currentSettings.UiCategory = "industrial";
+                    break;
+                case 6:
+                    currentSettings.UiCategory = "farming";
+                    break;
+                case 7:
+                    currentSettings.UiCategory = "forest";
+                    break;
+                case 8:
+                    currentSettings.UiCategory = "oil";
+                    break;
+                case 9:
+                    currentSettings.UiCategory = "ore";
+                    break;
+                case 10:
+                    currentSettings.UiCategory = "leisure";
+                    break;
+                case 11:
+                    currentSettings.UiCategory = "tourist";
+                    break;
+                case 12:
+                    currentSettings.UiCategory = "organic";
+                    break;
+                case 13:
+                    currentSettings.UiCategory = "hightech";
+                    break;
+                case 14:
+                    currentSettings.UiCategory = "selfsufficient";
+                    break;
+                default:
+                    currentSettings.UiCategory = "none";
+                    break;
+            }
+
+            // Remaining items.
+            currentSettings.ricoEnabled = ricoEnabled.isChecked;
+            currentSettings.growable = growable.isChecked;
+            currentSettings.RealityIgnored = !realityIgnored.isChecked;
+            currentSettings.pollutionEnabled = pollutionEnabled.isChecked;
+        }
+
+
+        /// <summary>
+        /// Automatically pdates UI category selection based on selected service and subservice.
+        /// </summary>
+        internal void UpdateUICategory()
+        {
+            switch (service.selectedIndex)
+            {
+                case 0:
+                    // None - also reset level.
+                    level.selectedIndex = 0;
+                    uiCategory.selectedIndex = 15;
+                    break;
+                case 1:
+                    // Residential.
+                    switch (subService.selectedIndex)
+                    {
+                        case 0:
+                            // High residential.
+                            uiCategory.selectedIndex = 1;
+                            break;
+                        case 1:
+                            // Low residential.
+                            uiCategory.selectedIndex = 0;
+                            break;
+                        case 2:
+                        case 3:
+                            // High and low eco.
+                            uiCategory.selectedIndex = 14;
+                            break;
+                    }
+                    break;
+                case 2:
+                    // Industrial.
+                    uiCategory.selectedIndex = subService.selectedIndex + 5;
+                    // Reset level for specialised industry.
+                    if (subService.selectedIndex > 0)
+                    {
+                        level.items = extLevel;
+                        level.selectedIndex = 0;
+                    }
+                    break;
+                case 3:
+                    // Office.
+                    switch (subService.selectedIndex)
+                    {
+                        case 0:
+                            // Generic office.
+                            uiCategory.selectedIndex = 4;
+                            break;
+                        case 1:
+                            // IT cluster - also reset level.
+                            uiCategory.selectedIndex = 13;
+                            level.items = extLevel;
+                            level.selectedIndex = 0;
+                            break;
+                    }
+                    break;
+                case 4:
+                    // Commercial.
+                    switch (subService.selectedIndex)
+                    {
+                        // For commercial, also set the correct available levels in the menus depending on specialisation.
+                        case 0:
+                            // High commercial.
+                            uiCategory.selectedIndex = 3;
+                            level.items = Level;
+                            break;
+                        case 1:
+                            // Low commercial.
+                            uiCategory.selectedIndex = 2;
+                            level.items = Level;
+                            break;
+                        default:
+                            // Tourist, leisure or eco - also reset level.
+                            uiCategory.selectedIndex = subService.selectedIndex + 8;
+                            level.items = extLevel;
+                            level.selectedIndex = 0;
+                            break;
+                    }
+                    break;
+                case 5:
+                    // Extractor - also reset level.
+                    level.selectedIndex = 0;
+                    uiCategory.selectedIndex = subService.selectedIndex + 6;
+                    break;
+                case 6:
+                    // Dummy - also reset level.
+                    level.selectedIndex = 0;
+                    uiCategory.selectedIndex = 15;
+                    break;
+            }
+        }
 
 
         /// <summary>
@@ -167,6 +387,13 @@ namespace PloppableRICO
             label.width = 270;
             label.textAlignment = UIHorizontalAlignment.Center;
             label.text = Translations.Translate("PRR_SET_HASNON");
+
+            // Setting selection dropdown.
+            settingDropDown = UIUtils.CreateDropDown(this, 30, Translations.Translate("PRR_OPT_SET"));
+            settingDropDown.items = new String[] { Translations.Translate("PRR_OPT_LOC"), Translations.Translate("PRR_OPT_AUT"), Translations.Translate("PRR_OPT_MOD") };
+            settingDropDown.selectedIndex = 0;
+            settingDropDown.eventSelectedIndexChanged += UpdateSettingSelection;
+
 
             // RICO enabled.
             ricoEnabled = UIUtils.CreateCheckBar(this, Translations.Translate("PRR_OPT_ENA"), this.width);
@@ -251,11 +478,139 @@ namespace PloppableRICO
 
 
         /// <summary>
+        /// Event handler - handles changes to settings selection.
+        /// </summary>
+        /// <param name="component">Calling UI component (unused)</param>
+        /// <param name="index">Settings menu index</param>
+        private void UpdateSettingSelection(UIComponent component, int index)
+        {
+            // Disable the event logic while dropdowns are being updated.
+            disableEvents = true;
+
+            // Combination 'no settings' message text and status flag (left as null if valid settings are selected). 
+            string noSettingMessage = null;
+
+            // Disable all input controls by default; activate them later if needed.
+            ricoEnabled.Disable();
+            growable.Disable();
+            growable.parent.Hide();
+            service.Disable();
+            subService.Disable();
+            level.Disable();
+            uiCategory.Disable();
+            construction.Disable();
+            manual.Disable();
+            realityIgnored.Disable();
+            uneducated.Disable();
+            educated.Disable();
+            welleducated.Disable();
+            highlyeducated.Disable();
+
+            // Update UI components based on current setting selection.
+            switch (index)
+            {
+                // Local settings.
+                case 0:
+                    // Does the current building have local settings?
+                    if (currentBuildingData.hasLocal)
+                    {
+                        // Yes - update display.
+                        currentSettings = currentBuildingData.local;
+                        UpdateElements(currentBuildingData.local.service);
+                        UpdateValues(currentBuildingData.local);
+                        label.text = Translations.Translate("PRR_SET_HASLOC");
+
+                        // (Re)enable input fields.
+                        ricoEnabled.Enable();
+                        service.Enable();
+                        subService.Enable();
+                        level.Enable();
+                        uiCategory.Enable();
+                        construction.Enable();
+                        manual.Enable();
+                        realityIgnored.Enable();
+                        uneducated.Enable();
+                        educated.Enable();
+                        welleducated.Enable();
+                        highlyeducated.Enable();
+
+                        // 'Growable' can only be set in local settings.
+                        // Only show growable checkbox where assets meet the prequisites:
+                        // Growables can't have any dimension greater than 4 or contain any net structures.
+                        if (currentBuildingData.prefab.GetWidth() <= 4 && currentBuildingData.prefab.GetLength() <= 4 && !(currentBuildingData.prefab.m_paths != null && currentBuildingData.prefab.m_paths.Length != 0))
+                        {
+                            growable.Enable();
+                            growable.parent.Show();
+                        }
+
+                    }
+                    else
+                    {
+                        // No local settings for this building.
+                        noSettingMessage = Translations.Translate("No local settings");
+                    }
+                    break;
+
+                // Author settings.
+                case 1:
+                    // Does the current building have author settings?
+                    if (currentBuildingData.hasAuthor)
+                    {
+                        // Yes - leave input fields disabled and update display.
+                        currentSettings = currentBuildingData.author;
+                        UpdateElements(currentBuildingData.author.service);
+                        UpdateValues(currentBuildingData.author);
+                        label.text = Translations.Translate("PRR_SET_HASAUT");
+                    }
+                    else
+                    {
+                        // No author settings for this building.
+                        noSettingMessage = Translations.Translate("No author settings");
+                    }
+                    break;
+
+                // Mod settings.
+                case 2:
+                    // Does the current building have mod settings?
+                    if (currentBuildingData.hasMod)
+                    {
+                        // Yes - leave input fields disabled and update display.
+                        currentSettings = currentBuildingData.mod;
+                        label.text = Translations.Translate("PRR_SET_HASMOD");
+                        UpdateElements(currentBuildingData.mod.service);
+                        UpdateValues(currentBuildingData.mod);
+                    }
+                    else
+                    {
+                        // No mod settings for this building.
+                        noSettingMessage = Translations.Translate("No mod settings");
+                    }
+                    break;
+
+                default:
+                    Logging.Error("invalid settting index ", index.ToString());
+                    noSettingMessage = Translations.Translate("Invalid service selection");
+                    break;
+            }
+
+            if (!string.IsNullOrEmpty(noSettingMessage))
+            {
+                ricoEnabled.isChecked = false;
+                ricoEnabled.Disable();
+                label.text = noSettingMessage;
+            }
+
+            // Restore event logic.
+            disableEvents = false;
+        }
+
+
+        /// <summary>
         /// Event handler - updates the options panel when the service dropdown is changed.
         /// </summary>
         /// <param name="component">Calling component (ignored)</param>
         /// <param name="value">New service dropdown selected index</param>
-        public void UpdateService(UIComponent component, int value)
+        private void UpdateService(UIComponent component, int value)
         {
             // Ignore event if disabled flag is set.
             if (!disableEvents)
@@ -294,7 +649,7 @@ namespace PloppableRICO
         /// </summary>
         /// <param name="component">Calling component (ignored)</param>
         /// <param name="value">New service dropdown selected index (ignored)</param>
-        public void UpdateSubService(UIComponent component, int value)
+        private void UpdateSubService(UIComponent component, int value)
         {
             // Ignore event if disabled flag is set.
             if (!disableEvents)
@@ -308,7 +663,7 @@ namespace PloppableRICO
         /// Updates the total workplaces textfield with the sum of the workplace breakdown boxes.
         /// Does nothing if any workplace textfield cannot be parsed directly to int.
         /// </summary>
-        public void UpdateTotalJobs()
+        private void UpdateTotalJobs()
         {
             // Ignore event if disabled flag is set.
             if (!disableEvents)
@@ -332,202 +687,11 @@ namespace PloppableRICO
         }
 
 
-
-        /// <summary>
-        /// Reads current settings from UI elements, and saves them to XML.
-        /// </summary>
-        internal void SaveRICO()
-        {
-            // Set service and subservice.
-            GetService(out string serviceString, out string subServiceString);
-            currentSelection.service = serviceString;
-            currentSelection.subService = subServiceString;
-
-            // Set level.
-            currentSelection.level = level.selectedIndex + 1;
-
-            // Get home/total worker count, with default of zero.
-            int.TryParse(manual.text, out int manualCount);
-            currentSelection.homeCount = manualCount;
-
-            // Get workplace breakdown.
-            int[] a = new int[4] { 0, 0, 0, 0 };
-            int.TryParse(uneducated.text, out a[0]);
-            int.TryParse(educated.text, out a[1]);
-            int.TryParse(welleducated.text, out a[2]);
-            int.TryParse(highlyeducated.text, out a[3]);
-
-            // If no breakdown has been provided, then we try the total jobs instead.
-            // Yeah, it's a bit clunky to add the elements individually like this, but saves bringing in System.Linq for just this one case.
-            if (a[0] + a[1] + a[2] + a[3] == 0)
-            {
-                // No workplace breakdown provided (all fields zero); use total workplaces ('manual', previously parsed as manualCount) and allocate.
-                int[] d = Util.WorkplaceDistributionOf(currentSelection.service, currentSelection.subService, "Level" + currentSelection.level);
-                a = WorkplaceAIHelper.DistributeWorkplaceLevels(manualCount, d);
-
-                // Check and adjust for any rounding errors, assigning 'leftover' jobs to the lowest education level.
-                a[0] += (manualCount - a[0] - a[1] - a[2] - a[3]);
-            }
-
-            currentSelection.Workplaces = a;
-
-            currentSelection.ConstructionCost = int.Parse(construction.text);
-            // Write parsed (and filtered, e.g. minimum value 10) back to the construction cost text field so the user knows.
-            construction.text = currentSelection.ConstructionCost.ToString();
-
-            // UI categories from menu.
-            switch (uiCategory.selectedIndex)
-            {
-                case 0:
-                    currentSelection.UiCategory = "reslow";
-                    break;
-                case 1:
-                    currentSelection.UiCategory = "reshigh";
-                    break;
-                case 2:
-                    currentSelection.UiCategory = "comlow";
-                    break;
-                case 3:
-                    currentSelection.UiCategory = "comhigh";
-                    break;
-                case 4:
-                    currentSelection.UiCategory = "office";
-                    break;
-                case 5:
-                    currentSelection.UiCategory = "industrial";
-                    break;
-                case 6:
-                    currentSelection.UiCategory = "farming";
-                    break;
-                case 7:
-                    currentSelection.UiCategory = "forest";
-                    break;
-                case 8:
-                    currentSelection.UiCategory = "oil";
-                    break;
-                case 9:
-                    currentSelection.UiCategory = "ore";
-                    break;
-                case 10:
-                    currentSelection.UiCategory = "leisure";
-                    break;
-                case 11:
-                    currentSelection.UiCategory = "tourist";
-                    break;
-                case 12:
-                    currentSelection.UiCategory = "organic";
-                    break;
-                case 13:
-                    currentSelection.UiCategory = "hightech";
-                    break;
-                case 14:
-                    currentSelection.UiCategory = "selfsufficient";
-                    break;
-                default:
-                    currentSelection.UiCategory = "none";
-                    break;
-            }
-
-            // Remaining items.
-            currentSelection.ricoEnabled = ricoEnabled.isChecked;
-            currentSelection.growable = growable.isChecked;
-            currentSelection.RealityIgnored = !realityIgnored.isChecked;
-            currentSelection.pollutionEnabled = pollutionEnabled.isChecked;
-        }
-
-
-        /// <summary>
-        /// Updates the options panel when the building selection changes, including showing/hiding relevant controls.
-        /// </summary>
-        /// <param name="buildingData">RICO building data</param>
-        internal void SelectionChanged(BuildingData buildingData)
-        {
-            // Disable the event logic while dropdowns are being updated.
-            disableEvents = true;
-
-            // Disable all input controls by default; activate them later if needed.
-            ricoEnabled.Disable();
-            growable.Disable();
-            growable.parent.Hide();
-            service.Disable();
-            subService.Disable();
-            level.Disable();
-            uiCategory.Disable();
-            construction.Disable();
-            manual.Disable();
-            realityIgnored.Disable();
-            uneducated.Disable();
-            educated.Disable();
-            welleducated.Disable();
-            highlyeducated.Disable();
-
-            // Update option UI elements, in priority order (local, author, mod).
-            if (buildingData.hasLocal)
-            {
-                currentSelection = buildingData.local;
-                UpdateElements(buildingData.local.service);
-                UpdateValues(buildingData.local);
-                label.text = Translations.Translate("PRR_SET_HASLOC");
-
-                // If the building has local settings, enable input fields.
-                ricoEnabled.Enable();
-                service.Enable();
-                subService.Enable();
-                level.Enable();
-                uiCategory.Enable();
-                construction.Enable();
-                manual.Enable();
-                realityIgnored.Enable();
-                uneducated.Enable();
-                educated.Enable();
-                welleducated.Enable();
-                highlyeducated.Enable();
-
-                // 'Growable' can only be set in local settings.
-                // Only show growable checkbox where assets meet the prequisites:
-                // Growables can't have any dimension greater than 4 or contain any net structures.
-                if (buildingData.prefab.GetWidth() <= 4 && buildingData.prefab.GetLength() <= 4 && !(buildingData.prefab.m_paths != null && buildingData.prefab.m_paths.Length != 0))
-                {
-                    growable.Enable();
-                    growable.parent.Show();
-                }
-
-            }
-            else if (buildingData.hasAuthor)
-            {
-                // If the building has author settings, then disable input fields.
-                currentSelection = buildingData.author;
-                UpdateElements(buildingData.author.service);
-                UpdateValues(buildingData.author);
-                label.text = Translations.Translate("PRR_SET_HASAUT");
-            }
-            else if (buildingData.hasMod)
-            {
-                // If the building has mod settings, then disable input fields.
-                currentSelection = buildingData.mod;
-                label.text = Translations.Translate("PRR_SET_HASMOD");
-                UpdateElements(buildingData.mod.service);
-                UpdateValues(buildingData.mod);
-            }
-            else
-            {
-                // Fallback - building has no Ploppable RICO data anywhere, disable Ploppable RICO.
-                ricoEnabled.isChecked = false;
-                ricoEnabled.Disable();
-                label.text = Translations.Translate("PRR_SET_HASNON");
-            }
-
-            // Re-enable event logic now that dropdowns are up-to-date before returning.
-            disableEvents = false;
-        }
-
-
-
         /// <summary>
         /// Updates the values in the RICO options panel to match the selected building (control visibility should already be set).
         /// </summary>
         /// <param name="buildingData">RICO building record</param>
-        internal void UpdateValues(RICOBuilding building)
+        private void UpdateValues(RICOBuilding building)
         {
             // Updates the values in the RICO options panel to match the selected building.
 
@@ -546,10 +710,10 @@ namespace PloppableRICO
                     manual.text = building.homeCount.ToString();
                     service.selectedIndex = 1;
 
-                    if (currentSelection.subService == "high") subService.selectedIndex = 0;
-                    else if (currentSelection.subService == "low") subService.selectedIndex = 1;
-                    else if (currentSelection.subService == "high eco") subService.selectedIndex = 2;
-                    else if (currentSelection.subService == "low eco") subService.selectedIndex = 3;
+                    if (currentSettings.subService == "high") subService.selectedIndex = 0;
+                    else if (currentSettings.subService == "low") subService.selectedIndex = 1;
+                    else if (currentSettings.subService == "high eco") subService.selectedIndex = 2;
+                    else if (currentSettings.subService == "low eco") subService.selectedIndex = 3;
 
                     break;
 
@@ -558,11 +722,11 @@ namespace PloppableRICO
                     service.selectedIndex = 2;
                     subService.items = IndustrialSub;
 
-                    if (currentSelection.subService == "generic") subService.selectedIndex = 0;
-                    else if (currentSelection.subService == "farming") subService.selectedIndex = 1;
-                    else if (currentSelection.subService == "forest") subService.selectedIndex = 2;
-                    else if (currentSelection.subService == "oil") subService.selectedIndex = 3;
-                    else if (currentSelection.subService == "ore") subService.selectedIndex = 4;
+                    if (currentSettings.subService == "generic") subService.selectedIndex = 0;
+                    else if (currentSettings.subService == "farming") subService.selectedIndex = 1;
+                    else if (currentSettings.subService == "forest") subService.selectedIndex = 2;
+                    else if (currentSettings.subService == "oil") subService.selectedIndex = 3;
+                    else if (currentSettings.subService == "ore") subService.selectedIndex = 4;
 
                     break;
 
@@ -571,8 +735,8 @@ namespace PloppableRICO
                     service.selectedIndex = 3;
                     subService.items = OfficeSub;
 
-                    if (currentSelection.subService == "none") subService.selectedIndex = 0;
-                    else if (currentSelection.subService == "high tech") subService.selectedIndex = 1;
+                    if (currentSettings.subService == "none") subService.selectedIndex = 0;
+                    else if (currentSettings.subService == "high tech") subService.selectedIndex = 1;
                     break;
 
                 case "commercial":
@@ -580,11 +744,11 @@ namespace PloppableRICO
                     service.selectedIndex = 4;
                     subService.items = ComSub;
 
-                    if (currentSelection.subService == "high") subService.selectedIndex = 0;
-                    else if (currentSelection.subService == "low") subService.selectedIndex = 1;
-                    else if (currentSelection.subService == "leisure") subService.selectedIndex = 2;
-                    else if (currentSelection.subService == "tourist") subService.selectedIndex = 3;
-                    else if (currentSelection.subService == "eco") subService.selectedIndex = 4;
+                    if (currentSettings.subService == "high") subService.selectedIndex = 0;
+                    else if (currentSettings.subService == "low") subService.selectedIndex = 1;
+                    else if (currentSettings.subService == "leisure") subService.selectedIndex = 2;
+                    else if (currentSettings.subService == "tourist") subService.selectedIndex = 3;
+                    else if (currentSettings.subService == "eco") subService.selectedIndex = 4;
                     break;
 
                 case "extractor":
@@ -592,10 +756,10 @@ namespace PloppableRICO
                     service.selectedIndex = 5;
                     subService.items = ExtractorSub;
 
-                    if (currentSelection.subService == "farming") subService.selectedIndex = 0;
-                    else if (currentSelection.subService == "forest") subService.selectedIndex = 1;
-                    else if (currentSelection.subService == "oil") subService.selectedIndex = 2;
-                    else if (currentSelection.subService == "ore") subService.selectedIndex = 3;
+                    if (currentSettings.subService == "farming") subService.selectedIndex = 0;
+                    else if (currentSettings.subService == "forest") subService.selectedIndex = 1;
+                    else if (currentSettings.subService == "oil") subService.selectedIndex = 2;
+                    else if (currentSettings.subService == "ore") subService.selectedIndex = 3;
 
                     break;
 
@@ -693,7 +857,7 @@ namespace PloppableRICO
         /// This simply hides/shows different option fields for the various services.
         /// </summary>
         /// <param name="service">RICO service</param>
-        internal void UpdateElements(string service)
+        private void UpdateElements(string service)
         {
             // Reconfigure the RICO options panel to display relevant options for a given service.
             // This simply hides/shows different option fields for the various services.
@@ -767,100 +931,6 @@ namespace PloppableRICO
             // Reset subservice and UI category on change.
             subService.selectedIndex = 0;
             UpdateUICategory();
-        }
-
-
-        /// <summary>
-        /// Automatically pdates UI category selection based on selected service and subservice.
-        /// </summary>
-        internal void UpdateUICategory()
-        {
-            switch (service.selectedIndex)
-            {
-                case 0:
-                    // None - also reset level.
-                    level.selectedIndex = 0;
-                    uiCategory.selectedIndex = 15;
-                    break;
-                case 1:
-                    // Residential.
-                    switch (subService.selectedIndex)
-                    {
-                        case 0:
-                            // High residential.
-                            uiCategory.selectedIndex = 1;
-                            break;
-                        case 1:
-                            // Low residential.
-                            uiCategory.selectedIndex = 0;
-                            break;
-                        case 2:
-                        case 3:
-                            // High and low eco.
-                            uiCategory.selectedIndex = 14;
-                            break;
-                    }
-                    break;
-                case 2:
-                    // Industrial.
-                    uiCategory.selectedIndex = subService.selectedIndex + 5;
-                    // Reset level for specialised industry.
-                    if (subService.selectedIndex > 0)
-                    {
-                        level.items = extLevel;
-                        level.selectedIndex = 0;
-                    }
-                    break;
-                case 3:
-                    // Office.
-                    switch (subService.selectedIndex)
-                    {
-                        case 0:
-                            // Generic office.
-                            uiCategory.selectedIndex = 4;
-                            break;
-                        case 1:
-                            // IT cluster - also reset level.
-                            uiCategory.selectedIndex = 13;
-                            level.items = extLevel;
-                            level.selectedIndex = 0;
-                            break;
-                    }
-                    break;
-                case 4:
-                    // Commercial.
-                    switch (subService.selectedIndex)
-                    {
-                        // For commercial, also set the correct available levels in the menus depending on specialisation.
-                        case 0:
-                            // High commercial.
-                            uiCategory.selectedIndex = 3;
-                            level.items = Level;
-                            break;
-                        case 1:
-                            // Low commercial.
-                            uiCategory.selectedIndex = 2;
-                            level.items = Level;
-                            break;
-                        default:
-                            // Tourist, leisure or eco - also reset level.
-                            uiCategory.selectedIndex = subService.selectedIndex + 8;
-                            level.items = extLevel;
-                            level.selectedIndex = 0;
-                            break;
-                    }
-                    break;
-                case 5:
-                    // Extractor - also reset level.
-                    level.selectedIndex = 0;
-                    uiCategory.selectedIndex = subService.selectedIndex + 6;
-                    break;
-                case 6:
-                    // Dummy - also reset level.
-                    level.selectedIndex = 0;
-                    uiCategory.selectedIndex = 15;
-                    break;
-            }
         }
 
 

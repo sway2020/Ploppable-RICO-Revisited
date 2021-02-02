@@ -142,6 +142,5 @@
     <Translation ID="PRR_UPD_235_1" String="当&quot;Plop the Growables&quot;同时启用时弹出提示。" />
     <Translation ID="PRR_UPD_235_2" String="改善了mod冲突与报错提示。" />
     <Translation ID="PRR_UPD_236_0" String="改善了mod冲突检测与提示。" />
-    <Translation ID="" String="" />
   </Translations>
 </Language>
