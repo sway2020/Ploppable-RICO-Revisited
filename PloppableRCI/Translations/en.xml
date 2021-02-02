@@ -47,6 +47,7 @@
     <Translation ID="PRR_OPT_JB1" String="Educated jobs" />
     <Translation ID="PRR_OPT_JB2" String="Well-educated jobs" />
     <Translation ID="PRR_OPT_JB3" String="Highly-educated jobs" />
+    <Translation ID="PRR_OPT_URP" String="Population settings are disabled because the Realistic Population option is enabled" />
     <Translation ID="PRR_CAT_MON" String="Monuments" />
     <Translation ID="PRR_CAT_BEA" String="Beautification" />
     <Translation ID="PRR_CAT_EDU" String="Education" />

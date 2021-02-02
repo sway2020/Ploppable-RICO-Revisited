@@ -379,24 +379,24 @@ namespace PloppableRICO
 
             // Subpanels.
             labelpanel = this.AddUIComponent<UIPanel>();
-            labelpanel.height = 20;
+            labelpanel.height = 20f;
 
             // Title panel.
             label = labelpanel.AddUIComponent<UILabel>();
-            label.relativePosition = new Vector3(80, 0);
-            label.width = 270;
+            label.relativePosition = new Vector3(80f, 0f);
+            label.width = 270f;
             label.textAlignment = UIHorizontalAlignment.Center;
             label.text = Translations.Translate("PRR_SET_HASNON");
 
             // Setting selection dropdown.
-            settingDropDown = UIUtils.CreateDropDown(this, 30, Translations.Translate("PRR_OPT_SET"));
+            settingDropDown = RICODropDown(this, 30f, Translations.Translate("PRR_OPT_SET"));
             settingDropDown.items = new String[] { Translations.Translate("PRR_OPT_LOC"), Translations.Translate("PRR_OPT_AUT"), Translations.Translate("PRR_OPT_MOD") };
-            settingDropDown.selectedIndex = 0;
+            // Set selected index to -1 to ensure correct application of initial settings via event handler.
+            settingDropDown.selectedIndex = -1;
             settingDropDown.eventSelectedIndexChanged += UpdateSettingSelection;
 
-
             // RICO enabled.
-            ricoEnabled = UIUtils.CreateCheckBar(this, Translations.Translate("PRR_OPT_ENA"), this.width);
+            ricoEnabled = RICOCheckBar(this, Translations.Translate("PRR_OPT_ENA"), this.width);
             enableRICOPanel = this.AddUIComponent<UIPanel>();
             enableRICOPanel.height = 0;
             enableRICOPanel.isVisible = false;
@@ -408,65 +408,56 @@ namespace PloppableRICO
                 // Show RICO options panel if enabled and there's a valid current selection.
                 if (isEnabled)
                 {
-                    enableRICOPanel.height = 240;
+                    enableRICOPanel.height = 240f;
                     enableRICOPanel.isVisible = true;
                 }
                 else
                 {
-                    enableRICOPanel.height = 0;
+                    enableRICOPanel.height = 0f;
                     enableRICOPanel.isVisible = false;
                 }
             };
 
             // Dropdown menu - service.
-            service = UIUtils.CreateDropDown(enableRICOPanel, 30, Translations.Translate("PRR_OPT_SER"));
+            service = RICODropDown(enableRICOPanel, 30f, Translations.Translate("PRR_OPT_SER"));
             service.items = Service;
             service.selectedIndex = 0;
             service.eventSelectedIndexChanged += UpdateService;
 
             // Dropdown menu - sub-service.
-            subService = UIUtils.CreateDropDown(enableRICOPanel, 60, Translations.Translate("PRR_OPT_SUB"));
+            subService = RICODropDown(enableRICOPanel, 60f, Translations.Translate("PRR_OPT_SUB"));
             subService.selectedIndex = 0;
             subService.eventSelectedIndexChanged += UpdateSubService;
 
             // Dropdown menu - UI category.
-            uiCategory = UIUtils.CreateDropDown(enableRICOPanel, 90, Translations.Translate("PRR_OPT_UIC"));
+            uiCategory = RICODropDown(enableRICOPanel, 90f, Translations.Translate("PRR_OPT_UIC"));
             uiCategory.selectedIndex = 0;
             uiCategory.items = (new UICategories()).names;
 
             // Dropdown menu - building level.
-            level = UIUtils.CreateDropDown(enableRICOPanel, 120, Translations.Translate("PRR_LEVEL"));
+            level = RICODropDown(enableRICOPanel, 120f, Translations.Translate("PRR_LEVEL"));
             level.selectedIndex = 0;
             level.items = Level;
 
             // Update workplace allocations on level, service, and subservice change.
-            level.eventSelectedIndexChanged += (control, value) =>
-            {
-                UpdateWorkplaceBreakdowns();
-            };
-            service.eventSelectedIndexChanged += (control, value) =>
-            {
-                UpdateWorkplaceBreakdowns();
-            };
-            subService.eventSelectedIndexChanged += (control, value) =>
-            {
-                UpdateWorkplaceBreakdowns();
-            };
+            level.eventSelectedIndexChanged += (control, value) => UpdateWorkplaceBreakdowns();
+            service.eventSelectedIndexChanged += (control, value) => UpdateWorkplaceBreakdowns();
+            subService.eventSelectedIndexChanged += (control, value) => UpdateWorkplaceBreakdowns();
 
             // Base text fields.
-            construction = UIUtils.CreateTextField(enableRICOPanel, 150, Translations.Translate("PRR_OPT_CST"));
-            manual = UIUtils.CreateTextField(enableRICOPanel, 180, Translations.Translate("PRR_OPT_CNT"));
+            construction = UIUtils.CreateTextField(enableRICOPanel, 150f, Translations.Translate("PRR_OPT_CST"));
+            manual = UIUtils.CreateTextField(enableRICOPanel, 180f, Translations.Translate("PRR_OPT_CNT"));
 
             // Base checkboxes.
-            growable = UIUtils.CreateCheckBox(enableRICOPanel, 0, Translations.Translate("PRR_OPT_GRO"));
-            pollutionEnabled = UIUtils.CreateCheckBox(enableRICOPanel, 210, Translations.Translate("PRR_OPT_POL"));
-            realityIgnored = UIUtils.CreateCheckBox(enableRICOPanel, 240, Translations.Translate("PRR_OPT_POP"));
+            growable = RICOLabelledCheckBox(enableRICOPanel, 0f, Translations.Translate("PRR_OPT_GRO"));
+            pollutionEnabled = RICOLabelledCheckBox(enableRICOPanel, 210f, Translations.Translate("PRR_OPT_POL"));
+            realityIgnored = RICOLabelledCheckBox(enableRICOPanel, 240f, Translations.Translate("PRR_OPT_POP"));
 
             // Workplace breakdown by education level.
-            uneducated = UIUtils.CreateTextField(enableRICOPanel, 300, Translations.Translate("PRR_OPT_JB0"));
-            educated = UIUtils.CreateTextField(enableRICOPanel, 330, Translations.Translate("PRR_OPT_JB1"));
-            welleducated = UIUtils.CreateTextField(enableRICOPanel, 360, Translations.Translate("PRR_OPT_JB2"));
-            highlyeducated = UIUtils.CreateTextField(enableRICOPanel, 390, Translations.Translate("PRR_OPT_JB3"));
+            uneducated = UIUtils.CreateTextField(enableRICOPanel, 300f, Translations.Translate("PRR_OPT_JB0"));
+            educated = UIUtils.CreateTextField(enableRICOPanel, 330f, Translations.Translate("PRR_OPT_JB1"));
+            welleducated = UIUtils.CreateTextField(enableRICOPanel, 360f, Translations.Translate("PRR_OPT_JB2"));
+            highlyeducated = UIUtils.CreateTextField(enableRICOPanel, 390f, Translations.Translate("PRR_OPT_JB3"));
 
             // Event handlers to update employment totals on change.
             manual.eventTextChanged += (control, value) => UpdateWorkplaceBreakdowns();
@@ -474,6 +465,9 @@ namespace PloppableRICO
             educated.eventTextChanged += (control, value) => UpdateTotalJobs();
             welleducated.eventTextChanged += (control, value) => UpdateTotalJobs();
             highlyeducated.eventTextChanged += (control, value) => UpdateTotalJobs();
+
+            // Event handler for realistic population checkbox to toggle state of population textfields.
+            realityIgnored.eventCheckChanged += SetTextfieldState;
         }
 
 
@@ -693,8 +687,6 @@ namespace PloppableRICO
         /// <param name="buildingData">RICO building record</param>
         private void UpdateValues(RICOBuilding building)
         {
-            // Updates the values in the RICO options panel to match the selected building.
-
             // Workplaces.
             manual.text = building.WorkplaceCount.ToString();
             uneducated.text = building.Workplaces[0].ToString();
@@ -935,6 +927,47 @@ namespace PloppableRICO
 
 
         /// <summary>
+        /// Updates the textfield state depending on the state of the 'use realistic population' checkbox state.
+        /// </summary>
+        private void SetTextfieldState(UIComponent control, bool useReality)
+        {
+            if (useReality)
+            {
+                // Using Realistic Population - disable population textfields.
+                manual.Disable();
+                uneducated.Disable();
+                educated.Disable();
+                welleducated.Disable();
+                highlyeducated.Disable();
+
+                // Set explanatory tooltip.
+                string tooltip = Translations.Translate("PRR_OPT_URP");
+                manual.tooltip = tooltip;
+                uneducated.tooltip = tooltip;
+                educated.tooltip = tooltip;
+                welleducated.tooltip = tooltip;
+                highlyeducated.tooltip = tooltip;
+            }
+            else
+            {
+                // Not using Realistic Population - enable population textfields.
+                manual.Enable();
+                uneducated.Enable();
+                educated.Enable();
+                welleducated.Enable();
+                highlyeducated.Enable();
+                
+                // Set default tooltips.
+                manual.tooltip = Translations.Translate("PRR_OPT_CNT");
+                uneducated.tooltip = Translations.Translate("PRR_OPT_JB0");
+                educated.tooltip = Translations.Translate("PRR_OPT_JB1");
+                welleducated.tooltip = Translations.Translate("PRR_OPT_JB2");
+                highlyeducated.tooltip = Translations.Translate("PRR_OPT_JB3");
+            }
+        }
+
+
+        /// <summary>
         /// Returns the current service and subservice based on current menu selections.
         /// </summary>
         private void GetService(out string serviceName, out string subServiceName)
@@ -1094,6 +1127,181 @@ namespace PloppableRICO
 
             // Resume event handling.
             disableEvents = false;
+        }
+
+
+        /// <summary>
+        /// Creates a RICO-style dropdown menu.
+        /// </summary>
+        /// <param name="parent">Parent component</param>
+        /// <param name="yPos">Relative Y position</param>
+        /// <param name="label">Label text</param>
+        /// <returns>New dropdown menu</returns>
+        public static UIDropDown RICODropDown(UIComponent parent, float yPos, string label)
+        {
+            // Parent container.
+            UIPanel container = parent.AddUIComponent<UIPanel>();
+            container.height = 25f;
+            container.relativePosition = new Vector2(0, yPos);
+
+            // Label.
+            UILabel serviceLabel = container.AddUIComponent<UILabel>();
+            serviceLabel.textScale = 0.8f;
+            serviceLabel.text = label;
+            serviceLabel.relativePosition = new Vector2(15f, 6f);
+
+            // Dropdown menu.
+            UIDropDown dropDown = container.AddUIComponent<UIDropDown>();
+            dropDown.size = new Vector2(180f, 25f);
+            dropDown.listBackground = "GenericPanelLight";
+            dropDown.itemHeight = 20;
+            dropDown.itemHover = "ListItemHover";
+            dropDown.itemHighlight = "ListItemHighlight";
+            dropDown.normalBgSprite = "ButtonMenu";
+            dropDown.disabledBgSprite = "ButtonMenuDisabled";
+            dropDown.hoveredBgSprite = "ButtonMenuHovered";
+            dropDown.focusedBgSprite = "ButtonMenu";
+            dropDown.listWidth = 180;
+            dropDown.listHeight = 500;
+            dropDown.foregroundSpriteMode = UIForegroundSpriteMode.Stretch;
+            dropDown.popupColor = new Color32(45, 52, 61, 255);
+            dropDown.popupTextColor = new Color32(170, 170, 170, 255);
+            dropDown.zOrder = 1;
+            dropDown.textScale = 0.7f;
+            dropDown.verticalAlignment = UIVerticalAlignment.Middle;
+            dropDown.horizontalAlignment = UIHorizontalAlignment.Left;
+
+            dropDown.textFieldPadding = new RectOffset(8, 0, 8, 0);
+            dropDown.itemPadding = new RectOffset(14, 0, 8, 0);
+
+            dropDown.relativePosition = new Vector2(112f, 0);
+
+            UIButton button = dropDown.AddUIComponent<UIButton>();
+            dropDown.triggerButton = button;
+            button.text = "";
+            button.size = new Vector2(180f, 25f);
+            button.relativePosition = new Vector3(0f, 0f);
+            button.textVerticalAlignment = UIVerticalAlignment.Middle;
+            button.textHorizontalAlignment = UIHorizontalAlignment.Left;
+            button.normalFgSprite = "IconDownArrow";
+            button.hoveredFgSprite = "IconDownArrowHovered";
+            button.pressedFgSprite = "IconDownArrowPressed";
+            button.focusedFgSprite = "IconDownArrowFocused";
+            button.disabledFgSprite = "IconDownArrowDisabled";
+            button.spritePadding = new RectOffset(3, 3, 3, 3);
+            button.foregroundSpriteMode = UIForegroundSpriteMode.Fill;
+            button.horizontalAlignment = UIHorizontalAlignment.Right;
+            button.verticalAlignment = UIVerticalAlignment.Middle;
+            button.zOrder = 0;
+            button.textScale = 0.8f;
+
+            dropDown.eventSizeChanged += new PropertyChangedEventHandler<Vector2>((c, t) =>
+            {
+                button.size = t; dropDown.listWidth = (int)t.x;
+            });
+
+
+            // Allow for long translation strings.
+            dropDown.autoListWidth = true;
+
+            return dropDown;
+        }
+
+
+        /// <summary>
+        /// Creates a RICO-style checkbox with a label.
+        /// </summary>
+        /// <param name="parent">Parent component</param>
+        /// <param name="yPos">Relative Y position</param>
+        /// <param name="label">Label text</param>
+        /// <returns>New checkbox</returns>
+        public static UICheckBox RICOLabelledCheckBox(UIComponent parent, float yPos, string label)
+        {
+            // Create containing panel.
+            UIPanel container = parent.AddUIComponent<UIPanel>();
+            container.height = 25f;
+            container.width = 270f;
+            container.relativePosition = new Vector2(0, yPos);
+
+            // Add checkbox.
+            UICheckBox checkBox = RICOCheckBox(container, 210f);
+
+            // Checkbox label.
+            UILabel serviceLabel = container.AddUIComponent<UILabel>();
+            serviceLabel.textScale = 0.8f;
+            serviceLabel.text = label;
+            serviceLabel.relativePosition = new Vector2(15, 6);
+
+            // Label behaviour.
+            serviceLabel.autoSize = false;
+            serviceLabel.width = 180f;
+            serviceLabel.autoHeight = true;
+            serviceLabel.wordWrap = true;
+
+            return checkBox;
+        }
+
+
+        /// <summary>
+        /// Creates a checkbox bar.
+        /// </summary>
+        /// <param name="parent">Parent component</param>
+        /// <param name="label">Label text</param>
+        /// <param name="width">Bar width</param>
+        /// <returns>New checkbox</returns>
+        private static UICheckBox RICOCheckBar(UIComponent parent, string label, float width)
+        {
+            // Create panel.
+            UIPanel basePanel = parent.AddUIComponent<UIPanel>();
+            basePanel.height = 25f;
+            basePanel.backgroundSprite = "ScrollbarTrack";
+            basePanel.width = width;
+            basePanel.relativePosition = new Vector2(0f, 5f);
+
+            // Add checkbox.
+            UICheckBox checkBox = RICOCheckBox(basePanel, 7f);
+
+            // Checkbox label.
+            checkBox.label = checkBox.AddUIComponent<UILabel>();
+            checkBox.label.text = label;
+            checkBox.label.textScale = 0.8f;
+            checkBox.label.autoSize = false;
+            checkBox.label.size = new Vector2(190f, 18f);
+            checkBox.label.textAlignment = UIHorizontalAlignment.Center;
+            checkBox.label.relativePosition = new Vector2(25f, 2f);
+
+            return checkBox;
+        }
+
+
+        /// <summary>
+        /// Creates a Plopapble RICO-style checkbox.
+        /// </summary>
+        /// <param name="parent">Parent component</param>
+        /// <param name="xPos">Relative X position</param>
+        /// <returns>New checkbox</returns>
+        private static UICheckBox RICOCheckBox(UIComponent parent, float xPos)
+        {
+
+            // Add checkbox.
+            UICheckBox checkBox = parent.AddUIComponent<UICheckBox>();
+            checkBox.width = parent.width;
+            checkBox.height = 20f;
+            checkBox.clipChildren = true;
+            checkBox.relativePosition = new Vector2(xPos, 4f);
+
+            // Checkbox sprite.
+            UISprite sprite = checkBox.AddUIComponent<UISprite>();
+            sprite.spriteName = "ToggleBase";
+            sprite.size = new Vector2(16f, 16f);
+            sprite.relativePosition = Vector3.zero;
+
+            checkBox.checkedBoxObject = sprite.AddUIComponent<UISprite>();
+            ((UISprite)checkBox.checkedBoxObject).spriteName = "ToggleBaseFocused";
+            checkBox.checkedBoxObject.size = new Vector2(16f, 16f);
+            checkBox.checkedBoxObject.relativePosition = Vector3.zero;
+
+            return checkBox;
         }
     }
 }
