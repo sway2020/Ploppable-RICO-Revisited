@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Language UniqueName="nl" ReadableName="Nederlands">
   <Translations>
+    <Translation ID="PRR_NAME" String="Ploppable RICO Revisited" />
     <Translation ID="PRR_LEVEL" String="Niveau" />
     <Translation ID="PRR_LVL" String="Niv." />
     <Translation ID="PRR_HOU" String="Huishoudens" />
@@ -93,9 +94,12 @@
     <Translation ID="PRR_OPTION_RGR" String="RICO groeibare gebouwen" />
     <Translation ID="PRR_OPTION_RCO" String="Alle RICO gebouwen (inclusief groeibare)" />
     <Translation ID="PRR_OPTION_OTH" String="Groeibare niet-RICO gebouwen" />
+    <Translation ID="PRR_OPTION_BDZ" String="Goedkeuring vragen vóór het verwijderen van plopped RICO gebouwen" />
+    <Translation ID="PRR_OPTION_IMP" String="Sta toe dat plopped RICO gebouwen automatisch worden verwijderd en dat er overheen gebouwd wordt. (bijv. als je wegen bouwt of gebouwen plaatst." />
     <Translation ID="PRR_OPTION_LOA" String="Laadopties" />
     <Translation ID="PRR_OPTION_LOG" String="Inlogopties" />
     <Translation ID="PRR_OPTION_TMB" String="Thumbnail-opties" />
+    <Translation ID="PRR_OPTION_PLO" String="Plopbare opties" />
     <Translation ID="PRR_OPTION_GRO" String="Opties voor groeibare gebouwen" />
     <Translation ID="PRR_OPTION_COM" String="Klachtopties" />
     <Translation ID="PRR_OPTION_MOD" String="Mod opties" />
@@ -110,17 +114,33 @@
     <Translation ID="PRR_THUMB_COLOR" String="Kleur" />
     <Translation ID="PRR_THUMB_PLAIN" String="Gewoon" />
     <Translation ID="PRR_THUMB_SKY" String="Skybox" />
+    <Translation ID="MES_CLS" String="Sluiten" />
+    <Translation ID="MES_DSA" String="Niet meer weergeven" />
+    <Translation ID="MES_PAGE" String="Ga naar de mod's Steam Workshop pagina voor meer informatie." />
     <Translation ID="PRR_ERR_FAT" String="Dit betekent dat de mod niet langer werkt en is daarom afgesloten." />
-    <Translation ID="PRR_ERR_HAR" String="'Ploppable RICO Revisited' was niet in staat om de benodigde 'Harmony patches' uit te voeren." />
+    <Translation ID="PRR_ERR_HAR" String="Ploppable RICO Revisited' was niet in staat om de benodigde 'Harmony patches' uit te voeren." />
     <Translation ID="ERR_HAR0" String="Harmony patching error" />
     <Translation ID="ERR_HAR1" String="Mogelijke oorzaken van dit probleem zijn:" />
     <Translation ID="ERR_HAR2" String="De benodigde 'Harmony 2' mod is niet geïnstalleerd." />
     <Translation ID="ERR_HAR3" String="Een oude en/of gebroken mod verhindert 'Harmony 2' om goed te kunnen werken." />
+    <Translation ID="ERR_CON0" String="Mod conflict gedetecteerd!" />
+    <Translation ID="ERR_CON1" String="The conflicterende mod's zijn:" />
+    <Translation ID="PRR_ERR_CON0" String="Ploppable RICO Revisited heeft een conflict gedetecteerd met ten minste één andere mod." />
+    <Translation ID="PRR_ERR_CON1" String="Deze mods moeten verwijderd worden voordat Ploppable RICO Revisited kan werken." />
+    <Translation ID="PRR_CON_PTG0" String="Plop the Growables mod gedetecteerd." />
+    <Translation ID="PRR_CON_PTG1" String="Plop the Growables mod gedetecteerd - de meeste functies zitten ook in Ploppable RICO Revisited. Wees voorzichtig om beide mods te gebruiken, de instellingen kunnen een conflict geven." />
+    <Translation ID="PRR_CON_PTG2" String="Het is nog steeds ok om ze beide te gebruiken - ALS hun instellingen geen conflict geven!" />
     <Translation ID="PRR_UPD_23_0" String="Plopplable RICO Revisited 2.3 update" />
     <Translation ID="PRR_UPD_23_1" String="Ploppable RICO Revisited' is geüpdatet naar versie 2.3. De belangrijkste functies van deze update zijn: " />
     <Translation ID="PRR_UPD_23_2" String="Ploppable RICO' heeft nu: 'Plop the Growables' functionaliteit voor RICO en niet-RICO gebouwen. Bekijk bij de opties voor meer details. " />
     <Translation ID="PRR_UPD_23_3" String="Het is nu mogelijk om RICO's groeibare gebouwen buiten een specifieke zone te plaatsen (in te stellen)." />
     <Translation ID="PRR_UPD_23_4" String="Klachten over lage landwaarden en onvoldoende dienstverlening zijn nu uit te schakelen." />
     <Translation ID="PRR_UPD_23_5" String="Verbeterde rendering van de thumbnails van de gebouwen. Zo worden deze alleen laten zien als deze nodig zijn, waardoor geheugegebruik wordt verlaagd en opstarttijd wordt verbeterd. " />
+    <Translation ID="PRR_UPD_234_0" String="Voeg optie toe om waarschuwingen aan of uit te zetten als je plopped RICO gebouwen verwijderd." />
+    <Translation ID="PRR_UPD_234_1" String="Voeg optie toe om auto-bulldoze aan of uit te zetten als je over een 'plopped RICO gebouw' bouwt." />
+    <Translation ID="PRR_UPD_234_2" String="Verbeterde update notificaties." />
+    <Translation ID="PRR_UPD_235_1" String="Voeg waarschuwing toe als 'Plop the Growables' mod ook actief is." />
+    <Translation ID="PRR_UPD_235_2" String="Verbeterde mod conflict en error notificatie." />
+    <Translation ID="PRR_UPD_236_0" String="Verbeter mod conflict detectie en notificatie." />
   </Translations>
 </Language>
