@@ -331,7 +331,7 @@ namespace PloppableRICO
                         if (!string.IsNullOrEmpty(fallback))
                         {
                             // All good!  Return translation.
-                            return fallbackLanguage.translationDictionary[key];
+                            return fallback;
                         }
 
                         // If we got here, there's a null key.
@@ -350,7 +350,7 @@ namespace PloppableRICO
                     if (!string.IsNullOrEmpty(fallback))
                     {
                         // All good!  Return translation.
-                        return systemLanguage.translationDictionary[key];
+                        return fallback;
                     }
 
                     // If we got here, there's a null key.
@@ -367,7 +367,7 @@ namespace PloppableRICO
                 if (!string.IsNullOrEmpty(fallback))
                 {
                     // All good!  Return translation.
-                    return systemLanguage.translationDictionary[key];
+                    return fallback;
                 }
 
                 // If we got here, there's a null key.
