@@ -159,5 +159,10 @@
     <Translation ID="PRR_UPD_235_2" String="Improved mod conflict and error notifications." />
     <Translation ID="PRR_UPD_236_0" String="Improve mod conflict detection and notification." />
     <Translation ID="PRR_UPD_237_0" String="Fix Harmony error message incorrectly showing when loading into editors." />
+    <Translation ID="PRR_UPD_240_0" String="Add configurable cost overrides." />
+    <Translation ID="PRR_UPD_240_1" String="Add option to automatically lock the building level of plopped growables (requires Advanced Building Level Control mod)." />
+    <Translation ID="PRR_UPD_240_2" String="Add mod/author/local settings selection menu to settings panel (to see settings other than the currently active one)." />
+    <Translation ID="PRR_UPD_240_3" String="Disable population textfields when 'use reality' option is set." />
+    <Translation ID="PRR_UPD_240_4" String="Update bundled CitiesHarmony to 1.0.6 with Harmony 2.0.4." />
   </Translations>
 </Language>

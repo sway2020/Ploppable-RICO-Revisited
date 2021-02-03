@@ -16,6 +16,17 @@ namespace PloppableRICO
         private static Dictionary<Version, List<string>> Versions => new Dictionary<Version, List<String>>
         {
             {
+                new Version("2.4"),
+                new List<string>
+                {
+                    "PRR_UPD_240_0",
+                    "PRR_UPD_240_1",
+                    "PRR_UPD_240_2",
+                    "PRR_UPD_240_3",
+                    "PRR_UPD_240_4"
+                }
+            },
+            {
                 new Version("2.3.7"),
                 new List<string>
                 {
@@ -47,7 +58,7 @@ namespace PloppableRICO
                     "PRR_UPD_234_2"
                 }
             },
-            { 
+            {
                 new Version("2.3"),
                 new List<string>
                 {
