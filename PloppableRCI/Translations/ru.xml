@@ -30,6 +30,10 @@
     <Translation ID="PRR_FTR_NON" String="Ничего" />
     <Translation ID="PRR_FTR_NAM" String="Имя" />
     <Translation ID="PRR_FTR_SET" String="Настройки фильтра: Мод/Автор/Локально/Всё" />
+    <Translation ID="PRR_OPT_SET" String="Настройки" />
+    <Translation ID="PRR_OPT_MOD" String="Мод" />
+    <Translation ID="PRR_OPT_AUT" String="Автор" />
+    <Translation ID="PRR_OPT_LOC" String="Local" />
     <Translation ID="PRR_OPT_ENA" String="Включить RICO" />
     <Translation ID="PRR_OPT_SER" String="Категория" />
     <Translation ID="PRR_OPT_SUB" String="Подкатегория" />
@@ -39,10 +43,10 @@
     <Translation ID="PRR_OPT_POP" String="Использовать мод Realistic Pop" />
     <Translation ID="PRR_OPT_POL" String="Включить загрязнение" />
     <Translation ID="PRR_OPT_GRO" String="Growable" />
-    <Translation ID="PRR_OPT_JB0" String="Необразованные рабочие" />
-    <Translation ID="PRR_OPT_JB1" String="Образованные рабочие" />
-    <Translation ID="PRR_OPT_JB2" String="Хорошо образованные" />
-    <Translation ID="PRR_OPT_JB3" String="С высшим образованием" />
+    <Translation ID="PRR_OPT_JB0" String="Рабочие без образования" />
+    <Translation ID="PRR_OPT_JB1" String="Рабочие с нач. образованием" />
+    <Translation ID="PRR_OPT_JB2" String="Рабочие со ср. образованием" />
+    <Translation ID="PRR_OPT_JB3" String="Работники с высш. образованием" />
     <Translation ID="PRR_CAT_MON" String="Монументы" />
     <Translation ID="PRR_CAT_BEA" String="Украшения" />
     <Translation ID="PRR_CAT_EDU" String="Образование" />
@@ -59,10 +63,10 @@
     <Translation ID="PRR_UIC_COH" String="Коммерция выс. плотности" />
     <Translation ID="PRR_UIC_OFF" String="Офис" />
     <Translation ID="PRR_UIC_IND" String="Промышленность" />
-    <Translation ID="PRR_UIC_FAR" String="Фермерство" />
-    <Translation ID="PRR_UIC_FOR" String="Лесопроизводство" />
-    <Translation ID="PRR_UIC_OIL" String="Нефтепроизводство" />
-    <Translation ID="PRR_UIC_ORE" String="Минералопроизводство" />
+    <Translation ID="PRR_UIC_FAR" String="Сельское хозяйство" />
+    <Translation ID="PRR_UIC_FOR" String="Лесная промышленность" />
+    <Translation ID="PRR_UIC_OIL" String="Нефтяная промышленность" />
+    <Translation ID="PRR_UIC_ORE" String="Добывающая промышленность" />
     <Translation ID="PRR_UIC_LEI" String="Развлечения" />
     <Translation ID="PRR_UIC_TOU" String="Туризм" />
     <Translation ID="PRR_UIC_ORG" String="Натуральные продукты" />
@@ -90,12 +94,22 @@
     <Translation ID="PRR_OPTION_VAL" String="Игнорировать сообщение 'низкая стоимость земли'" />
     <Translation ID="PRR_OPTION_SVC" String="Игнорировать сообщение 'слишком мало услуг'" />
     <Translation ID="PRR_OPTION_HST" String="Сделать все размещаемые Growable здания историческими" />
+    <Translation ID="PRR_OPTION_BLC" String="Блокировать уровни plopped growables используя Advanced Building Level Control" />
     <Translation ID="PRR_OPTION_RPL" String="RICO Ploppable здания" />
     <Translation ID="PRR_OPTION_RGR" String="RICO Growable здания" />
     <Translation ID="PRR_OPTION_RCO" String="Все здания RICO (включая Growable)" />
     <Translation ID="PRR_OPTION_OTH" String="Не-RICO Growable здания" />
+    <Translation ID="PRR_OPTION_DEM" String="Варианты сноса" />
     <Translation ID="PRR_OPTION_BDZ" String="Подтверждать снос размещаемых(Ploppable) зданий RICO" />
     <Translation ID="PRR_OPTION_IMP" String="Разрешить автоматически сносить размещаемые(Ploppable) здания RICO (например, при строительстве дорог или размещении зданий)" />
+    <Translation ID="PRR_OPTION_CST" String="Варианты стоимости" />
+    <Translation ID="PRR_OPTION_COV" String="Переопределить стоимость строительства" />
+    <Translation ID="PRR_OPTION_CPH" String="Стоимость на семью" />
+    <Translation ID="PRR_OPTION_CHM" String="Дополнительный множитель на уровень домохозяйства (%)" />
+    <Translation ID="PRR_OPTION_CJ0" String="Зарплата работников без образования" />
+    <Translation ID="PRR_OPTION_CJ1" String="Зарплата работников с нач. образованием" />
+    <Translation ID="PRR_OPTION_CJ2" String="Зарплата работников со ср. образованием" />
+    <Translation ID="PRR_OPTION_CJ3" String="Зарплата работников с высш. образованием" />
     <Translation ID="PRR_OPTION_LOA" String="Настройки загрузки" />
     <Translation ID="PRR_OPTION_LOG" String="Настройки журнала" />
     <Translation ID="PRR_OPTION_TMB" String="Настройки миниатюр" />
