@@ -1,4 +1,6 @@
-﻿- Add option to automatically lock the building level of plopped growables (requires Advanced Building Level Control mod)
+﻿Version 2.4
+
+- Add option to automatically lock the building level of plopped growables (requires Advanced Building Level Control mod)
 - Add configurable cost overrides
 - Add mod/author/local settings selection menu to settings panel (to see settings other than the currently active one)
 - Disable population textfields when 'use reality' option is set
