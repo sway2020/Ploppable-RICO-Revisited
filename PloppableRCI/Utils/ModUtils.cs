@@ -98,9 +98,8 @@ namespace PloppableRICO
             conflictingModNames = new List<string>();
 
             // No hard conflicts - check for 'soft' conflicts.
-            if (IsModInstalled("PlopTheGrowables", true))
+            if (IsPtGInstalled())
             {
-                // Plop the Growables detected.
                 conflictDetected = true;
                 Logging.Message("Plop the Growables detected");
 
@@ -127,53 +126,6 @@ namespace PloppableRICO
             }
 
             return conflictDetected;
-        }
-
-
-        /// <summary>
-        /// Checks to see if another mod is installed and enabled, based on a provided Steam Workshop ID.
-        /// </summary>
-        /// <param name="id">Steam workshop ID</param>
-        /// <returns>True if the mod is installed and enabled, false otherwise</returns>
-        internal static bool IsModEnabled(UInt64 id)
-        {
-            return PluginManager.instance.GetPluginsInfo().Any(mod => (mod.publishedFileID.AsUInt64 == id && mod.isEnabled));
-        }
-
-
-        /// <summary>
-        /// Checks to see if another mod is installed, based on a provided assembly name.
-        /// </summary>
-        /// <param name="assemblyName">Name of the mod assembly</param>
-        /// <param name="enabledOnly">True if the mod needs to be enabled for the purposes of this check; false if it doesn't matter</param>
-        /// <returns>True if the mod is installed (and, if enabledOnly is true, is also enabled), false otherwise</returns>
-        internal static bool IsModInstalled(string assemblyName, bool enabledOnly = false)
-        {
-            // Convert assembly name to lower case.
-            string assemblyNameLower = assemblyName.ToLower();
-
-            // Iterate through the full list of plugins.
-            foreach (PluginManager.PluginInfo plugin in PluginManager.instance.GetPluginsInfo())
-            {
-                foreach (Assembly assembly in plugin.GetAssemblies())
-                {
-                    if (assembly.GetName().Name.ToLower().Equals(assemblyNameLower))
-                    {
-                        Logging.Message("found mod assembly ", assemblyName);
-                        if (enabledOnly)
-                        {
-                            return plugin.isEnabled;
-                        }
-                        else
-                        {
-                            return true;
-                        }
-                    }
-                }
-            }
-
-            // If we've made it here, then we haven't found a matching assembly.
-            return false;
         }
 
 
@@ -214,6 +166,87 @@ namespace PloppableRICO
 
             // If we got here, we were unsuccessful.
             Logging.Message("Advanced Building Level Control not found");
+        }
+
+
+        /// <summary>
+        /// Checks to see if another mod is installed and enabled, based on a provided Steam Workshop ID.
+        /// </summary>
+        /// <param name="id">Steam workshop ID</param>
+        /// <returns>True if the mod is installed and enabled, false otherwise</returns>
+        private static bool IsModEnabled(UInt64 id)
+        {
+            return PluginManager.instance.GetPluginsInfo().Any(mod => (mod.publishedFileID.AsUInt64 == id && mod.isEnabled));
+        }
+
+
+        /// <summary>
+        /// Checks to see if another mod is installed, based on a provided assembly name.
+        /// </summary>
+        /// <param name="assemblyName">Name of the mod assembly</param>
+        /// <param name="enabledOnly">True if the mod needs to be enabled for the purposes of this check; false if it doesn't matter</param>
+        /// <returns>True if the mod is installed (and, if enabledOnly is true, is also enabled), false otherwise</returns>
+        private static bool IsModInstalled(string assemblyName, bool enabledOnly = false)
+        {
+            // Convert assembly name to lower case.
+            string assemblyNameLower = assemblyName.ToLower();
+
+            // Iterate through the full list of plugins.
+            foreach (PluginManager.PluginInfo plugin in PluginManager.instance.GetPluginsInfo())
+            {
+                foreach (Assembly assembly in plugin.GetAssemblies())
+                {
+                    if (assembly.GetName().Name.ToLower().Equals(assemblyNameLower))
+                    {
+                        Logging.Message("found mod assembly ", assemblyName);
+                        if (enabledOnly)
+                        {
+                            return plugin.isEnabled;
+                        }
+                        else
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            // If we've made it here, then we haven't found a matching assembly.
+            return false;
+        }
+
+
+        /// <summary>
+        ///  Checks for the Plop the Growables mod, as distinct from the PtG converter.
+        /// </summary>
+        /// <returns>True if the original Plop the Growables mod is installed and active, false otherwise</returns>
+        private static bool IsPtGInstalled()
+        {
+            // Iterate through the full list of plugins.
+            foreach (PluginManager.PluginInfo plugin in PluginManager.instance.GetPluginsInfo())
+            {
+                foreach (Assembly assembly in plugin.GetAssemblies())
+                {
+                    // Looking for an assembly named "PlopTheGrowables" that's active.
+                    if (assembly.GetName().Name.Equals("PlopTheGrowables") && plugin.isEnabled)
+                    {
+                        // Found one - is this the converter mod class?
+                        if (!plugin.userModInstance.GetType().ToString().Equals("PlopTheGrowables.PtGReaderMod"))
+                        {
+                            // Not converter mod class - assume it's the original.
+                            return true;
+                        }
+                        else
+                        {
+                            // Converter mod class - log and continue.
+                            Logging.Message("found Plop the Growables converter");
+                        }
+                    }
+                }
+            }
+
+            // If we got here, no active PtG was detected.
+            return false;
         }
     }
 }
