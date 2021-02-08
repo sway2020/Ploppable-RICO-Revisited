@@ -1,6 +1,7 @@
 using System.IO;
 using System.Collections.Generic;
 using ICities;
+using PloppableRICO.MessageBox;
 
 
 namespace PloppableRICO
@@ -24,11 +25,11 @@ namespace PloppableRICO
 
         // Internal flags.
         internal static bool isModEnabled = false;
-        internal static bool harmonyLoaded = false;
         internal static bool patchOperating = false;
+        private static bool harmonyLoaded = false;
 
         // Used to flag if conflicting mods are running.
-        internal static bool conflictingMod = false;
+        private static bool conflictingMod = false;
         internal static bool softModConflct;
 
 
@@ -128,6 +129,54 @@ namespace PloppableRICO
             }
         }
 
-        // OnLevelLoaded has been replaced with Harmony Postfix.
+
+        /// <summary>
+        /// Called by the game when level loading is complete.
+        /// </summary>
+        /// <param name="mode">Loading mode (e.g. game, editor, scenario, etc.)</param>
+        public override void OnLevelLoaded(LoadMode mode)
+        {
+            base.OnLevelLoaded(mode);
+
+            // Check watchdog flag.
+            if (!patchOperating)
+            {
+                // Patch wasn't operating; display harmony error and abort.
+                harmonyLoaded = false;
+                isModEnabled = false;
+            }
+
+            // Check to see that Harmony 2 was properly loaded.
+            if (!harmonyLoaded)
+            {
+                // Harmony 2 wasn't loaded; display warning notification and exit.
+                ListMessageBox harmonyBox = MessageBoxBase.ShowModal<ListMessageBox>();
+
+                // Key text items.
+                harmonyBox.AddParas(Translations.Translate("ERR_HAR0"), Translations.Translate("PRR_ERR_HAR"), Translations.Translate("PRR_ERR_FAT"), Translations.Translate("ERR_HAR1"));
+
+                // List of dot points.
+                harmonyBox.AddList(Translations.Translate("ERR_HAR2"), Translations.Translate("ERR_HAR3"));
+
+                // Closing para.
+                harmonyBox.AddParas(Translations.Translate("MES_PAGE"));
+            }
+
+            // Check to see if a conflicting mod has been detected.
+            if (conflictingMod)
+            {
+                // Mod conflict detected - display warning notification and exit.
+                ListMessageBox modConflictBox = MessageBoxBase.ShowModal<ListMessageBox>();
+
+                // Key text items.
+                modConflictBox.AddParas(Translations.Translate("ERR_CON0"), Translations.Translate("PRR_ERR_FAT"), Translations.Translate("PRR_ERR_CON0"), Translations.Translate("ERR_CON1"));
+
+                // Add conflicting mod name(s).
+                modConflictBox.AddList(ModUtils.conflictingModNames.ToArray());
+
+                // Closing para.
+                modConflictBox.AddParas(Translations.Translate("PRR_ERR_CON1"));
+            }
+        }
     }
 }
