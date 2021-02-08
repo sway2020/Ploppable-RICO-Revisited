@@ -84,6 +84,7 @@
     <Compile Include="Notifications\MessageBoxBase.cs" />
     <Compile Include="Notifications\WhatsNew.cs" />
     <Compile Include="Notifications\WhatsNewMessageBox.cs" />
+    <Compile Include="Patches\OnLevelLoaded.cs" />
     <Compile Include="Patches\SpecializationPatches.cs" />
     <Compile Include="Settings\OptionsPanel.cs" />
     <Compile Include="Settings\OptionsPanelTabs\ComplaintOptions.cs" />
