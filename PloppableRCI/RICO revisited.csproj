@@ -140,6 +140,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Changelog.txt" />
+    <Content Include="Images\Logging option location.jpg" />
     <Content Include="Images\PreviewImage.png" />
     <Content Include="License.txt" />
     <Content Include="Translations\kr.xml" />
