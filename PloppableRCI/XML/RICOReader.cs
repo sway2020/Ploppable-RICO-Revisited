@@ -39,8 +39,8 @@ namespace PloppableRICO
                     attrOverrides.Add(typeof(RICOBuilding), "Building", attrs);
 
                     // Read XML.
-                    var xmlSerializer = new XmlSerializer(typeof(PloppableRICODefinition), attrOverrides);
-                    var result = xmlSerializer.Deserialize(reader) as PloppableRICODefinition;
+                    XmlSerializer xmlSerializer = new XmlSerializer(typeof(PloppableRICODefinition), attrOverrides);
+                    PloppableRICODefinition result = xmlSerializer.Deserialize(reader) as PloppableRICODefinition;
 
                     StringBuilder errorList;
 
@@ -50,7 +50,7 @@ namespace PloppableRICO
                     }
                     else
                     {
-                        foreach (var building in result.Buildings)
+                        foreach (RICOBuilding building in result.Buildings)
                         {
                             // Check for fatal errors in each building.
                             errorList = building.FatalErrors;

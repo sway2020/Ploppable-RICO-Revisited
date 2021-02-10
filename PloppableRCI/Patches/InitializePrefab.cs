@@ -31,7 +31,7 @@ namespace PloppableRICO
 			}
 
 			// Create a new building record for this prefab and add it to our lists.
-			var buildingData = new BuildingData
+			BuildingData buildingData = new BuildingData
 			{
 				prefab = __instance,
 				name = __instance.name,
@@ -59,11 +59,11 @@ namespace PloppableRICO
 				if (File.Exists(ricoDefPath))
 				{
 					// Parse the file.
-					var tempRicoDef = RICOReader.ParseRICODefinition(ricoDefPath);
+					PloppableRICODefinition tempRicoDef = RICOReader.ParseRICODefinition(ricoDefPath);
 
 					if (tempRicoDef != null)
 					{
-						foreach (var buildingDef in tempRicoDef.Buildings)
+						foreach (RICOBuilding buildingDef in tempRicoDef.Buildings)
 						{
 							// Go through each building parsed and check to see if we've got a match for this prefab.
 							if (MatchRICOName(buildingDef.name, __instance.name, asset.package.packageName))
@@ -83,7 +83,7 @@ namespace PloppableRICO
 			if (Loading.localRicoDef != null)
 			{
 				// Step through our previously loaded local settings and see if we've got a match.
-				foreach (var buildingDef in Loading.localRicoDef.Buildings)
+				foreach (RICOBuilding buildingDef in Loading.localRicoDef.Buildings)
 				{
 					if (buildingDef.name.Equals(__instance.name))
 					{
@@ -99,7 +99,7 @@ namespace PloppableRICO
 			if (Loading.mod1RicoDef != null)
 			{
 				// Step through our previously loaded local settings and see if we've got a match.
-				foreach (var buildingDef in Loading.mod1RicoDef.Buildings)
+				foreach (RICOBuilding buildingDef in Loading.mod1RicoDef.Buildings)
 				{
 					if (buildingDef.name.Equals(__instance.name))
 					{
@@ -114,7 +114,7 @@ namespace PloppableRICO
 			if (Loading.mod2RicoDef != null)
 			{
 				// Step through our previously loaded local settings and see if we've got a match.
-				foreach (var buildingDef in Loading.mod2RicoDef.Buildings)
+				foreach (RICOBuilding buildingDef in Loading.mod2RicoDef.Buildings)
 				{
 					if (buildingDef.name.Equals(__instance.name))
 					{

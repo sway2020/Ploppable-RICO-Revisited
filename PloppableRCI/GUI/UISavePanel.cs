@@ -89,8 +89,8 @@ namespace PloppableRICO
             // If the local settings file doesn't already exist, create a new blank template.
             if (!File.Exists("LocalRICOSettings.xml"))
             {
-                var newLocalSettings = new PloppableRICODefinition();
-                var xmlSerializer = new XmlSerializer(typeof(PloppableRICODefinition));
+                PloppableRICODefinition newLocalSettings = new PloppableRICODefinition();
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(PloppableRICODefinition));
 
                 // Create blank file template.
                 using (XmlWriter writer = XmlWriter.Create("LocalRICOSettings.xml"))
@@ -113,7 +113,7 @@ namespace PloppableRICO
                 }
 
                 // Loop though all buildings in the existing file. If they aren't the current selection, write them back to the replacement file.
-                foreach (var buildingDef in oldLocalSettings.Buildings)
+                foreach (RICOBuilding buildingDef in oldLocalSettings.Buildings)
                 {
                     if (buildingDef.name != currentSelection.name)
                     {
@@ -374,15 +374,15 @@ namespace PloppableRICO
             int visitCount = 0;
             int homeCountChanged = 0;
 
-            // Get building manager instance.
-            var instance = Singleton<BuildingManager>.instance;
+            // Get game buildings.
+            Building[] buildingBuffer = Singleton<BuildingManager>.instance.m_buildings.m_buffer;
 
 
             // Iterate through each building in the scene.
-            for (ushort i = 0; i < instance.m_buildings.m_buffer.Length; i++)
+            for (ushort i = 0; i < buildingBuffer.Length; i++)
             {
                 // Check for matching name.
-                if (instance.m_buildings.m_buffer[i].Info != null && instance.m_buildings.m_buffer[i].Info.name != null && instance.m_buildings.m_buffer[i].Info.name.Equals(prefabName))
+                if (buildingBuffer[i].Info != null && buildingBuffer[i].Info.name != null && buildingBuffer[i].Info.name.Equals(prefabName))
                 {
                     // Got a match!  Check level if applicable.
                     if (level > 0)
@@ -390,31 +390,31 @@ namespace PloppableRICO
                         // m_level is one less than building.level.
                         byte newLevel = (byte)(level - 1);
 
-                        if (instance.m_buildings.m_buffer[i].m_level != newLevel)
+                        if (buildingBuffer[i].m_level != newLevel)
                         {
-                            Logging.Message("found building '", prefabName, "' with level ", (instance.m_buildings.m_buffer[i].m_level + 1).ToString(), ", overriding to level ", level.ToString());
-                            instance.m_buildings.m_buffer[i].m_level = newLevel;
+                            Logging.Message("found building '", prefabName, "' with level ", (buildingBuffer[i].m_level + 1).ToString(), ", overriding to level ", level.ToString());
+                            buildingBuffer[i].m_level = newLevel;
                         }
                     }
 
                     // Update homecounts for any residential buildings.
-                    PrivateBuildingAI thisAI = instance.m_buildings.m_buffer[i].Info.GetAI() as ResidentialBuildingAI;
+                    PrivateBuildingAI thisAI = buildingBuffer[i].Info.GetAI() as ResidentialBuildingAI;
                     if (thisAI != null)
                     {
                         // This is residential! If we're not removing all households, recalculate home and visit counts using AI method.
                         if (!removeAll)
                         {
-                            homeCount = thisAI.CalculateHomeCount((ItemClass.Level)instance.m_buildings.m_buffer[i].m_level, new Randomizer(i), instance.m_buildings.m_buffer[i].Width, instance.m_buildings.m_buffer[i].Length);
-                            visitCount = thisAI.CalculateVisitplaceCount((ItemClass.Level)instance.m_buildings.m_buffer[i].m_level, new Randomizer(i), instance.m_buildings.m_buffer[i].Width, instance.m_buildings.m_buffer[i].Length);
+                            homeCount = thisAI.CalculateHomeCount((ItemClass.Level)buildingBuffer[i].m_level, new Randomizer(i), buildingBuffer[i].Width, buildingBuffer[i].Length);
+                            visitCount = thisAI.CalculateVisitplaceCount((ItemClass.Level)buildingBuffer[i].m_level, new Randomizer(i), buildingBuffer[i].Width, buildingBuffer[i].Length);
                         }
 
                         // Apply changes via direct call to EnsureCitizenUnits prefix patch from this mod and increment counter.
-                        RealisticCitizenUnits.EnsureCitizenUnits(ref thisAI, i, ref instance.m_buildings.m_buffer[i], homeCount, 0, visitCount, 0);
+                        RealisticCitizenUnits.EnsureCitizenUnits(ref thisAI, i, ref buildingBuffer[i], homeCount, 0, visitCount, 0);
                         homeCountChanged++;
                     }
 
                     // Clear any problems.
-                    instance.m_buildings.m_buffer[i].m_problems = 0;
+                    buildingBuffer[i].m_problems = 0;
                 }
             }
 

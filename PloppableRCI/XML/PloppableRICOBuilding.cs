@@ -318,7 +318,7 @@ namespace PloppableRICO
             // Detect and report any fatal errors.
             get
             {
-                var errors = new StringBuilder();
+                StringBuilder errors = new StringBuilder();
 
                 // Name errors.  Can't do anything with an invalid name.
                 if (!new Regex(String.Format(@"[^<>:/\\\|\?\*{0}]", "\"")).IsMatch(name) || name == "* unnamed")
@@ -370,7 +370,7 @@ namespace PloppableRICO
             // Should only be used after fatalErrors so that we know we've got legitimate service and sub-service values to work with.
             get
             {
-                var errors = new StringBuilder();
+                StringBuilder errors = new StringBuilder();
 
 
                 if (!new Regex(@"^(comlow|comhigh|reslow|reshigh|office|industrial|oil|ore|farming|forest|tourist|leisure|organic|hightech|selfsufficient|none)$").IsMatch(UiCategory))

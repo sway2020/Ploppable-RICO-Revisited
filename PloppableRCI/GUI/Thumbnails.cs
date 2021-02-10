@@ -193,8 +193,8 @@ namespace PloppableRICO
         /// <returns>2d variant icon textures</returns>
         private Texture2D[] GenerateThumbnailVariants(Texture2D baseTexture)
         {
-            var variantPixels = new Color32[baseTexture.width * baseTexture.height];
-            var basePixels = baseTexture.GetPixels32();
+            Color32[] variantPixels = new Color32[baseTexture.width * baseTexture.height];
+            Color32[] basePixels = baseTexture.GetPixels32();
 
 
             // Focused.

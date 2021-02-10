@@ -31,7 +31,7 @@ namespace PloppableRICO
                 "Private building cannot include roads or other net types"
             };
 
-            var codes = new List<CodeInstruction>(instructions);
+            List<CodeInstruction> codes = new List<CodeInstruction>(instructions);
 
             // Deal with each of the operands consecutively and independently to avoid risk of error.
             foreach (string targetOperand in targetOperands)

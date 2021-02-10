@@ -219,7 +219,6 @@ namespace PloppableRICO
             data.m_garbageBuffer = 0;
 
             int loopCounter = 0;
-            uint previousUnit;
             uint currentUnit = data.m_citizenUnits;
             while (currentUnit != 0u)
             {

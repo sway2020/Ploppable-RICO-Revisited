@@ -140,7 +140,7 @@ namespace PloppableRICO
 			// Offset of the last instruction relative to the first (i.e. first + this = last).
 			const int endOffset = 11;
 
-			var codes = new List<CodeInstruction>(instructions);
+			List<CodeInstruction> codes = new List<CodeInstruction>(instructions);
 
 			// Iterate through each opcode in the CIL, looking for an ldarg.2.
 			// Technically a for-next loop that we reset, but there's a bit of code smell about doing it that way, so we use a while loop instead to make what we're doing more explicit.

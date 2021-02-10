@@ -127,31 +127,34 @@ namespace PloppableRICO
         // Proper name of category based on category and subservice combination.
         public static string UICategoryOf(string service, string subservice)
         {
-            var category = "";
-            if (service == "" || subservice == "")
-                return "";
+            string category = "";
 
-            switch (service)
+            // Ensure vald service and subservice.
+            if (!string.IsNullOrEmpty(service) && !string.IsNullOrEmpty(subservice))
             {
-                case "residential":
-                    category = subservice == "high" ? "reshigh" : "reslow";
-                    break;
-                case "commercial":
-                    category = subservice == "high" ? "comhigh" : "comlow";
-                    break;
-                case "office":
-                    category = "office";
-                    break;
-                case "industrial":
-                    category = subservice == "generic" ? "industrial" : subservice;
-                    break;
-                case "extractor":
-                    category = subservice;
-                    break;
-                case "none":
-                    category = "none";
-                    break;
+                switch (service)
+                {
+                    case "residential":
+                        category = subservice == "high" ? "reshigh" : "reslow";
+                        break;
+                    case "commercial":
+                        category = subservice == "high" ? "comhigh" : "comlow";
+                        break;
+                    case "office":
+                        category = "office";
+                        break;
+                    case "industrial":
+                        category = subservice == "generic" ? "industrial" : subservice;
+                        break;
+                    case "extractor":
+                        category = subservice;
+                        break;
+                    case "none":
+                        category = "none";
+                        break;
+                }
             }
+
             return category;
         }
 
@@ -159,10 +162,10 @@ namespace PloppableRICO
         // Path for mod settings.
         public static string SettingsModPath(string name)
         {
-            var modList = PluginManager.instance.GetPluginsInfo();
-            var modPath = "null";
+            IEnumerable<PluginManager.PluginInfo> modList = PluginManager.instance.GetPluginsInfo();
+            string modPath = "null";
 
-            foreach (var modInfo in modList)
+            foreach (PluginManager.PluginInfo modInfo in modList)
             {
                 if (modInfo.name == name)
                 {
