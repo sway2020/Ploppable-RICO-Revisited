@@ -14,7 +14,7 @@
     <Translation ID="PRR_SRV_EXT" String="Rohstoffförderung" />
     <Translation ID="PRR_SRV_DUM" String="Ohne Funktion" />
     <Translation ID="PRR_SUB_HIG" String="Dicht bebaut" />
-    <Translation ID="PRR_SUB_LOW" String="Dünn bebaut" />
+    <Translation ID="PRR_SUB_LOW" String="Gering bebaut" />
     <Translation ID="PRR_SUB_HEC" String="Großgewerbe ökologisch" />
     <Translation ID="PRR_SUB_LEC" String="Kleingewerbe ökologisch" />
     <Translation ID="PRR_SUB_LEI" String="Freizeit" />

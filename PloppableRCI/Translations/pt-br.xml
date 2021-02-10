@@ -112,6 +112,8 @@
     <Translation ID="ERR_HAR1" String="As causas possíveis para esse problema são:" />
     <Translation ID="ERR_HAR2" String="O mod Harmony 2 não está instalado" />
     <Translation ID="ERR_HAR3" String="Um mod desatualizado e/ou quebrado está impedindo que o Harmony 2 funcione corretamente" />
+    <Translation ID="ERR_CON0" String="Conflito de mod detectado!" />
+    <Translation ID="ERR_CON1" String="Os mods conflitantes são:" />
     <Translation ID="PRR_UPD_23_0" String="Ploppable RICO Revisitado — Atualização 2.3" />
     <Translation ID="PRR_UPD_23_1" String="O Ploppable RICO Revisitado foi atualizado para a versão 2.3. Alguns dos recursos desta atualização são:" />
     <Translation ID="PRR_UPD_23_2" String="O Ploppable RICO agora inclui &quot;Plop the Growables&quot; (colocar manualmente construções que originalmente surgem apenas em zoneamento). Funciona tanto para edifícios RICO quanto para edifícios não-RICO. Veja o painel de opções para mais detalhes." />
