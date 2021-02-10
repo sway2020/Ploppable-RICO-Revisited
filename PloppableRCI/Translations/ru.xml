@@ -47,6 +47,7 @@
     <Translation ID="PRR_OPT_JB1" String="Рабочие с нач. образованием" />
     <Translation ID="PRR_OPT_JB2" String="Рабочие со ср. образованием" />
     <Translation ID="PRR_OPT_JB3" String="Работники с высш. образованием" />
+    <Translation ID="PRR_OPT_URP" String="Настройки популяции отключены, так как включён Realistic Population" />
     <Translation ID="PRR_CAT_MON" String="Монументы" />
     <Translation ID="PRR_CAT_BEA" String="Украшения" />
     <Translation ID="PRR_CAT_EDU" String="Образование" />
@@ -94,7 +95,7 @@
     <Translation ID="PRR_OPTION_VAL" String="Игнорировать сообщение 'низкая стоимость земли'" />
     <Translation ID="PRR_OPTION_SVC" String="Игнорировать сообщение 'слишком мало услуг'" />
     <Translation ID="PRR_OPTION_HST" String="Сделать все размещаемые Growable здания историческими" />
-    <Translation ID="PRR_OPTION_BLC" String="Блокировать уровни plopped growables используя Advanced Building Level Control" />
+    <Translation ID="PRR_OPTION_BLC" String="Блокировать ур. plopped growables использ. Advanced Building Level Control" />
     <Translation ID="PRR_OPTION_RPL" String="RICO Ploppable здания" />
     <Translation ID="PRR_OPTION_RGR" String="RICO Growable здания" />
     <Translation ID="PRR_OPTION_RCO" String="Все здания RICO (включая Growable)" />
@@ -130,7 +131,7 @@
     <Translation ID="PRR_THUMB_SKY" String="Skybox" />
     <Translation ID="MES_CLS" String="Закрыть" />
     <Translation ID="MES_DSA" String="Больше не показывать" />
-    <Translation ID="MES_PAGE" String="Пожалуйста, обратитесь к странице модов Steam Workshop для получения дополнительной информации." />
+    <Translation ID="MES_PAGE" String="Пожалуйста, обратитесь к странице модов в Steam Workshop для получения дополнительной информации." />
     <Translation ID="PRR_ERR_FAT" String="Это означает, что мод не может работать и отключился." />
     <Translation ID="PRR_ERR_HAR" String="Ploppable RICO Revisited не смог завершить необходимые патчи Harmony." />
     <Translation ID="ERR_HAR0" String="Ошибка Harmony patching" />
@@ -158,5 +159,10 @@
     <Translation ID="PRR_UPD_235_2" String="Улучшены уведомления о конфликтах модов и ошибках." />
     <Translation ID="PRR_UPD_236_0" String="Улучшение обнаружения конфликтов модов и уведомления." />
     <Translation ID="PRR_UPD_237_0" String="Исправлено сообщение об ошибке Harmony, неправильно отображаемое при загрузке в редакторы." />
+    <Translation ID="PRR_UPD_240_0" String="Добавлены настраиваемые переопределения стоимости." />
+    <Translation ID="PRR_UPD_240_1" String="Добавлена опция автоматической блокировки строительного уровня plopped growables (требуется мод Advanced Building Level Control)." />
+    <Translation ID="PRR_UPD_240_2" String="Добавлено меню выбора мода/автора/локальных настроек на панель настроек (чтобы видеть настройки отличные от текущих активных)." />
+    <Translation ID="PRR_UPD_240_3" String="Отключено заполнение текстовых полей, когда установлена опция 'use reality'." />
+    <Translation ID="PRR_UPD_240_4" String="Обновлён комплект CitiesHarmony до 1.0.6 с Harmony 2.0.4." />
   </Translations>
 </Language>
