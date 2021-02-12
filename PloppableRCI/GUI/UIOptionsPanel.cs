@@ -135,26 +135,40 @@ namespace PloppableRICO
             // Set current data.
             currentBuildingData = buildingData;
 
-            // Set displayed settings via settings dropdown menu event handler.
+            int selectedIndex;
+
+            // Set menu settings index.
             if (buildingData.hasLocal)
             {
                 // Local settings have priority - select them if they exist.
-                settingDropDown.selectedIndex = 0;
+                selectedIndex = 0;
             }
             else if (buildingData.hasAuthor)
             {
                 // Then author settings - select them if no local settings.
-                settingDropDown.selectedIndex = 1;
+                selectedIndex = 1;
             }
             else if (buildingData.hasMod)
             {
                 // Finally, set mod settings if no other settings.
-                settingDropDown.selectedIndex = 2;
+                selectedIndex = 2;
             }
             else
             {
                 // No settings are available for this builidng - default to local.
-                settingDropDown.selectedIndex = 0;
+                selectedIndex = 0;
+            }
+
+            // Is the new index a change from the current state?
+            if (settingDropDown.selectedIndex == selectedIndex)
+            {
+                // No - leave settings menu along and manually force a setting selection update.
+                UpdateSettingSelection(null, selectedIndex);
+            }
+            else
+            {
+                // Yes - update settings menu selection, which will trigger update via event handler.
+                settingDropDown.selectedIndex = selectedIndex;
             }
         }
 
