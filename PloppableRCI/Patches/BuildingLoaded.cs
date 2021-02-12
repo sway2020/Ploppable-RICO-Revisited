@@ -141,7 +141,7 @@ namespace PloppableRICO
                 }
 				else
                 {
-					Logging.Message("building ", buildingID.ToString(), " : ", data.Info.name, " passed CitizenUnits check");
+					Logging.Message("building ", buildingID.ToString(), " : ", data.Info.name, " passed CitizenUnits check with " , data.m_citizenUnits.ToString(), " households");
                 }
             }
         }
