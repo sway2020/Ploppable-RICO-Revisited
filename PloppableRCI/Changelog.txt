@@ -3,6 +3,7 @@
 - Add configurable cost overrides
 - Add option to automatically lock the building level of plopped growables (requires Advanced Building Level Control mod)
 - Add mod/author/local settings selection menu to settings panel (to see settings other than the currently active one)
+- Remove 'reset building stats on load' option (too easy to accidentally break things) - use the 'save and apply' option to manually update instead
 - Disable population textfields when 'use reality' option is set
 - Fix list selection not reflecting current building when restoring settings panel from previous state
 - Strengthen translation framework to properly handle existing-but-empty translation strings

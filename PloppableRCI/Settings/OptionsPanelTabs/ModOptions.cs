@@ -31,14 +31,14 @@ namespace PloppableRICO
             translationDropDown.width = 270f;
 
             // Game options.
-            UIHelperBase gameGroup = helper.AddGroup(Translations.Translate("PRR_OPTION_LOA"));
+            /*UIHelperBase gameGroup = helper.AddGroup(Translations.Translate("PRR_OPTION_LOA"));
 
             // Add reset on load checkbox.
             gameGroup.AddCheckbox(Translations.Translate("PRR_OPTION_FORCERESET"), ModSettings.resetOnLoad, isChecked =>
             {
                 ModSettings.resetOnLoad = isChecked;
                 SettingsUtils.SaveSettings();
-            });
+            });*/
 
             // Logging options.
             UIHelperBase logGroup = helper.AddGroup(Translations.Translate("PRR_OPTION_LOG"));

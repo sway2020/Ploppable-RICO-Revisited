@@ -11,7 +11,7 @@ namespace PloppableRICO
     {
         // General mod settings.
         internal static bool speedBoost = false;
-        internal static bool resetOnLoad = true;
+        internal static bool resetOnLoad = false;
         internal static int thumbBacks = (byte)ThumbBackCats.skybox;
 
         // Growable plopping settings.
@@ -148,8 +148,8 @@ namespace PloppableRICO
         [XmlElement("DebugLogging")]
         public bool DebugLogging { get => Logging.detailLogging; set => Logging.detailLogging = value; }
 
-        [XmlElement("ResetOnLoad")]
-        public bool ResetOnLoad { get => ModSettings.resetOnLoad; set => ModSettings.resetOnLoad = value; }
+        //[XmlElement("ResetOnLoad")]
+        //public bool ResetOnLoad { get => ModSettings.resetOnLoad; set => ModSettings.resetOnLoad = value; }
 
         [XmlElement("WarnBulldoze")]
         public bool WarnBulldoze { get => ModSettings.warnBulldoze; set => ModSettings.warnBulldoze = value; }
