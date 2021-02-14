@@ -22,8 +22,7 @@ namespace PloppableRICO
                     "PRR_UPD_240_0",
                     "PRR_UPD_240_1",
                     "PRR_UPD_240_2",
-                    "PRR_UPD_240_3",
-                    "PRR_UPD_240_4"
+                    "PRR_UPD_240_3"
                 }
             },
             {
