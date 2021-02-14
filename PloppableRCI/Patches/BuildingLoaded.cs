@@ -120,11 +120,22 @@ namespace PloppableRICO
 		/// <param name="version">Version</param>
 		public static void Postfix(PrivateBuildingAI __instance, ushort buildingID, ref Building data, uint version)
         {
-			// Check to see if this is one of ours.
-			if (__instance is GrowableResidentialAI)
-            {
+			// Check to see if this is one of ours and that's not abandoned.
+			if (__instance is GrowableResidentialAI && (data.m_flags & Building.Flags.Abandoned) == 0)
+			{
+				CitizenUnit[] citizenBuffer = Singleton<CitizenManager>.instance.m_units.m_buffer; 
+
+				int population = 0;
+				uint currentCitizenUnit = data.m_citizenUnits;
+
+				while (currentCitizenUnit != 0)
+                {
+					++population;
+					currentCitizenUnit = citizenBuffer[currentCitizenUnit].m_nextUnit;
+                }
+
 				// Check to see if no citizen units are set.
-				if (data.m_citizenUnits == 0)
+				if (population == 0)
                 {
 					// Uh oh...
 					Logging.Error("no citizenUnits for building ", buildingID.ToString(), " : ", data.Info.name, "; attempting reset");
@@ -141,14 +152,14 @@ namespace PloppableRICO
                 }
 				else
                 {
-					Logging.Message("building ", buildingID.ToString(), " : ", data.Info.name, " passed CitizenUnits check with " , data.m_citizenUnits.ToString(), " households");
+					Logging.Message("building ", buildingID.ToString(), " : ", data.Info.name, " passed CitizenUnits check with " , population.ToString(), " households");
                 }
             }
         }
 
 
 		/// <summary>
-		/// Reverse patch for BuildinAI.EnsureCitizenUnits to access private method of original instance.
+		/// Reverse patch for BuildingAI.EnsureCitizenUnits to access private method of original instance.
 		/// </summary>
 		/// <param name="instance">Object instance</param>
 		/// <param name="buildingID">ID of this building (for game method)</param>
