@@ -130,8 +130,8 @@ namespace PloppableRICO
 
 
         /// <summary>
-        /// Uses reflection to find the IsRICOPopManaged and ClearWorkplaceCache methods of Advanced Building Level Control.
-        /// If successful, sets ricoPopManaged and ricoClearWorkplace fields.
+        /// Uses reflection to find the LockBuildingLevel method of Advanced Building Level Control.
+        /// If successful, sets ablcLockBuildingLevel field.
         /// </summary>
         internal static void ABLCReflection()
         {
