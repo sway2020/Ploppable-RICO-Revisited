@@ -1,4 +1,6 @@
-﻿- Implement new population caching system that handles more than one level per prefab.
+﻿Version 2.4.1
+
+- Implement new population caching system that handles more than one level per prefab.
 
 
 Version 2.4

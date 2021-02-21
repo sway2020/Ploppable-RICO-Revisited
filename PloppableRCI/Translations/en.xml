@@ -163,5 +163,6 @@
     <Translation ID="PRR_UPD_240_1" String="Add option to automatically lock the building level of plopped growables (requires Advanced Building Level Control mod)." />
     <Translation ID="PRR_UPD_240_2" String="Add mod/author/local settings selection menu to settings panel (to see settings other than the currently active one)." />
     <Translation ID="PRR_UPD_240_3" String="Disable population textfields when 'use reality' option is set." />
+    <Translation ID="PRR_UPD_241_0" String="Improve support for historical buildings with different levels" />
   </Translations>
 </Language>
