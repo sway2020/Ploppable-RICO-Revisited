@@ -144,19 +144,19 @@ namespace PloppableRICO
                 // See if it's one of our AI types; if so, clear the cache for that AI.
                 if (buildingAI is GrowableCommercialAI comAI)
                 {
-                    comAI.workplaceCount = null;
+                    comAI.ClearWorkplaceCache();
                 }
                 else if (buildingAI is GrowableIndustrialAI indAI)
                 {
-                    indAI.workplaceCount = null;
+                    indAI.ClearWorkplaceCache();
                 }
                 else if (buildingAI is GrowableOfficeAI offAI)
                 {
-                    offAI.workplaceCount = null;
+                    offAI.ClearWorkplaceCache();
                 }
                 else if (buildingAI is GrowableExtractorAI growAI)
                 {
-                    growAI.workplaceCount = null;
+                    growAI.ClearWorkplaceCache();
                 }
             }
         }

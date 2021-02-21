@@ -18,8 +18,18 @@ namespace PloppableRICO
         // Number of workplaces in this building; set a reasonable default, but will be overwritten by ConvertPrefabs().
         public int m_workplaceCount = 1;
 
-        // Cache to store workplace count calculations (saving a full calculation every update).
-        public int[] workplaceCount;
+        // Cache to store workplace count calculations (saving a full calculation every update), one per level.
+        private readonly int[][] workplaceCache;
+
+
+        /// <summary>
+        /// Constructor - initializes workplace cache.
+        /// </summary>
+        public GrowableCommercialAI()
+        {
+            // Initialise first dimension of workplace cache array here, so we don't have to waste CPU cycles anywhere else checking if it's been done or not.
+            workplaceCache = new int[3][];
+        }
 
 
         /// <summary>
@@ -39,10 +49,18 @@ namespace PloppableRICO
             // This makes it a potential performance bottleneck; thus, we cache results to save some CPU cycles.
             // Results are cached in workplaceCount.
 
-            // Check to see if there's a cached value, and if so, use it.
-            if (workplaceCount != null)
+            // Bounds check for level.
+            int buildingLevel = (int)level;
+            if (buildingLevel > 2)
             {
-                WorkplaceAIHelper.SetWorkplaceLevels(out level0, out level1, out level2, out level3, workplaceCount);
+                buildingLevel = 2;
+            }
+
+            // Check to see if there's a cached value, and if so, use it.
+            int[] cachedWorkers = workplaceCache[buildingLevel];
+            if (cachedWorkers != null)
+            {
+                WorkplaceAIHelper.SetWorkplaceLevels(out level0, out level1, out level2, out level3, cachedWorkers);
             }
             else
             {
@@ -50,9 +68,21 @@ namespace PloppableRICO
                 WorkplaceAIHelper.CalculateWorkplaceCount(level, m_ricoData, this, r, width, length, out level0, out level1, out level2, out level3);
 
                 // Cache result.
-                workplaceCount = new int[] { level0, level1, level2, level3 };
+                workplaceCache[buildingLevel] = new int[] { level0, level1, level2, level3 };
             }
         }
+
+
+        /// <summary>
+        /// Clears the workplace cache for this prefab.
+        /// </summary>
+        public void ClearWorkplaceCache()
+        {
+            workplaceCache[0] = null;
+            workplaceCache[1] = null;
+            workplaceCache[2] = null;
+        }
+
 
         /// <summary>
         /// Calculates the workplaces for this building according to base method (non-RICO settings).

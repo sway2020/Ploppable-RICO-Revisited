@@ -1,4 +1,7 @@
-﻿Version 2.4
+﻿- Implement new population caching system that handles more than one level per prefab.
+
+
+Version 2.4
 
 - Add configurable cost overrides
 - Add option to automatically lock the building level of plopped growables (requires Advanced Building Level Control mod)
