@@ -163,6 +163,5 @@
     <Translation ID="PRR_UPD_240_1" String="Добавлена опция автоматической блокировки строительного уровня plopped growables (требуется мод Advanced Building Level Control)." />
     <Translation ID="PRR_UPD_240_2" String="Добавлено меню выбора мода/автора/локальных настроек на панель настроек (чтобы видеть настройки отличные от текущих активных)." />
     <Translation ID="PRR_UPD_240_3" String="Отключено заполнение текстовых полей, когда установлена опция 'use reality'." />
-    <Translation ID="PRR_UPD_240_4" String="Обновлён комплект CitiesHarmony до 1.0.6 с Harmony 2.0.4." />
   </Translations>
 </Language>
