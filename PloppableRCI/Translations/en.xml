@@ -77,8 +77,11 @@
     <Translation ID="PRR_SET" String="Settings" />
     <Translation ID="PRR_SET_RICO" String="RICO settings" />
     <Translation ID="PRR_SET_HASMOD" String="Mod settings" />
+    <Translation ID="PRR_SET_NOMOD" String="No mod settings" />
     <Translation ID="PRR_SET_HASAUT" String="Author settings" />
+    <Translation ID="PRR_SET_NOAUT" String="No author settings" />
     <Translation ID="PRR_SET_HASLOC" String="Local settings" />
+    <Translation ID="PRR_SET_NOLOC" String="No local settings" />
     <Translation ID="PRR_SET_HASANY" String="Any settings" />
     <Translation ID="PRR_SET_HASNON" String="No settings" />
     <Translation ID="PRR_SAV_SAV" String="Save" />

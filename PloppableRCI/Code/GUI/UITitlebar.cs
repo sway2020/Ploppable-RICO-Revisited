@@ -38,7 +38,6 @@ namespace PloppableRICO
 
             // Decorative icon (top-left).
             iconSprite = AddUIComponent<UISprite>();
-            iconSprite.relativePosition = new Vector3(10, 5);
             iconSprite.spriteName = "ToolbarIconZoomOutCity";
             UIUtils.ResizeIcon(iconSprite, new Vector2(30, 30));
             iconSprite.relativePosition = new Vector3(10, 5);

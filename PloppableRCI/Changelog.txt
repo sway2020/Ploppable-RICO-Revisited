@@ -1,6 +1,7 @@
 ﻿Version 2.4.1
 
 - Implement new population caching system that handles more than one level per prefab.
+- Overhaul settings panel options UI code
 
 
 Version 2.4

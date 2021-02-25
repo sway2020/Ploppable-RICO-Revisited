@@ -10,8 +10,103 @@ namespace PloppableRICO
     /// </summary>
     public class UIBuildingOptions : UIPanel
     {
+        // Setting type indexes.
+        private enum SettingTypeIndex
+        {
+            Local = 0,
+            Author,
+            Mod
+        };
+
+        // Service indexes.
+        private enum ServiceIndex
+        {
+            None = 0,
+            Residential,
+            Industrial,
+            Office,
+            Commercial,
+            Extractor,
+            Dummy,
+            NumServes
+        };
+
+        // Sub-service indexes - residential.
+        private enum ResSubIndex
+        {
+            High = 0,
+            Low,
+            HighEco,
+            LowEco,
+            NumSubs
+        };
+
+        // Sub-service indexes - commercial.
+        private enum ComSubIndex
+        {
+            High = 0,
+            Low,
+            Leisure,
+            Tourist,
+            Eco,
+            NumSubs
+        };
+
+        // Sub-service indexes - industrial.
+        private enum IndSubIndex
+        {
+            Generic = 0,
+            Farming,
+            Forestry,
+            Oil,
+            Ore,
+            NumSubs
+        };
+
+
+        // Sub-service indexes - extractor.
+        private enum ExtSubIndex
+        {
+            Farming = 0,
+            Forestry,
+            Oil,
+            Ore,
+            NumSubs
+        };
+
+        // Sub-service indexes - office.
+        private enum OffSubIndex
+        {
+            Generic = 0,
+            IT,
+            NumSubs
+        };
+
+
+        // UI category indexes.
+        private enum UICatIndex
+        {
+            reslow = 0,
+            reshigh,
+            comlow,
+            comhigh,
+            office,
+            industrial,
+            farming,
+            forest,
+            oil,
+            ore,
+            leisure,
+            tourist,
+            organic,
+            hightech,
+            selfsufficient,
+            none
+        }
+
+
         // Whole buncha UI strings.
-        private readonly string[] Service = new string[]
+        private readonly string[] Services = new string[(int)ServiceIndex.NumServes]
         {
             Translations.Translate("PRR_SRV_NON"),
             Translations.Translate("PRR_SRV_RES"),
@@ -22,13 +117,13 @@ namespace PloppableRICO
             Translations.Translate("PRR_SRV_DUM")
         };
 
-        private readonly string[] OfficeSub = new string[]
+        private readonly string[] OfficeSubs = new string[(int)OffSubIndex.NumSubs]
         {
             Translations.Translate("PRR_SUB_GEN"),
             Translations.Translate("PRR_SUB_ITC")
         };
 
-        private readonly string[] ResSub = new string[]
+        private readonly string[] ResSubs = new string[(int)ResSubIndex.NumSubs]
         {
             Translations.Translate("PRR_SUB_HIG"),
             Translations.Translate("PRR_SUB_LOW"),
@@ -36,7 +131,7 @@ namespace PloppableRICO
             Translations.Translate("PRR_SUB_LEC")
         };
 
-        private readonly string[] ComSub = new string[]
+        private readonly string[] ComSubs = new string[(int)ComSubIndex.NumSubs]
         {
             Translations.Translate("PRR_SUB_HIG"),
             Translations.Translate("PRR_SUB_LOW"),
@@ -45,7 +140,7 @@ namespace PloppableRICO
             Translations.Translate("PRR_SUB_ORG")
         };
 
-        private readonly string[] IndustrialSub = new string[]
+        private readonly string[] IndSubs = new string[(int)IndSubIndex.NumSubs]
         {
             Translations.Translate("PRR_SUB_GEN"),
             Translations.Translate("PRR_SUB_FAR"),
@@ -54,7 +149,7 @@ namespace PloppableRICO
             Translations.Translate("PRR_SUB_ORE")
         };
 
-        private readonly string[] ExtractorSub = new string[]
+        private readonly string[] ExtractorSubs = new string[(int)ExtSubIndex.NumSubs]
         {
             Translations.Translate("PRR_SUB_FAR"),
             Translations.Translate("PRR_SUB_FOR"),
@@ -62,19 +157,19 @@ namespace PloppableRICO
             Translations.Translate("PRR_SUB_ORE")
         };
 
-        private readonly string[] DummySub = new string[]
+        private readonly string[] DummySubs = new string[]
         {
             Translations.Translate("PRR_SRV_NON")
         };
 
-        private readonly string[] Level = new string[]
+        private readonly string[] WorkLevels = new string[]
         {
             "1",
             "2",
             "3",
         };
 
-        private readonly string[] resLevel = new string[]
+        private readonly string[] ResLevels = new string[]
         {
             "1",
             "2",
@@ -83,7 +178,7 @@ namespace PloppableRICO
             "5"
         };
 
-        private readonly string[] extLevel = new string[]
+        private readonly string[] SingleLevel = new string[]
         {
             "1"
         };
@@ -141,23 +236,24 @@ namespace PloppableRICO
             if (buildingData.hasLocal)
             {
                 // Local settings have priority - select them if they exist.
-                selectedIndex = 0;
+                selectedIndex = (int)SettingTypeIndex.Local;
             }
             else if (buildingData.hasAuthor)
             {
                 // Then author settings - select them if no local settings.
-                selectedIndex = 1;
+                selectedIndex = (int)SettingTypeIndex.Author;
             }
             else if (buildingData.hasMod)
             {
                 // Finally, set mod settings if no other settings.
-                selectedIndex = 2;
+                selectedIndex = (int)SettingTypeIndex.Mod;
             }
             else
             {
-                // No settings are available for this builidng - default to local.
-                selectedIndex = 0;
+                // No settings are available for this builidng.
+                selectedIndex = -1;
             }
+
 
             // Is the new index a change from the current state?
             if (settingDropDown.selectedIndex == selectedIndex)
@@ -170,6 +266,9 @@ namespace PloppableRICO
                 // Yes - update settings menu selection, which will trigger update via event handler.
                 settingDropDown.selectedIndex = selectedIndex;
             }
+
+            // Show or hide settings menu as approprite (hide if no valid settings for this building).
+            settingDropDown.parent.isVisible = selectedIndex >= (int)SettingTypeIndex.Local;
         }
 
 
@@ -218,49 +317,49 @@ namespace PloppableRICO
             // UI categories from menu.
             switch (uiCategory.selectedIndex)
             {
-                case 0:
+                case (int)UICatIndex.reslow:
                     currentSettings.UiCategory = "reslow";
                     break;
-                case 1:
+                case (int)UICatIndex.reshigh:
                     currentSettings.UiCategory = "reshigh";
                     break;
-                case 2:
+                case (int)UICatIndex.comlow:
                     currentSettings.UiCategory = "comlow";
                     break;
-                case 3:
+                case (int)UICatIndex.comhigh:
                     currentSettings.UiCategory = "comhigh";
                     break;
-                case 4:
+                case (int)UICatIndex.office:
                     currentSettings.UiCategory = "office";
                     break;
-                case 5:
+                case (int)UICatIndex.industrial:
                     currentSettings.UiCategory = "industrial";
                     break;
-                case 6:
+                case (int)UICatIndex.farming:
                     currentSettings.UiCategory = "farming";
                     break;
-                case 7:
+                case (int)UICatIndex.forest:
                     currentSettings.UiCategory = "forest";
                     break;
-                case 8:
+                case (int)UICatIndex.oil:
                     currentSettings.UiCategory = "oil";
                     break;
-                case 9:
+                case (int)UICatIndex.ore:
                     currentSettings.UiCategory = "ore";
                     break;
-                case 10:
+                case (int)UICatIndex.leisure:
                     currentSettings.UiCategory = "leisure";
                     break;
-                case 11:
+                case (int)UICatIndex.tourist:
                     currentSettings.UiCategory = "tourist";
                     break;
-                case 12:
+                case (int)UICatIndex.organic:
                     currentSettings.UiCategory = "organic";
                     break;
-                case 13:
+                case (int)UICatIndex.hightech:
                     currentSettings.UiCategory = "hightech";
                     break;
-                case 14:
+                case (int)UICatIndex.selfsufficient:
                     currentSettings.UiCategory = "selfsufficient";
                     break;
                 default:
@@ -283,88 +382,60 @@ namespace PloppableRICO
         {
             switch (service.selectedIndex)
             {
-                case 0:
-                    // None - also reset level.
-                    level.selectedIndex = 0;
-                    uiCategory.selectedIndex = 15;
-                    break;
-                case 1:
+                case (int)ServiceIndex.Residential:
                     // Residential.
                     switch (subService.selectedIndex)
                     {
-                        case 0:
-                            // High residential.
-                            uiCategory.selectedIndex = 1;
-                            break;
-                        case 1:
+                        case (int)ResSubIndex.Low:
                             // Low residential.
-                            uiCategory.selectedIndex = 0;
+                            uiCategory.selectedIndex = (int)UICatIndex.reslow;
                             break;
-                        case 2:
-                        case 3:
+                        case (int)ResSubIndex.LowEco:
+                        case (int)ResSubIndex.HighEco:
                             // High and low eco.
-                            uiCategory.selectedIndex = 14;
-                            break;
-                    }
-                    break;
-                case 2:
-                    // Industrial.
-                    uiCategory.selectedIndex = subService.selectedIndex + 5;
-                    // Reset level for specialised industry.
-                    if (subService.selectedIndex > 0)
-                    {
-                        level.items = extLevel;
-                        level.selectedIndex = 0;
-                    }
-                    break;
-                case 3:
-                    // Office.
-                    switch (subService.selectedIndex)
-                    {
-                        case 0:
-                            // Generic office.
-                            uiCategory.selectedIndex = 4;
-                            break;
-                        case 1:
-                            // IT cluster - also reset level.
-                            uiCategory.selectedIndex = 13;
-                            level.items = extLevel;
-                            level.selectedIndex = 0;
-                            break;
-                    }
-                    break;
-                case 4:
-                    // Commercial.
-                    switch (subService.selectedIndex)
-                    {
-                        // For commercial, also set the correct available levels in the menus depending on specialisation.
-                        case 0:
-                            // High commercial.
-                            uiCategory.selectedIndex = 3;
-                            level.items = Level;
-                            break;
-                        case 1:
-                            // Low commercial.
-                            uiCategory.selectedIndex = 2;
-                            level.items = Level;
+                            uiCategory.selectedIndex = (int)UICatIndex.selfsufficient;
                             break;
                         default:
-                            // Tourist, leisure or eco - also reset level.
-                            uiCategory.selectedIndex = subService.selectedIndex + 8;
-                            level.items = extLevel;
-                            level.selectedIndex = 0;
+                            // High residential.
+                            uiCategory.selectedIndex = (int)UICatIndex.reshigh;
                             break;
                     }
                     break;
-                case 5:
-                    // Extractor - also reset level.
-                    level.selectedIndex = 0;
+
+                case (int)ServiceIndex.Industrial:
+                    uiCategory.selectedIndex = subService.selectedIndex + 5;
+                    break;
+
+                case (int)ServiceIndex.Office:
+                    uiCategory.selectedIndex = (int)(subService.selectedIndex == (int)OffSubIndex.IT ? UICatIndex.hightech : UICatIndex.office);
+                    break;
+
+                case (int)ServiceIndex.Commercial:
+                    switch (subService.selectedIndex)
+                    {
+                        case (int)ComSubIndex.High:
+                            // High commercial.
+                            uiCategory.selectedIndex = (int)UICatIndex.comhigh;
+                            break;
+
+                        case (int)ComSubIndex.Low:
+                            // Low commercial.
+                            uiCategory.selectedIndex = (int)UICatIndex.comlow;
+                            break;
+
+                        default:
+                            // Tourist, leisure or eco.
+                            uiCategory.selectedIndex = subService.selectedIndex + 8;
+                            break;
+                    }
+                    break;
+
+                case (int)ServiceIndex.Extractor:
                     uiCategory.selectedIndex = subService.selectedIndex + 6;
                     break;
-                case 6:
-                    // Dummy - also reset level.
-                    level.selectedIndex = 0;
-                    uiCategory.selectedIndex = 15;
+
+                default:
+                    uiCategory.selectedIndex = (int)UICatIndex.none;
                     break;
             }
         }
@@ -434,24 +505,20 @@ namespace PloppableRICO
 
             // Dropdown menu - service.
             service = RICODropDown(enableRICOPanel, 30f, Translations.Translate("PRR_OPT_SER"));
-            service.items = Service;
-            service.selectedIndex = 0;
-            service.eventSelectedIndexChanged += UpdateService;
+            service.items = Services;
+            service.eventSelectedIndexChanged += ServiceChanged;
 
             // Dropdown menu - sub-service.
             subService = RICODropDown(enableRICOPanel, 60f, Translations.Translate("PRR_OPT_SUB"));
-            subService.selectedIndex = 0;
-            subService.eventSelectedIndexChanged += UpdateSubService;
+            subService.eventSelectedIndexChanged += SubServiceChanged;
 
             // Dropdown menu - UI category.
             uiCategory = RICODropDown(enableRICOPanel, 90f, Translations.Translate("PRR_OPT_UIC"));
-            uiCategory.selectedIndex = 0;
             uiCategory.items = (new UICategories()).names;
 
             // Dropdown menu - building level.
             level = RICODropDown(enableRICOPanel, 120f, Translations.Translate("PRR_LEVEL"));
-            level.selectedIndex = 0;
-            level.items = Level;
+            level.items = SingleLevel;
 
             // Update workplace allocations on level, service, and subservice change.
             level.eventSelectedIndexChanged += (control, value) => UpdateWorkplaceBreakdowns();
@@ -518,14 +585,12 @@ namespace PloppableRICO
             switch (index)
             {
                 // Local settings.
-                case 0:
+                case (int)SettingTypeIndex.Local:
                     // Does the current building have local settings?
                     if (currentBuildingData.hasLocal)
                     {
                         // Yes - update display.
                         currentSettings = currentBuildingData.local;
-                        UpdateElements(currentBuildingData.local.service);
-                        UpdateValues(currentBuildingData.local);
                         label.text = Translations.Translate("PRR_SET_HASLOC");
 
                         // (Re)enable input fields.
@@ -555,56 +620,67 @@ namespace PloppableRICO
                     else
                     {
                         // No local settings for this building.
-                        noSettingMessage = Translations.Translate("No local settings");
+                        noSettingMessage = Translations.Translate("PRR_SET_NOLOC");
                     }
                     break;
 
                 // Author settings.
-                case 1:
+                case (int)SettingTypeIndex.Author:
                     // Does the current building have author settings?
                     if (currentBuildingData.hasAuthor)
                     {
                         // Yes - leave input fields disabled and update display.
                         currentSettings = currentBuildingData.author;
-                        UpdateElements(currentBuildingData.author.service);
-                        UpdateValues(currentBuildingData.author);
                         label.text = Translations.Translate("PRR_SET_HASAUT");
                     }
                     else
                     {
                         // No author settings for this building.
-                        noSettingMessage = Translations.Translate("No author settings");
+                        noSettingMessage = Translations.Translate("PRR_SET_NOAUT");
                     }
                     break;
 
                 // Mod settings.
-                case 2:
+                case (int)SettingTypeIndex.Mod:
                     // Does the current building have mod settings?
                     if (currentBuildingData.hasMod)
                     {
                         // Yes - leave input fields disabled and update display.
                         currentSettings = currentBuildingData.mod;
                         label.text = Translations.Translate("PRR_SET_HASMOD");
-                        UpdateElements(currentBuildingData.mod.service);
-                        UpdateValues(currentBuildingData.mod);
                     }
                     else
                     {
                         // No mod settings for this building.
-                        noSettingMessage = Translations.Translate("No mod settings");
+                        noSettingMessage = Translations.Translate("PRR_SET_NOMOD");
                     }
                     break;
 
                 default:
-                    Logging.Error("invalid settting index ", index.ToString());
-                    noSettingMessage = Translations.Translate("Invalid service selection");
+                    noSettingMessage = Translations.Translate("PRR_SET_HASNON");
+                    currentSettings = null;
                     break;
             }
 
+            // Update settings.
+            if (currentSettings != null)
+            {
+                // Show 'enable rico' check.
+                ricoEnabled.parent.Show();
+
+                UpdateElementVisibility(currentSettings.service);
+                SettingChanged(currentSettings);
+            }
+
+            // See if we've got no settings to display.
             if (!string.IsNullOrEmpty(noSettingMessage))
             {
+                // No settings - hide panel (by unchecking 'enable rico' check) and then hide 'enable rico' check, too.
                 ricoEnabled.isChecked = false;
                 ricoEnabled.Disable();
+                ricoEnabled.parent.Hide();
+
+                // Display appropriate message.
                 label.text = noSettingMessage;
             }
 
@@ -618,7 +694,7 @@ namespace PloppableRICO
         /// </summary>
         /// <param name="component">Calling component (ignored)</param>
         /// <param name="value">New service dropdown selected index</param>
-        private void UpdateService(UIComponent component, int value)
+        private void ServiceChanged(UIComponent _, int value)
         {
             // Ignore event if disabled flag is set.
             if (!disableEvents)
@@ -626,28 +702,32 @@ namespace PloppableRICO
                 // Translate index to relevant UpdateElements parameter.
                 switch(value)
                 {
-                    case 0:
-                        UpdateElements("none");
+                    case (int)ServiceIndex.None:
+                        UpdateElementVisibility("none");
                         break;
-                    case 1:
-                        UpdateElements("residential");
+                    case (int)ServiceIndex.Residential:
+                        UpdateElementVisibility("residential");
                         break;
-                    case 2:
-                        UpdateElements("industrial");
+                    case (int)ServiceIndex.Industrial:
+                        UpdateElementVisibility("industrial");
                         break;
-                    case 3:
-                        UpdateElements("office");
+                    case (int)ServiceIndex.Office:
+                        UpdateElementVisibility("office");
                         break;
-                    case 4:
-                        UpdateElements("commercial");
+                    case (int)ServiceIndex.Commercial:
+                        UpdateElementVisibility("commercial");
                         break;
-                    case 5:
-                        UpdateElements("extractor");
+                    case (int)ServiceIndex.Extractor:
+                        UpdateElementVisibility("extractor");
                         break;
-                    case 6:
-                        UpdateElements("dummy");
+                    case (int)ServiceIndex.Dummy:
+                        UpdateElementVisibility("dummy");
                         break;
                 }
+
+                // Update sub-service and level menus.
+                UpdateSubServiceMenu();
+                UpdateLevelMenu();
             }
         }
 
@@ -657,12 +737,13 @@ namespace PloppableRICO
         /// </summary>
         /// <param name="component">Calling component (ignored)</param>
         /// <param name="value">New service dropdown selected index (ignored)</param>
-        private void UpdateSubService(UIComponent component, int value)
+        private void SubServiceChanged(UIComponent component, int value)
         {
             // Ignore event if disabled flag is set.
             if (!disableEvents)
             {
                 UpdateUICategory();
+                UpdateLevelMenu();
             }
         }
 
@@ -699,7 +780,7 @@ namespace PloppableRICO
         /// Updates the values in the RICO options panel to match the selected building (control visibility should already be set).
         /// </summary>
         /// <param name="buildingData">RICO building record</param>
-        private void UpdateValues(RICOBuilding building)
+        private void SettingChanged(RICOBuilding building)
         {
             // Workplaces.
             manual.text = building.WorkplaceCount.ToString();
@@ -712,76 +793,138 @@ namespace PloppableRICO
             switch (building.service)
             {
                 case "residential":
+                    service.selectedIndex = (int)ServiceIndex.Residential;
 
+                    // Display homecount.
                     manual.text = building.homeCount.ToString();
-                    service.selectedIndex = 1;
 
-                    if (currentSettings.subService == "high") subService.selectedIndex = 0;
-                    else if (currentSettings.subService == "low") subService.selectedIndex = 1;
-                    else if (currentSettings.subService == "high eco") subService.selectedIndex = 2;
-                    else if (currentSettings.subService == "low eco") subService.selectedIndex = 3;
+                    // Update sub-service menu.
+                    UpdateSubServiceMenu();
+
+                    // Sub-service.
+                    switch (currentSettings.subService)
+                    {
+                        case "low":
+                            subService.selectedIndex = (int)ResSubIndex.Low;
+                            break;
+                        case "high eco":
+                            subService.selectedIndex = (int)ResSubIndex.HighEco;
+                            break;
+                        case "low eco":
+                            subService.selectedIndex = (int)ResSubIndex.LowEco;
+                            break;
+                        default:
+                            subService.selectedIndex = (int)ResSubIndex.High;
+                            break;
+                    }
 
                     break;
 
                 case "industrial":
+                    service.selectedIndex = (int)ServiceIndex.Industrial;
 
-                    service.selectedIndex = 2;
-                    subService.items = IndustrialSub;
+                    // Update sub-service menu.
+                    UpdateSubServiceMenu();
 
-                    if (currentSettings.subService == "generic") subService.selectedIndex = 0;
-                    else if (currentSettings.subService == "farming") subService.selectedIndex = 1;
-                    else if (currentSettings.subService == "forest") subService.selectedIndex = 2;
-                    else if (currentSettings.subService == "oil") subService.selectedIndex = 3;
-                    else if (currentSettings.subService == "ore") subService.selectedIndex = 4;
+                    // Sub-service selection.
+                    switch (currentSettings.subService)
+                    {
+                        case "farming":
+                            subService.selectedIndex = (int)IndSubIndex.Farming;
+                            break;
+                        case "forest":
+                            subService.selectedIndex = (int)IndSubIndex.Forestry;
+                            break;
+                        case "oil":
+                            subService.selectedIndex = (int)IndSubIndex.Oil;
+                            break;
+                        case "ore":
+                            subService.selectedIndex = (int)IndSubIndex.Ore;
+                            break;
+                        default:
+                            subService.selectedIndex = (int)IndSubIndex.Generic;
+                            break;
+                    }
 
                     break;
 
                 case "office":
+                    service.selectedIndex = (int)ServiceIndex.Office;
 
-                    service.selectedIndex = 3;
-                    subService.items = OfficeSub;
+                    // Update sub-service menu.
+                    UpdateSubServiceMenu();
 
-                    if (currentSettings.subService == "none") subService.selectedIndex = 0;
-                    else if (currentSettings.subService == "high tech") subService.selectedIndex = 1;
+                    // Sub-service selection.
+                    subService.selectedIndex = (int)(currentSettings.subService == "high tech" ? OffSubIndex.IT : OffSubIndex.Generic);
                     break;
 
                 case "commercial":
+                    service.selectedIndex = (int)ServiceIndex.Commercial;
 
-                    service.selectedIndex = 4;
-                    subService.items = ComSub;
+                    // Update sub-service menu.
+                    UpdateSubServiceMenu();
 
-                    if (currentSettings.subService == "high") subService.selectedIndex = 0;
-                    else if (currentSettings.subService == "low") subService.selectedIndex = 1;
-                    else if (currentSettings.subService == "leisure") subService.selectedIndex = 2;
-                    else if (currentSettings.subService == "tourist") subService.selectedIndex = 3;
-                    else if (currentSettings.subService == "eco") subService.selectedIndex = 4;
+                    // Sub-service selection.
+                    switch (currentSettings.subService)
+                    {
+                        case "low":
+                            subService.selectedIndex = (int)ComSubIndex.Low;
+                            break;
+                        case "leisure":
+                            subService.selectedIndex = (int)ComSubIndex.Leisure;
+                            break;
+                        case "tourist":
+                            subService.selectedIndex = (int)ComSubIndex.Tourist;
+                            break;
+                        case "eco":
+                            subService.selectedIndex = (int)ComSubIndex.Eco;
+                            break;
+                        default:
+                            subService.selectedIndex = (int)ComSubIndex.High;
+                            break;
+                    }
                     break;
 
                 case "extractor":
+                    service.selectedIndex = (int)ServiceIndex.Extractor;
 
-                    service.selectedIndex = 5;
-                    subService.items = ExtractorSub;
+                    // Update sub-service menu.
+                    UpdateSubServiceMenu();
 
-                    if (currentSettings.subService == "farming") subService.selectedIndex = 0;
-                    else if (currentSettings.subService == "forest") subService.selectedIndex = 1;
-                    else if (currentSettings.subService == "oil") subService.selectedIndex = 2;
-                    else if (currentSettings.subService == "ore") subService.selectedIndex = 3;
-
+                    // Sub-service selection.
+                    switch (currentSettings.subService)
+                    {
+                        case "forest":
+                            subService.selectedIndex = (int)ExtSubIndex.Forestry;
+                            break;
+                        case "oil":
+                            subService.selectedIndex = (int)ExtSubIndex.Oil;
+                            break;
+                        case "ore":
+                            subService.selectedIndex = (int)ExtSubIndex.Ore;
+                            break;
+                        default:
+                            subService.selectedIndex = (int)ExtSubIndex.Farming;
+                            break;
+                    }
                     break;
 
                 case "dummy":
+                    service.selectedIndex = (int)ServiceIndex.Dummy;
 
-                    service.selectedIndex = 6;
+                    // Update sub-service menu.
+                    UpdateSubServiceMenu();
                     subService.selectedIndex = 0;
-                    subService.items = DummySub;
 
                     break;
 
                 default:
+                    service.selectedIndex = (int)ServiceIndex.None;
 
-                    service.selectedIndex = 0;
+                    // Update sub-service menu.
+                    UpdateSubServiceMenu();
                     subService.selectedIndex = 0;
-                    subService.items = DummySub;
+
                     break;
             }
 
@@ -789,57 +932,58 @@ namespace PloppableRICO
             switch (building.UiCategory)
             {
                 case "reslow":
-                    uiCategory.selectedIndex = 0;
+                    uiCategory.selectedIndex = (int)UICatIndex.reslow;
                     break;
                 case "reshigh":
-                    uiCategory.selectedIndex = 1;
+                    uiCategory.selectedIndex = (int)UICatIndex.reshigh;
                     break;
                 case "comlow":
-                    uiCategory.selectedIndex = 2;
+                    uiCategory.selectedIndex = (int)UICatIndex.comlow;
                     break;
                 case "comhigh":
-                    uiCategory.selectedIndex = 3;
+                    uiCategory.selectedIndex = (int)UICatIndex.comhigh;
                     break;
                 case "office":
-                    uiCategory.selectedIndex = 4;
+                    uiCategory.selectedIndex = (int)UICatIndex.office;
                     break;
                 case "industrial":
-                    uiCategory.selectedIndex = 5;
+                    uiCategory.selectedIndex = (int)UICatIndex.industrial;
                     break;
                 case "farming":
-                    uiCategory.selectedIndex = 6;
+                    uiCategory.selectedIndex = (int)UICatIndex.farming;
                     break;
                 case "forest":
-                    uiCategory.selectedIndex = 7;
+                    uiCategory.selectedIndex = (int)UICatIndex.forest;
                     break;
                 case "oil":
-                    uiCategory.selectedIndex = 8;
+                    uiCategory.selectedIndex = (int)UICatIndex.oil;
                     break;
                 case "ore":
-                    uiCategory.selectedIndex = 9;
+                    uiCategory.selectedIndex = (int)UICatIndex.ore;
                     break;
                 case "leisure":
-                    uiCategory.selectedIndex = 10;
+                    uiCategory.selectedIndex = (int)UICatIndex.leisure;
                     break;
                 case "tourist":
-                    uiCategory.selectedIndex = 11;
+                    uiCategory.selectedIndex = (int)UICatIndex.tourist;
                     break;
                 case "organic":
-                    uiCategory.selectedIndex = 12;
+                    uiCategory.selectedIndex = (int)UICatIndex.organic;
                     break;
                 case "hightech":
-                    uiCategory.selectedIndex = 13;
+                    uiCategory.selectedIndex = (int)UICatIndex.hightech;
                     break;
                 case "selfsufficient":
-                    uiCategory.selectedIndex = 14;
+                    uiCategory.selectedIndex = (int)UICatIndex.selfsufficient;
                     break;
                 default:
-                    uiCategory.selectedIndex = 15;
+                    uiCategory.selectedIndex = (int)UICatIndex.none;
                     break;
             }
 
             // Building level.
-            level.selectedIndex = (building.level - 1);
+            UpdateLevelMenu();
+            level.selectedIndex = Mathf.Min(level.items.Length, building.level) - 1;
 
             // Construction cost.
             construction.text = building.ConstructionCost.ToString();
@@ -859,11 +1003,89 @@ namespace PloppableRICO
 
 
         /// <summary>
+        /// Updates the sub-service menu based on current service and sub-service selections.
+        /// </summary>
+        private void UpdateSubServiceMenu()
+        {
+            switch (service.selectedIndex)
+            {
+                case (int)ServiceIndex.Residential:
+                    subService.items = ResSubs;
+                    break;
+
+                case (int)ServiceIndex.Industrial:
+                    subService.items = IndSubs;
+                    break;
+
+                case (int)ServiceIndex.Commercial:
+                    subService.items = ComSubs;
+                    break;
+
+                case (int)ServiceIndex.Office:
+                    subService.items = OfficeSubs;
+                    break;
+
+                case (int)ServiceIndex.Extractor:
+                    subService.items = ExtractorSubs;
+                    break;
+
+                default:
+                    subService.items = DummySubs;
+                    break;
+
+            }
+
+            // Set selected index of menu to be a valid range.
+            subService.selectedIndex = Mathf.Max(0, Mathf.Min(subService.selectedIndex, subService.items.Length - 1));
+
+            // Update UI category.
+            UpdateUICategory();
+        }
+
+
+        /// <summary>
+        /// Updates the level menu based on current service and sub-service selections.
+        /// </summary>
+        private void UpdateLevelMenu()
+        {
+            switch (service.selectedIndex)
+            {
+                case (int)ServiceIndex.None:
+                    level.items = SingleLevel;
+                    break;
+
+                case (int)ServiceIndex.Residential:
+                    level.items = ResLevels;
+                    break;
+
+                case (int)ServiceIndex.Industrial:
+                    level.items = subService.selectedIndex == (int)IndSubIndex.Generic ? WorkLevels : SingleLevel;
+                    break;
+
+                case (int)ServiceIndex.Commercial:
+                    level.items = (subService.selectedIndex == (int)ComSubIndex.Low || subService.selectedIndex == (int)ComSubIndex.High) ? WorkLevels : SingleLevel;
+                    break;
+
+                case (int)ServiceIndex.Office:
+                    level.items = subService.selectedIndex == (int)OffSubIndex.Generic ? WorkLevels : SingleLevel;
+                    break;
+
+                case (int)ServiceIndex.Extractor:
+                    level.items = SingleLevel;
+                    break;
+            }
+
+            // Set selected index of menu to be a valid range.
+            level.selectedIndex = Mathf.Max(0, Mathf.Min(level.selectedIndex, level.items.Length - 1));
+        }
+
+
+        /// <summary>
         /// Reconfigures the RICO options panel to display relevant options for a given service.
         /// This simply hides/shows different option fields for the various services.
         /// </summary>
         /// <param name="service">RICO service</param>
-        private void UpdateElements(string service)
+        private void UpdateElementVisibility(string service)
         {
             // Reconfigure the RICO options panel to display relevant options for a given service.
             // This simply hides/shows different option fields for the various services.
@@ -879,9 +1101,6 @@ namespace PloppableRICO
             switch (service)
             {
                 case "residential":
-                    level.items = resLevel;
-                    subService.items = ResSub;
-
                     // No workplaces breakdown for residential - hide them.
                     uneducated.parent.Hide();
                     educated.parent.Hide();
@@ -889,54 +1108,18 @@ namespace PloppableRICO
                     highlyeducated.parent.Hide();
                     break;
 
-                case "office":
-                    level.items = Level;
-                    subService.items = OfficeSub;
-
-                    // Maximum legitimate level is 3 (selectedIndex is level - 1)
-                    level.selectedIndex = Math.Min(level.selectedIndex, 2);
-                    break;
-
                 case "industrial":
-                    level.items = Level;
-                    subService.items = IndustrialSub;
-
                     // Industries can pollute.
                     pollutionEnabled.enabled = true;
                     pollutionEnabled.parent.Show();
-
-                    // Maximum legitimate level is 3 (selectedIndex is level - 1)
-                    level.selectedIndex = Math.Min(level.selectedIndex, 2);
                     break;
 
                 case "extractor":
-                    level.items = extLevel;
-                    subService.items = ExtractorSub;
-
                     // Extractors can pollute.
                     pollutionEnabled.enabled = true;
-
-                    // Maximum legitimate level is 1 (selectedIndex is level - 1)
-                    level.selectedIndex = 0;
-                    break;
-
-                case "commercial":
-                    level.items = Level;
-                    subService.items = ComSub;
-
-                    // Maximum legitimate level is 3 (selectedIndex is level - 1)
-                    level.selectedIndex = Math.Min(level.selectedIndex, 2);
-                    break;
-
-                default:
-                    level.items = extLevel;
-                    subService.items = DummySub;
+                    pollutionEnabled.parent.Show();
                     break;
             }
-
-            // Reset subservice and UI category on change.
-            subService.selectedIndex = 0;
-            UpdateUICategory();
         }
 
 
@@ -991,93 +1174,93 @@ namespace PloppableRICO
 
             switch (service.selectedIndex)
             {
-                case 0:
+                case (int)ServiceIndex.None:
                     serviceName = "none";
                     subServiceName = "none";
                     break;
-                case 1:
+                case (int)ServiceIndex.Residential:
                     serviceName = "residential";
                     switch (subService.selectedIndex)
                     {
-                        case 0:
+                        case (int)ResSubIndex.High:
                             subServiceName = "high";
                             break;
-                        case 1:
+                        case (int)ResSubIndex.Low:
                             subServiceName = "low";
                             break;
-                        case 2:
+                        case (int)ResSubIndex.HighEco:
                             subServiceName = "high eco";
                             break;
-                        case 3:
+                        case (int)ResSubIndex.LowEco:
                             subServiceName = "low eco";
                             break;
                     }
                     break;
 
-                case 2:
+                case (int)ServiceIndex.Industrial:
                     serviceName = "industrial";
                     switch (subService.selectedIndex)
                     {
-                        case 0:
+                        case (int)IndSubIndex.Generic:
                             subServiceName = "generic";
                             break;
-                        case 1:
+                        case (int)IndSubIndex.Farming:
                             subServiceName = "farming";
                             break;
-                        case 2:
+                        case (int)IndSubIndex.Forestry:
                             subServiceName = "forest";
                             break;
-                        case 3:
+                        case (int)IndSubIndex.Oil:
                             subServiceName = "oil";
                             break;
-                        case 4:
+                        case (int)IndSubIndex.Ore:
                             subServiceName = "ore";
                             break;
                     }
                     break;
 
-                case 3:
+                case (int)ServiceIndex.Office:
                     serviceName = "office";
-                    if (subService.selectedIndex == 0) subServiceName = "none";
-                    else if (subService.selectedIndex == 1) subServiceName = "high tech";
+                    if (subService.selectedIndex == (int)OffSubIndex.Generic) subServiceName = "none";
+                    else if (subService.selectedIndex == (int)OffSubIndex.IT) subServiceName = "high tech";
                     break;
 
-                case 4:
+                case (int)ServiceIndex.Commercial:
                     serviceName = "commercial";
                     switch (subService.selectedIndex)
                     {
-                        case 0:
+                        case (int)ComSubIndex.High:
                             subServiceName = "high";
                             break;
-                        case 1:
+                        case (int)ComSubIndex.Low:
                             subServiceName = "low";
                             break;
-                        case 2:
+                        case (int)ComSubIndex.Leisure:
                             subServiceName = "leisure";
                             break;
-                        case 3:
+                        case (int)ComSubIndex.Tourist:
                             subServiceName = "tourist";
                             break;
-                        case 4:
+                        case (int)ComSubIndex.Eco:
                             subServiceName = "eco";
                             break;
                     }
                     break;
 
-                case 5:
+                case (int)ServiceIndex.Extractor:
                     serviceName = "extractor";
                     switch (subService.selectedIndex)
                     {
-                        case 0:
+                        case (int)ExtSubIndex.Farming:
                             subServiceName = "farming";
                             break;
-                        case 1:
+                        case (int)ExtSubIndex.Forestry:
                             subServiceName = "forest";
                             break;
-                        case 2:
+                        case (int)ExtSubIndex.Oil:
                             subServiceName = "oil";
                             break;
-                        case 3:
+                        case (int)ExtSubIndex.Ore:
                             subServiceName = "ore";
                             break;
                     }
