@@ -13,18 +13,27 @@ namespace PloppableRICO
     internal static class WhatsNew
     {
         // List of versions and associated update message lines (as translation keys).
-        private static Dictionary<Version, List<string>> Versions => new Dictionary<Version, List<String>>
+        private static Dictionary<Version, string[]> Versions => new Dictionary<Version, string[]>
         {
             {
+                // Beta message version is 99.
+                new Version("99.0.2"),
+                new string[]
+                {
+                    "2.4.1 BETA 2 updates",
+                    "Overhaul settings panel options UI code"
+                }
+            },
+            {
                 new Version("2.4.1"),
-                new List<string>
+                new string[]
                 {
                     "PRR_UPD_241_0"
                 }
             },
             {
                 new Version("2.4"),
-                new List<string>
+                new string[]
                 {
                     "PRR_UPD_240_0",
                     "PRR_UPD_240_1",
@@ -34,21 +43,21 @@ namespace PloppableRICO
             },
             {
                 new Version("2.3.7"),
-                new List<string>
+                new string[]
                 {
                     "PRR_UPD_237_0"
                 }
             },
             {
                 new Version("2.3.6"),
-                new List<string>
+                new string[]
                 {
                     "PRR_UPD_236_0"
                 }
             },
             {
                 new Version("2.3.5"),
-                new List<string>
+                new string[]
                 {
                     "PRR_UPD_235_0",
                     "PRR_UPD_235_1",
@@ -57,7 +66,7 @@ namespace PloppableRICO
             },
             {
                 new Version("2.3.4"),
-                new List<string>
+                new string[]
                 {
                     "PRR_UPD_234_0",
                     "PRR_UPD_234_1",
@@ -66,7 +75,7 @@ namespace PloppableRICO
             },
             {
                 new Version("2.3"),
-                new List<string>
+                new string[]
                 {
                     "PRR_UPD_23_2",
                     "PRR_UPD_23_3",
