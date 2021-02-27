@@ -30,6 +30,7 @@
     <Translation ID="PRR_FTR_NON" String="Żadne" />
     <Translation ID="PRR_FTR_NAM" String="Nazwa" />
     <Translation ID="PRR_FTR_SET" String="Filtr ustawień: Mod/Autor/Własne/Dowolne" />
+    <Translation ID="PRR_OPT_SET" String="Ustawienia" />
     <Translation ID="PRR_OPT_ENA" String="Włącz RICO" />
     <Translation ID="PRR_OPT_SER" String="Typ" />
     <Translation ID="PRR_OPT_SUB" String="Podtyp" />
