@@ -30,6 +30,7 @@
     <Translation ID="PRR_FTR_NON" String="Keine Kategorie" />
     <Translation ID="PRR_FTR_NAM" String="Name/Bezeichnung" />
     <Translation ID="PRR_FTR_SET" String="Filtern nach: Mod/Ersteller/Lokal/Alle" />
+    <Translation ID="PRR_OPT_SET" String="RICO Einstellungen" />
     <Translation ID="PRR_OPT_ENA" String="RICO aktivieren" />
     <Translation ID="PRR_OPT_SER" String="Gebäudeart" />
     <Translation ID="PRR_OPT_SUB" String="Unterart" />
@@ -104,12 +105,13 @@
     <Translation ID="PRR_THUMB_COLOR" String="Farbe" />
     <Translation ID="PRR_THUMB_PLAIN" String="Grau" />
     <Translation ID="PRR_THUMB_SKY" String="Skybox" />
+    <Translation ID="MES_CLS" String="Schließen" />
+    <Translation ID="MES_DSA" String="Nicht mehr anzeigen" />
     <Translation ID="PRR_ERR_FAT" String="Das bedeutet, dass die Mod nicht funktioniert und sich deaktiviert hat." />
     <Translation ID="PRR_ERR_HAR" String="Ploppable RICO Revisited konnte die benötigten Harmony-Patches nicht durchführen." />
     <Translation ID="ERR_HAR1" String="Mögliche Gründe für das Problem sind:" />
     <Translation ID="ERR_HAR2" String="Die benötigte Mod Harmony 2 ist nicht installiert" />
     <Translation ID="ERR_HAR3" String="Eine alte und/oder kaputte Mod verhindert, dass Harmony 2 richtig funktioniert" />
-    <Translation ID="PRR_CON_PTR1" String="Die alte Painter Mod verursacht Probleme mit den von dieser Mod benötigten Harmony-Bibliotheken und verursacht dadurch unvorhersehbare Fehlermeldungen. Bitte deabonnieren Sie die alte Painter Mod (die Mod nur zu deaktivieren reicht NICHT aus); die Mod Repaint ist ein geeigneter Ersatz." />
     <Translation ID="PRR_UPD_23_0" String="Ploppable RICO Revisited Update 2.3" />
     <Translation ID="PRR_UPD_23_1" String="Ploppable RICO Revisited wurde auf Version 2.3 geupdatet. Einige wichtige Neuerungen:" />
     <Translation ID="PRR_UPD_23_4" String="Beschwerden über „zu geringer Bodenrichtwert“ und „nicht genügend Dienstleistungen“ können nun deaktiviert werden." />

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Language UniqueName="zh-tw" ReadableName="繁體中文">
+<Language UniqueName="zh-tw" ReadableName="正體中文">
   <Translations>
     <Translation ID="PRR_NAME" String="Ploppable RICO Revisited 模組(Mod)" />
     <Translation ID="PRR_LEVEL" String="建築等級" />

@@ -30,6 +30,7 @@
     <Translation ID="PRR_FTR_NON" String="Selectie verwijderen" />
     <Translation ID="PRR_FTR_NAM" String="Naam" />
     <Translation ID="PRR_FTR_SET" String="Filter: Mod/Auteur/lokaal/Alles" />
+    <Translation ID="PRR_OPT_SET" String="instellingen" />
     <Translation ID="PRR_OPT_ENA" String="RICO activeren" />
     <Translation ID="PRR_OPT_SER" String="Gebouwstype" />
     <Translation ID="PRR_OPT_SUB" String="Sub-type" />
