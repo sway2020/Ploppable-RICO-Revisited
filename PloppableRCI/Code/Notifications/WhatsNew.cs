@@ -16,15 +16,6 @@ namespace PloppableRICO
         private static Dictionary<Version, string[]> Versions => new Dictionary<Version, string[]>
         {
             {
-                // Beta message version is 99.
-                new Version("99.0.2"),
-                new string[]
-                {
-                    "2.4.1 BETA 2 updates",
-                    "Overhaul settings panel options UI code"
-                }
-            },
-            {
                 new Version("2.4.1"),
                 new string[]
                 {
