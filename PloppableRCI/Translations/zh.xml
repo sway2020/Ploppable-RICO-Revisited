@@ -11,7 +11,7 @@
     <Translation ID="PRR_SRV_OFF" String="办公建筑" />
     <Translation ID="PRR_SRV_COM" String="商业建筑" />
     <Translation ID="PRR_SRV_EXT" String="工业建筑" />
-    <Translation ID="PRR_SRV_DUM" String="虚拟建筑" />
+    <Translation ID="PRR_SRV_DUM" String="无实际功能建筑" />
     <Translation ID="PRR_SUB_HIG" String="高密度建筑" />
     <Translation ID="PRR_SUB_LOW" String="低密度建筑" />
     <Translation ID="PRR_SUB_HEC" String="高密度环保建筑" />
@@ -38,10 +38,11 @@
     <Translation ID="PRR_OPT_POP" String="使用真实人口MOD" />
     <Translation ID="PRR_OPT_POL" String="启用建筑物污染效果" />
     <Translation ID="PRR_OPT_GRO" String="可自长" />
-    <Translation ID="PRR_OPT_JB0" String="未受教育工作数量" />
-    <Translation ID="PRR_OPT_JB1" String="受初等教育工作数量" />
-    <Translation ID="PRR_OPT_JB2" String="受中等教育工作数量" />
-    <Translation ID="PRR_OPT_JB3" String="受高等教育工作数量" />
+    <Translation ID="PRR_OPT_JB0" String="未受教育岗位数量" />
+    <Translation ID="PRR_OPT_JB1" String="受初等教育岗位数量" />
+    <Translation ID="PRR_OPT_JB2" String="受中等教育岗位数量" />
+    <Translation ID="PRR_OPT_JB3" String="受高等教育岗位数量" />
+    <Translation ID="PRR_OPT_URP" String="不能设置住户数量，因为启用了真实人口MOD" />
     <Translation ID="PRR_CAT_MON" String="独特建筑" />
     <Translation ID="PRR_CAT_BEA" String="环境美化" />
     <Translation ID="PRR_CAT_EDU" String="教育服务" />
@@ -93,8 +94,17 @@
     <Translation ID="PRR_OPTION_RGR" String="自长RICO建筑" />
     <Translation ID="PRR_OPTION_RCO" String="所有RICO建筑" />
     <Translation ID="PRR_OPTION_OTH" String="非RICO自长建筑" />
+    <Translation ID="PRR_OPTION_DEM" String="拆除选项" />
     <Translation ID="PRR_OPTION_BDZ" String="拆除手动放置的RICO建筑前询问" />
     <Translation ID="PRR_OPTION_IMP" String="允许RICO手动摆放建筑被自动拆除（例如修路和摆放新建筑时位置冲突）" />
+    <Translation ID="PRR_OPTION_CST" String="建筑成本选项" />
+    <Translation ID="PRR_OPTION_COV" String="手动设置建筑成本" />
+    <Translation ID="PRR_OPTION_CPH" String="每户带来的建筑成本" />
+    <Translation ID="PRR_OPTION_CHM" String="住户等级的叠加倍数（%）" />
+    <Translation ID="PRR_OPTION_CJ0" String="每个未受教育岗位带来的建筑成本" />
+    <Translation ID="PRR_OPTION_CJ1" String="每个初等教育岗位带来的建筑成本" />
+    <Translation ID="PRR_OPTION_CJ2" String="每个中等教育岗位带来的建筑成本" />
+    <Translation ID="PRR_OPTION_CJ3" String="每个高等教育岗位带来的建筑成本" />
     <Translation ID="PRR_OPTION_LOA" String="加载选项" />
     <Translation ID="PRR_OPTION_LOG" String="调试日志选项" />
     <Translation ID="PRR_OPTION_TMB" String="缩略图选项" />
@@ -103,11 +113,11 @@
     <Translation ID="PRR_OPTION_COM" String="建筑问题提示选项" />
     <Translation ID="PRR_OPTION_MOD" String="MOD设置" />
     <Translation ID="PRR_OPTION_MOREDEBUG" String="启用其他调试日志记录" />
-    <Translation ID="PRR_OPTION_FORCERESET" String="在游戏加载时强制重置现有建筑统计数据" />
+    <Translation ID="PRR_OPTION_FORCERESET" String="在游戏加载时强制重置现有建筑数据" />
     <Translation ID="PRR_OPTION_REGENTHUMBS" String="重新生成缩略图" />
-    <Translation ID="PRR_OPTION_SPDHDR" String="略微改善游戏性能，但会打开RICO面板会出现延迟:" />
+    <Translation ID="PRR_OPTION_SPDHDR" String="略微改善游戏性能，但打开RICO面板会出现延迟:" />
     <Translation ID="PRR_OPTION_SPEED" String="不使用时禁用RICO面板（略微改善游戏性能，但会打开RICO面板会出现延迟）" />
-    <Translation ID="PRR_OPTION_FASTHDR" String="缩略图渲染得更快，但占用更多的内存" />
+    <Translation ID="PRR_OPTION_FASTHDR" String="缩略图渲染更快，但占用更多内存" />
     <Translation ID="PRR_OPTION_FASTHUMB" String="加速渲染缩略图" />
     <Translation ID="PRR_OPTION_THUMBACK" String="缩略图背景" />
     <Translation ID="PRR_THUMB_COLOR" String="纯色" />
@@ -131,10 +141,10 @@
     <Translation ID="PRR_CON_PTG2" String="只要它们的设置不冲突，两者一起使用还是可以的!" />
     <Translation ID="PRR_UPD_23_0" String="Plopplable RICO Revisited 2.3更新" />
     <Translation ID="PRR_UPD_23_1" String="Ploppable RICO Revisited更新到2.3版本。主要新功能：" />
-    <Translation ID="PRR_UPD_23_2" String="Ploppable RICO现在整合 &quot;Plop the Growables&quot; 功能，适用于RICO和非RICO建筑--详情请看选项面板。" />
+    <Translation ID="PRR_UPD_23_2" String="Ploppable RICO现在整合 "Plop="" the="" Growables=""" 功能，适用于RICO和非RICO建筑--详情请看选项面板。" />
     <Translation ID="PRR_UPD_23_3" String="RICO自长建筑现在可设置为允许放置在指定区域外。" />
     <Translation ID="PRR_UPD_23_4" String="关闭建筑“地价太低”与“市政服务不足”的提示" />
-    <Translation ID="PRR_UPD_23_5=" String="改善了建筑缩略图渲染，只在需要时才生成缩略图，减少了内存占用和加载时间。" />
+    <Translation ID="PRR_UPD_23_5" String="改进了缩略图渲染，只在需要生成缩略图时占用内存，减少内存占用与游戏加载时间" />
     <Translation ID="PRR_UPD_234_0" String="拆除手动放置的RICO建筑前可以选择是否弹出询问提示。" />
     <Translation ID="PRR_UPD_234_1" String="新修建建筑或道路与手动放置的RICO建筑位置冲突时，可以选择是否自动拆除。" />
     <Translation ID="PRR_UPD_234_2" String="改善了升级提示。" />
@@ -142,5 +152,8 @@
     <Translation ID="PRR_UPD_235_1" String="当&quot;Plop the Growables&quot;同时启用时弹出提示。" />
     <Translation ID="PRR_UPD_235_2" String="改善了mod冲突与报错提示。" />
     <Translation ID="PRR_UPD_236_0" String="改善了mod冲突检测与提示。" />
+    <Translation ID="PRR_UPD_237_0" String="修复了进入编辑器时Harmony无端报错的问题。" />
+    <Translation ID="PRR_UPD_240_0" String="增加了建筑成本的手动设置。" />
+    <Translation ID="PRR_UPD_240_1" String="增加自动锁定手动放置的自长建筑等级的选项（需要Advanced Building Level Control模组）" />
   </Translations>
 </Language>
