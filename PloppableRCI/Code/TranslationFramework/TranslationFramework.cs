@@ -236,12 +236,28 @@ namespace PloppableRICO
                 try
                 {
                     // Get new locale id.
-                    string newLanguageCode = LocaleManager.instance.language;
+                    string newLanguageCode = LocaleManager.instance.language.ToLower() ?? defaultLanguage;
 
-                    // Check to see if we have a translation for this language code; if not, we revert to default.
+                    // Check to see if we have a translation for this language code.
                     if (!languages.ContainsKey(newLanguageCode))
                     {
-                        newLanguageCode = defaultLanguage;
+                        Logging.Error("no translations for system language ", newLanguageCode);
+
+                        // No key - can we find a shortened version (e.g. zh-CN->zh)?/
+                        // First check to see if there is a shortened version of this language id (e.g. zh-tw -> zh).
+                        if (newLanguageCode.Length > 2)
+                        {
+                            newLanguageCode = newLanguageCode.Substring(0, 2);
+                            Logging.Message("attempting truncated system language ", newLanguageCode);
+                        }
+
+                        // Check (again) to see if we have a translation for this language code.
+                        if (!languages.ContainsKey(newLanguageCode))
+                        {
+                            // No - use default.
+                            Logging.Error("falling back to default language ", defaultLanguage);
+                            newLanguageCode = defaultLanguage;
+                        }
                     }
 
                     // If we've already been set to this locale, do nothing.
@@ -269,8 +285,9 @@ namespace PloppableRICO
                 }
             }
 
-            // If we made it here, there's no valid system language.
-            systemLanguage = null;
+            // If we made it here, there's no valid system language; set to the first available.
+            systemLanguage = languages.First().Value;
+            Logging.Error("couldn't get any valid system language; grabbing first available translation", systemLanguage.uniqueName);
         }
 
 

@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using System;
+using HarmonyLib;
 using PloppableRICO.MessageBox;
 
 
@@ -52,13 +53,27 @@ namespace PloppableRICO
             // Add buttons to access building details from zoned building info panels.
             SettingsPanel.AddInfoPanelButtons();
 
-            Logging.KeyMessage("loading complete");
-
             // Display update notification.
-            WhatsNew.ShowWhatsNew();
+            try
+            {
+                WhatsNew.ShowWhatsNew();
+            }
+            catch (Exception e)
+            {
+                Logging.LogException(e, "exception showing WhatsNew panel");
+            }
 
             // Set up options panel event handler.
-            OptionsPanel.OptionsEventHook();
+            try
+            {
+                OptionsPanel.OptionsEventHook();
+            }
+            catch (Exception e)
+            {
+                Logging.LogException(e, "exception hooking options panel");
+            }
+
+            Logging.KeyMessage("loading complete");
         }
     }
 }

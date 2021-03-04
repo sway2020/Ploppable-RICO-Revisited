@@ -141,7 +141,7 @@
     <Translation ID="PRR_CON_PTG2" String="只要它们的设置不冲突，两者一起使用还是可以的!" />
     <Translation ID="PRR_UPD_23_0" String="Plopplable RICO Revisited 2.3更新" />
     <Translation ID="PRR_UPD_23_1" String="Ploppable RICO Revisited更新到2.3版本。主要新功能：" />
-    <Translation ID="PRR_UPD_23_2" String="Ploppable RICO现在整合 "Plop="" the="" Growables=""" 功能，适用于RICO和非RICO建筑--详情请看选项面板。" />
+    <Translation ID="PRR_UPD_23_2" String="Ploppable RICO现在整合 &quot;Plop the Growables&quot; 功能，适用于RICO和非RICO建筑--详情请看选项面板。" />
     <Translation ID="PRR_UPD_23_3" String="RICO自长建筑现在可设置为允许放置在指定区域外。" />
     <Translation ID="PRR_UPD_23_4" String="关闭建筑“地价太低”与“市政服务不足”的提示" />
     <Translation ID="PRR_UPD_23_5" String="改进了缩略图渲染，只在需要生成缩略图时占用内存，减少内存占用与游戏加载时间" />
