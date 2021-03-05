@@ -1,11 +1,16 @@
-﻿Version 2.4.1.1
+﻿Version 2.4.1.2 hotfix
 
-- Add multiple checks and exception catching to translation framework and post-loading operations to try and solve issues experienced by Chinese users.
+- More translation changes
+
+
+Version 2.4.1.1 hotfix
+
+- Add multiple checks and exception catching to translation framework and post-loading operations to try and solve issues experienced by Chinese users
 
 
 Version 2.4.1
 
-- Implement new population caching system that handles more than one level per prefab.
+- Implement new population caching system that handles more than one level per prefab
 - Overhaul settings panel options UI code
 
 

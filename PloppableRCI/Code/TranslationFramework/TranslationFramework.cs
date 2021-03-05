@@ -195,24 +195,16 @@ namespace PloppableRICO
                 // Check that the current key is included in the translation.
                 if (currentLanguage.translationDictionary.ContainsKey(key))
                 {
-                    string translation = currentLanguage.translationDictionary[key];
-
-                    if (!string.IsNullOrEmpty(translation))
-                    {
-                        // All good!  Return translation.
-                        return currentLanguage.translationDictionary[key];
-                    }
-
-                    // If we got here, there's a null key.
-                    Logging.Error("null or empty shortened fallback translation for key ", key);
+                    // All good!  Return translation.
+                    return currentLanguage.translationDictionary[key];
                 }
                 else
                 {
                     Logging.Message("no translation for language ", currentLanguage.uniqueName, " found for key " + key);
-                }
 
-                // Attempt fallack translation.
-                return FallbackTranslation(currentLanguage.uniqueName, key);
+                    // Attempt fallack translation.
+                    return FallbackTranslation(currentLanguage.uniqueName, key);
+                }
             }
             else
             {
@@ -236,28 +228,12 @@ namespace PloppableRICO
                 try
                 {
                     // Get new locale id.
-                    string newLanguageCode = LocaleManager.instance.language.ToLower() ?? defaultLanguage;
+                    string newLanguageCode = LocaleManager.instance.language;
 
-                    // Check to see if we have a translation for this language code.
+                    // Check to see if we have a translation for this language code; if not, we revert to default.
                     if (!languages.ContainsKey(newLanguageCode))
                     {
-                        Logging.Error("no translations for system language ", newLanguageCode);
-
-                        // No key - can we find a shortened version (e.g. zh-CN->zh)?/
-                        // First check to see if there is a shortened version of this language id (e.g. zh-tw -> zh).
-                        if (newLanguageCode.Length > 2)
-                        {
-                            newLanguageCode = newLanguageCode.Substring(0, 2);
-                            Logging.Message("attempting truncated system language ", newLanguageCode);
-                        }
-
-                        // Check (again) to see if we have a translation for this language code.
-                        if (!languages.ContainsKey(newLanguageCode))
-                        {
-                            // No - use default.
-                            Logging.Error("falling back to default language ", defaultLanguage);
-                            newLanguageCode = defaultLanguage;
-                        }
+                        newLanguageCode = defaultLanguage;
                     }
 
                     // If we've already been set to this locale, do nothing.
@@ -285,9 +261,8 @@ namespace PloppableRICO
                 }
             }
 
-            // If we made it here, there's no valid system language; set to the first available.
-            systemLanguage = languages.First().Value;
-            Logging.Error("couldn't get any valid system language; grabbing first available translation", systemLanguage.uniqueName);
+            // If we made it here, there's no valid system language.
+            systemLanguage = null;
         }
 
 
@@ -343,16 +318,8 @@ namespace PloppableRICO
                     Language fallbackLanguage = languages[newName];
                     if (fallbackLanguage.translationDictionary.ContainsKey(key))
                     {
-                        string fallback = fallbackLanguage.translationDictionary[key];
-
-                        if (!string.IsNullOrEmpty(fallback))
-                        {
-                            // All good!  Return translation.
-                            return fallback;
-                        }
-
-                        // If we got here, there's a null key.
-                        Logging.Error("null or empty shortened fallback translation for key ", key);
+                        // All good!  Return translation.
+                        return fallbackLanguage.translationDictionary[key];
                     }
                 }
             }
@@ -362,16 +329,8 @@ namespace PloppableRICO
             {
                 if (systemLanguage.translationDictionary.ContainsKey(key))
                 {
-                    string fallback = systemLanguage.translationDictionary[key];
-
-                    if (!string.IsNullOrEmpty(fallback))
-                    {
-                        // All good!  Return translation.
-                        return fallback;
-                    }
-
-                    // If we got here, there's a null key.
-                    Logging.Error("null or empty system fallback translation for key ", key);
+                    // All good!  Return translation.
+                    return systemLanguage.translationDictionary[key];
                 }
             }
 
@@ -379,16 +338,7 @@ namespace PloppableRICO
             try
             {
                 Language fallbackLanguage = languages[defaultLanguage];
-                string fallback = fallbackLanguage.translationDictionary.ContainsKey(key) ? fallbackLanguage.translationDictionary[key] : null;
-
-                if (!string.IsNullOrEmpty(fallback))
-                {
-                    // All good!  Return translation.
-                    return fallback;
-                }
-
-                // If we got here, there's a null key.
-                Logging.Error("null or empty default fallback translation for key ", key);
+                return fallbackLanguage.translationDictionary[key];
             }
             catch (Exception e)
             {

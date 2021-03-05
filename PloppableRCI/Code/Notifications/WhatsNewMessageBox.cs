@@ -1,7 +1,7 @@
-﻿using ColossalFramework.UI;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using ColossalFramework.UI;
 
 
 namespace PloppableRICO.MessageBox
@@ -100,12 +100,19 @@ namespace PloppableRICO.MessageBox
                 // Add messages as separate list items (noting first element is Beta title if this is a Beta version).
                 for (int i = isBeta ? 1 : 0; i < messageKeys.Length; ++i)
                 {
-                    ListItem newMessageLabel = AddUIComponent<ListItem>();
-                    listItems.Add(newMessageLabel);
-                    newMessageLabel.Text = Translations.Translate(messageKeys[i]);
+                    try
+                    {
+                        ListItem newMessageLabel = AddUIComponent<ListItem>();
+                        listItems.Add(newMessageLabel);
+                        newMessageLabel.Text = Translations.Translate(messageKeys[i]);
 
-                    // Make sure initial width is set properly.
-                    newMessageLabel.width = width;
+                        // Make sure initial width is set properly.
+                        newMessageLabel.width = width;
+                    }
+                    catch (Exception e)
+                    {
+                        Logging.LogException(e, "Exception showing what's new message");
+                    }
                 }
 
                 // Always start maximized.
