@@ -1,7 +1,7 @@
-﻿using System;
+﻿using ColossalFramework.UI;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using ColossalFramework.UI;
 
 
 namespace PloppableRICO.MessageBox
@@ -14,12 +14,12 @@ namespace PloppableRICO.MessageBox
         /// <summary>
         /// Sets the 'what's new' messages to display.
         /// </summary>
-        /// <param name="lastNotifiedVersion">Last notified version (version messages equal to or earlier than this will be minimized</param>
         /// <param name="messages">Version update messages to display, in order (newest versions first), with a list of items (as translation keys) for each version</param>
-        public void SetMessages(Version lastNotifiedVersion, Dictionary<Version, string[]> messages)
+        /// <param name="lastNotifiedVersion">Last notified version (version messages equal to or earlier than this will be minimized</param>
+        public void SetMessages(Version lastNotifiedVersion, Dictionary<Version, List<string>> messages)
         {
             // Iterate through each provided version and add it to the messagebox.
-            foreach (KeyValuePair<Version, string[]> message in messages)
+            foreach (KeyValuePair<Version, List<string>> message in messages)
             {
                 VersionMessage versionMessage = ScrollableContent.AddUIComponent<VersionMessage>();
                 versionMessage.width = ScrollableContent.width;
@@ -89,30 +89,20 @@ namespace PloppableRICO.MessageBox
             /// </summary>
             /// <param name="version">Version</param>
             /// <param name="messageKeys">Message text as list of translation keys for individual points</param>
-            public void SetText(Version version, string[] messageKeys)
+            public void SetText(Version version, List<string> messageKeys)
             {
-                // Major version 99 means a Beta message.
-                bool isBeta = version.Major == 99;
+                // Set version header and message text.
+                versionTitle = PloppableRICOMod.ModName + " " + version.ToString();
 
-                // Set version header and message text (Beta label is first index of messageKeys).
-                versionTitle = PloppableRICOMod.ModName + " " + (isBeta ? messageKeys[0] : version.ToString());
-
-                // Add messages as separate list items (noting first element is Beta title if this is a Beta version).
-                for (int i = isBeta ? 1 : 0; i < messageKeys.Length; ++i)
+                // Add messages as separate list items.
+                foreach (string messageKey in messageKeys)
                 {
-                    try
-                    {
-                        ListItem newMessageLabel = AddUIComponent<ListItem>();
-                        listItems.Add(newMessageLabel);
-                        newMessageLabel.Text = Translations.Translate(messageKeys[i]);
+                    ListItem newMessageLabel = AddUIComponent<ListItem>();
+                    listItems.Add(newMessageLabel);
+                    newMessageLabel.Text = Translations.Translate(messageKey);
 
-                        // Make sure initial width is set properly.
-                        newMessageLabel.width = width;
-                    }
-                    catch (Exception e)
-                    {
-                        Logging.LogException(e, "Exception showing what's new message");
-                    }
+                    // Make sure initial width is set properly.
+                    newMessageLabel.width = width;
                 }
 
                 // Always start maximized.
