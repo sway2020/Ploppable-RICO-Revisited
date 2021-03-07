@@ -1,4 +1,11 @@
-﻿Version 2.4.1.2 hotfix
+﻿Version 2.4.2
+
+- Revert 2.4.1.2 hotfix
+- Remove population caching
+- New single zh translation
+
+
+Version 2.4.1.2 hotfix
 
 - More attempts to resolve issues for some Chinese users
 
