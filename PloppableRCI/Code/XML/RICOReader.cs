@@ -20,7 +20,7 @@ namespace PloppableRICO
         /// <returns>Parsed Ploppable RICO definition file</returns>
         public static PloppableRICODefinition ParseRICODefinition(string ricoDefPath, bool isLocal = false)
         {
-            // Note here we're using insanityOK as a local settings flag.
+            // Local settings flag.
             string localOrAuthor = isLocal ? "local" : "author";
 
             try

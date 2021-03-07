@@ -57,9 +57,9 @@ namespace PloppableRICO
 
             // Bounds check for level.
             int buildingLevel = (int)level;
-            if (buildingLevel > 2)
+            if (buildingLevel > 1)
             {
-                buildingLevel = 2;
+                buildingLevel = 1;
             }
 
             // Check to see if there's a cached value, and if so, use it.

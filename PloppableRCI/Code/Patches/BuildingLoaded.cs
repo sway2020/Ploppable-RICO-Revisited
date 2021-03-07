@@ -61,7 +61,7 @@ namespace PloppableRICO
 						// Update visitor count.
 						int visitCount = __instance.CalculateVisitplaceCount((ItemClass.Level)data.m_level, new Randomizer(buildingID), data.Width, data.Length);
 
-						// Check to see if rsidential building homecounts differ from settings.
+						// Check to see if residential building homecounts differ from settings.
 						if (building.service == "residential") 
 						{
 							int currentHomeCount = 0;
