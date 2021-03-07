@@ -155,7 +155,6 @@
     <Content Include="Translations\pl.xml" />
     <Content Include="Translations\ru.xml" />
     <Content Include="Translations\tr.xml" />
-    <Content Include="Translations\zh-tw.xml" />
     <Content Include="Translations\en.xml" />
     <Content Include="Translations\zh.xml" />
   </ItemGroup>
