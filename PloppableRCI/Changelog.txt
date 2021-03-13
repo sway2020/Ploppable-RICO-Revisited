@@ -2,7 +2,7 @@
 
 - Revert 2.4.1.2 hotfix
 - Remove population caching
-- Disable service selection buttons by default in settings panel
+- Rearrange selection buttons in settings panel to separate service selections
 - New single zh translation
 
 

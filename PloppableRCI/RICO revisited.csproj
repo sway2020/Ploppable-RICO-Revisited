@@ -72,7 +72,7 @@
   <ItemGroup>
     <Compile Include="Code\AI\AIUtils.cs" />
     <Compile Include="Code\AI\WorkplaceAI.cs" />
-    <Compile Include="Code\Logging.cs" />
+    <Compile Include="Code\Utils\Logging.cs" />
     <Compile Include="Code\GUI\PanelFastList.cs" />
     <Compile Include="Code\GUI\PloppablePanel.cs" />
     <Compile Include="Code\GUI\UIPreviewRenderer.cs" />

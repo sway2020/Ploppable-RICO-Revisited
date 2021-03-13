@@ -66,11 +66,11 @@ namespace PloppableRICO
             }
             else if (prefab.GetService() == ItemClass.Service.PoliceDepartment)
             {
-                return Category.Health;
+                return Category.Police;
             }
             else if (prefab.GetService() == ItemClass.Service.FireDepartment)
             {
-                return Category.Health;
+                return Category.Fire;
             }
             else if (prefab.GetService() == ItemClass.Service.Residential)
             {
@@ -82,15 +82,15 @@ namespace PloppableRICO
             }
             else if (prefab.GetService() == ItemClass.Service.PlayerIndustry)
             {
-                return Category.Industrial;
+                return Category.PlayerIndustry;
             }
             else if (prefab.GetService() == ItemClass.Service.Fishing)
             {
-                return Category.Industrial;
+                return Category.PlayerIndustry;
             }
             else if (prefab.GetService() == ItemClass.Service.Garbage)
             {
-                return Category.Industrial;
+                return Category.Garbage;
             }
             else if (prefab.GetService() == ItemClass.Service.Office)
             {

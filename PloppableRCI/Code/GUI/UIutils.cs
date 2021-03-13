@@ -23,12 +23,12 @@ namespace PloppableRICO
             return button;
         }
 
-        public static UICheckBox CreateIconToggle(UIComponent parent, string atlas, string checkedSprite, string uncheckedSprite)
+        public static UICheckBox CreateIconToggle(UIComponent parent, string atlas, string checkedSprite, string uncheckedSprite, float size = 35f)
         {
             UICheckBox checkBox = parent.AddUIComponent<UICheckBox>();
 
-            checkBox.width = 35f;
-            checkBox.height = 35f;
+            checkBox.width = size;
+            checkBox.height = size;
             checkBox.clipChildren = true;
 
             UIPanel panel = checkBox.AddUIComponent<UIPanel>();

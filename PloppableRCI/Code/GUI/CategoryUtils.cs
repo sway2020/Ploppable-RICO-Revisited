@@ -5,15 +5,21 @@
         None = -1,
         Monument,
         Beautification,
-        Education,
-        Power,
-        Water,
-        Health,
         Residential,
         Commercial,
         Office,
-        Industrial
+        Industrial,
+        Education,
+        Health,
+        Fire,
+        Police,
+        Power,
+        Water,
+        Garbage,
+        PlayerIndustry,
+        NumCategories
     }
+
 
     /// <summary>
     /// Data struct for original building categories (to sort settings panel building list).
@@ -25,14 +31,18 @@
         {
             "ToolbarIconMonuments",
             "ToolbarIconBeautification",
-            "ToolbarIconEducation",
-            "ToolbarIconElectricity",
-            "ToolbarIconWaterAndSewage",
-            "ToolbarIconHealthcare",
             "ZoningResidentialHigh",
             "ZoningCommercialHigh",
             "ZoningOffice" ,
-            "ZoningIndustrial"
+            "ZoningIndustrial",
+            "ToolbarIconEducation",
+            "ToolbarIconHealthcare",
+            "ToolbarIconFireDepartment",
+            "ToolbarIconPolice",
+            "ToolbarIconElectricity",
+            "ToolbarIconWaterAndSewage",
+            "InfoIconGarbage",
+            "ToolbarIconPlayerIndustry",
         };
 
         // Icon atlas name for each of the above sprites.
@@ -40,35 +50,40 @@
         {
             "Ingame",
             "Ingame" ,
-            "Ingame",
-            "Ingame",
-            "Ingame",
-            "Ingame",
             "Thumbnails",
             "Thumbnails",
             "Thumbnails",
-            "Thumbnails"
+            "Thumbnails",
+            "Ingame",
+            "Ingame",
+            "Ingame",
+            "Ingame",
+            "Ingame",
+            "Ingame",
+            "Ingame",
+            "Ingame"
         };
-    }
 
-
-    internal class CategoryNames
-    {
         // Tooltips.
-        internal readonly string[] names =
+        internal static readonly string[] tooltipKeys =
         {
-            Translations.Translate("PRR_CAT_MON"),
-            Translations.Translate("PRR_CAT_BEA"),
-            Translations.Translate("PRR_CAT_EDU"),
-            Translations.Translate("PRR_CAT_POW"),
-            Translations.Translate("PRR_CAT_WAT"),
-            Translations.Translate("PRR_CAT_HEA"),
-            Translations.Translate("PRR_CAT_RES"),
-            Translations.Translate("PRR_CAT_COM"),
-            Translations.Translate("PRR_CAT_OFF"),
-            Translations.Translate("PRR_CAT_IND")
+            "PRR_CAT_MON",
+            "PRR_CAT_BEA",
+            "PRR_CAT_RES",
+            "PRR_CAT_COM",
+            "PRR_CAT_OFF",
+            "PRR_CAT_IND",
+            "PRR_CAT_EDU",
+            "PRR_CAT_HEA",
+            "PRR_CAT_FIR",
+            "PRR_CAT_POL",
+            "PRR_CAT_POW",
+            "PRR_CAT_WAT",
+            "PRR_CAT_GAR",
+            "PRR_CAT_PIN"
         };
     }
+
 
 
     /// <summary>

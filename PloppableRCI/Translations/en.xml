@@ -51,9 +51,13 @@
     <Translation ID="PRR_CAT_MON" String="Monuments" />
     <Translation ID="PRR_CAT_BEA" String="Beautification" />
     <Translation ID="PRR_CAT_EDU" String="Education" />
+    <Translation ID="PRR_CAT_HEA" String="Health" />
+    <Translation ID="PRR_CAT_FIR" String="Fire department" />
+    <Translation ID="PRR_CAT_POL" String="Police" />
     <Translation ID="PRR_CAT_POW" String="Power" />
     <Translation ID="PRR_CAT_WAT" String="Water" />
-    <Translation ID="PRR_CAT_HEA" String="Health" />
+    <Translation ID="PRR_CAT_GAR" String="Garbage" />
+    <Translation ID="PRR_CAT_PIN" String="Player industry" />
     <Translation ID="PRR_CAT_RES" String="Residential" />
     <Translation ID="PRR_CAT_COM" String="Commercial" />
     <Translation ID="PRR_CAT_OFF" String="Office" />

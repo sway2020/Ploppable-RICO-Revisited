@@ -10,8 +10,20 @@ namespace PloppableRICO
     public class UIBuildingFilter : UIPanel
     {
         // Constants.
-        private const int NumOfCategories = 10;
+        private const int NumOfCategories = (int)Category.NumCategories;
         private const int NumOfSettings = 4;
+        internal const int SecondRow = (int)Category.Education;
+
+        // Layout constants.
+        private const float Margin = 5f;
+        private const float FirstRowY = 0f;
+        private const float FirstRowSize = 35f;
+        private const float SecondRowY = FirstRowY + FirstRowSize + Margin;
+        private const float SecondRowSize = 25f;
+        internal const float FilterBarHeight = SecondRowY + SecondRowSize + Margin;
+        private const float SettingsFilterY = FilterBarHeight + Margin;
+        private const float SettingsCheckSize = 20f;
+        internal const float SettingsFilterHeight = SettingsCheckSize + (Margin * 2f);
 
         // Panel components.
         private UICheckBox[] categoryToggles;
@@ -142,23 +154,38 @@ namespace PloppableRICO
         {
             // Category toggles.
             categoryToggles = new UICheckBox[NumOfCategories];
-            CategoryNames tooltips = new CategoryNames();
-            for (int i = 0; i < NumOfCategories; i++)
+
+            // First row.
+            for (int i = 0; i < SecondRow; i++)
             {
                 categoryToggles[i] = UIUtils.CreateIconToggle(this, OriginalCategories.atlases[i], OriginalCategories.spriteNames[i], OriginalCategories.spriteNames[i] + "Disabled");
-                categoryToggles[i].tooltip = tooltips.names[i];
-                categoryToggles[i].relativePosition = new Vector3(40 * i, 0);
+                categoryToggles[i].tooltip = Translations.Translate(OriginalCategories.tooltipKeys[i]);
+                categoryToggles[i].relativePosition = new Vector2((FirstRowSize + Margin) * i, FirstRowY);
                 categoryToggles[i].isChecked = true;
                 categoryToggles[i].readOnly = true;
                 categoryToggles[i].eventClick += (control, clickEvent) => ToggleCat(control as UICheckBox);
             }
 
+            // Second row (starts disabled).
+            for (int i = SecondRow; i < NumOfCategories; i++)
+            {
+                categoryToggles[i] = UIUtils.CreateIconToggle(this, OriginalCategories.atlases[i], OriginalCategories.spriteNames[i], OriginalCategories.spriteNames[i] + "Disabled", 25f);
+                categoryToggles[i].tooltip = Translations.Translate(OriginalCategories.tooltipKeys[i]);
+                categoryToggles[i].relativePosition = new Vector2((SecondRowSize + Margin) * (i - SecondRow), SecondRowY);
+                categoryToggles[i].isChecked = true;
+                categoryToggles[i].readOnly = true;
+                categoryToggles[i].eventClick += (control, clickEvent) => ToggleCat(control as UICheckBox);
+
+                // Start deselected (need to toggle here after setting as checked above to force correct initial 'unchecked' background state, otherwise the 'checked' background is used).
+                categoryToggles[i].isChecked = false;
+            }
+
             // 'Select all' button.
-            allCats = UIControls.AddButton(this, 405f, 5f, Translations.Translate("PRR_FTR_ALL"), 55f);
+            allCats = UIControls.AddButton(this, (FirstRowSize + Margin) * SecondRow, Margin, Translations.Translate("PRR_FTR_ALL"), 55f);
             allCats.eventClick += (control, clickEvent) =>
             {
-                // Iterate through all toggles and activate.
-                for (int i = 0; i < NumOfCategories; i++)
+                // Iterate through all toggles in top row and activate.
+                for (int i = 0; i < SecondRow; i++)
                 {
                     categoryToggles[i].isChecked = true;
                 }
@@ -168,7 +195,7 @@ namespace PloppableRICO
             };
 
             // 'Select none'button.
-            noCats = UIControls.AddButton(this, 465f, 5f, Translations.Translate("PRR_FTR_NON"), 55f);
+            noCats = UIControls.AddButton(this, allCats.relativePosition.x + allCats.width + Margin, Margin, Translations.Translate("PRR_FTR_NON"), 55f);
             noCats.eventClick += (c, p) =>
             {
                 // Iterate through all toggles and deactivate.
@@ -181,12 +208,6 @@ namespace PloppableRICO
                 EventFilteringChanged(this, 0);
             };
 
-            // Disable selected starting categories.
-            categoryToggles[(int)Category.Power].isChecked = false;
-            categoryToggles[(int)Category.Water].isChecked = false;
-            categoryToggles[(int)Category.Health].isChecked = false;
-            categoryToggles[(int)Category.Education].isChecked = false;
-
             // Name filter textfield.
             nameFilter = UIControls.BigLabelledTextField(this, width - 200f, 0, Translations.Translate("PRR_FTR_NAM") + ": ");
 
@@ -196,24 +217,24 @@ namespace PloppableRICO
 
             // Create settings filters.
             UILabel filterLabel = this.AddUIComponent<UILabel>();
-            filterLabel.textScale = 0.8f;
+            filterLabel.textScale = 0.7f;
             filterLabel.text = Translations.Translate("PRR_FTR_SET");
-            filterLabel.relativePosition = new Vector3(10, 40, 0);
-            filterLabel.autoSize = false;
-            filterLabel.height = 30f;
-            filterLabel.width = 280f;
-            filterLabel.wordWrap = true;
             filterLabel.verticalAlignment = UIVerticalAlignment.Middle;
+            filterLabel.autoSize = false;
+            filterLabel.width = 270f;
+            filterLabel.autoHeight = true;
+            filterLabel.wordWrap = true;
+            filterLabel.relativePosition = new Vector2(1f, SettingsFilterY + ((SettingsCheckSize - filterLabel.height) / 2f));
 
             // Setting filter checkboxes.
             settingsFilter = new UICheckBox[NumOfSettings];
             for (int i = 0; i < NumOfSettings; ++i)
             {
                 settingsFilter[i] = this.AddUIComponent<UICheckBox>();
-                settingsFilter[i].width = 20f;
-                settingsFilter[i].height = 20f;
+                settingsFilter[i].width = SettingsCheckSize;
+                settingsFilter[i].height = SettingsCheckSize;
                 settingsFilter[i].clipChildren = true;
-                settingsFilter[i].relativePosition = new Vector3(280 + (30 * i), 45f);
+                settingsFilter[i].relativePosition = new Vector2(280 + (30f * i), SettingsFilterY);
 
                 // Checkbox sprites.
                 UISprite sprite = settingsFilter[i].AddUIComponent<UISprite>();

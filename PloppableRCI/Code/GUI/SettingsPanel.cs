@@ -171,15 +171,15 @@ namespace PloppableRICO
     /// </summary>
     public class RICOSettingsPanel : UIPanel
     {
-        // Constants.
+        // Layout constants.
         private const float LeftWidth = 400f;
         private const float MiddleWidth = 250f;
         private const float RightWidth = 300f;
-        private const float FilterHeight = 40f;
+        private const float FilterHeight = UIBuildingFilter.FilterBarHeight;
         private const float PanelHeight = 550f;
         private const float BottomMargin = 10f;
         private const float Spacing = 5f;
-        private const float CheckFilterHeight = 30f;
+        private const float CheckFilterHeight = UIBuildingFilter.SettingsFilterHeight;
         internal const float TitleHeight = 40f;
 
         // Panel components.
