@@ -181,6 +181,12 @@ namespace PloppableRICO
                 EventFilteringChanged(this, 0);
             };
 
+            // Disable selected starting categories.
+            categoryToggles[(int)Category.Power].isChecked = false;
+            categoryToggles[(int)Category.Water].isChecked = false;
+            categoryToggles[(int)Category.Health].isChecked = false;
+            categoryToggles[(int)Category.Education].isChecked = false;
+
             // Name filter textfield.
             nameFilter = UIControls.BigLabelledTextField(this, width - 200f, 0, Translations.Translate("PRR_FTR_NAM") + ": ");
 

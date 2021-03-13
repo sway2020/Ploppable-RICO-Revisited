@@ -191,6 +191,13 @@ namespace PloppableRICO
                 return;
             }
 
+            // Log warning for any service building conversion.
+            ItemClass.Service originalService = currentSelection.prefab.GetService();
+            if (originalService == ItemClass.Service.Education || originalService == ItemClass.Service.Electricity || originalService == ItemClass.Service.FireDepartment || originalService == ItemClass.Service.PoliceDepartment || originalService == ItemClass.Service.PublicTransport || originalService == ItemClass.Service.PlayerEducation || originalService == ItemClass.Service.PlayerIndustry || originalService == ItemClass.Service.Water || originalService == ItemClass.Service.HealthCare || originalService == ItemClass.Service.Disaster || originalService == ItemClass.Service.Garbage)
+            {
+                Logging.KeyMessage("Prefab ", currentSelection.prefab?.name ?? "null", " is being converted to local RICO settings despite being a service building");
+            }
+
             // Create new local settings.
             currentSelection.local = new RICOBuilding();
             currentSelection.hasLocal = true;
@@ -253,8 +260,6 @@ namespace PloppableRICO
                 // UI Category will be updated later.
                 currentSelection.local.UiCategory = "none";
             }
-
-            currentSelection.local.name = currentSelection.name;
 
             // Update settings panel with new settings if RICO is enabled for this building.
             SettingsPanel.Panel.UpdateSelectedBuilding(currentSelection);
