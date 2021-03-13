@@ -277,6 +277,12 @@ namespace PloppableRICO
         /// </summary>
         internal void SaveRICO()
         {
+            // Don't do anything if no current local selection.
+            if (!currentBuildingData.hasLocal || currentSettings == null)
+            {
+                return;
+            }
+
             // Set service and subservice.
             GetService(out string serviceString, out string subServiceString);
             currentSettings.service = serviceString;

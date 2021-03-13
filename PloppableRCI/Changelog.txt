@@ -3,6 +3,7 @@
 - Revert 2.4.1.2 hotfix
 - Remove population caching
 - Rearrange selection buttons in settings panel to separate service selections
+- Fix local settings not being able to be deleted in some circumstances
 - New single zh translation
 
 

@@ -171,6 +171,6 @@
     <Translation ID="PRR_UPD_240_2" String="Add mod/author/local settings selection menu to settings panel (to see settings other than the currently active one)." />
     <Translation ID="PRR_UPD_240_3" String="Disable population textfields when 'use reality' option is set." />
     <Translation ID="PRR_UPD_241_0" String="Improve support for historical buildings with different levels" />
-    <Translation ID="PRR_UPD_242_0" String="Translation framework changes" />
+    <Translation ID="PRR_UPD_242_0" String="Service buildings are no longer visible by default in the RICO settings panel" />
   </Translations>
 </Language>
