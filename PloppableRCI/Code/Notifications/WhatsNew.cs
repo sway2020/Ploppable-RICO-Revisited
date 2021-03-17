@@ -127,6 +127,7 @@ namespace PloppableRICO
             // Don't do anything if the settings isn't set.
             if (ModSettings.showWhatsNew)
             {
+                Logging.KeyMessage("checking for update notifications");
                 // Get last notified version and current mod version.
                 Version whatsNewVersion = new Version(ModSettings.whatsNewVersion);
                 Version modVersion = Assembly.GetExecutingAssembly().GetName().Version;
@@ -138,10 +139,12 @@ namespace PloppableRICO
                 }
 
                 // Show messagebox.
+                Logging.KeyMessage("showing What's New messagebox");
                 WhatsNewMessageBox messageBox = MessageBoxBase.ShowModal<WhatsNewMessageBox>();
                 messageBox.Title = PloppableRICOMod.ModName + " " + PloppableRICOMod.Version;
                 messageBox.DSAButton.eventClicked += (component, clickEvent) => DontShowAgain();
                 messageBox.SetMessages(whatsNewVersion, WhatsNewMessages);
+                Logging.KeyMessage("What's New messagebox complete");
             }
         }
     }
