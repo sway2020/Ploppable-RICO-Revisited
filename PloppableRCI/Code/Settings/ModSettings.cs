@@ -51,7 +51,7 @@ namespace PloppableRICO
 
         // What's new notification version.
         internal static string whatsNewVersion = "0.0";
-        internal static string whatsNewBeta = "";
+        internal static int whatsNewBetaVersion = 0;
 
         // Soft conflict notification (don't show again) flags.
         internal static int dsaPTG = 0;
@@ -87,9 +87,9 @@ namespace PloppableRICO
         [XmlElement("WhatsNewVersion")]
         public string WhatsNewVersion { get => ModSettings.whatsNewVersion; set => ModSettings.whatsNewVersion = value; }
 
-        [XmlElement("WhatsNewBeta")]
-        [DefaultValue("")]
-        public string WhatsNewBeta { get => ModSettings.whatsNewBeta; set => ModSettings.whatsNewBeta = value; }
+        [XmlElement("WhatsNewBetaVersion")]
+        [DefaultValue(0)]
+        public int WhatsNewBetaVersion { get => ModSettings.whatsNewBetaVersion; set => ModSettings.whatsNewBetaVersion = value; }
 
         [XmlElement("WarnedPTG")]
         public int WarnedPTG { get => ModSettings.dsaPTG; set => ModSettings.dsaPTG = value; }
