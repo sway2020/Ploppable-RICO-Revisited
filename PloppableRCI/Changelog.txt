@@ -1,6 +1,7 @@
 ﻿Version 2.4.2.1
 
-- Update MessageBox
+- Add option to not display What's New messages
+- Update MessageBox code
 
 
 Version 2.4.2
