@@ -1,4 +1,9 @@
-﻿Version 2.4.2
+﻿Version 2.4.2.1
+
+- Update MessageBox
+
+
+Version 2.4.2
 
 - Revert 2.4.1.2 hotfix
 - Remove population caching
