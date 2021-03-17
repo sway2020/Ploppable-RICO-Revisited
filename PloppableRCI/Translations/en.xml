@@ -174,5 +174,6 @@
     <Translation ID="PRR_UPD_240_3" String="Disable population textfields when 'use reality' option is set." />
     <Translation ID="PRR_UPD_241_0" String="Improve support for historical buildings with different levels" />
     <Translation ID="PRR_UPD_242_0" String="Service buildings are no longer visible by default in the RICO settings panel" />
+    <Translation ID="PRR_UPD_243_0" String="Add option to disable update notifications" />
   </Translations>
 </Language>

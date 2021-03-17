@@ -15,6 +15,15 @@ namespace PloppableRICO
         {
             new WhatsNewMessage
             {
+                version = new Version("2.4.3.0"),
+                messageKeys = true,
+                messages = new string[]
+                {
+                    "PRR_UPD_243_0"
+                }
+            },
+            new WhatsNewMessage
+            {
                 version = new Version("2.4.2.0"),
                 messageKeys = true,
                 messages = new string[]
