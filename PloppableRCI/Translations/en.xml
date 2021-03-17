@@ -125,6 +125,8 @@
     <Translation ID="PRR_OPTION_GRO" String="Growable options" />
     <Translation ID="PRR_OPTION_COM" String="Complaint options" />
     <Translation ID="PRR_OPTION_MOD" String="Mod options" />
+    <Translation ID="PRR_OPTION_NOT" String="Notification options" />
+    <Translation ID="PRR_OPTION_WHATSNEW" String="Show what's new messages" />
     <Translation ID="PRR_OPTION_MOREDEBUG" String="Enable additional debugging logging" />
     <Translation ID="PRR_OPTION_FORCERESET" String="Force reset of existing building stats on game load" />
     <Translation ID="PRR_OPTION_REGENTHUMBS" String="Regenerate thumbnails" />

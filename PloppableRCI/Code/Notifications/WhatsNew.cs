@@ -124,21 +124,25 @@ namespace PloppableRICO
         /// </summary>
         internal static void ShowWhatsNew()
         {
-            // Get last notified version and current mod version.
-            Version whatsNewVersion = new Version(ModSettings.whatsNewVersion);
-            Version modVersion = Assembly.GetExecutingAssembly().GetName().Version;
-
-            // Don't show notification if we're already up to (or ahead of) this version AND there hasn't been a beta update.
-            if (whatsNewVersion >= modVersion && ModSettings.whatsNewBetaVersion == PloppableRICOMod.BetaVersion)
+            // Don't do anything if the settings isn't set.
+            if (ModSettings.showWhatsNew)
             {
-                return;
-            }
+                // Get last notified version and current mod version.
+                Version whatsNewVersion = new Version(ModSettings.whatsNewVersion);
+                Version modVersion = Assembly.GetExecutingAssembly().GetName().Version;
 
-            // Show messagebox.
-            WhatsNewMessageBox messageBox = MessageBoxBase.ShowModal<WhatsNewMessageBox>();
-            messageBox.Title = PloppableRICOMod.ModName + " " + PloppableRICOMod.Version;
-            messageBox.DSAButton.eventClicked += (component, clickEvent) => DontShowAgain();
-            messageBox.SetMessages(whatsNewVersion, WhatsNewMessages);
+                // Don't show notification if we're already up to (or ahead of) this version AND there hasn't been a beta update.
+                if (whatsNewVersion >= modVersion && ModSettings.whatsNewBetaVersion == PloppableRICOMod.BetaVersion)
+                {
+                    return;
+                }
+
+                // Show messagebox.
+                WhatsNewMessageBox messageBox = MessageBoxBase.ShowModal<WhatsNewMessageBox>();
+                messageBox.Title = PloppableRICOMod.ModName + " " + PloppableRICOMod.Version;
+                messageBox.DSAButton.eventClicked += (component, clickEvent) => DontShowAgain();
+                messageBox.SetMessages(whatsNewVersion, WhatsNewMessages);
+            }
         }
     }
 

@@ -40,6 +40,15 @@ namespace PloppableRICO
                 SettingsUtils.SaveSettings();
             });*/
 
+            // Notification options.
+            UIHelperBase notificationGroup = helper.AddGroup(Translations.Translate("PRR_OPTION_NOT"));
+            // Add logging checkbox.
+            notificationGroup.AddCheckbox(Translations.Translate("PRR_OPTION_WHATSNEW"), ModSettings.showWhatsNew, isChecked =>
+            {
+                ModSettings.showWhatsNew = isChecked;
+                SettingsUtils.SaveSettings();
+            });
+
             // Logging options.
             UIHelperBase logGroup = helper.AddGroup(Translations.Translate("PRR_OPTION_LOG"));
 
