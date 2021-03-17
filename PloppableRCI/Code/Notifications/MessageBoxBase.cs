@@ -209,10 +209,11 @@ namespace PloppableRICO.MessageBox
         private void Resize()
         {
             // Set height.
-            height = titleBar.height + mainPanel.height + buttonPanel.height + Padding;
+            height = titleBar.height + mainPanel.height + buttonPanel.height + (Padding * 2f);
 
-            // Position main panel under title bar.
+            // Position main panel under title bar and set width.
             mainPanel.relativePosition = new Vector2(0, titleBar.height);
+            mainPanel.width = width - (mainPanel?.verticalScrollbar?.width ?? 0) - 3f;
 
             // Position button panel under main panel.
             buttonPanel.relativePosition = new Vector2(0, titleBar.height + mainPanel.height + Padding);
@@ -296,7 +297,7 @@ namespace PloppableRICO.MessageBox
         private void AddButtonPanel()
         {
             buttonPanel = AddUIComponent<UIPanel>();
-            buttonPanel.size = new Vector2(Width, ButtonHeight + 10f);
+            buttonPanel.size = new Vector2(Width, ButtonHeight);
         }
 
 
@@ -341,29 +342,18 @@ namespace PloppableRICO.MessageBox
         /// <summary>
         /// Event handler delegate for child visibility changes.
         /// </summary>
-        private void OnChildVisibilityChanged(UIComponent component, bool isVisible) => ChildResized();
+        private void OnChildVisibilityChanged(UIComponent component, bool isVisible) => Resize();
 
 
         /// <summary>
         /// Event handler delegate for child size changes.
         /// </summary>
-        private void OnChildSizeChanged(UIComponent component, Vector2 newSize) => ChildResized();
+        private void OnChildSizeChanged(UIComponent component, Vector2 newSize) => Resize();
 
 
         /// <summary>
         /// Event handler delegate for child position changes.
         /// </summary>
-        private void OnChildPositionChanged(UIComponent component, Vector2 position) => ChildResized();
-
-
-        /// <summary>
-        /// Resizes panel when child size changes - called through event handlers.
-        /// </summary>
-        private void ChildResized()
-        {
-            // Resize main panel, allowing for scrollbar width if scrollbar is visible.
-            height = mainPanel.height + TitleBarHeight + ButtonHeight;
-            mainPanel.width = width - (mainPanel?.verticalScrollbar?.width ?? 0) - 3f;
-        }
+        private void OnChildPositionChanged(UIComponent component, Vector2 position) => Resize();
     }
 }
