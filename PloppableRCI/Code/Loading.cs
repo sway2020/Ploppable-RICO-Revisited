@@ -169,7 +169,7 @@ namespace PloppableRICO
                 ListMessageBox modConflictBox = MessageBoxBase.ShowModal<ListMessageBox>();
 
                 // Key text items.
-                modConflictBox.AddParas(Translations.Translate("ERR_CON0"), Translations.Translate("PRR_ERR_FAT"), Translations.Translate("PRR_ERR_CON0"), Translations.Translate("ERR_CON1"));
+                modConflictBox.AddParas(Translations.Translate("ERR_CON0"), Translations.Translate("PRR_ERR_CON0"), Translations.Translate("PRR_ERR_FAT"), Translations.Translate("ERR_CON1"));
 
                 // Add conflicting mod name(s).
                 modConflictBox.AddList(ModUtils.conflictingModNames.ToArray());
