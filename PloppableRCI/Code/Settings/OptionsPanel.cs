@@ -62,6 +62,8 @@ namespace PloppableRICO
         {
             if (gameOptionsPanel != null && gameOptionsPanel.isVisible)
             {
+                Logging.KeyMessage("changing locale");
+
                 Close();
                 Create();
             }
@@ -75,6 +77,8 @@ namespace PloppableRICO
         {
             try
             {
+                Logging.KeyMessage("creating options panels");
+
                 // We're now visible - create our gameobject, and give it a unique name for easy finding with ModTools.
                 optionsGameObject = new GameObject("PloppableRICOOptionsPanel");
 
@@ -98,9 +102,13 @@ namespace PloppableRICO
                 tabStrip.tabPages = tabContainer;
 
                 // Add tabs and panels.
+                Logging.KeyMessage("adding GrowableOptions");
                 new GrowableOptions(tabStrip, 0);
+                Logging.KeyMessage("adding PloppableOptions");
                 new PloppableOptions(tabStrip, 1);
+                Logging.KeyMessage("adding ComplaintOptions");
                 new ComplaintOptions(tabStrip, 2);
+                Logging.KeyMessage("adding ModOptions");
                 new ModOptions(tabStrip, 3);
 
                 // Change tab size and text scale (to fit them all in...).

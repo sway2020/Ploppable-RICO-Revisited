@@ -135,6 +135,8 @@ namespace PloppableRICO
         /// </summary>
         internal static void ABLCReflection()
         {
+            Logging.KeyMessage("Attempting to find Advanced Building Level Control");
+
             // Iterate through each loaded plugin assembly.
             foreach (PluginManager.PluginInfo plugin in PluginManager.instance.GetPluginsInfo())
             {
@@ -142,7 +144,7 @@ namespace PloppableRICO
                 {
                     if (assembly.GetName().Name.Equals("AdvancedBuildingLevelControl") && plugin.isEnabled)
                     {
-                        Logging.Message("Found Advanced Building Level Control");
+                        Logging.KeyMessage("Found Advanced Building Level Control");
 
                         // Found AdvancedBuildingLevelControl.dll that's part of an enabled plugin; try to get its ExternalCalls class.
                         Type ablcExternalCalls = assembly.GetType("ABLC.ExternalCalls");
@@ -154,7 +156,7 @@ namespace PloppableRICO
                             if (ablcLockBuildingLevel != null)
                             {
                                 // Success!
-                                Logging.Message("found LockBuildingLevel");
+                                Logging.KeyMessage("found LockBuildingLevel");
                             }
                         }
 
@@ -165,7 +167,7 @@ namespace PloppableRICO
             }
 
             // If we got here, we were unsuccessful.
-            Logging.Message("Advanced Building Level Control not found");
+            Logging.KeyMessage("Advanced Building Level Control not found");
         }
 
 
