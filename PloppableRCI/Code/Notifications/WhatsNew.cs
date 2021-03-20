@@ -137,12 +137,14 @@ namespace PloppableRICO
             if (ModSettings.showWhatsNew)
             {
                 Logging.KeyMessage("checking for update notifications");
+
+
                 // Get last notified version and current mod version.
                 Version whatsNewVersion = new Version(ModSettings.whatsNewVersion);
-                Version modVersion = Assembly.GetExecutingAssembly().GetName().Version;
+                WhatsNewMessage latestMessage = WhatsNewMessages[0];
 
-                // Don't show notification if we're already up to (or ahead of) this version AND there hasn't been a beta update.
-                if (whatsNewVersion >= modVersion && ModSettings.whatsNewBetaVersion == PloppableRICOMod.BetaVersion)
+                // Don't show notification if we're already up to (or ahead of) the first what's new message (including Beta updates).
+                if (whatsNewVersion < latestMessage.version || (whatsNewVersion == latestMessage.version && latestMessage.betaVersion <= ModSettings.whatsNewBetaVersion))
                 {
                     return;
                 }
