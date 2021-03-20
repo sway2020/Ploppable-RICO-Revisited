@@ -137,6 +137,82 @@ namespace PloppableRICO
 
 
         /// <summary>
+        /// Creates a plain textfield using the game's option panel checkbox template.
+        /// </summary>
+        /// <param name="parent">Parent component</param>
+        /// <param name="text">Descriptive label text</param>
+        /// <returns>New checkbox using the game's option panel template</returns>
+        public static UITextField AddPlainTextfield(UIComponent parent, string text)
+        {
+            UIPanel textFieldPanel = parent.AttachUIComponent(UITemplateManager.GetAsGameObject("OptionsTextfieldTemplate")) as UIPanel;
+
+            // Set text label.
+            textFieldPanel.Find<UILabel>("Label").text = text;
+            return textFieldPanel.Find<UITextField>("Text Field");
+        }
+
+
+        /// <summary>
+        /// Creates a plain checkbox using the game's option panel checkbox template.
+        /// </summary>
+        /// <param name="parent">Parent component</param>
+        /// <param name="text">Descriptive label text</param>
+        /// <returns>New checkbox using the game's option panel template</returns>
+        public static UICheckBox AddPlainCheckBox(UIComponent parent, string text)
+        {
+            UICheckBox checkBox = parent.AttachUIComponent(UITemplateManager.GetAsGameObject("OptionsCheckBoxTemplate")) as UICheckBox;
+
+            // Set text.
+            checkBox.text = text;
+
+            return checkBox;
+        }
+
+
+        /// <summary>
+        /// Adds a plain text label to the specified UI panel.
+        /// </summary>
+        /// <param name="parent">Parent component</param>
+        /// <param name="xPos">Relative x position)</param>
+        /// <param name="yPos">Relative y position</param>
+        /// <param name="text">Label text</param>
+        /// <param name="width">Label width (-1 (default) for autosize)</param>
+        /// <param name="width">Text scale (default 1.0)</param>
+        /// <returns>New text label</returns>
+        public static UILabel AddLabel(UIComponent parent, float xPos, float yPos, string text, float width = -1f, float textScale = 1.0f)
+        {
+            // Add label.
+            UILabel label = (UILabel)parent.AddUIComponent<UILabel>();
+
+            // Set sizing options.
+            if (width > 0f)
+            {
+                // Fixed width.
+                label.autoSize = false;
+                label.width = width;
+                label.autoHeight = true;
+                label.wordWrap = true;
+            }
+            else
+            {
+                // Autosize.
+                label.autoSize = true;
+                label.autoHeight = false;
+                label.wordWrap = false;
+            }
+
+            // Text.
+            label.textScale = textScale;
+            label.text = text;
+
+            // Position.
+            label.relativePosition = new Vector2(xPos, yPos);
+
+            return label;
+        }
+
+
+        /// <summary>
         /// Creates a vertical scrollbar
         /// </summary>
         /// <param name="parent">Parent component</param>

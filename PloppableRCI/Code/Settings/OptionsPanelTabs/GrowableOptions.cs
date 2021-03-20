@@ -17,9 +17,8 @@ namespace PloppableRICO
         internal GrowableOptions(UITabstrip tabStrip, int tabIndex)
         {
             // Add tab and helper.
-            UIPanel panel = PanelUtils.AddTab(tabStrip, Translations.Translate("PRR_OPTION_GRO"), tabIndex);
+            UIPanel panel = PanelUtils.AddTab(tabStrip, Translations.Translate("PRR_OPTION_GRO"), tabIndex, true);
             UIHelper helper = new UIHelper(panel);
-            panel.autoLayout = true;
 
             // Add plop growables checkboxes.
             UIHelperBase plopGroup = helper.AddGroup(Translations.Translate("PRR_OPTION_PLP"));

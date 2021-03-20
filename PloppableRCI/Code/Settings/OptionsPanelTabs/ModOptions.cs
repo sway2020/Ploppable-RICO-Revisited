@@ -17,9 +17,8 @@ namespace PloppableRICO
         internal ModOptions(UITabstrip tabStrip, int tabIndex)
         {
             // Add tab and helper.
-            UIPanel panel = PanelUtils.AddTab(tabStrip, Translations.Translate("PRR_OPTION_MOD"), tabIndex);
+            UIPanel panel = PanelUtils.AddTab(tabStrip, Translations.Translate("PRR_OPTION_MOD"), tabIndex, true);
             UIHelper helper = new UIHelper(panel);
-            panel.autoLayout = true;
 
 
             UIDropDown translationDropDown = (UIDropDown)helper.AddDropdown(Translations.Translate("TRN_CHOICE"), Translations.LanguageList, Translations.Index, (value) =>

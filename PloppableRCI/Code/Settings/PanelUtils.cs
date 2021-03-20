@@ -16,8 +16,9 @@ namespace PloppableRICO
         /// <param name="tabStrip">UIT tabstrip to add to</param>
         /// <param name="tabName">Name of this tab</param>
         /// <param name="tabIndex">Index number of this tab</param>
+        /// <param name="autoLayout">Autolayout</param>
         /// <returns>UIHelper instance for the new tab panel</returns>
-        internal static UIPanel AddTab(UITabstrip tabStrip, string tabName, int tabIndex, bool autoLayout = false)
+        internal static UIPanel AddTab(UITabstrip tabStrip, string tabName, int tabIndex, bool autoLayout)
         {
             // Create tab.
             UIButton tabButton = tabStrip.AddTab(tabName);
@@ -40,11 +41,15 @@ namespace PloppableRICO
             // Get tab root panel.
             UIPanel rootPanel = tabStrip.tabContainer.components[tabIndex] as UIPanel;
 
-            // Panel setup.
+            // Autolayout.
             rootPanel.autoLayout = autoLayout;
-            rootPanel.autoLayoutDirection = LayoutDirection.Vertical;
-            rootPanel.autoLayoutPadding.top = 5;
-            rootPanel.autoLayoutPadding.left = 10;
+
+            if (autoLayout)
+            {
+                rootPanel.autoLayoutDirection = LayoutDirection.Vertical;
+                rootPanel.autoLayoutPadding.top = 5;
+                rootPanel.autoLayoutPadding.left = 10;
+            }
 
             return rootPanel;
         }

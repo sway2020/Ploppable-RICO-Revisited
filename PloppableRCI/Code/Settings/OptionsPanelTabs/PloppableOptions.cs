@@ -1,4 +1,5 @@
-﻿using ICities;
+﻿using UnityEngine;
+using ColossalFramework;
 using ColossalFramework.UI;
 
 
@@ -9,6 +10,11 @@ namespace PloppableRICO
     /// </summary>
     internal class PloppableOptions
     {
+        // Layout constants.
+        private const float Margin = 5f;
+        private const float LeftMargin = 14f;
+        private const float GroupMargin = 30f;
+
         /// <summary>
         /// Adds growable options tab to tabstrip.
         /// </summary>
@@ -16,21 +22,92 @@ namespace PloppableRICO
         /// <param name="tabIndex">Index number of tab</param>
         internal PloppableOptions(UITabstrip tabStrip, int tabIndex)
         {
+            // Y position indicator.
+            float currentY = Margin;
+            int tabbingIndex = 0;
+
             // Add tab and helper.
-            UIPanel panel = PanelUtils.AddTab(tabStrip, Translations.Translate("PRR_OPTION_PLO"), tabIndex);
-            UIHelper helper = new UIHelper(panel);
-            panel.autoLayout = true;
+            UIPanel panel = PanelUtils.AddTab(tabStrip, Translations.Translate("PRR_OPTION_PLO"), tabIndex, false);
 
             // Demolition options.
-            UIHelperBase demolishGroup = helper.AddGroup(Translations.Translate("PRR_OPTION_DEM"));
+            UILabel demolishLabel = UIControls.AddLabel(panel, LeftMargin, currentY, Translations.Translate("PRR_OPTION_DEM"));
+            demolishLabel.tabIndex = ++tabbingIndex;
+            currentY += demolishLabel.height + Margin;
 
             // Add 'warn if bulldozing ploppables' checkbox.
-            demolishGroup.AddCheckbox(Translations.Translate("PRR_OPTION_BDZ"), ModSettings.warnBulldoze, isChecked =>
-            {
-                ModSettings.warnBulldoze = isChecked;
-                SettingsUtils.SaveSettings();
+            UICheckBox demolishWarnCheck = UIControls.AddPlainCheckBox(panel, Translations.Translate("PRR_OPTION_BDZ"));
+            demolishWarnCheck.relativePosition = new Vector2(LeftMargin, currentY);
+            demolishWarnCheck.isChecked = ModSettings.warnBulldoze;
+            demolishWarnCheck.eventCheckChanged += DemolsihWarnCheckChanged;
+            demolishWarnCheck.tabIndex = ++tabbingIndex;
+            currentY += demolishWarnCheck.height + Margin;
 
-                // Iterate through dictionary, looking for RICO ploppable buildings and updating their auto-remove flags.
+            // Add auto-demolish checkbox.
+            UICheckBox demolishAutoCheck = UIControls.AddPlainCheckBox(panel, Translations.Translate("PRR_OPTION_IMP"));
+            demolishAutoCheck.relativePosition = new Vector2(LeftMargin, currentY);
+            demolishAutoCheck.isChecked = ModSettings.autoDemolish;
+            demolishAutoCheck.tabIndex = ++tabbingIndex;
+            demolishAutoCheck.eventCheckChanged += DemolishAutoCheckChanged;
+
+            // Tweak auto-demolish checkbox label layout, to allow wrapping text.
+            demolishAutoCheck.label.wordWrap = true;
+            demolishAutoCheck.label.autoSize = false;
+            demolishAutoCheck.label.autoHeight = true;
+            demolishAutoCheck.label.width = 670f;
+            demolishAutoCheck.label.verticalAlignment = UIVerticalAlignment.Top;
+            demolishAutoCheck.label.anchor = UIAnchorStyle.Left | UIAnchorStyle.Top;
+            demolishAutoCheck.label.relativePosition = new Vector2(demolishAutoCheck.label.relativePosition.x, 0f);
+            currentY += demolishAutoCheck.label.height + GroupMargin;
+
+            // Cost options.
+            UILabel costLabel = UIControls.AddLabel(panel, LeftMargin, currentY, Translations.Translate("PRR_OPTION_CST"));
+            costLabel.tabIndex = ++tabbingIndex;
+            currentY += costLabel.height + Margin;
+
+            // Add override cost checkbox.
+            UICheckBox overrideCostCheck = UIControls.AddPlainCheckBox(panel, Translations.Translate("PRR_OPTION_COV"));
+            overrideCostCheck.relativePosition = new Vector2(LeftMargin, currentY);
+            overrideCostCheck.isChecked = ModSettings.warnBulldoze;
+            overrideCostCheck.eventCheckChanged += OverrideCostCheckChanged;
+            overrideCostCheck.tabIndex = ++tabbingIndex;
+            currentY += overrideCostCheck.height + Margin;
+
+            // Houshold costs.
+            UITextField costPerHouseField = AddCostTextField(panel, "PRR_OPTION_CPH", ModSettings.costPerHousehold, ref currentY);
+            UITextField costMultResLevelField = AddCostTextField(panel, "PRR_OPTION_CHM", ModSettings.costMultResLevel, ref currentY);
+            costPerHouseField.eventTextSubmitted += (control, text) => TextSubmitted(control as UITextField, text, ref ModSettings.costPerHousehold);
+            costMultResLevelField.eventTextSubmitted += (control, text) => TextSubmitted(control as UITextField, text, ref ModSettings.costMultResLevel);
+
+            // Workplace costs.
+            UITextField costPerJob0Field = AddCostTextField(panel, "PRR_OPTION_CJ0", ModSettings.costPerJob0, ref currentY);
+            UITextField costPerJob1Field = AddCostTextField(panel, "PRR_OPTION_CJ1", ModSettings.costPerJob1, ref currentY);
+            UITextField costPerJob2Field = AddCostTextField(panel, "PRR_OPTION_CJ2", ModSettings.costPerJob2, ref currentY);
+            UITextField costPerJob3Field = AddCostTextField(panel, "PRR_OPTION_CJ3", ModSettings.costPerJob3, ref currentY);
+            costPerJob0Field.tabIndex = ++tabbingIndex;
+            costPerJob1Field.tabIndex = ++tabbingIndex;
+            costPerJob2Field.tabIndex = ++tabbingIndex;
+            costPerJob3Field.tabIndex = ++tabbingIndex;
+            costPerJob0Field.eventTextSubmitted += (control, text) => TextSubmitted(control as UITextField, text, ref ModSettings.costPerJob0);
+            costPerJob1Field.eventTextSubmitted += (control, text) => TextSubmitted(control as UITextField, text, ref ModSettings.costPerJob1);
+            costPerJob2Field.eventTextSubmitted += (control, text) => TextSubmitted(control as UITextField, text, ref ModSettings.costPerJob2);
+            costPerJob3Field.eventTextSubmitted += (control, text) => TextSubmitted(control as UITextField, text, ref ModSettings.costPerJob3);
+        }
+
+
+        /// <summary>
+        /// Event handler for demolish warning checkbox.
+        /// </summary>
+        /// <param name="control">Calling UIComponent</param>
+        /// <param name="isChecked">New isChecked state</param>
+        private void DemolsihWarnCheckChanged(UIComponent control, bool isChecked)
+        {
+            // Update mod settings.
+            ModSettings.warnBulldoze = isChecked;
+            SettingsUtils.SaveSettings();
+
+            // If we're in-game (dictionary has been initialized), iterate through dictionary, looking for RICO ploppable buildings and updating their auto-remove flags.
+            if (Loading.xmlManager?.prefabHash != null)
+            {
                 foreach (BuildingInfo prefab in Loading.xmlManager.prefabHash.Keys)
                 {
                     // Get active RICO settings.
@@ -43,36 +120,79 @@ namespace PloppableRICO
                         prefab.m_autoRemove = !isChecked;
                     }
                 }
-            });
+            }
+        }
 
-            // Add auto-demolish checkbox.
-            UICheckBox impCheck = (UICheckBox)demolishGroup.AddCheckbox(Translations.Translate("PRR_OPTION_IMP"), ModSettings.autoDemolish, isChecked =>
+
+        /// <summary>
+        /// Event handler for auto demolish checkbox.
+        /// </summary>
+        /// <param name="control">Calling UIComponent</param>
+        /// <param name="isChecked">New isChecked state</param>
+        private void DemolishAutoCheckChanged(UIComponent control, bool isChecked)
+        {
+            ModSettings.autoDemolish = isChecked;
+            SettingsUtils.SaveSettings();
+        }
+
+
+        /// <summary>
+        /// Event handler for override cost checkbox.
+        /// </summary>
+        /// <param name="control">Calling UIComponent</param>
+        /// <param name="isChecked">New isChecked state</param>
+        private void OverrideCostCheckChanged(UIComponent control, bool isChecked)
+        {
+            ModSettings.overrideCost = isChecked;
+            SettingsUtils.SaveSettings();
+        }
+
+
+        /// <summary>
+        /// Procesesses text change events.
+        /// </summary>
+        /// <param name="textField">Textfield control</param
+        /// <param name="text">Text to attempt to parse</param
+        /// <param name="setting">Field to store result in</param>
+        private void TextSubmitted(UITextField textField, string text, ref int setting)
+        {
+            if (textField != null)
             {
-                ModSettings.autoDemolish = isChecked;
-                SettingsUtils.SaveSettings();
-            });
+                // Valid text to parse?
+                if (!text.IsNullOrWhiteSpace())
+                {
+                    // Yes - attempt to parse.
+                    if (uint.TryParse(text, out uint result))
+                    {
+                        // Sucessful parse; set value and return.
+                        setting = (int)result;
+                        SettingsUtils.SaveSettings();
+                        return;
+                    }
+                }
 
-            // Tweak auto-demolish checkbox label layout, to allow wrapping text.
-            impCheck.label.wordWrap = true;
-            impCheck.label.autoSize = false;
-            impCheck.label.autoHeight = true;
-            impCheck.label.width = 670f;
-            impCheck.label.anchor = UIAnchorStyle.Left | UIAnchorStyle.Top;
-            impCheck.label.relativePosition = new UnityEngine.Vector2(impCheck.label.relativePosition.x, 0f);
+                // If we got here, no valid value was oarsed; set text field text to the currently stored value.
+                textField.text = setting.ToString();
+            }
+        }
 
-            // Cost options.
-            UIHelperBase costGroup = helper.AddGroup(Translations.Translate("PRR_OPTION_CST"));
-            costGroup.AddCheckbox(Translations.Translate("PRR_OPTION_COV"), ModSettings.overrideCost, isChecked => ModSettings.overrideCost = isChecked);
 
-            // Household costs.
-            costGroup.AddTextfield(Translations.Translate("PRR_OPTION_CPH"), ModSettings.costPerHousehold.ToString(), value => { }, value => { ModSettings.costPerHousehold = int.Parse(value); });
-            costGroup.AddTextfield(Translations.Translate("PRR_OPTION_CHM"), ModSettings.costMultResLevel.ToString(), value => { }, value => { ModSettings.costMultResLevel = int.Parse(value); });
+        /// <summary>
+        /// Adds a cost-factor textfield to the panel.
+        /// </summary>
+        /// <param name="parent">Parent component</param>
+        /// <param name="labelKey">Text label translation key</param>
+        /// <param name="initialValue">Initial value</param>
+        /// <param name="yPos">Relative Y position (will be incremented for next control)</param>
+        /// <returns>New textfield</returns>
+        private UITextField AddCostTextField(UIComponent parent, string labelKey, int initialValue, ref float yPos)
+        {
+            UITextField costField = UIControls.AddPlainTextfield(parent, Translations.Translate(labelKey));
+            costField.parent.relativePosition = new Vector2(LeftMargin, yPos);
+            costField.text = initialValue.ToString();
+            yPos += costField.parent.height + Margin;
 
-            // Workplace costs.
-            costGroup.AddTextfield(Translations.Translate("PRR_OPTION_CJ0"), ModSettings.costPerJob0.ToString(), value => { }, value => { ModSettings.costPerJob0 = int.Parse(value); });
-            costGroup.AddTextfield(Translations.Translate("PRR_OPTION_CJ1"), ModSettings.costPerJob1.ToString(), value => { }, value => { ModSettings.costPerJob1 = int.Parse(value); });
-            costGroup.AddTextfield(Translations.Translate("PRR_OPTION_CJ2"), ModSettings.costPerJob2.ToString(), value => { }, value => { ModSettings.costPerJob2 = int.Parse(value); });
-            costGroup.AddTextfield(Translations.Translate("PRR_OPTION_CJ3"), ModSettings.costPerJob3.ToString(), value => { }, value => { ModSettings.costPerJob3 = int.Parse(value); });
+            return costField;
         }
     }
 }

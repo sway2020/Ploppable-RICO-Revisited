@@ -17,9 +17,8 @@ namespace PloppableRICO
         internal ComplaintOptions(UITabstrip tabStrip, int tabIndex)
         {
             // Add tab and helper.
-            UIPanel panel = PanelUtils.AddTab(tabStrip, Translations.Translate("PRR_OPTION_COM"), tabIndex);
+            UIPanel panel = PanelUtils.AddTab(tabStrip, Translations.Translate("PRR_OPTION_COM"), tabIndex, true);
             UIHelper helper = new UIHelper(panel);
-            panel.autoLayout = true;
 
             // Add 'ignore low value complaint' checkboxes.
             UIHelperBase valueGroup = helper.AddGroup(Translations.Translate("PRR_OPTION_VAL"));
