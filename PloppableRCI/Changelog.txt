@@ -1,4 +1,9 @@
-﻿Version 2.4.3
+﻿Version 2.4.4
+
+- Redo 'Ploppable Options' options panel with manual layout (instead of using game's autolayout)
+
+
+Version 2.4.3
 
 - Add option to not display What's New messages
 - Update MessageBox code

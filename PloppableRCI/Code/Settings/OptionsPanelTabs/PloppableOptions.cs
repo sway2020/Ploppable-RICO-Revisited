@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 using ColossalFramework;
 using ColossalFramework.UI;
 
@@ -12,8 +13,10 @@ namespace PloppableRICO
     {
         // Layout constants.
         private const float Margin = 5f;
-        private const float LeftMargin = 14f;
-        private const float GroupMargin = 30f;
+        private const float TitleMarginX = 10f;
+        private const float TitleMarginY = 15f;
+        private const float LeftMargin = 24f;
+        private const float GroupMargin = 40f;
 
         /// <summary>
         /// Adds growable options tab to tabstrip.
@@ -30,9 +33,10 @@ namespace PloppableRICO
             UIPanel panel = PanelUtils.AddTab(tabStrip, Translations.Translate("PRR_OPTION_PLO"), tabIndex, false);
 
             // Demolition options.
-            UILabel demolishLabel = UIControls.AddLabel(panel, LeftMargin, currentY, Translations.Translate("PRR_OPTION_DEM"));
+            UILabel demolishLabel = UIControls.AddLabel(panel, TitleMarginX, currentY, Translations.Translate("PRR_OPTION_DEM"), textScale: 1.125f);
+            demolishLabel.font = Resources.FindObjectsOfTypeAll<UIFont>().FirstOrDefault((UIFont f) => f.name == "OpenSans-Semibold");
             demolishLabel.tabIndex = ++tabbingIndex;
-            currentY += demolishLabel.height + Margin;
+            currentY += demolishLabel.height + TitleMarginY;
 
             // Add 'warn if bulldozing ploppables' checkbox.
             UICheckBox demolishWarnCheck = UIControls.AddPlainCheckBox(panel, Translations.Translate("PRR_OPTION_BDZ"));
@@ -60,14 +64,15 @@ namespace PloppableRICO
             currentY += demolishAutoCheck.label.height + GroupMargin;
 
             // Cost options.
-            UILabel costLabel = UIControls.AddLabel(panel, LeftMargin, currentY, Translations.Translate("PRR_OPTION_CST"));
+            UILabel costLabel = UIControls.AddLabel(panel, TitleMarginX, currentY, Translations.Translate("PRR_OPTION_CST"), textScale: 1.125f);
+            costLabel.font = Resources.FindObjectsOfTypeAll<UIFont>().FirstOrDefault((UIFont f) => f.name == "OpenSans-Semibold");
             costLabel.tabIndex = ++tabbingIndex;
-            currentY += costLabel.height + Margin;
+            currentY += costLabel.height + TitleMarginY;
 
             // Add override cost checkbox.
             UICheckBox overrideCostCheck = UIControls.AddPlainCheckBox(panel, Translations.Translate("PRR_OPTION_COV"));
             overrideCostCheck.relativePosition = new Vector2(LeftMargin, currentY);
-            overrideCostCheck.isChecked = ModSettings.warnBulldoze;
+            overrideCostCheck.isChecked = ModSettings.overrideCost;
             overrideCostCheck.eventCheckChanged += OverrideCostCheckChanged;
             overrideCostCheck.tabIndex = ++tabbingIndex;
             currentY += overrideCostCheck.height + Margin;
