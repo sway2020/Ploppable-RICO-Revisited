@@ -40,7 +40,7 @@ namespace PloppableRICO
 				// Step through each definition from the local settings file, looking for a match.
 				foreach (RICOBuilding building in Loading.localRicoDef.Buildings)
 				{
-					if (building.ricoEnabled && __instance.m_info.name == building.name)
+					if (building.ricoEnabled && __instance.m_info.name.Equals(building.name))
 					{
 						// m_level is one less than building.level.
 						byte newLevel = (byte)(building.level - 1);

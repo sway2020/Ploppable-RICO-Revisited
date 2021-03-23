@@ -51,12 +51,12 @@ namespace PloppableRICO
             if (buildingName != null)
             {
                 Background.width = width;
-                buildingName.relativePosition = new Vector3(10f, 5f);
+                buildingName.relativePosition = new Vector2(10f, 10f);
 
                 // Settings checkboxes.
-                hasModSettings.relativePosition = new Vector3(280f, 10f);
-                hasAuthorSettings.relativePosition = new Vector3(310f, 10f);
-                hasLocalSettings.relativePosition = new Vector3(340f, 10f);
+                hasModSettings.relativePosition = new Vector2(280f, 10f);
+                hasAuthorSettings.relativePosition = new Vector2(310f, 10f);
+                hasLocalSettings.relativePosition = new Vector2(340f, 10f);
             }
         }
 
@@ -111,6 +111,7 @@ namespace PloppableRICO
             // Set selected building.
             buildingData = data as BuildingData;
             buildingName.text = buildingData.DisplayName;
+            buildingName.relativePosition = new Vector2(10f, 10f);
 
             // Update custom settings checkboxes to correct state.
             hasModSettings.spriteName = buildingData.hasMod ? "AchievementCheckedTrue" : "AchievementCheckedFalse";
