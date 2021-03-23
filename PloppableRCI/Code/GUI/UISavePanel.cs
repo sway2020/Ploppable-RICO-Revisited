@@ -112,10 +112,13 @@ namespace PloppableRICO
                     oldLocalSettings = xmlSerializer.Deserialize(streamReader) as PloppableRICODefinition;
                 }
 
+                // Get the currently applied RICO settings (local, author, mod).
+                RICOBuilding currentData = RICOUtils.CurrentRICOSetting(currentSelection);
+
                 // Loop though all buildings in the existing file. If they aren't the current selection, write them back to the replacement file.
                 foreach (RICOBuilding buildingDef in oldLocalSettings.Buildings)
                 {
-                    if (buildingDef.name != currentSelection.name)
+                    if (buildingDef.name != currentData.name)
                     {
                         newLocalSettings.Buildings.Add(buildingDef);
                     }

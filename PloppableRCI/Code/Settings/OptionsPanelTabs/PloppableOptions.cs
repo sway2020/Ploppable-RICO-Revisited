@@ -42,7 +42,7 @@ namespace PloppableRICO
             UICheckBox demolishWarnCheck = UIControls.AddPlainCheckBox(panel, Translations.Translate("PRR_OPTION_BDZ"));
             demolishWarnCheck.relativePosition = new Vector2(LeftMargin, currentY);
             demolishWarnCheck.isChecked = ModSettings.warnBulldoze;
-            demolishWarnCheck.eventCheckChanged += DemolsihWarnCheckChanged;
+            demolishWarnCheck.eventCheckChanged += DemolishWarnCheckChanged;
             demolishWarnCheck.tabIndex = ++tabbingIndex;
             currentY += demolishWarnCheck.height + Margin;
 
@@ -52,7 +52,7 @@ namespace PloppableRICO
             demolishAutoCheck.isChecked = ModSettings.autoDemolish;
             demolishAutoCheck.tabIndex = ++tabbingIndex;
             demolishAutoCheck.eventCheckChanged += DemolishAutoCheckChanged;
-
+            
             // Tweak auto-demolish checkbox label layout, to allow wrapping text.
             demolishAutoCheck.label.wordWrap = true;
             demolishAutoCheck.label.autoSize = false;
@@ -62,7 +62,7 @@ namespace PloppableRICO
             demolishAutoCheck.label.anchor = UIAnchorStyle.Left | UIAnchorStyle.Top;
             demolishAutoCheck.label.relativePosition = new Vector2(demolishAutoCheck.label.relativePosition.x, 0f);
             currentY += demolishAutoCheck.label.height + GroupMargin;
-
+            
             // Cost options.
             UILabel costLabel = UIControls.AddLabel(panel, TitleMarginX, currentY, Translations.Translate("PRR_OPTION_CST"), textScale: 1.125f);
             costLabel.font = Resources.FindObjectsOfTypeAll<UIFont>().FirstOrDefault((UIFont f) => f.name == "OpenSans-Semibold");
@@ -104,7 +104,7 @@ namespace PloppableRICO
         /// </summary>
         /// <param name="control">Calling UIComponent</param>
         /// <param name="isChecked">New isChecked state</param>
-        private void DemolsihWarnCheckChanged(UIComponent control, bool isChecked)
+        private void DemolishWarnCheckChanged(UIComponent control, bool isChecked)
         {
             // Update mod settings.
             ModSettings.warnBulldoze = isChecked;
