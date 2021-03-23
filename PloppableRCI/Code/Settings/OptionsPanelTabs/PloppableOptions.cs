@@ -17,6 +17,8 @@ namespace PloppableRICO
         private const float TitleMarginY = 15f;
         private const float LeftMargin = 24f;
         private const float GroupMargin = 40f;
+        private const float CheckRowHeight = 22f;
+        private const float SubTitleX = 49f;
 
         /// <summary>
         /// Adds growable options tab to tabstrip.
@@ -44,7 +46,7 @@ namespace PloppableRICO
             demolishWarnCheck.isChecked = ModSettings.warnBulldoze;
             demolishWarnCheck.eventCheckChanged += DemolishWarnCheckChanged;
             demolishWarnCheck.tabIndex = ++tabbingIndex;
-            currentY += demolishWarnCheck.height + Margin;
+            currentY += CheckRowHeight + Margin;
 
             // Add auto-demolish checkbox.
             UICheckBox demolishAutoCheck = UIControls.AddPlainCheckBox(panel, Translations.Translate("PRR_OPTION_IMP"));
@@ -52,21 +54,18 @@ namespace PloppableRICO
             demolishAutoCheck.isChecked = ModSettings.autoDemolish;
             demolishAutoCheck.tabIndex = ++tabbingIndex;
             demolishAutoCheck.eventCheckChanged += DemolishAutoCheckChanged;
-            
-            // Tweak auto-demolish checkbox label layout, to allow wrapping text.
-            demolishAutoCheck.label.wordWrap = true;
-            demolishAutoCheck.label.autoSize = false;
-            demolishAutoCheck.label.autoHeight = true;
-            demolishAutoCheck.label.width = 670f;
-            demolishAutoCheck.label.verticalAlignment = UIVerticalAlignment.Top;
-            demolishAutoCheck.label.anchor = UIAnchorStyle.Left | UIAnchorStyle.Top;
-            demolishAutoCheck.label.relativePosition = new Vector2(demolishAutoCheck.label.relativePosition.x, 0f);
-            currentY += demolishAutoCheck.label.height + GroupMargin;
-            
+            currentY += CheckRowHeight;
+
+            // Auto-demolish sub-label.
+            UILabel demolishAutoLabel = UIControls.AddLabel(panel, SubTitleX, currentY, Translations.Translate("PRR_OPTION_IMP2"), textScale: 1.125f);
+            demolishAutoLabel.font = Resources.FindObjectsOfTypeAll<UIFont>().FirstOrDefault((UIFont f) => f.name == "OpenSans-Regular");
+            currentY += CheckRowHeight + GroupMargin;
+
+
+
             // Cost options.
             UILabel costLabel = UIControls.AddLabel(panel, TitleMarginX, currentY, Translations.Translate("PRR_OPTION_CST"), textScale: 1.125f);
             costLabel.font = Resources.FindObjectsOfTypeAll<UIFont>().FirstOrDefault((UIFont f) => f.name == "OpenSans-Semibold");
-            costLabel.tabIndex = ++tabbingIndex;
             currentY += costLabel.height + TitleMarginY;
 
             // Add override cost checkbox.
@@ -75,7 +74,7 @@ namespace PloppableRICO
             overrideCostCheck.isChecked = ModSettings.overrideCost;
             overrideCostCheck.eventCheckChanged += OverrideCostCheckChanged;
             overrideCostCheck.tabIndex = ++tabbingIndex;
-            currentY += overrideCostCheck.height + Margin;
+            currentY += CheckRowHeight + Margin;
 
             // Houshold costs.
             UITextField costPerHouseField = AddCostTextField(panel, "PRR_OPTION_CPH", ModSettings.costPerHousehold, ref currentY);

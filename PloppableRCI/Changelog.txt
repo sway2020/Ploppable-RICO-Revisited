@@ -1,6 +1,7 @@
 ﻿Version 2.4.4
 
-- Redo 'Ploppable Options' options panel with manual layout (instead of using game's autolayout)
+- Fix local RICO settings being incorrectly saved when RICOBuilding name is different to RICOSetting name
+- Redo 'Ploppable Options' options panel with manual layout (instead of using game's autolayout), to fix options panel crash for some Chinese users
 
 
 Version 2.4.3
