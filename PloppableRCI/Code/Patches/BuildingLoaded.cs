@@ -40,14 +40,14 @@ namespace PloppableRICO
 				// Step through each definition from the local settings file, looking for a match.
 				foreach (RICOBuilding building in Loading.localRicoDef.Buildings)
 				{
-					if (building.ricoEnabled && __instance.m_info.name.Equals(building.name))
+					if (building.ricoEnabled && __instance.m_info.name.Equals(building.Name))
 					{
 						// m_level is one less than building.level.
 						byte newLevel = (byte)(building.level - 1);
 
 						if (data.m_level != newLevel)
 						{
-							Logging.Message("found building '", building.name, "' with level ", (data.m_level + 1).ToString(), ", overriding to level ", building.level.ToString());
+							Logging.Message("found building '", building.Name, "' with level ", (data.m_level + 1).ToString(), ", overriding to level ", building.level.ToString());
 							data.m_level = newLevel;
 						}
 
@@ -88,7 +88,7 @@ namespace PloppableRICO
 							// The reverse case, targets greater than current, will be caught with the base-case call to EnsureCitizenUnits below.
 							if (targetHomeCount < currentHomeCount)
 							{
-								Logging.Message("found Residential prefab ", building.name, " with target homecount ", targetHomeCount.ToString(), " and citizen units ", currentHomeCount.ToString(), "; forcing homecount reset");
+								Logging.Message("found Residential prefab ", building.Name, " with target homecount ", targetHomeCount.ToString(), " and citizen units ", currentHomeCount.ToString(), "; forcing homecount reset");
 								RealisticCitizenUnits.EnsureCitizenUnits(ref __instance, buildingID, ref data, targetHomeCount, workCount, visitCount, 0);
 							}
 						}

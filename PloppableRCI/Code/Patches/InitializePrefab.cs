@@ -66,10 +66,10 @@ namespace PloppableRICO
 						foreach (RICOBuilding buildingDef in tempRicoDef.Buildings)
 						{
 							// Go through each building parsed and check to see if we've got a match for this prefab.
-							if (MatchRICOName(buildingDef.name, __instance.name, asset.package.packageName))
+							if (MatchRICOName(buildingDef.Name, __instance.name, asset.package.packageName))
 							{
 								// Match!  Add these author settings to our prefab dictionary.
-								Logging.Message("found author settings for ", buildingDef.name);
+								Logging.Message("found author settings for ", buildingDef.Name);
 								Loading.xmlManager.prefabHash[__instance].author = buildingDef;
 								Loading.xmlManager.prefabHash[__instance].hasAuthor = true;
 							}
@@ -85,7 +85,7 @@ namespace PloppableRICO
 				// Step through our previously loaded local settings and see if we've got a match.
 				foreach (RICOBuilding buildingDef in Loading.localRicoDef.Buildings)
 				{
-					if (buildingDef.name.Equals(__instance.name))
+					if (buildingDef.Name.Equals(__instance.name))
 					{
 						// Match!  Add these author settings to our prefab dictionary.
 						Loading.xmlManager.prefabHash[__instance].local = buildingDef;
@@ -101,7 +101,7 @@ namespace PloppableRICO
 				// Step through our previously loaded local settings and see if we've got a match.
 				foreach (RICOBuilding buildingDef in Loading.mod1RicoDef.Buildings)
 				{
-					if (buildingDef.name.Equals(__instance.name))
+					if (buildingDef.Name.Equals(__instance.name))
 					{
 						// Match!  Add these author settings to our prefab dictionary.
 						Loading.xmlManager.prefabHash[__instance].mod = buildingDef;
@@ -116,7 +116,7 @@ namespace PloppableRICO
 				// Step through our previously loaded local settings and see if we've got a match.
 				foreach (RICOBuilding buildingDef in Loading.mod2RicoDef.Buildings)
 				{
-					if (buildingDef.name.Equals(__instance.name))
+					if (buildingDef.Name.Equals(__instance.name))
 					{
 						// Match!  Add these author settings to our prefab dictionary.
 						Loading.xmlManager.prefabHash[__instance].mod = buildingDef;

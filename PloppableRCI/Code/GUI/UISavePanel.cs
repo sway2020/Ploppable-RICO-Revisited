@@ -115,7 +115,7 @@ namespace PloppableRICO
                 // Loop though all buildings in the existing file. If they aren't the current selection, write them back to the replacement file.
                 foreach (RICOBuilding buildingDef in oldLocalSettings.Buildings)
                 {
-                    if (buildingDef.name != currentSelection.name)
+                    if (buildingDef.Name != currentSelection.name)
                     {
                         newLocalSettings.Buildings.Add(buildingDef);
                     }
@@ -208,7 +208,7 @@ namespace PloppableRICO
                 currentSelection.local = (RICOBuilding)currentSelection.author.Clone();
 
                 // Overwrite author name with true prefab name.
-                currentSelection.local.name = currentSelection.name; 
+                currentSelection.local.Name = currentSelection.name; 
             }
             else if (currentSelection.hasMod)
             {
@@ -217,7 +217,7 @@ namespace PloppableRICO
             else
             {
                 // Set some basic settings for assets with no settings.
-                currentSelection.local.name = "XXX" + currentSelection.name;
+                currentSelection.local.Name = currentSelection.name;
                 currentSelection.local.ricoEnabled = true;
                 currentSelection.local.service = GetRICOService();
                 currentSelection.local.subService = GetRICOSubService();

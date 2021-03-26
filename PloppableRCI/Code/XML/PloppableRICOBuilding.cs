@@ -57,7 +57,24 @@ namespace PloppableRICO
         /// Building name.
         /// </summary>
         [XmlAttribute("name")]
-        public string name;
+        public string Name
+        {
+            get => name;
+
+            set
+            {
+                // Remove testing debugging crud.
+                if (name.StartsWith("XXX"))
+                {
+                    name = value.Remove(0, 3);
+                }
+                else
+                {
+                    name = value;
+                }
+            }
+        }
+        private string name;
 
 
         /// <summary>

@@ -146,16 +146,14 @@ namespace PloppableRICO
                 // Don't show notification if we're already up to (or ahead of) the first what's new message (including Beta updates).
                 if (whatsNewVersion < latestMessage.version || (whatsNewVersion == latestMessage.version && latestMessage.betaVersion <= ModSettings.whatsNewBetaVersion))
                 {
-                    return;
+                    // Show messagebox.
+                    Logging.KeyMessage("showing What's New messagebox");
+                    WhatsNewMessageBox messageBox = MessageBoxBase.ShowModal<WhatsNewMessageBox>();
+                    messageBox.Title = PloppableRICOMod.ModName + " " + PloppableRICOMod.Version;
+                    messageBox.DSAButton.eventClicked += (component, clickEvent) => DontShowAgain();
+                    messageBox.SetMessages(whatsNewVersion, WhatsNewMessages);
+                    Logging.KeyMessage("What's New messagebox complete");
                 }
-
-                // Show messagebox.
-                Logging.KeyMessage("showing What's New messagebox");
-                WhatsNewMessageBox messageBox = MessageBoxBase.ShowModal<WhatsNewMessageBox>();
-                messageBox.Title = PloppableRICOMod.ModName + " " + PloppableRICOMod.Version;
-                messageBox.DSAButton.eventClicked += (component, clickEvent) => DontShowAgain();
-                messageBox.SetMessages(whatsNewVersion, WhatsNewMessages);
-                Logging.KeyMessage("What's New messagebox complete");
             }
         }
     }

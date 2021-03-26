@@ -111,7 +111,7 @@ namespace PloppableRICO
                                 // If invalid subservice, report.
                                 if (buildingData.subService != "low")
                                 {
-                                    Logging.Message("Residential building ", buildingData.name, " has invalid subservice ", buildingData.subService, "; reverting to low residential");
+                                    Logging.Message("Residential building ", buildingData.Name, " has invalid subservice ", buildingData.subService, "; reverting to low residential");
                                 }
                                 break;
                         }
@@ -218,7 +218,7 @@ namespace PloppableRICO
                         }
                         else
                         {
-                            Logging.Error("invalid industry subservice ", buildingData.subService, " for extractor ", buildingData.name);
+                            Logging.Error("invalid industry subservice ", buildingData.subService, " for extractor ", buildingData.Name);
                         }
 
                         break;
@@ -293,7 +293,7 @@ namespace PloppableRICO
                                 // If invalid subservice, report.
                                 if (buildingData.subService != "low")
                                 {
-                                    Logging.Message("Commercial building ", buildingData.name, " has invalid subService ", buildingData.subService, "; reverting to low commercial.");
+                                    Logging.Message("Commercial building ", buildingData.Name, " has invalid subService ", buildingData.subService, "; reverting to low commercial.");
                                 }
                                 break;
                         }
