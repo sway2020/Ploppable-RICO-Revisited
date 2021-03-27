@@ -157,6 +157,7 @@
     <Content Include="Translations\tr.xml" />
     <Content Include="Translations\en.xml" />
     <Content Include="Translations\zh.xml" />
+    <Content Include="Translations\zh-tw.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
