@@ -99,7 +99,7 @@
     <Translation ID="PRR_THUMB_SKY" String="青空" />
     <Translation ID="MES_PAGE" String="詳細はModのSteamワークショップページを参照して下さい。" />
     <Translation ID="PRR_ERR_FAT" String="Modが正常に動作せず、シャットダウンしました。" />
-    <Translation ID="PRR_ERR_HAR" String="Ploppable RICO Revisited は"Harmony="""パッチを完了できませんでした。" />
+    <Translation ID="PRR_ERR_HAR" String="Ploppable RICO Revisited は&quot;Harmony&quot;パッチを完了できませんでした。" />
     <Translation ID="ERR_HAR0" String="Harmonyパッチのエラー" />
     <Translation ID="ERR_HAR1" String="この問題の考えられる原因:" />
     <Translation ID="ERR_HAR2" String="&quot;Harmony2&quot;Modがインストールされていません。" />

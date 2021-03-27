@@ -97,6 +97,11 @@
     <Translation ID="PRR_OPTION_OTH" String="Rozwijalne budynki nie-RICO" />
     <Translation ID="PRR_OPTION_BDZ" String="Potwierdzenie wymagane do wyburzenia budynków nierozwijalnych (ręcznie stawianych)" />
     <Translation ID="PRR_OPTION_IMP" String="Zezwalaj na automatyczne wyburzanie ręcznie ustawionych budynków RICO (np. podczas budowy drogi albo stawiania innych budynków)" />
+    <Translation ID="PRR_OPTION_CST" String="Opcje wyburzania" />
+    <Translation ID="PRR_OPTION_COV" String="Pytaj przed wyburzaniem budynków RICO" />
+    <Translation ID="PRR_OPTION_CPH" String="Dopuść automatyczne burzenie budynków RICO  podczas budowania ( np. kiedy budujesz drogę lub stawiasz budynek )" />
+    <Translation ID="PRR_OPTION_CHM" String="Opcje kosztów" />
+    <Translation ID="PRR_OPTION_CJ2" String="Dodatkowy multiplikator na poziom gospodarstwa" />
     <Translation ID="PRR_OPTION_LOA" String="Opcje wczytywania" />
     <Translation ID="PRR_OPTION_LOG" String="Opcje logowania" />
     <Translation ID="PRR_OPTION_TMB" String="Opcje miniaturek" />
