@@ -138,7 +138,6 @@ namespace PloppableRICO
             {
                 Logging.KeyMessage("checking for update notifications");
 
-
                 // Get last notified version and current mod version.
                 Version whatsNewVersion = new Version(ModSettings.whatsNewVersion);
                 WhatsNewMessage latestMessage = WhatsNewMessages[0];
