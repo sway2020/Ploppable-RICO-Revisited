@@ -51,9 +51,13 @@
     <Translation ID="PRR_CAT_MON" String="Монументы" />
     <Translation ID="PRR_CAT_BEA" String="Украшения" />
     <Translation ID="PRR_CAT_EDU" String="Образование" />
+    <Translation ID="PRR_CAT_HEA" String="Здравоохранение" />
+    <Translation ID="PRR_CAT_FIR" String="Пожарная часть" />
+    <Translation ID="PRR_CAT_POL" String="Полиция" />
     <Translation ID="PRR_CAT_POW" String="Электроэнергия" />
     <Translation ID="PRR_CAT_WAT" String="Водоснабжение" />
-    <Translation ID="PRR_CAT_HEA" String="Здравоохранение" />
+    <Translation ID="PRR_CAT_GAR" String="Мусор" />
+    <Translation ID="PRR_CAT_PIN" String="Player industry" />
     <Translation ID="PRR_CAT_RES" String="Жильё" />
     <Translation ID="PRR_CAT_COM" String="Коммерция" />
     <Translation ID="PRR_CAT_OFF" String="Офис" />
@@ -88,7 +92,7 @@
     <Translation ID="PRR_SAV_ADD" String="Редактировать" />
     <Translation ID="PRR_SAV_REM" String="Удалить" />
     <Translation ID="PRR_SAV_APP" String="Сохранить и применить изменения" />
-    <Translation ID="PRR_EXP" String="ВНИМАНИЕ: EXPERIMENTAL" />
+    <Translation ID="PRR_EXP" String="ВНИМАНИЕ: ЭКСПЕРИМЕНТАЛЬНО" />
     <Translation ID="TRN_CHOICE" String="Установить язык" />
     <Translation ID="TRN_SYS" String="Использ. системный" />
     <Translation ID="PRR_DESCRIPTION" String="Здания RICO размером больше чем 4x4 и настройка зданий RICO" />
@@ -105,7 +109,8 @@
     <Translation ID="PRR_OPTION_OTH" String="Не-RICO Growable здания" />
     <Translation ID="PRR_OPTION_DEM" String="Варианты сноса" />
     <Translation ID="PRR_OPTION_BDZ" String="Подтверждать снос размещаемых(Ploppable) зданий RICO" />
-    <Translation ID="PRR_OPTION_IMP" String="Разрешить автоматически сносить размещаемые(Ploppable) здания RICO (например, при строительстве дорог или размещении зданий)" />
+    <Translation ID="PRR_OPTION_IMP" String="Разрешить автоматически сносить размещаемые(Ploppable) здания RICO" />
+    <Translation ID="PRR_OPTION_IMP2" String="(например, при размещении дорог или других зданий)" />
     <Translation ID="PRR_OPTION_CST" String="Варианты стоимости" />
     <Translation ID="PRR_OPTION_COV" String="Переопределить стоимость строительства" />
     <Translation ID="PRR_OPTION_CPH" String="Стоимость на семью" />
@@ -119,8 +124,10 @@
     <Translation ID="PRR_OPTION_TMB" String="Настройки миниатюр" />
     <Translation ID="PRR_OPTION_PLO" String="Ploppable здания" />
     <Translation ID="PRR_OPTION_GRO" String="Growable здания" />
-    <Translation ID="PRR_OPTION_COM" String="Настройки сообщений" />
+    <Translation ID="PRR_OPTION_COM" String="Complaint options" />
     <Translation ID="PRR_OPTION_MOD" String="Настройки мода" />
+    <Translation ID="PRR_OPTION_NOT" String="Настройки сообщений" />
+    <Translation ID="PRR_OPTION_WHATSNEW" String="Показывать сообщения об обновлениях" />
     <Translation ID="PRR_OPTION_MOREDEBUG" String="Включить дополнительные журналы отладки" />
     <Translation ID="PRR_OPTION_FORCERESET" String="Принудительно сбросить существующ. данные зданий при загрузке игры" />
     <Translation ID="PRR_OPTION_REGENTHUMBS" String="Изменить миниатюры" />
@@ -167,5 +174,7 @@
     <Translation ID="PRR_UPD_240_2" String="Добавлено меню выбора мода/автора/локальных настроек на панель настроек (чтобы видеть настройки отличные от текущих активных)." />
     <Translation ID="PRR_UPD_240_3" String="Отключено заполнение текстовых полей, когда установлена опция 'use reality'." />
     <Translation ID="PRR_UPD_241_0" String="Улучшение поддержки исторических зданий с разными уровнями" />
+    <Translation ID="PRR_UPD_242_0" String="Сервисные здания больше не видны по умолчанию на панели настроек RICO" />
+    <Translation ID="PRR_UPD_243_0" String="Добавлена опция отключения сообщений об обновлениях" />
   </Translations>
 </Language>
