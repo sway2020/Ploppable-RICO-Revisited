@@ -4,6 +4,8 @@ using UnityEngine;
 using ColossalFramework.UI;
 using System.Collections.Generic;
 
+using System.Reflection;
+
 
 namespace PloppableRICO
 {
@@ -270,6 +272,23 @@ namespace PloppableRICO
                     // Other checks.
                     if(isVisible)
                     {
+
+                        //if Yet Another Toolbar exists, reset panel UI scale
+                        try
+                        {
+                            GameObject yatObject = GameObject.Find("YetAnotherToolbar");
+                            Type YatType = Type.GetType("YetAnotherToolbar.YetAnotherToolbar");
+                            Component yatComponent = yatObject.GetComponent("YetAnotherToolbar");
+                            object yatInstance = YatType.GetField("instance").GetValue(yatComponent);
+                            MethodInfo resetScaleMethod = YatType.GetMethod("ResetScale");
+                            resetScaleMethod.Invoke(yatInstance, new object[]{});
+                        }
+                        catch(Exception ex)
+                        {
+                            Debug.Log(ex.Message);
+                        }
+
+
                         // If this is the first time we're visible, set the display to the initial default tab (low residential).
                         if (!hasShown)
                         {
@@ -285,6 +304,22 @@ namespace PloppableRICO
                             scrollPanel.selectedItem = null;
                             scrollPanel.Refresh();
                         }
+
+                        //if Yet Another Toolbar exists, restore panel UI scale
+                        try
+                        {
+                            GameObject yatObject = GameObject.Find("YetAnotherToolbar");
+                            Type YatType = Type.GetType("YetAnotherToolbar.YetAnotherToolbar");
+                            Component yatComponent = yatObject.GetComponent("YetAnotherToolbar");
+                            object yatInstance = YatType.GetField("instance").GetValue(yatComponent);
+                            MethodInfo restoreScaleMethod = YatType.GetMethod("RestoreScale");
+                            restoreScaleMethod.Invoke(yatInstance, new object[] { });
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.Log(ex.Message);
+                        }
+
                     }
                     else
                     {
